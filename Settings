@@ -428,7 +428,7 @@ _G.CreateSettingTextBox = function(Table)
 	local TextBoxPlaceholderText = Table.TextBoxPlaceholderText
 	local Function = Table.Function
 
-	local Template = GUI["TextBoxParent_030"]:Clone()
+	local Template = GUI["TextBoxTemplate_025"]:Clone()
 
 	Template.Name = SettingName
 	Template.Parent = GUI["ScrollingFrame_011"]

@@ -57,6 +57,7 @@ GUI["Settings_00"].BorderSizePixel = 0
 GUI["Settings_00"].Size = UDim2.new(1, 0, 1, 0)
 GUI["Settings_00"].Name = "Settings"
 GUI["Settings_00"].Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
+GUI["Settings_00"].Visible = false
 
 GUI["UIListLayout_01"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_01"].FillDirection = Enum.FillDirection.Horizontal
@@ -402,7 +403,7 @@ _G.CreateSettingBoolean = function(Table)
 	end
 
 	Template.Name = SettingName
-	Template.Parent = script.Parent
+	Template.Parent = GUI["ScrollingFrame_011"]
 	Template.Visible = true
 	Template.SettingNameAndDescription.Text = '<b><font size="14">'..SettingName..'</font></b>\n<font transparency="0.3">'..SettingDescription..'</font>'
 	Template.BooleanMargin.Boolean.MouseButton1Down:Connect(function()
@@ -430,7 +431,7 @@ _G.CreateSettingTextBox = function(Table)
 	local Template = GUI["TextBoxParent_030"]:Clone()
 
 	Template.Name = SettingName
-	Template.Parent = script.Parent
+	Template.Parent = GUI["ScrollingFrame_011"]
 	Template.Visible = true
 	Template.SettingNameAndDescription.Text = '<b><font size="14">'..SettingName..'</font></b>\n<font transparency="0.3">'..SettingDescription..'</font>'
 	Template.TextBoxMargin.TextBoxParent.TextBox.Text = TextBoxText
@@ -449,7 +450,7 @@ _G.CreateSettingButton = function(Table)
 	local Template = GUI["ButtonTemplate_035"]:Clone()
 
 	Template.Name = SettingName
-	Template.Parent = script.Parent
+	Template.Parent = GUI["ScrollingFrame_011"]
 	Template.Visible = true
 	Template.SettingNameAndDescription.Text = '<b><font size="14">'..SettingName..'</font></b>\n<font transparency="0.3">'..SettingDescription..'</font>'
 	Template.ButtonMargin.Button.MouseButton1Down:Connect(function()

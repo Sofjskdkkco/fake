@@ -660,16 +660,24 @@ _G.CreateSettingTextBox({
 					Button2Function = function()
 					end,
 				})
+			else
+				local Red, Green, Blue = StringToRGB(TextEntered)
+
+				_G.Table.GUISettings.UIColor = Red..", "..Blue..", "..Green
+				SaveSettings()
+
+				_G.PopUpNotificationOptions({
+					Title = "Setting Saved!",
+					Message = "Please re-execute VexHub to see changes",
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
 			end
 		else
-			local Red, Green, Blue = StringToRGB(TextEntered)
-			
-			_G.Table.GUISettings.UIColor = Red..", "..Blue..", "..Green
-			SaveSettings()
-			
 			_G.PopUpNotificationOptions({
-				Title = "Setting Saved!",
-				Message = "Please re-execute VexHub to see changes",
+				Title = "Error!",
+				Message = "Invalid input. Must be a valid RGB.",
 				Button2Text = "Close",
 				Button2Function = function()
 				end,

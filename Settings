@@ -434,20 +434,16 @@ local function StringToRGB(str)
 	if #RGB ~= 3 then
 		return false
 	end
-
-	local r = tonumber(RGB[1])
-	local g = tonumber(RGB[2])
-	local b = tonumber(RGB[3])
-
-	if not (r and g and b) then
+	
+	if not (RGB[1] and RGB[2] and RGB[3]) then
 		return false
 	end
 
-	if r < 0 or r > 255 or g < 0 or g > 255 or b < 0 or b > 255 then
+	if RGB[1] < 0 or RGB[1] > 255 or RGB[2] < 0 or RGB[2] > 255 or RGB[3] < 0 or RGB[3] > 255 then
 		return false
 	end
 
-	return r, g, b
+	return RGB[1], RGB[2], RGB[3]
 end
 
 _G.CreateSettingBoolean = function(Table)

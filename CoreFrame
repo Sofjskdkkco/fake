@@ -98,7 +98,7 @@ GUI["MainFrame_0"].Name = "MainFrame"
 GUI["MainFrame_0"].Parent = GUI["DragFrame_0"]
 
 GUI["UIScale_0"].Parent = GUI["MainFrame_0"]
-GUI["UIScale_0"].UIScale = _G.Table.GUISettings.UIScale
+GUI["UIScale_0"].Scale = _G.Table.GUISettings.UIScale
 
 GUI["MainContents_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["MainContents_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)

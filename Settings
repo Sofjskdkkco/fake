@@ -408,6 +408,12 @@ local function SetBoolean(SettingName, Boolean)
 	BooleeanStatusTable[SettingName] = Boolean
 end
 
+local function ChangeTextOfTextBoxSetting(SettingName, Text)
+	if GUI["ScrollingFrame_011"][SettingName] then
+		GUI["ScrollingFrame_011"][SettingName].TextBoxMargin.TexBoxParent.TextBox.Text = Text
+	end
+end
+
 local function SaveSettings()
 	writefile("VexHub7/Settings.vex", JSon:Encode(_G.Table.GUISettings))
 end
@@ -499,7 +505,7 @@ _G.CreateSettingTextBox({
 	SettingName = "Wallpaper",
 	SettingDescription = "Change the image of the background",
 	TextBoxText = _G.Table.GUISettings.Wallpaper,
-	TextBoxPlaceholderText = "png/Id",
+	TextBoxPlaceholderText = "png/ID/link",
 	Function = function(TextEntered)
 		function CheckIfDecalOrImage(Id)
 			local Success, Error = pcall(function() 
@@ -531,6 +537,17 @@ _G.CreateSettingTextBox({
 					end,
 				})
 			end
+
+		elseif string.find(TextEntered, "http://") or string.find(TextEntered, "https://") and string.find(string.lower(TextEntered), "png") then
+			local ImageName = game:GetService("HttpService"):GenerateGUID(false)
+			local ImagePath = "VexHub7/Wallpapers/"..ImageName..".png"
+			writefile(ImagePath, game:HttpGet(TextEntered))
+
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = getcustomasset(ImagePath)
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = getcustomasset(ImagePath)
+
+			_G.Table.GUISettings.Wallpaper = ImagePath
+			SaveSettings()
 
 		elseif IsNumber(TextEntered) then
 			if CheckIfDecalOrImage(TextEntered) == "Image" then
@@ -564,6 +581,8 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
+		
+		ChangeTextOfTextBoxSetting("Wallpaper", _G.Table.GUISettings.Wallpaper)
 	end,
 })
 
@@ -586,7 +605,7 @@ _G.CreateSettingTextBox({
 				_G.CloseVexHub()
 				game:GetService("CoreGui").VexHubUI.DragFrame.UIScale.Scale = tonumber(TextEntered)
 				_G.OpenVexHub()
-				
+
 				_G.Table.GUISettings.UIScale = tonumber(TextEntered)
 				SaveSettings()
 			end
@@ -599,5 +618,7 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
+		
+		ChangeTextOfTextBoxSetting("UIScale", _G.Table.GUISettings.Wallpaper)
 	end,
 })

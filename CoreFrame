@@ -358,7 +358,7 @@ GUI["UICorner_03"].Parent = GUI["WallpaperCover_0"]
 GUI["UIListLayout_07"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_07"].Parent = GUI["RightFrame_0"]
 
-GUI["Top_0"].BackgroundColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
+GUI["Top_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["Top_0"].BackgroundTransparency = 1
 GUI["Top_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Top_0"].BorderSizePixel = 0

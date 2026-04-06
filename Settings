@@ -511,8 +511,8 @@ _G.CreateSettingTextBox({
 
 		if string.find(string.lower(TextEntered), ".png") then
 			if isfile(TextEntered) then
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper = getcustomasset(TextEntered)
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover = getcustomasset(TextEntered)
+				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = getcustomasset(TextEntered)
+				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = getcustomasset(TextEntered)
 
 				_G.Table.GUISettings.Wallpaper = TextEntered
 				SaveSettings()
@@ -528,14 +528,14 @@ _G.CreateSettingTextBox({
 
 		elseif CheckIfNumber(TextEntered) then
 			if CheckIfDecalOrImage(TextEntered) == "Image" then
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper = "rbxassetid://"..TextEntered
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover = "rbxassetid://"..TextEntered
+				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = "rbxassetid://"..TextEntered
+				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = "rbxassetid://"..TextEntered
 
 				_G.Table.GUISettings.Wallpaper = TextEntered
 				SaveSettings()
 			elseif CheckIfDecalOrImage(TextEntered) == "Decal" then
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
+				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
+				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
 
 				_G.Table.GUISettings.Wallpaper = TextEntered
 				SaveSettings()

@@ -584,9 +584,10 @@ _G.CreateSettingTextBox({
 				})
 			else
 				local DragFrame = game:GetService("CoreGui").VexHubUI.DragFrame
+				TweenService:Create(DragFrame.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = tonumber(TextEntered)}):Play()
+				wait(0.5)
 				DragFrame.AnchorPoint = Vector2.new(0, 0)
 				TweenService:Create(DragFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, DragFrame.AbsoluteSize.X / 2, 0.5, DragFrame.AbsoluteSize.Y / 2)}):Play()
-				TweenService:Create(DragFrame.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = tonumber(TextEntered)}):Play()
 
 				_G.Table.GUISettings.UIScale = tonumber(TextEntered)
 				SaveSettings()

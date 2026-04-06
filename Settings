@@ -521,7 +521,7 @@ _G.CreateSettingTextBox({
 			end
 		end
 
-		if string.find(TextEntered, "http://") or string.find(TextEntered, "https://") and string.find(string.lower(TextEntered), "png") then
+		if string.find(TextEntered, "http://") or string.find(TextEntered, "https://") then
 			local ImageName = game:GetService("HttpService"):GenerateGUID(false)
 			local ImagePath = "VexHub7/Wallpapers/"..ImageName..".png"
 			writefile(ImagePath, game:HttpGet(TextEntered))

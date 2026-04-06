@@ -492,7 +492,7 @@ end
 _G.CreateSettingTextBox({
 	SettingName = "Wallpaper",
 	SettingDescription = "Change the image of the background",
-	TextBoxText = "",
+	TextBoxText = _G.Table.GUISettings.Wallpaper,
 	TextBoxPlaceholderText = "png/Id",
 	Function = function(TextEntered)
 		function CheckIfDecalOrImage(Id)
@@ -508,7 +508,7 @@ _G.CreateSettingTextBox({
 				end
 			end
 		end
-		
+
 		if string.find(string.lower(TextEntered), ".png") then
 			if isfile(TextEntered) then
 				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper = getcustomasset(TextEntered)
@@ -525,18 +525,18 @@ _G.CreateSettingTextBox({
 					end,
 				})
 			end
-			
+
 		elseif CheckIfNumber(TextEntered) then
 			if CheckIfDecalOrImage(TextEntered) == "Image" then
 				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper = "rbxassetid://"..TextEntered
 				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover = "rbxassetid://"..TextEntered
-				
+
 				_G.Table.GUISettings.Wallpaper = TextEntered
 				SaveSettings()
 			elseif CheckIfDecalOrImage(TextEntered) == "Decal" then
 				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
 				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
-				
+
 				_G.Table.GUISettings.Wallpaper = TextEntered
 				SaveSettings()
 			else
@@ -548,7 +548,7 @@ _G.CreateSettingTextBox({
 					end,
 				})
 			end
-			
+
 		else
 			_G.PopUpNotificationOptions({
 				Title = "Error!",

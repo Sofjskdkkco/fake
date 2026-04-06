@@ -428,26 +428,21 @@ function IsNumber(string)
 	end
 end
 
-local function StringToRGB(str)
-	local RGB = string.split(str, ",")
-
-	if #RGB ~= 3 then
+function StringToRGB(String)
+	local RGB = string.split(String, ",")
+	if (RGB[2]) and (RGB[3]) and not (RGB[4]) then
+		if IsNumber(RGB[1]) or IsNumber(RGB[2]) or IsNumber(RGB[3]) then
+			if tonumber(RGB[1]) < 0 or tonumber(RGB[1]) > 255 or tonumber(RGB[2]) < 0 or tonumber(RGB[2]) > 255 or tonumber(RGB[3]) < 0 or tonumber(RGB[3]) > 255 then
+				return false
+			else
+				return tonumber(RGB[1])..", "..tonumber(RGB[2])..", "..tonumber(RGB[3])
+			end
+		else
+			return false
+		end
+	else
 		return false
 	end
-
-	local color1 = tonumber(RGB[1])
-	local color2 = tonumber(RGB[2])
-	local color3 = tonumber(RGB[3])
-
-	if not (color1 and color2 and color3) then
-		return false
-	end
-
-	if color1 < 0 or color1 > 255 or color2 < 0 or color2 > 255 or color3 < 0 or color3 > 255 then
-		return false
-	end
-
-	return color1, color2, color3
 end
 
 _G.CreateSettingBoolean = function(Table)
@@ -660,9 +655,7 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		else
-			local Red, Green, Blue = StringToRGB(TextEntered)
-
-			_G.Table.GUISettings.UIColor = Red..", "..Blue..", "..Green
+			_G.Table.GUISettings.UIColor = StringToRGB(TextEntered)
 			SaveSettings()
 
 			_G.PopUpNotificationOptions({

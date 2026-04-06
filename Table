@@ -104,12 +104,14 @@ if (writefile) then
 			wait()
 			makefolder("VexHub7")
 			makefolder("VexHub7/Plugins")
+			makefolder("VexHub7/Wallpapers")
 			writefile("VexHub7/Settings.vex", JSon:Encode(_G.Table.GUISettings))
 			writefile("VexHub7/Favorites.vex", JSon:Encode({}))
 		end
 	else
 		makefolder("VexHub7")
 		makefolder("VexHub7/Plugins")
+		makefolder("VexHub7/Wallpapers")
 		writefile("VexHub7/Settings.vex", JSon:Encode(_G.Table.GUISettings))
 		writefile("VexHub7/Favorites.vex", JSon:Encode({}))
 	end

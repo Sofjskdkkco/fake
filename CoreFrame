@@ -98,6 +98,7 @@ GUI["MainFrame_0"].Name = "MainFrame"
 GUI["MainFrame_0"].Parent = GUI["DragFrame_0"]
 
 GUI["UIScale_0"].Parent = GUI["MainFrame_0"]
+GUI["UIScale_0"].UIScale = _G.Table.GUISettings.UIScale
 
 GUI["MainContents_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["MainContents_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -731,7 +732,7 @@ _G.OpenVexHub = function()
 		TweenService:Create(GUI.Shadow_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
 		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-		TweenService:Create(GUI.UIScale_0, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
+		TweenService:Create(GUI.UIScale_0, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = _G.Table.GUISettings.UIScale}):Play()
 		TweenService:Create(GUI.UICorner_07, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {CornerRadius = UDim.new(0, 5)}):Play()
 		TweenService:Create(GUI.MainFrame_0.Ads, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play()
 		wait(0.6)

@@ -3,6 +3,21 @@
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local TweenService = game:GetService("TweenService")
 
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+function UIColorPrimary()
+	return StringToRGB(_G.Table.GUISettings.UIColor)
+end
+
+function UIColorSecondary()
+	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
+	return StringToRGB(tonumber(RGB[1]-7)..", "..tonumber(RGB[2]-8)..", "..tonumber(RGB[3]-10))
+end
+
 local GUI = {
 	["VexHubUI_0"] = Instance.new("ScreenGui");
 	["DragFrame_0"] = Instance.new("Frame");
@@ -470,8 +485,8 @@ GUI["UIStroke_01"].Parent = GUI["MainContents_0"]
 GUI["UIStroke_01"].Transparency = 0.5
 
 GUI["UIGradient_01"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.new(UIColorPrimary())),
+	ColorSequenceKeypoint.new(1, Color3.new(UIColorSecondary()))
 }
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["MainContents_0"]
@@ -543,7 +558,7 @@ else
 			end
 		end
 	end
-	
+
 	if CheckIfDecalOrImage(Wallpaper) == "Image" then
 		GUI["Wallpaper_0"].Image = "rbxassetid://"..Wallpaper
 		GUI["WallpaperCover_0"].Image = "rbxassetid://"..Wallpaper

@@ -151,6 +151,7 @@ GUI["UIListLayout_012"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_012"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_012"].Parent = GUI["ScrollingFrame_011"]
 
+GUI["BooleanTemplate_013"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["BooleanTemplate_013"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["BooleanTemplate_013"].BackgroundTransparency = 1
 GUI["BooleanTemplate_013"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -164,6 +165,7 @@ GUI["UIListLayout_014"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_014"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_014"].Parent = GUI["BooleanTemplate_013"]
 
+GUI["SettingNameAndDescription_015"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["SettingNameAndDescription_015"].Font = Enum.Font.Gotham
 GUI["SettingNameAndDescription_015"].RichText = true
 GUI["SettingNameAndDescription_015"].Text = '<b><font size="16">Setting</font></b>\n<font transparency="0.3">how</font>'
@@ -239,6 +241,7 @@ GUI["UIListLayout_024"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_024"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_024"].Parent = GUI["BooleanMargin_016"]
 
+GUI["TextBoxTemplate_025"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["TextBoxTemplate_025"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TextBoxTemplate_025"].BackgroundTransparency = 1
 GUI["TextBoxTemplate_025"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -252,6 +255,7 @@ GUI["UIListLayout_026"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_026"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_026"].Parent = GUI["TextBoxTemplate_025"]
 
+GUI["SettingNameAndDescription_027"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["SettingNameAndDescription_027"].Font = Enum.Font.Gotham
 GUI["SettingNameAndDescription_027"].RichText = true
 GUI["SettingNameAndDescription_027"].Text = '<b><font size="16">Setting</font></b>\n<font transparency="0.3">how</font>'
@@ -318,6 +322,7 @@ GUI["UIListLayout_034"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_034"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_034"].Parent = GUI["TextBoxParent_030"]
 
+GUI["ButtonTemplate_035"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["ButtonTemplate_035"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["ButtonTemplate_035"].BackgroundTransparency = 1
 GUI["ButtonTemplate_035"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -331,6 +336,7 @@ GUI["UIListLayout_036"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_036"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_036"].Parent = GUI["ButtonTemplate_035"]
 
+GUI["SettingNameAndDescription_037"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["SettingNameAndDescription_037"].Font = Enum.Font.Gotham
 GUI["SettingNameAndDescription_037"].RichText = true
 GUI["SettingNameAndDescription_037"].Text = '<b><font size="16">Setting</font></b>\n<font transparency="0.3">how</font>'
@@ -568,17 +574,17 @@ _G.CreateSettingTextBox({
 	TextBoxPlaceholderText = "Number",
 	Function = function(TextEntered)
 		if IsNumber(TextEntered) then
-			if tonumber(TextEntered) > 2 or tonumber(TextEntered) < 0.5 then
+			if tonumber(TextEntered) > 1.5 or tonumber(TextEntered) < 0.5 then
 				_G.PopUpNotificationOptions({
 					Title = "Error!",
-					Message = "Must not be greater than 2 or lower than 0.5",
+					Message = "Must not be greater than 1.5 or lower than 0.5",
 					Button2Text = "Close",
 					Button2Function = function()
 					end,
 				})
 			else
 				TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = tonumber(TextEntered)}):Play()
-				
+
 				_G.Table.GUISettings.UIScale = tonumber(TextEntered)
 				SaveSettings()
 			end

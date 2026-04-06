@@ -9,13 +9,9 @@ function StringToRGB(ToConvert)
 	return ColorR/255,ColorG/255,ColorB/255
 end
 
-function UIColorPrimary()
-	return StringToRGB(_G.Table.GUISettings.UIColor)
-end
-
-function UIColorSecondary()
+function UIColor(RedTweak, GreenTweak, BlueTweak)
 	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
-	return StringToRGB(tonumber(RGB[1]-7)..", "..tonumber(RGB[2]-8)..", "..tonumber(RGB[3]-10))
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
 end
 
 local GUI = {
@@ -423,7 +419,7 @@ GUI["DisplayNameAndUsername_0"].Name = "DisplayNameAndUsername"
 GUI["DisplayNameAndUsername_0"].Parent = GUI["LeftSide_0"]
 
 GUI["ProfilePicture_0"].Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..LocalPlayer.UserId.."&width=420&height=420&format=png"
-GUI["ProfilePicture_0"].BackgroundColor3 = Color3.fromRGB(43.00000123679638, 45.00000111758709, 51.00000075995922)
+GUI["ProfilePicture_0"].BackgroundColor3 = Color3.new(UIColor(18, 19, 20))
 GUI["ProfilePicture_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["ProfilePicture_0"].BorderSizePixel = 0
 GUI["ProfilePicture_0"].LayoutOrder = 1
@@ -485,8 +481,8 @@ GUI["UIStroke_01"].Parent = GUI["MainContents_0"]
 GUI["UIStroke_01"].Transparency = 0.5
 
 GUI["UIGradient_01"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIColorPrimary())),
-	ColorSequenceKeypoint.new(1, Color3.new(UIColorSecondary()))
+	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
 }
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["MainContents_0"]

@@ -521,7 +521,18 @@ _G.CreateSettingTextBox({
 			end
 		end
 
-		if string.find(string.lower(TextEntered), ".png") then
+		if string.find(TextEntered, "http://") or string.find(TextEntered, "https://") and string.find(string.lower(TextEntered), "png") then
+			local ImageName = game:GetService("HttpService"):GenerateGUID(false)
+			local ImagePath = "VexHub7/Wallpapers/"..ImageName..".png"
+			writefile(ImagePath, game:HttpGet(TextEntered))
+
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = getcustomasset(ImagePath)
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = getcustomasset(ImagePath)
+
+			_G.Table.GUISettings.Wallpaper = ImagePath
+			SaveSettings()
+
+		elseif string.find(string.lower(TextEntered), ".png") then
 			if isfile(TextEntered) then
 				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = getcustomasset(TextEntered)
 				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = getcustomasset(TextEntered)
@@ -537,17 +548,6 @@ _G.CreateSettingTextBox({
 					end,
 				})
 			end
-
-		elseif string.find(TextEntered, "http://") or string.find(TextEntered, "https://") and string.find(string.lower(TextEntered), "png") then
-			local ImageName = game:GetService("HttpService"):GenerateGUID(false)
-			local ImagePath = "VexHub7/Wallpapers/"..ImageName..".png"
-			writefile(ImagePath, game:HttpGet(TextEntered))
-
-			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = getcustomasset(ImagePath)
-			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = getcustomasset(ImagePath)
-
-			_G.Table.GUISettings.Wallpaper = ImagePath
-			SaveSettings()
 
 		elseif IsNumber(TextEntered) then
 			if CheckIfDecalOrImage(TextEntered) == "Image" then
@@ -575,13 +575,13 @@ _G.CreateSettingTextBox({
 		else
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
-				Message = "Invalid input. Must be a ID or a PNG.",
+				Message = "Invalid input. Must be a ID, PNG, or Link.",
 				Button2Text = "Close",
 				Button2Function = function()
 				end,
 			})
 		end
-		
+
 		ChangeTextOfTextBoxSetting("Wallpaper", _G.Table.GUISettings.Wallpaper)
 	end,
 })
@@ -618,7 +618,7 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-		
+
 		ChangeTextOfTextBoxSetting("UIScale", _G.Table.GUISettings.Wallpaper)
 	end,
 })

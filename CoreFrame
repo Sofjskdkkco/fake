@@ -520,6 +520,35 @@ GUI["UIListLayout_012"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_012"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_012"].Parent = GUI["DragFrame_0"]
 
+local Wallpaper = _G.Table.GUISettings.Wallpaper
+
+if string.find(Wallpaper, ".png") then
+	GUI["Wallpaper_0"].Image = getcustomasset(Wallpaper)
+	GUI["WallpaperCover_0"].Image = getcustomasset(Wallpaper)
+else
+	function CheckIfDecalOrImage(Id)
+		local Success, Error = pcall(function() 
+			if game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 0 then end
+		end)
+
+		if Success then
+			if game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 1 then
+				return "Image"
+			elseif game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 13 then
+				return "Decal"
+			end
+		end
+	end
+	
+	if CheckIfDecalOrImage(Wallpaper) == "Image" then
+		GUI["Wallpaper_0"].Image = "rbxassetid://"..Wallpaper
+		GUI["WallpaperCover_0"].Image = "rbxassetid://"..Wallpaper
+	elseif CheckIfDecalOrImage(Wallpaper) == "Decal" then
+		GUI["Wallpaper_0"].Image = "https://www.roblox.com/asset-thumbnail/image?assetId="..Wallpaper.."&width=420&height=420&format=png"
+		GUI["WallpaperCover_0"].Image = "https://www.roblox.com/asset-thumbnail/image?assetId="..Wallpaper.."&width=420&height=420&format=png"
+	end
+end
+
 GUI.TabChoices_0.ChildAdded:Connect(function(Child)
 	if Child:IsA("TextButton") then
 		Child.MouseEnter:Connect(function()

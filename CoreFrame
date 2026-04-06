@@ -11,6 +11,15 @@ end
 
 function UIColor(RedTweak, GreenTweak, BlueTweak)
 	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
+	if RGB[1]+RedTweak > 255 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 then
+		BlueTweak = 0
+	end
 	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
 end
 

@@ -6,8 +6,9 @@ local TweenService = game:GetService("TweenService")
 local GUI = {
 	["VexHubUI_0"] = Instance.new("ScreenGui");
 	["DragFrame_0"] = Instance.new("Frame");
-	["MainFrame_0"] = Instance.new("Frame");
 	["UIScale_0"] = Instance.new("UIScale");
+	["MainFrame_0"] = Instance.new("Frame");
+	["UIScale_01"] = Instance.new("UIScale");
 	["MainContents_0"] = Instance.new("Frame");
 	["UICorner_0"] = Instance.new("UICorner");
 	["UIListLayout_0"] = Instance.new("UIListLayout");
@@ -34,7 +35,7 @@ local GUI = {
 	["Margin_0"] = Instance.new("Frame");
 	["UIListLayout_05"] = Instance.new("UIListLayout");
 	["Pages_0"] = Instance.new("Frame");
-	["UIScale_01"] = Instance.new("UIScale");
+	["UIScale_02"] = Instance.new("UIScale");
 	["UIListLayout_06"] = Instance.new("UIListLayout");
 	["WallpaperCover_0"] = Instance.new("ImageLabel");
 	["UICorner_03"] = Instance.new("UICorner");
@@ -88,6 +89,9 @@ GUI["DragFrame_0"].Parent = GUI["VexHubUI_0"]
 GUI["DragFrame_0"].Active = true
 GUI["DragFrame_0"].Draggable = true
 
+GUI["UIScale_0"].Parent = GUI["DragFrame_0"]
+GUI["UIScale_0"].Scale = _G.Table.GUISettings.UIScale
+
 GUI["MainFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["MainFrame_0"].BackgroundTransparency = 1
 GUI["MainFrame_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -97,8 +101,7 @@ GUI["MainFrame_0"].ZIndex = 2
 GUI["MainFrame_0"].Name = "MainFrame"
 GUI["MainFrame_0"].Parent = GUI["DragFrame_0"]
 
-GUI["UIScale_0"].Parent = GUI["MainFrame_0"]
-GUI["UIScale_0"].Scale = _G.Table.GUISettings.UIScale
+GUI["UIScale_01"].Parent = GUI["MainFrame_0"]
 
 GUI["MainContents_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["MainContents_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -319,7 +322,7 @@ GUI["Pages_0"].Size = UDim2.new(1, 0, 0, 200)
 GUI["Pages_0"].Name = "Pages"
 GUI["Pages_0"].Parent = GUI["Margin_0"]
 
-GUI["UIScale_01"].Parent = GUI["Pages_0"]
+GUI["UIScale_02"].Parent = GUI["Pages_0"]
 
 GUI["UIListLayout_06"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_06"].SortOrder = Enum.SortOrder.LayoutOrder
@@ -709,7 +712,7 @@ _G.CloseVexHub = function()
 		TweenService:Create(GUI.Shadow_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
 		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-		TweenService:Create(GUI.UIScale_0, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Scale = 0}):Play()
+		TweenService:Create(GUI.UIScale_01, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Scale = 0}):Play()
 		TweenService:Create(GUI.UICorner_07, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {CornerRadius = UDim.new(0, 50)}):Play()
 		wait(0.6)
 		GUI.DragFrame_0.Visible = false
@@ -732,7 +735,7 @@ _G.OpenVexHub = function()
 		TweenService:Create(GUI.Shadow_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
 		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-		TweenService:Create(GUI.UIScale_0, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = _G.Table.GUISettings.UIScale}):Play()
+		TweenService:Create(GUI.UIScale_01, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
 		TweenService:Create(GUI.UICorner_07, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {CornerRadius = UDim.new(0, 5)}):Play()
 		TweenService:Create(GUI.MainFrame_0.Ads, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play()
 		wait(0.6)

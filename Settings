@@ -410,7 +410,7 @@ end
 
 local function ChangeTextOfTextBoxSetting(SettingName, Text)
 	if GUI["ScrollingFrame_011"][SettingName] then
-		GUI["ScrollingFrame_011"][SettingName].TextBoxMargin.TexBoxParent.TextBox.Text = Text
+		GUI["ScrollingFrame_011"][SettingName].TextBoxMargin.TextBoxParent.TextBox.Text = Text
 	end
 end
 

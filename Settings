@@ -383,6 +383,15 @@ GUI["UIStroke_042"].Transparency = 0.7
 
 local TweenService = game:GetService("TweenService")
 
+local JSon = {}
+function JSon:Encode(Table)
+	return game:GetService("HttpService"):JSONEncode(Table)
+end
+
+function JSon:Decode(Table)
+	return game:GetService("HttpService"):JSONDecode(Table)
+end
+
 _G.CreateSettingBoolean = function(Table)
 	local SettingName = Table.SettingName
 	local SettingDescription = Table.SettingDescription
@@ -458,32 +467,24 @@ _G.CreateSettingButton = function(Table)
 	end)
 end
 
-_G.CreateSettingBoolean({
-	SettingName = "Boolean",
-	SettingDescription = "This is a description",
-	IsEnabled = true,
-	EnableFunction = function()
-
-	end,
-	DisableFunction = function()
-
-	end,
-})
-
 _G.CreateSettingTextBox({
-	SettingName = "TextBox",
-	SettingDescription = "This is a description",
+	SettingName = "Wallpaper",
+	SettingDescription = "Change the image of the background",
 	TextBoxText = "",
-	TextBoxPlaceholderText = "Text",
+	TextBoxPlaceholderText = "png/Id",
 	Function = function(TextEntered)
-		print(TextEntered)
-	end,
-})
-
-_G.CreateSettingButton({
-	SettingName = "Button",
-	SettingDescription = "This is a description",
-	Function = function()
-		print("hi")
+		if string.find(string.lower(TextEntered), ".png") then
+			if isfile(TextEntered) then
+				
+			else
+				_G.PopUpNotificationOptions({
+					Title = "Error!",
+					Message = "Invalid path",
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
+			end
+		end
 	end,
 })

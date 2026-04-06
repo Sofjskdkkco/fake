@@ -519,7 +519,7 @@ GUI["UIListLayout_011"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_011"].Parent = GUI["UIShadow_0"]
 
 GUI["Shadow_0"].Image = "rbxassetid://74893555185485"
-GUI["Shadow_0"].ImageColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
+GUI["Shadow_0"].ImageColor3 = Color3.new(UIColor(0, 0, 0))
 GUI["Shadow_0"].ImageTransparency = 0.30000001192092896
 GUI["Shadow_0"].ScaleType = Enum.ScaleType.Crop
 GUI["Shadow_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)

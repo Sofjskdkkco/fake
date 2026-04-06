@@ -573,6 +573,12 @@ _G.CreateSettingTextBox({
 	TextBoxText = _G.Table.GUISettings.UIScale,
 	TextBoxPlaceholderText = "Number",
 	Function = function(TextEntered)
+		local function centerFrame(frame, xSize, ySize)
+			-- Center the frame on the screen
+			frame.Position = UDim2.new(0.5, -xSize / 2, 0.5, -ySize / 2)
+			frame.AnchorPoint = Vector2.new(0, 0)
+		end
+		
 		if IsNumber(TextEntered) then
 			if tonumber(TextEntered) > 1.5 or tonumber(TextEntered) < 0.5 then
 				_G.PopUpNotificationOptions({
@@ -586,9 +592,8 @@ _G.CreateSettingTextBox({
 				local DragFrame = game:GetService("CoreGui").VexHubUI.DragFrame
 				TweenService:Create(DragFrame.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = tonumber(TextEntered)}):Play()
 				wait(0.5)
-				DragFrame.AnchorPoint = Vector2.new(0, 0)
-				TweenService:Create(DragFrame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, DragFrame.AbsoluteSize.X / 2, 0.5, DragFrame.AbsoluteSize.Y / 2)}):Play()
-
+				centerFrame(DragFrame, DragFrame.AbsoluteSize.X, DragFrame.AbsoluteSize.Y)
+				
 				_G.Table.GUISettings.UIScale = tonumber(TextEntered)
 				SaveSettings()
 			end

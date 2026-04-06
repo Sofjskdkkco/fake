@@ -6,18 +6,18 @@ local TweenService = game:GetService("TweenService")
 function StringToRGB(ToConvert)
 	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
 	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
-	return ColorR,ColorG,ColorB
+	return ColorR/255,ColorG/255,ColorB/255
 end
 
 function UIColor(RedTweak, GreenTweak, BlueTweak)
 	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
-	if RGB[1]+RedTweak > 255 then
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
 		RedTweak = 0
 	end
-	if RGB[2]+GreenTweak > 255 then
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
 		GreenTweak = 0
 	end
-	if RGB[3]+BlueTweak > 255 then
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
 		BlueTweak = 0
 	end
 	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))

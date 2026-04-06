@@ -18,7 +18,7 @@ _G.Table = {
 	GUISettings = {
 		Wallpaper = "11926598891",
 		UIScale = 1,
-		UIShadow = "25, 26, 31",
+		UIColor = "25, 26, 31",
 	},
 
 	Favorites = {},

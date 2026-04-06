@@ -585,7 +585,6 @@ _G.CreateSettingTextBox({
 			else
 				_G.CloseVexHub()
 				game:GetService("CoreGui").VexHubUI.DragFrame.UIScale.Scale = tonumber(TextEntered)
-				wait(1)
 				_G.OpenVexHub()
 				
 				_G.Table.GUISettings.UIScale = tonumber(TextEntered)

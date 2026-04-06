@@ -684,6 +684,6 @@ _G.CreateSettingTextBox({
 			})
 		end
 
-		ChangeTextOfTextBoxSetting("UIScale", _G.Table.GUISettings.UIColor)
+		ChangeTextOfTextBoxSetting("UIColor", _G.Table.GUISettings.UIColor)
 	end,
 })

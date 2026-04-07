@@ -176,6 +176,7 @@ GUI["Logo_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Logo_0"].BackgroundTransparency = 1
 GUI["Logo_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Logo_0"].BorderSizePixel = 0
+GUI["Logo_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["Logo_0"].Size = UDim2.new(0, 30, 0, 30)
 GUI["Logo_0"].Name = "Logo"
 GUI["Logo_0"].Parent = GUI["TopFrame_0"]
@@ -266,6 +267,7 @@ GUI["TabImage_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TabImage_0"].BackgroundTransparency = 1
 GUI["TabImage_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TabImage_0"].BorderSizePixel = 0
+GUI["TabImage_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["TabImage_0"].Size = UDim2.new(0, 25, 0, 25)
 GUI["TabImage_0"].Name = "TabImage"
 GUI["TabImage_0"].Parent = GUI["TabTemplate_0"]
@@ -473,6 +475,7 @@ GUI["Close_0"].BackgroundColor3 = Color3.fromRGB(75.00000312924385, 78.000002950
 GUI["Close_0"].BackgroundTransparency = 1
 GUI["Close_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Close_0"].BorderSizePixel = 0
+GUI["Close_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["Close_0"].Size = UDim2.new(0, 23, 0, 23)
 GUI["Close_0"].Name = "Close"
 GUI["Close_0"].Parent = GUI["RightSide_0"]
@@ -578,10 +581,12 @@ GUI.TabChoices_0.ChildAdded:Connect(function(Child)
 	if Child:IsA("TextButton") then
 		Child.MouseEnter:Connect(function()
 			TweenService:Create(Child.TabImage, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
+			TweenService:Create(Child.TabName, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextTransparency = 0}):Play()
 		end)
 
 		Child.MouseLeave:Connect(function()
 			TweenService:Create(Child.TabImage, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.2}):Play()
+			TweenService:Create(Child.TabName, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0.2}):Play()
 		end)
 	end
 end)
@@ -617,6 +622,8 @@ _G.CreateTabButton = function(TabName, TabImage, LayoutOrder)
 
 	if TabName == "Favorites" then
 		NewTabButton.TabImage.ImageColor3 = Color3.fromRGB(255, 188, 87)
+	elseif (NameHidePlugin[2]) then
+		NewTabButton.TabImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
 	end
 
 	NewTabButton.MouseButton1Down:Connect(function()

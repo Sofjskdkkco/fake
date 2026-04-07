@@ -520,7 +520,7 @@ end
 
 _G.CreateSettingTextBox({
 	SettingName = "Wallpaper",
-	SettingDescription = "Change the image of the background",
+	SettingDescription = "The image of the UI background",
 	TextBoxText = _G.Table.GUISettings.Wallpaper,
 	TextBoxPlaceholderText = "png/ID/link",
 	Function = function(TextEntered)
@@ -605,7 +605,7 @@ _G.CreateSettingTextBox({
 
 _G.CreateSettingTextBox({
 	SettingName = "UIScale",
-	SettingDescription = "Change the scale of the UI",
+	SettingDescription = "The scale of the UI",
 	TextBoxText = _G.Table.GUISettings.UIScale,
 	TextBoxPlaceholderText = "Number",
 	Function = function(TextEntered)
@@ -668,5 +668,98 @@ _G.CreateSettingTextBox({
 		end
 
 		ChangeTextOfTextBoxSetting("UIColor", _G.Table.GUISettings.UIColor)
+	end,
+})
+
+_G.CreateSettingTextBox({
+	SettingName = "UIShadowColor",
+	SettingDescription = "The color of the shadow in the UI",
+	TextBoxText = _G.Table.GUISettings.UIShadowColor,
+	TextBoxPlaceholderText = "RGB",
+	Function = function(TextEntered)
+		if StringToRGB(TextEntered) == false then
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Invalid input. Must be a valid RGB.",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		else
+			_G.Table.GUISettings.UIShadowColor = StringToRGB(TextEntered)
+			SaveSettings()
+
+			_G.PopUpNotificationOptions({
+				Title = "Setting Saved!",
+				Message = "Please re-execute VexHub to see changes",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
+
+		ChangeTextOfTextBoxSetting("UIShadowColor", _G.Table.GUISettings.UIShadowColor)
+	end,
+})
+
+_G.CreateSettingTextBox({
+	SettingName = "UITextColor",
+	SettingDescription = "The color of the texts in the UI",
+	TextBoxText = _G.Table.GUISettings.UITextColor,
+	TextBoxPlaceholderText = "RGB",
+	Function = function(TextEntered)
+		if StringToRGB(TextEntered) == false then
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Invalid input. Must be a valid RGB.",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		else
+			_G.Table.GUISettings.UITextColor = StringToRGB(TextEntered)
+			SaveSettings()
+
+			_G.PopUpNotificationOptions({
+				Title = "Setting Saved!",
+				Message = "Please re-execute VexHub to see changes",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
+
+		ChangeTextOfTextBoxSetting("UITextColor", _G.Table.GUISettings.UITextColor)
+	end,
+})
+
+_G.CreateSettingTextBox({
+	SettingName = "UIImageColor",
+	SettingDescription = "The color of the images in the UI",
+	TextBoxText = _G.Table.GUISettings.UIImageColor,
+	TextBoxPlaceholderText = "RGB",
+	Function = function(TextEntered)
+		if StringToRGB(TextEntered) == false then
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Invalid input. Must be a valid RGB.",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		else
+			_G.Table.GUISettings.UIImageColor = StringToRGB(TextEntered)
+			SaveSettings()
+
+			_G.PopUpNotificationOptions({
+				Title = "Setting Saved!",
+				Message = "Please re-execute VexHub to see changes",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
+
+		ChangeTextOfTextBoxSetting("UIImageColor", _G.Table.GUISettings.UIImageColor)
 	end,
 })

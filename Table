@@ -19,6 +19,9 @@ _G.Table = {
 		Wallpaper = "11926598891",
 		UIScale = 1,
 		UIColor = "25, 26, 31",
+		UIShadowColor = "25, 26, 31",
+		UITextColor = "255, 255, 255",
+		UIImageColor = "255, 255, 255",
 	},
 
 	Favorites = {},

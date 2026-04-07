@@ -260,7 +260,7 @@ GUI["UIListLayout_04"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_04"].Parent = GUI["TabTemplate_0"]
 
 GUI["TabImage_0"].Image = "rbxassetid://11592824883"
-GUI["TabImage_0"].ImageTransparency = 0.20000000298023224
+GUI["TabImage_0"].ImageTransparency = 0
 GUI["TabImage_0"].ScaleType = Enum.ScaleType.Fit
 GUI["TabImage_0"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["TabImage_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -276,7 +276,7 @@ GUI["TabName_0"].Font = Enum.Font.GothamBold
 GUI["TabName_0"].Text = "Required Accessories"
 GUI["TabName_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["TabName_0"].TextSize = 12
-GUI["TabName_0"].TextTransparency = 0.2
+GUI["TabName_0"].TextTransparency = 0
 GUI["TabName_0"].TextWrapped = true
 GUI["TabName_0"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["TabName_0"].AutomaticSize = Enum.AutomaticSize.Y
@@ -577,6 +577,7 @@ else
 	end
 end
 
+--[[
 GUI.TabChoices_0.ChildAdded:Connect(function(Child)
 	if Child:IsA("TextButton") then
 		Child.MouseEnter:Connect(function()
@@ -590,6 +591,7 @@ GUI.TabChoices_0.ChildAdded:Connect(function(Child)
 		end)
 	end
 end)
+]]
 
 local function centerFrame(frame, xSize, ySize)
 	-- Center the frame on the screen

@@ -622,7 +622,7 @@ _G.CreateTabButton = function(TabName, TabImage, LayoutOrder)
 
 	if TabName == "Favorites" then
 		NewTabButton.TabImage.ImageColor3 = Color3.fromRGB(255, 188, 87)
-	elseif (NameHidePlugin[2]) then
+	elseif (NameHidePlugin) then
 		NewTabButton.TabImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
 	end
 

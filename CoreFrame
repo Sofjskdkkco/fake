@@ -511,7 +511,7 @@ GUI["CoverFrame_0"].Parent = GUI["MainFrame_0"]
 GUI["UICorner_07"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_07"].Parent = GUI["CoverFrame_0"]
 
-GUI["UIShadow_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIShadowColor))
+GUI["UIShadow_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["UIShadow_0"].BackgroundTransparency = 1
 GUI["UIShadow_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["UIShadow_0"].BorderSizePixel = 0
@@ -528,7 +528,7 @@ GUI["UIListLayout_011"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_011"].Parent = GUI["UIShadow_0"]
 
 GUI["Shadow_0"].Image = "rbxassetid://74893555185485"
-GUI["Shadow_0"].ImageColor3 = Color3.new(UIColor(0, 0, 0))
+GUI["Shadow_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIShadowColor))
 GUI["Shadow_0"].ImageTransparency = 0.30000001192092896
 GUI["Shadow_0"].ScaleType = Enum.ScaleType.Crop
 GUI["Shadow_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)

@@ -182,7 +182,7 @@ GUI["Logo_0"].Parent = GUI["TopFrame_0"]
 
 GUI["exHub_0"].Font = Enum.Font.GothamBold
 GUI["exHub_0"].Text = "exHub"
-GUI["exHub_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["exHub_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["exHub_0"].TextSize = 18
 GUI["exHub_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["exHub_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -212,7 +212,7 @@ GUI["UIListLayout_03"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_03"].Parent = GUI["TabChoices_0"]
 
 GUI["SectionsNameTemplate_0"].Font = Enum.Font.GothamBold
-GUI["SectionsNameTemplate_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["SectionsNameTemplate_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["SectionsNameTemplate_0"].TextSize = 9
 GUI["SectionsNameTemplate_0"].TextTransparency = 0.5
 GUI["SectionsNameTemplate_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -272,8 +272,9 @@ GUI["TabImage_0"].Parent = GUI["TabTemplate_0"]
 
 GUI["TabName_0"].Font = Enum.Font.GothamBold
 GUI["TabName_0"].Text = "Required Accessories"
-GUI["TabName_0"].TextColor3 = Color3.fromRGB(212.00000256299973, 212.00000256299973, 212.00000256299973)
+GUI["TabName_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["TabName_0"].TextSize = 12
+GUI["TabName_0"].TextTransparency = 0.2
 GUI["TabName_0"].TextWrapped = true
 GUI["TabName_0"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["TabName_0"].AutomaticSize = Enum.AutomaticSize.Y
@@ -414,7 +415,7 @@ GUI["UIListLayout_09"].Parent = GUI["LeftSide_0"]
 GUI["DisplayNameAndUsername_0"].Font = Enum.Font.Gotham
 GUI["DisplayNameAndUsername_0"].RichText = true
 GUI["DisplayNameAndUsername_0"].Text = '<b>'..LocalPlayer.DisplayName..'</b>\n<font size="8">@'..LocalPlayer.Name..'</font>'
-GUI["DisplayNameAndUsername_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["DisplayNameAndUsername_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["DisplayNameAndUsername_0"].TextSize = 14
 GUI["DisplayNameAndUsername_0"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["DisplayNameAndUsername_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)

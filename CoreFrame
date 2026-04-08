@@ -310,7 +310,7 @@ GUI["TabName_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TabName_0"].BackgroundTransparency = 1
 GUI["TabName_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TabName_0"].BorderSizePixel = 0
-GUI["TabName_0"].Size = UDim2.new(0, 83, 0, 20)
+GUI["TabName_0"].Size = UDim2.new(0, 87, 0, 20)
 GUI["TabName_0"].Name = "TabName"
 GUI["TabName_0"].Parent = GUI["TabTemplate_0"]
 

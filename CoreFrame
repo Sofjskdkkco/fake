@@ -445,7 +445,7 @@ GUI["ProfilePicture_0"].Parent = GUI["LeftSide_0"]
 GUI["UICorner_05"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_05"].Parent = GUI["ProfilePicture_0"]
 
-GUI["UIStroke_0"].Color = Color3.new(_G.Table.GUISettings.UISecondaryColor)
+GUI["UIStroke_0"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UISecondaryColor))
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
 GUI["UIStroke_0"].Transparency = 0.2
 

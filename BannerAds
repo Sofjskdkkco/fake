@@ -81,10 +81,12 @@ GUI["UIScale_0"].Parent = GUI["Ads_0"]
 local TweenService = game:GetService("TweenService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local AdFrameFunction = GUI.Ads_0.MouseButton1Down:Connect(function()end)
+local AdVisible = _G.Table.GUIStatus.AdVisible
 
 GUI.CloseButton_0.MouseButton1Down:Connect(function()
 	TweenService:Create(GUI.Ads_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.798, 0)}):Play()
 	wait(0.4)
+	AdVisible = false
 	GUI.Ads_0.Visible = false
 end)
 
@@ -96,7 +98,7 @@ local request = request or syn.request
 
 coroutine.wrap(function()
 	while wait(30) do
-		if GUI.Ads_0.Visible == false then
+		if AdVisible == false then
 			local AdToRun = nil
 			local Ads = {}
 
@@ -152,6 +154,7 @@ coroutine.wrap(function()
 					AdFrameFunction:Disconnect()
 					GUI.Ads_0.Image = "rbxassetid://"..AdInfo.ImageId
 					wait(0.5)
+					AdVisible = true
 					GUI.Ads_0.Visible = true
 					TweenService:Create(GUI.Ads_0, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play()
 					AdFrameFunction = GUI.Ads_0.MouseButton1Down:Connect(function()
@@ -159,6 +162,7 @@ coroutine.wrap(function()
 						print(AdInfo.Script)
 						TweenService:Create(GUI.Ads_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.798, 0)}):Play()
 						wait(0.4)
+						AdVisible = false
 						GUI.Ads_0.Visible = false
 					end)
 				end

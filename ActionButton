@@ -1,3 +1,23 @@
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+function UIPrimaryColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIPrimaryColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
 -- Instances:
 
 local GUI = {
@@ -43,6 +63,7 @@ GUI["UIListLayout_0"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_0"].Parent = GUI["ActionButton_0"]
 
 GUI["Image_0"].Image = "rbxassetid://14803348752"
+GUI["Image_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["Image_0"].ImageTransparency = 0.10000000149011612
 GUI["Image_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Image_0"].BackgroundTransparency = 1
@@ -58,9 +79,9 @@ GUI["UIScale_0"].Parent = GUI["Image_0"]
 GUI["UICorner_0"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_0"].Parent = GUI["ActionButton_0"]
 
-GUI["UIGradient_0"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+GUI["UIGradient_01"].Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
 }
 GUI["UIGradient_0"].Rotation = 90
 GUI["UIGradient_0"].Parent = GUI["ActionButton_0"]

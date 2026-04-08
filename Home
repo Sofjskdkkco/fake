@@ -180,8 +180,9 @@ GUI["ProfilePicture_0"].Parent = GUI["UserGreetings_0"]
 GUI["UICorner_01"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_01"].Parent = GUI["ProfilePicture_0"]
 
-GUI["UIStroke_0"].Color = Color3.fromRGB(51.00000075995922, 95.00000193715096, 255)
+GUI["UIStroke_0"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UISecondaryColor))
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
+GUI["UIStroke_0"].Transparency = 0.2
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),

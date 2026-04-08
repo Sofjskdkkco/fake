@@ -26,6 +26,21 @@ _G.Table = {
 		UITextColor = "255, 255, 255",
 		UIImageColor = "255, 255, 255",
 	},
+	
+	Fonts = {
+		["Barlow"] = 12187372847,
+		["Fira Sans"] = 12187374954,
+		["Inter"] = 12187365364,
+		["Kanit"] = 12187373592,
+		["Montserrat"] = 11702779517,
+		["Mulish"] = 12187372629,
+		["Noto Sans"] = 12187370747,
+		["Prompt"] = 12187607287,
+		["Poppins"] = 11702779409,
+		["Raleway"] = 11702779240,
+		["Rubik"] = 12187365977,
+		["Work Sans"] = 12187373327,
+	},
 
 	Favorites = {},
 

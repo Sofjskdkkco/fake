@@ -716,15 +716,15 @@ GUI["UIStroke_06"].Parent = GUI["UpdatesFrame_0"]
 GUI["UIStroke_06"].Transparency = 0.9
 
 GUI["UIGradient_07"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
 }
 GUI["UIGradient_07"].Rotation = 90
 GUI["UIGradient_07"].Parent = GUI["UpdatesFrame_0"]
 
 GUI["UIGradient_08"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
 }
 GUI["UIGradient_08"].Rotation = 90
 GUI["UIGradient_08"].Parent = GUI["BottomFrame_0"]

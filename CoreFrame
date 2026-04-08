@@ -38,7 +38,11 @@ function UISecondaryColor(RedTweak, GreenTweak, BlueTweak)
 end
 
 function UIFont(FontWeight)
-	return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+	if typeof(_G.Table.GUISettings.UIFont) == "number" then
+		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+	elseif typeof(_G.Table.GUISettings.UIFont) == "string" then
+		return Font.fromName(_G.Table.GUISettings.UIFont, Enum.FontWeight[FontWeight])
+	end
 end
 
 local GUI = {

@@ -647,10 +647,10 @@ _G.CreateSettingTextBox({
 	TextBoxPlaceholderText = "Number",
 	Function = function(TextEntered)
 		if IsNumber(TextEntered) then
-			if tonumber(TextEntered) > 1.5 or tonumber(TextEntered) < 0.5 then
+			if tonumber(TextEntered) > 1 or tonumber(TextEntered) < 0 then
 				_G.PopUpNotificationOptions({
 					Title = "Error!",
-					Message = "Must not be greater than 1.5 or lower than 0.5",
+					Message = "Must not be greater than 1 or lower than 0",
 					Button2Text = "Close",
 					Button2Function = function()
 					end,

@@ -10,7 +10,7 @@ function StringToRGB(ToConvert)
 end
 
 function UIColor(RedTweak, GreenTweak, BlueTweak)
-	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
+	local RGB = string.split(_G.Table.GUISettings.UIPrimaryColor, ",")
 	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
 		RedTweak = 0
 	end
@@ -445,8 +445,9 @@ GUI["ProfilePicture_0"].Parent = GUI["LeftSide_0"]
 GUI["UICorner_05"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_05"].Parent = GUI["ProfilePicture_0"]
 
-GUI["UIStroke_0"].Color = Color3.fromRGB(51.00000075995922, 95.00000193715096, 255)
+GUI["UIStroke_0"].Color = Color3.new(_G.Table.GUISettings.UISecondaryColor)
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
+GUI["UIStroke_0"].Transparency = 0.2
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -768,7 +769,7 @@ _G.OpenVexHub = function()
 		TweenService:Create(GUI.UIScale_01, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
 		TweenService:Create(GUI.UICorner_07, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {CornerRadius = UDim.new(0, 5)}):Play()
 		if _G.Table.GUIStatus.AdVisible == true then TweenService:Create(GUI.MainFrame_0.Ads, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play() end
-		
+
 		wait(0.6)
 		_G.Table.GUIStatus.IsClosed = false
 		OnGoingAnimation = false

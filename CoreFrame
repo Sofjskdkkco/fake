@@ -37,6 +37,10 @@ function UISecondaryColor(RedTweak, GreenTweak, BlueTweak)
 	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
 end
 
+function UIFont(FontWeight)
+	return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+end
+
 local GUI = {
 	["VexHubUI_0"] = Instance.new("ScreenGui");
 	["DragFrame_0"] = Instance.new("Frame");
@@ -196,7 +200,7 @@ GUI["Logo_0"].Size = UDim2.new(0, 30, 0, 30)
 GUI["Logo_0"].Name = "Logo"
 GUI["Logo_0"].Parent = GUI["TopFrame_0"]
 
-GUI["exHub_0"].Font = Enum.Font.GothamBold
+GUI["exHub_0"].FontFace = UIFont("Bold")
 GUI["exHub_0"].Text = "exHub"
 GUI["exHub_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["exHub_0"].TextSize = 18
@@ -227,7 +231,7 @@ GUI["UIListLayout_03"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_03"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_03"].Parent = GUI["TabChoices_0"]
 
-GUI["SectionsNameTemplate_0"].Font = Enum.Font.GothamBold
+GUI["SectionsNameTemplate_0"].FontFace = UIFont("Bold")
 GUI["SectionsNameTemplate_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["SectionsNameTemplate_0"].TextSize = 9
 GUI["SectionsNameTemplate_0"].TextTransparency = 0.5
@@ -289,7 +293,7 @@ GUI["TabImage_0"].Size = UDim2.new(0, 25, 0, 25)
 GUI["TabImage_0"].Name = "TabImage"
 GUI["TabImage_0"].Parent = GUI["TabTemplate_0"]
 
-GUI["TabName_0"].Font = Enum.Font.GothamBold
+GUI["TabName_0"].FontFace = UIFont("Bold")
 GUI["TabName_0"].Text = "Required Accessories"
 GUI["TabName_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["TabName_0"].TextSize = 12
@@ -431,7 +435,7 @@ GUI["UIListLayout_09"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_09"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_09"].Parent = GUI["LeftSide_0"]
 
-GUI["DisplayNameAndUsername_0"].Font = Enum.Font.Gotham
+GUI["DisplayNameAndUsername_0"].FontFace = UIFont("Regular")
 GUI["DisplayNameAndUsername_0"].RichText = true
 GUI["DisplayNameAndUsername_0"].Text = '<b>'..LocalPlayer.DisplayName..'</b>\n<font size="8">@'..LocalPlayer.Name..'</font>'
 GUI["DisplayNameAndUsername_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))

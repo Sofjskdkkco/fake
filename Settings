@@ -674,6 +674,69 @@ _G.CreateSettingTextBox({
 })
 
 _G.CreateSettingTextBox({
+	SettingName = "UIFont",
+	SettingDescription = "The font of texts in the UI",
+	TextBoxText = _G.Table.GUISettings.UIFont,
+	TextBoxPlaceholderText = "FontName",
+	Function = function(TextEntered)
+		local FontFound = false
+		
+		for FontName, FontID in _G.Table.Fonts do
+			if string.find(string.lower(FontName), string.lower(TextEntered)) then
+				_G.Table.GUISettings.UIFont = FontName
+				FontFound = true
+				SaveSettings()
+				break
+			end
+		end
+		
+		if FontFound == true then
+			_G.PopUpNotificationOptions({
+				Title = "Setting Saved!",
+				Message = "Please re-execute VexHub to see changes",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		else
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Not a valid font/not supported in VexHub",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
+
+		ChangeTextOfTextBoxSetting("UIFont", _G.Table.GUISettings.UIFont)
+	end,
+})
+
+_G.CreateSettingButton({
+	SettingName = "View Fonts",
+	SettingDescription = "View supported fonts",
+	Function = function()
+		local Message = ""
+		
+		for i, v in _G.Table.Fonts do
+			if Message == "" then
+				Message = i
+			else
+				Message = Message.."\n"..i
+			end
+		end
+		
+		_G.PopUpNotificationOptions({
+			Title = "Fonts:",
+			Message = Message,
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	end,
+})
+
+_G.CreateSettingTextBox({
 	SettingName = "UIPrimaryColor",
 	SettingDescription = "The primary color of the frames in the UI",
 	TextBoxText = _G.Table.GUISettings.UIPrimaryColor,

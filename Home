@@ -171,6 +171,7 @@ GUI["UIListLayout_01"].Parent = GUI["UserGreetings_0"]
 
 GUI["ProfilePicture_0"].Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..LocalPlayer.UserId.."&width=420&height=420&format=png"
 GUI["ProfilePicture_0"].BackgroundColor3 = Color3.new(UIPrimaryColor(18, 19, 20))
+GUI["ProfilePicture_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["ProfilePicture_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["ProfilePicture_0"].BorderSizePixel = 0
 GUI["ProfilePicture_0"].Size = UDim2.new(0, 50, 0, 50)
@@ -272,7 +273,7 @@ GUI["Scripts_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Scripts_0"].Name = "Scripts"
 GUI["Scripts_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(35.00000171363354, 66.00000366568565, 178.00000458955765)
+GUI["Border_0"].BackgroundColor3 = Color3.new(UISecondaryColor(-16, -29, -77))
 GUI["Border_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_0"].BorderSizePixel = 0
 GUI["Border_0"].LayoutOrder = 4
@@ -310,7 +311,7 @@ GUI["Version_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Version_0"].Name = "Version"
 GUI["Version_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Border_01"].BackgroundColor3 = Color3.fromRGB(35.00000171363354, 66.00000366568565, 178.00000458955765)
+GUI["Border_01"].BackgroundColor3 = Color3.new(UISecondaryColor(-16, -29, -77))
 GUI["Border_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_01"].BorderSizePixel = 0
 GUI["Border_01"].LayoutOrder = 2
@@ -318,7 +319,7 @@ GUI["Border_01"].Size = UDim2.new(0, 1, 0.5, 0)
 GUI["Border_01"].Name = "Border"
 GUI["Border_01"].Parent = GUI["VexHubInfo_0"]
 
-GUI["UIStroke_02"].Color = Color3.fromRGB(35.00000171363354, 66.00000366568565, 178.00000458955765)
+GUI["UIStroke_02"].Color = Color3.new(UISecondaryColor(-16, -29, -77))
 GUI["UIStroke_02"].Parent = GUI["VexHubInfo_0"]
 GUI["UIStroke_02"].Transparency = 0.9
 

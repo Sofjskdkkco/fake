@@ -20,12 +20,17 @@ _G.Table = {
 		Wallpaper = "11926598891",
 		UIScale = 1,
 		UIFrameTransparency = 0,
+		UIFont = "Montserrat",
 		UIPrimaryColor = "25, 26, 31",
 		UISecondaryColor = "51, 95, 255",
 		UIShadowColor = "25, 26, 31",
 		UITextColor = "255, 255, 255",
 		UIImageColor = "255, 255, 255",
 	},
+
+	Favorites = {},
+
+	Plugins = {},
 	
 	Fonts = {
 		["Barlow"] = 12187372847,
@@ -41,10 +46,6 @@ _G.Table = {
 		["Rubik"] = 12187365977,
 		["Work Sans"] = 12187373327,
 	},
-
-	Favorites = {},
-
-	Plugins = {},
 
 	Scripts = {
 		["Scripts"] = {

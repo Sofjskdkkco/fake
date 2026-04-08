@@ -1,3 +1,31 @@
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+function UIPrimaryColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIPrimaryColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
+function UIFont(FontWeight)
+	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
+		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
+		return Font.fromName(_G.Table.GUISettings.UIFont, Enum.FontWeight[FontWeight])
+	end
+end
+
 -- Instances:
 
 local GUI = {
@@ -53,7 +81,7 @@ GUI["UIListLayout_0"].Parent = GUI["PopUpNotificationOptions_0"]
 
 GUI["NotificationTemplate_0"].Active = true
 GUI["NotificationTemplate_0"].AutomaticSize = Enum.AutomaticSize.Y
-GUI["NotificationTemplate_0"].BackgroundColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
+GUI["NotificationTemplate_0"].BackgroundColor3 = Color3.new(UIPrimaryColor(0,0,0))
 GUI["NotificationTemplate_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["NotificationTemplate_0"].BorderSizePixel = 0
 GUI["NotificationTemplate_0"].Position = UDim2.new(0.349999994, 0, 0.423999995, 0)
@@ -72,7 +100,7 @@ GUI["UIStroke_0"].Transparency = 0.9
 GUI["UISizeConstraint_0"].MaxSize = Vector2.new(math.huge, 150)
 GUI["UISizeConstraint_0"].Parent = GUI["NotificationTemplate_0"]
 
-GUI["UIScale_0"].Scale = 1.0000000116860974e-07
+GUI["UIScale_0"].Scale = 1
 GUI["UIScale_0"].Parent = GUI["NotificationTemplate_0"]
 
 GUI["NotificationInsides_0"].AutomaticSize = Enum.AutomaticSize.Y
@@ -113,7 +141,7 @@ GUI["UIListLayout_01"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_01"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_01"].Parent = GUI["Buttons_0"]
 
-GUI["Button1_0"].Font = Enum.Font.GothamBold
+GUI["Button1_0"].Font = UIFont("Bold")
 GUI["Button1_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Button1_0"].TextSize = 12
 GUI["Button1_0"].TextWrapped = true
@@ -137,17 +165,17 @@ GUI["UICorner_01"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_01"].Parent = GUI["Button1_0"]
 
 GUI["UIStroke_01"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-GUI["UIStroke_01"].Color = Color3.fromRGB(59.00000028312206, 62.00000010430813, 73.00000324845314)
+GUI["UIStroke_01"].Color = Color3.new(UIPrimaryColor(34, 36, 42))
 GUI["UIStroke_01"].Parent = GUI["Button1_0"]
 
 GUI["UIScale_01"].Parent = GUI["Button1_0"]
 
-GUI["Button2_0"].Font = Enum.Font.GothamBold
+GUI["Button2_0"].Font = UIFont("Bold")
 GUI["Button2_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Button2_0"].TextSize = 12
 GUI["Button2_0"].TextWrapped = true
 GUI["Button2_0"].AutoButtonColor = false
-GUI["Button2_0"].BackgroundColor3 = Color3.fromRGB(59.00000028312206, 62.00000010430813, 73.00000324845314)
+GUI["Button2_0"].BackgroundColor3 = Color3.new(UIPrimaryColor(34, 36, 42))
 GUI["Button2_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Button2_0"].BorderSizePixel = 0
 GUI["Button2_0"].Size = UDim2.new(0, 62, 1, 0)
@@ -180,7 +208,7 @@ GUI["TopFrame_0"].Size = UDim2.new(1, 0, 0, 0)
 GUI["TopFrame_0"].Name = "TopFrame"
 GUI["TopFrame_0"].Parent = GUI["NotificationInsides_0"]
 
-GUI["Title_0"].Font = Enum.Font.MontserratBold
+GUI["Title_0"].Font = UIFont("Bold")
 GUI["Title_0"].Text = "Title"
 GUI["Title_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Title_0"].TextSize = 14
@@ -196,7 +224,7 @@ GUI["Title_0"].Size = UDim2.new(0.899999976, 0, 0, 0)
 GUI["Title_0"].Name = "Title"
 GUI["Title_0"].Parent = GUI["TopFrame_0"]
 
-GUI["Message_0"].Font = Enum.Font.MontserratMedium
+GUI["Message_0"].Font = UIFont("Medium")
 GUI["Message_0"].Text = "Message"
 GUI["Message_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Message_0"].TextSize = 9
@@ -220,6 +248,7 @@ GUI["UIListLayout_05"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_05"].Parent = GUI["TopFrame_0"]
 
 GUI["CoverFrame_0"].Image = "http://www.roblox.com/asset/?id=14586137987"
+GUI["CoverFrame_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["CoverFrame_0"].ImageTransparency = 1
 GUI["CoverFrame_0"].ScaleType = Enum.ScaleType.Fit
 GUI["CoverFrame_0"].BackgroundColor3 = Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512)

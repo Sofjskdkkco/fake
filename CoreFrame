@@ -584,7 +584,7 @@ end
 GUI.TabChoices_0.ChildAdded:Connect(function(Child)
 	if Child:IsA("TextButton") then
 		Child.MouseEnter:Connect(function()
-			TweenService:Create(Child.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Scale = 1.1}):Play()
+			TweenService:Create(Child.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Scale = 1.05}):Play()
 		end)
 
 		Child.MouseLeave:Connect(function()

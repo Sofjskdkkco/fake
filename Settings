@@ -680,7 +680,7 @@ _G.CreateSettingTextBox({
 	TextBoxPlaceholderText = "FontName",
 	Function = function(TextEntered)
 		local FontFound = false
-		
+
 		for FontName, FontID in _G.Table.Fonts do
 			if string.find(string.lower(FontName), string.lower(TextEntered)) then
 				_G.Table.GUISettings.UIFont = FontName
@@ -689,7 +689,7 @@ _G.CreateSettingTextBox({
 				break
 			end
 		end
-		
+
 		if FontFound == true then
 			_G.PopUpNotificationOptions({
 				Title = "Setting Saved!",
@@ -717,15 +717,15 @@ _G.CreateSettingButton({
 	SettingDescription = "View supported fonts",
 	Function = function()
 		local Message = ""
-		
+
 		for i, v in _G.Table.Fonts do
 			if Message == "" then
 				Message = i
 			else
-				Message = Message.."\n"..i
+				Message = Message.." | "..i
 			end
 		end
-		
+
 		_G.PopUpNotificationOptions({
 			Title = "Fonts:",
 			Message = Message,

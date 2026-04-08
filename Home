@@ -2,6 +2,48 @@
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
 
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+function UIPrimaryColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIPrimaryColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
+function UISecondaryColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UISecondaryColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
+function UIFont(FontWeight)
+	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
+		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
+		return Font.fromName(_G.Table.GUISettings.UIFont, Enum.FontWeight[FontWeight])
+	end
+end
+
 local GUI = {
 	["Home_0"] = Instance.new("Frame");
 	["UIListLayout_0"] = Instance.new("UIListLayout");
@@ -111,6 +153,7 @@ GUI["TopFrame_0"].Name = "TopFrame"
 GUI["TopFrame_0"].Parent = GUI["Home_0"]
 
 GUI["UserGreetings_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["UserGreetings_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["UserGreetings_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["UserGreetings_0"].BorderSizePixel = 0
 GUI["UserGreetings_0"].Size = UDim2.new(0, 150, 0, 100)
@@ -127,7 +170,7 @@ GUI["UIListLayout_01"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_01"].Parent = GUI["UserGreetings_0"]
 
 GUI["ProfilePicture_0"].Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..LocalPlayer.UserId.."&width=420&height=420&format=png"
-GUI["ProfilePicture_0"].BackgroundColor3 = Color3.fromRGB(43.00000123679638, 45.00000111758709, 51.00000075995922)
+GUI["ProfilePicture_0"].BackgroundColor3 = Color3.new(UIPrimaryColor(18, 19, 20))
 GUI["ProfilePicture_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["ProfilePicture_0"].BorderSizePixel = 0
 GUI["ProfilePicture_0"].Size = UDim2.new(0, 50, 0, 50)
@@ -148,10 +191,10 @@ GUI["UIGradient_0"].Offset = Vector2.new(0, 0.30000001192092896)
 GUI["UIGradient_0"].Rotation = 90
 GUI["UIGradient_0"].Parent = GUI["ProfilePicture_0"]
 
-GUI["Greetings_0"].Font = Enum.Font.Gotham
+GUI["Greetings_0"].FontFace = UIFont("Regular")
 GUI["Greetings_0"].RichText = true
 GUI["Greetings_0"].Text = '<b>Good Afternoon</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>'
-GUI["Greetings_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Greetings_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Greetings_0"].TextSize = 14
 GUI["Greetings_0"].TextWrapped = true
 GUI["Greetings_0"].TextYAlignment = Enum.TextYAlignment.Top
@@ -168,8 +211,8 @@ GUI["UIStroke_01"].Parent = GUI["UserGreetings_0"]
 GUI["UIStroke_01"].Transparency = 0.9
 
 GUI["UIGradient_01"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
 }
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["UserGreetings_0"]
@@ -189,6 +232,7 @@ GUI["UIListLayout_02"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_02"].Parent = GUI["RightFrame_0"]
 
 GUI["VexHubInfo_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["VexHubInfo_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["VexHubInfo_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["VexHubInfo_0"].BorderSizePixel = 0
 GUI["VexHubInfo_0"].Size = UDim2.new(1, 0, 0, 48)
@@ -196,8 +240,8 @@ GUI["VexHubInfo_0"].Name = "VexHubInfo"
 GUI["VexHubInfo_0"].Parent = GUI["RightFrame_0"]
 
 GUI["UIGradient_02"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(51.00000075995922, 95.00000193715096, 255)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(40.00000141561031, 76.0000030696392, 204.00000303983688))
+	ColorSequenceKeypoint.new(0, Color3.new(UISecondaryColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UISecondaryColor(-11, -19, -51)))
 }
 GUI["UIGradient_02"].Rotation = 90
 GUI["UIGradient_02"].Parent = GUI["VexHubInfo_0"]
@@ -212,10 +256,10 @@ GUI["UIListLayout_03"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_03"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_03"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Scripts_0"].Font = Enum.Font.Gotham
+GUI["Scripts_0"].FontFace = UIFont("Regular")
 GUI["Scripts_0"].RichText = true
 GUI["Scripts_0"].Text = 'Scripts\n<b><font size="14">100</font></b>'
-GUI["Scripts_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Scripts_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Scripts_0"].TextSize = 10
 GUI["Scripts_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["Scripts_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -235,10 +279,10 @@ GUI["Border_0"].Size = UDim2.new(0, 1, 0.5, 0)
 GUI["Border_0"].Name = "Border"
 GUI["Border_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Executed_0"].Font = Enum.Font.Gotham
+GUI["Executed_0"].FontFace = UIFont("Regular")
 GUI["Executed_0"].RichText = true
 GUI["Executed_0"].Text = 'Executed\n<b><font size="14">10000</font></b>\ntimes'
-GUI["Executed_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Executed_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Executed_0"].TextSize = 10
 GUI["Executed_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["Executed_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -250,10 +294,10 @@ GUI["Executed_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Executed_0"].Name = "Executed"
 GUI["Executed_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Version_0"].Font = Enum.Font.Gotham
+GUI["Version_0"].FontFace = UIFont("Regular")
 GUI["Version_0"].RichText = true
 GUI["Version_0"].Text = 'Version\n<b><font size="14">7.150</font></b>'
-GUI["Version_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Version_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Version_0"].TextSize = 10
 GUI["Version_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["Version_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -278,6 +322,7 @@ GUI["UIStroke_02"].Parent = GUI["VexHubInfo_0"]
 GUI["UIStroke_02"].Transparency = 0.9
 
 GUI["Socials_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Socials_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["Socials_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Socials_0"].BorderSizePixel = 0
 GUI["Socials_0"].Size = UDim2.new(1, 0, 0, 47)
@@ -285,8 +330,8 @@ GUI["Socials_0"].Name = "Socials"
 GUI["Socials_0"].Parent = GUI["RightFrame_0"]
 
 GUI["UIGradient_03"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
 }
 GUI["UIGradient_03"].Rotation = 90
 GUI["UIGradient_03"].Parent = GUI["Socials_0"]
@@ -302,7 +347,7 @@ GUI["UICorner_03"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_03"].Parent = GUI["Socials_0"]
 
 GUI["BuffVexHub_0"].Image = "http://www.roblox.com/asset/?id=75682953725850"
-GUI["BuffVexHub_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["BuffVexHub_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["BuffVexHub_0"].BackgroundTransparency = 1
 GUI["BuffVexHub_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["BuffVexHub_0"].BorderSizePixel = 0
@@ -445,6 +490,7 @@ GUI["UIListLayout_08"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_08"].Parent = GUI["TopFrame_0"]
 
 GUI["BottomFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["BottomFrame_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["BottomFrame_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["BottomFrame_0"].BorderSizePixel = 0
 GUI["BottomFrame_0"].Position = UDim2.new(0.00497866282, 0, 0.524999976, 0)
@@ -467,6 +513,7 @@ GUI["UICorner_06"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_06"].Parent = GUI["BottomFrame_0"]
 
 GUI["AnnouncementFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AnnouncementFrame_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["AnnouncementFrame_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["AnnouncementFrame_0"].BorderSizePixel = 0
 GUI["AnnouncementFrame_0"].Position = UDim2.new(0.579871058, 0, -0.0319148935, 0)
@@ -495,9 +542,9 @@ GUI["ScrollingFrame_0"].Position = UDim2.new(0.214285716, 0, 0.177304968, 0)
 GUI["ScrollingFrame_0"].Size = UDim2.new(1, 0, 0, 69)
 GUI["ScrollingFrame_0"].Parent = GUI["AnnouncementFrame_0"]
 
-GUI["Announcement_0"].Font = Enum.Font.Gotham
+GUI["Announcement_0"].FontFace = UIFont("Regular")
 GUI["Announcement_0"].Text = "SKIBIDI TOILET"
-GUI["Announcement_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Announcement_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Announcement_0"].TextSize = 9
 GUI["Announcement_0"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["Announcement_0"].AutomaticSize = Enum.AutomaticSize.Y
@@ -522,9 +569,9 @@ GUI["TopFrame_01"].Size = UDim2.new(1, 0, 0, 14)
 GUI["TopFrame_01"].Name = "TopFrame"
 GUI["TopFrame_01"].Parent = GUI["AnnouncementFrame_0"]
 
-GUI["AnnouncementText_0"].Font = Enum.Font.GothamBold
+GUI["AnnouncementText_0"].FontFace = UIFont("Bold")
 GUI["AnnouncementText_0"].Text = "Announcement!"
-GUI["AnnouncementText_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AnnouncementText_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["AnnouncementText_0"].TextSize = 11
 GUI["AnnouncementText_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["AnnouncementText_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -543,7 +590,7 @@ GUI["UIListLayout_012"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_012"].Parent = GUI["TopFrame_01"]
 
 GUI["Megaphone_0"].Image = "http://www.roblox.com/asset/?id=87216728545375"
-GUI["Megaphone_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Megaphone_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["Megaphone_0"].BackgroundTransparency = 1
 GUI["Megaphone_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Megaphone_0"].BorderSizePixel = 0
@@ -564,13 +611,14 @@ GUI["UIStroke_05"].Parent = GUI["AnnouncementFrame_0"]
 GUI["UIStroke_05"].Transparency = 0.9
 
 GUI["UIGradient_06"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
 }
 GUI["UIGradient_06"].Rotation = 90
 GUI["UIGradient_06"].Parent = GUI["AnnouncementFrame_0"]
 
 GUI["UpdatesFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["UpdatesFrame_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["UpdatesFrame_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["UpdatesFrame_0"].BorderSizePixel = 0
 GUI["UpdatesFrame_0"].Position = UDim2.new(0.579871058, 0, -0.0319148935, 0)
@@ -599,9 +647,9 @@ GUI["ScrollingFrame_01"].Position = UDim2.new(0.214285716, 0, 0.177304968, 0)
 GUI["ScrollingFrame_01"].Size = UDim2.new(1, 0, 0, 69)
 GUI["ScrollingFrame_01"].Parent = GUI["UpdatesFrame_0"]
 
-GUI["Updates_0"].Font = Enum.Font.Gotham
+GUI["Updates_0"].FontFace = UIFont("Regular")
 GUI["Updates_0"].Text = "SKIBIDI TOILET"
-GUI["Updates_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Updates_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Updates_0"].TextSize = 9
 GUI["Updates_0"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["Updates_0"].AutomaticSize = Enum.AutomaticSize.Y
@@ -626,9 +674,9 @@ GUI["TopFrame_02"].Size = UDim2.new(1, 0, 0, 14)
 GUI["TopFrame_02"].Name = "TopFrame"
 GUI["TopFrame_02"].Parent = GUI["UpdatesFrame_0"]
 
-GUI["UpdatesText_0"].Font = Enum.Font.GothamBold
+GUI["UpdatesText_0"].FontFace = UIFont("Bold")
 GUI["UpdatesText_0"].Text = "Whats new?!"
-GUI["UpdatesText_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["UpdatesText_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UpdatesText_0"].TextSize = 11
 GUI["UpdatesText_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["UpdatesText_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -647,7 +695,7 @@ GUI["UIListLayout_015"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_015"].Parent = GUI["TopFrame_02"]
 
 GUI["Pen_0"].Image = "http://www.roblox.com/asset/?id=17648224301"
-GUI["Pen_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Pen_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["Pen_0"].BackgroundTransparency = 1
 GUI["Pen_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Pen_0"].BorderSizePixel = 0

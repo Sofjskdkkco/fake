@@ -226,6 +226,7 @@ GUI["TabChoices_0"].BackgroundTransparency = 1
 GUI["TabChoices_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TabChoices_0"].BorderSizePixel = 0
 GUI["TabChoices_0"].Position = UDim2.new(0, 0, 0.365999997, 0)
+GUI["TabChoices_0"].ScrollingDirection = Enum.ScrollingDirection.Y
 GUI["TabChoices_0"].Size = UDim2.new(1, 0, 0, 215)
 GUI["TabChoices_0"].Name = "TabChoices"
 GUI["TabChoices_0"].Parent = GUI["SideFrame_0"]

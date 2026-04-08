@@ -100,7 +100,7 @@ GUI["UIStroke_0"].Transparency = 0.9
 GUI["UISizeConstraint_0"].MaxSize = Vector2.new(math.huge, 150)
 GUI["UISizeConstraint_0"].Parent = GUI["NotificationTemplate_0"]
 
-GUI["UIScale_0"].Scale = 1
+GUI["UIScale_0"].Scale = 0
 GUI["UIScale_0"].Parent = GUI["NotificationTemplate_0"]
 
 GUI["NotificationInsides_0"].AutomaticSize = Enum.AutomaticSize.Y
@@ -367,7 +367,6 @@ _G.PopUpNotificationOptions = function(Table)
 	end)
 
 	game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.Interactable = false
-	wait(0.1)
 	TweenService:Create(GUI.PopUpNotificationOptions_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0.7}):Play()
 	TweenService:Create(NotificationTemplate.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 	TweenService:Create(NotificationTemplate.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()

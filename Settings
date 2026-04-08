@@ -641,9 +641,42 @@ _G.CreateSettingTextBox({
 })
 
 _G.CreateSettingTextBox({
-	SettingName = "UIColor",
-	SettingDescription = "The color of the frames in the UI",
-	TextBoxText = _G.Table.GUISettings.UIColor,
+	SettingName = "UIFrameTransparency",
+	SettingDescription = "The transparency of frames of pages",
+	TextBoxText = _G.Table.GUISettings.UIFrameTransparency,
+	TextBoxPlaceholderText = "Number",
+	Function = function(TextEntered)
+		if IsNumber(TextEntered) then
+			if tonumber(TextEntered) > 1.5 or tonumber(TextEntered) < 0.5 then
+				_G.PopUpNotificationOptions({
+					Title = "Error!",
+					Message = "Must not be greater than 1.5 or lower than 0.5",
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
+			else
+				_G.Table.GUISettings.UIFrameTransparency = tonumber(TextEntered)
+				SaveSettings()
+			end
+		else
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Invalid input. Must be a number.",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
+
+		ChangeTextOfTextBoxSetting("UIFrameTransparency", _G.Table.GUISettings.UIFrameTransparency)
+	end,
+})
+
+_G.CreateSettingTextBox({
+	SettingName = "UIPrimaryColor",
+	SettingDescription = "The primary color of the frames in the UI",
+	TextBoxText = _G.Table.GUISettings.UIPrimaryColor,
 	TextBoxPlaceholderText = "RGB",
 	Function = function(TextEntered)
 		if StringToRGB(TextEntered) == false then
@@ -655,7 +688,7 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		else
-			_G.Table.GUISettings.UIColor = StringToRGB(TextEntered)
+			_G.Table.GUISettings.UIPrimaryColor = StringToRGB(TextEntered)
 			SaveSettings()
 
 			_G.PopUpNotificationOptions({
@@ -667,7 +700,38 @@ _G.CreateSettingTextBox({
 			})
 		end
 
-		ChangeTextOfTextBoxSetting("UIColor", _G.Table.GUISettings.UIColor)
+		ChangeTextOfTextBoxSetting("UIPrimaryColor", _G.Table.GUISettings.UIPrimaryColor)
+	end,
+})
+
+_G.CreateSettingTextBox({
+	SettingName = "UISecondaryColor",
+	SettingDescription = "The secondary color of the frames in the UI",
+	TextBoxText = _G.Table.GUISettings.UISecondaryColor,
+	TextBoxPlaceholderText = "RGB",
+	Function = function(TextEntered)
+		if StringToRGB(TextEntered) == false then
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Invalid input. Must be a valid RGB.",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		else
+			_G.Table.GUISettings.UISecondaryColor = StringToRGB(TextEntered)
+			SaveSettings()
+
+			_G.PopUpNotificationOptions({
+				Title = "Setting Saved!",
+				Message = "Please re-execute VexHub to see changes",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
+
+		ChangeTextOfTextBoxSetting("UISecondaryColor", _G.Table.GUISettings.UISecondaryColor)
 	end,
 })
 

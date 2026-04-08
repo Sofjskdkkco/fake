@@ -141,7 +141,7 @@ GUI["UIListLayout_01"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_01"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_01"].Parent = GUI["Buttons_0"]
 
-GUI["Button1_0"].Font = UIFont("Bold")
+GUI["Button1_0"].FontFace = UIFont("Bold")
 GUI["Button1_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Button1_0"].TextSize = 12
 GUI["Button1_0"].TextWrapped = true
@@ -170,7 +170,7 @@ GUI["UIStroke_01"].Parent = GUI["Button1_0"]
 
 GUI["UIScale_01"].Parent = GUI["Button1_0"]
 
-GUI["Button2_0"].Font = UIFont("Bold")
+GUI["Button2_0"].FontFace = UIFont("Bold")
 GUI["Button2_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Button2_0"].TextSize = 12
 GUI["Button2_0"].TextWrapped = true
@@ -208,7 +208,7 @@ GUI["TopFrame_0"].Size = UDim2.new(1, 0, 0, 0)
 GUI["TopFrame_0"].Name = "TopFrame"
 GUI["TopFrame_0"].Parent = GUI["NotificationInsides_0"]
 
-GUI["Title_0"].Font = UIFont("Bold")
+GUI["Title_0"].FontFace = UIFont("Bold")
 GUI["Title_0"].Text = "Title"
 GUI["Title_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Title_0"].TextSize = 14
@@ -224,7 +224,7 @@ GUI["Title_0"].Size = UDim2.new(0.899999976, 0, 0, 0)
 GUI["Title_0"].Name = "Title"
 GUI["Title_0"].Parent = GUI["TopFrame_0"]
 
-GUI["Message_0"].Font = UIFont("Medium")
+GUI["Message_0"].FontFace = UIFont("Medium")
 GUI["Message_0"].Text = "Message"
 GUI["Message_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Message_0"].TextSize = 9

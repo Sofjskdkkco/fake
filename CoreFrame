@@ -41,7 +41,7 @@ function UIFont(FontWeight)
 	if _G.Table.GUISettings.UIBoldText == true then
 		FontWeight = "Bold"
 	end
-	
+
 	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
 		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
 	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
@@ -207,6 +207,7 @@ GUI["Logo_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageC
 GUI["Logo_0"].Size = UDim2.new(0, 30, 0, 30)
 GUI["Logo_0"].Name = "Logo"
 GUI["Logo_0"].Parent = GUI["TopFrame_0"]
+GUI["Logo_0"]:SetAttribute("UIImageColor", true)
 
 GUI["exHub_0"].FontFace = UIFont("Bold")
 GUI["exHub_0"].Text = "exHub"
@@ -220,6 +221,9 @@ GUI["exHub_0"].BorderSizePixel = 0
 GUI["exHub_0"].Size = UDim2.new(0, 0, 0, 30)
 GUI["exHub_0"].Name = "exHub"
 GUI["exHub_0"].Parent = GUI["TopFrame_0"]
+GUI["exHub_0"]:SetAttribute("UIFont", true)
+GUI["exHub_0"]:SetAttribute("UIBoldText", true)
+GUI["exHub_0"]:SetAttribute("UITextColor", true)
 
 GUI["TabChoices_0"].AutomaticCanvasSize = Enum.AutomaticSize.Y
 GUI["TabChoices_0"].CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -253,6 +257,9 @@ GUI["SectionsNameTemplate_0"].Size = UDim2.new(0, 120, 0, 4)
 GUI["SectionsNameTemplate_0"].Visible = false
 GUI["SectionsNameTemplate_0"].Name = "SectionsNameTemplate"
 GUI["SectionsNameTemplate_0"].Parent = GUI["TabChoices_0"]
+GUI["SectionsNameTemplate_0"]:SetAttribute("UIFont", true)
+GUI["SectionsNameTemplate_0"]:SetAttribute("UIBoldText", true)
+GUI["SectionsNameTemplate_0"]:SetAttribute("UITextColor", true)
 
 GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(47.0000009983778, 49.00000087916851, 58.00000034272671)
 GUI["Border_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -301,6 +308,7 @@ GUI["TabImage_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIIm
 GUI["TabImage_0"].Size = UDim2.new(0, 25, 0, 25)
 GUI["TabImage_0"].Name = "TabImage"
 GUI["TabImage_0"].Parent = GUI["TabTemplate_0"]
+GUI["TabImage_0"]:SetAttribute("UIImageColor", true)
 
 GUI["TabName_0"].FontFace = UIFont("Bold")
 GUI["TabName_0"].Text = "Required Accessories"
@@ -317,6 +325,9 @@ GUI["TabName_0"].BorderSizePixel = 0
 GUI["TabName_0"].Size = UDim2.new(0, 85, 0, 20)
 GUI["TabName_0"].Name = "TabName"
 GUI["TabName_0"].Parent = GUI["TabTemplate_0"]
+GUI["TabName_0"]:SetAttribute("UIFont", true)
+GUI["TabName_0"]:SetAttribute("UIBoldText", true)
+GUI["TabName_0"]:SetAttribute("UITextColor", true)
 
 GUI["RightFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["RightFrame_0"].BackgroundTransparency = 1
@@ -410,6 +421,7 @@ GUI["Top_0"].Position = UDim2.new(0.0675675645, 0, -0.0240000002, 0)
 GUI["Top_0"].Size = UDim2.new(1, 0, 0, 30)
 GUI["Top_0"].Name = "Top"
 GUI["Top_0"].Parent = GUI["RightFrame_0"]
+GUI["Top_0"]:SetAttribute("UIPrimaryColor", "0, 0, 0")
 
 GUI["UICorner_04"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_04"].Parent = GUI["Top_0"]
@@ -459,6 +471,9 @@ GUI["DisplayNameAndUsername_0"].Position = UDim2.new(-0.146153852, 0, 0.23333333
 GUI["DisplayNameAndUsername_0"].Size = UDim2.new(0, 100, 1, 0)
 GUI["DisplayNameAndUsername_0"].Name = "DisplayNameAndUsername"
 GUI["DisplayNameAndUsername_0"].Parent = GUI["LeftSide_0"]
+GUI["DisplayNameAndUsername_0"]:SetAttribute("UIFont", true)
+GUI["DisplayNameAndUsername_0"]:SetAttribute("UIBoldText", true)
+GUI["DisplayNameAndUsername_0"]:SetAttribute("UITextColor", true)
 
 GUI["ProfilePicture_0"].Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..LocalPlayer.UserId.."&width=420&height=420&format=png"
 GUI["ProfilePicture_0"].BackgroundColor3 = Color3.new(UIPrimaryColor(18, 19, 20))
@@ -468,13 +483,15 @@ GUI["ProfilePicture_0"].LayoutOrder = 1
 GUI["ProfilePicture_0"].Size = UDim2.new(0, 23, 0, 23)
 GUI["ProfilePicture_0"].Name = "ProfilePicture"
 GUI["ProfilePicture_0"].Parent = GUI["LeftSide_0"]
+GUI["ProfilePicture_0"]:SetAttribute("UIPrimaryColor", "18, 19, 20")
 
 GUI["UICorner_05"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_05"].Parent = GUI["ProfilePicture_0"]
 
-GUI["UIStroke_0"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UISecondaryColor))
+GUI["UIStroke_0"].Color = Color3.new(UISecondaryColor(0,0,0))
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
 GUI["UIStroke_0"].Transparency = 0.2
+GUI["UIStroke_0"]:SetAttribute("UISecondaryColor", true)
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -510,6 +527,7 @@ GUI["Close_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextC
 GUI["Close_0"].Size = UDim2.new(0, 23, 0, 23)
 GUI["Close_0"].Name = "Close"
 GUI["Close_0"].Parent = GUI["RightSide_0"]
+GUI["Close_0"]:SetAttribute("UITextColor", true)
 
 GUI["UICorner_06"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_06"].Parent = GUI["Close_0"]
@@ -530,6 +548,7 @@ GUI["UIGradient_01"].Color = ColorSequence.new{
 }
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["MainContents_0"]
+GUI["UIGradient_01"]:SetAttribute("UIPrimaryColor", "-7, -8, -10")
 
 GUI["CoverFrame_0"].Image = "rbxassetid://14803348752"
 GUI["CoverFrame_0"].ImageTransparency = 1
@@ -543,6 +562,8 @@ GUI["CoverFrame_0"].Size = UDim2.new(1, 0, 1, 0)
 GUI["CoverFrame_0"].ZIndex = 100
 GUI["CoverFrame_0"].Name = "CoverFrame"
 GUI["CoverFrame_0"].Parent = GUI["MainFrame_0"]
+GUI["CoverFrame_0"]:SetAttribute("UIPrimaryColor", "-7 , -8, -10")
+GUI["CoverFrame_0"]:SetAttribute("UIImageColor", true)
 
 GUI["UICorner_07"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_07"].Parent = GUI["CoverFrame_0"]

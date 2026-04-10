@@ -225,6 +225,7 @@ GUI["exHub_0"].Parent = GUI["TopFrame_0"]
 GUI["exHub_0"]:SetAttribute("UIFont", "Bold")
 GUI["exHub_0"]:SetAttribute("UIBoldText", true)
 GUI["exHub_0"]:SetAttribute("UITextColor", true)
+GUI["exHub_0"]:SetAttribute("UITextSize", true)
 
 GUI["TabChoices_0"].AutomaticCanvasSize = Enum.AutomaticSize.Y
 GUI["TabChoices_0"].CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -247,7 +248,7 @@ GUI["UIListLayout_03"].Parent = GUI["TabChoices_0"]
 
 GUI["SectionsNameTemplate_0"].FontFace = UIFont("Bold")
 GUI["SectionsNameTemplate_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
-GUI["SectionsNameTemplate_0"].TextSize = 9
+GUI["SectionsNameTemplate_0"].TextSize = 9+_G.Table.GUISettings.UITextColor
 GUI["SectionsNameTemplate_0"].TextTransparency = 0.5
 GUI["SectionsNameTemplate_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["SectionsNameTemplate_0"].BackgroundTransparency = 1
@@ -261,11 +262,13 @@ GUI["SectionsNameTemplate_0"].Parent = GUI["TabChoices_0"]
 GUI["SectionsNameTemplate_0"]:SetAttribute("UIFont", "Bold")
 GUI["SectionsNameTemplate_0"]:SetAttribute("UIBoldText", true)
 GUI["SectionsNameTemplate_0"]:SetAttribute("UITextColor", true)
+GUI["SectionsNameTemplate_0"]:SetAttribute("UITextSize", true)
 
-GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(47.0000009983778, 49.00000087916851, 58.00000034272671)
+GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_0"].BorderSizePixel = 0
 GUI["Border_0"].Size = UDim2.new(0.899999976, 0, 0, 1)
+GUI["Border_0"].BackgroundTransparency = 0.8
 GUI["Border_0"].Name = "Border"
 GUI["Border_0"].Parent = GUI["TabChoices_0"]
 
@@ -313,7 +316,7 @@ GUI["TabImage_0"].Parent = GUI["TabTemplate_0"]
 GUI["TabName_0"].FontFace = UIFont("Bold")
 GUI["TabName_0"].Text = "Required Accessories"
 GUI["TabName_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
-GUI["TabName_0"].TextSize = 12
+GUI["TabName_0"].TextSize = 12+_G.Table.GUISettings.UITextColor
 GUI["TabName_0"].TextTransparency = 0
 GUI["TabName_0"].TextWrapped = true
 GUI["TabName_0"].TextXAlignment = Enum.TextXAlignment.Left
@@ -328,6 +331,7 @@ GUI["TabName_0"].Parent = GUI["TabTemplate_0"]
 GUI["TabName_0"]:SetAttribute("UIFont", "Bold")
 GUI["TabName_0"]:SetAttribute("UIBoldText", true)
 GUI["TabName_0"]:SetAttribute("UITextColor", true)
+GUI["TabName_0"]:SetAttribute("UITextSize", true)
 
 GUI["RightFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["RightFrame_0"].BackgroundTransparency = 1
@@ -460,7 +464,7 @@ GUI["DisplayNameAndUsername_0"].FontFace = UIFont("Regular")
 GUI["DisplayNameAndUsername_0"].RichText = true
 GUI["DisplayNameAndUsername_0"].Text = '<b>'..LocalPlayer.DisplayName..'</b>\n<font size="8">@'..LocalPlayer.Name..'</font>'
 GUI["DisplayNameAndUsername_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
-GUI["DisplayNameAndUsername_0"].TextSize = 14
+GUI["DisplayNameAndUsername_0"].TextSize = 14+_G.Table.GUISettings.UITextColor
 GUI["DisplayNameAndUsername_0"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["DisplayNameAndUsername_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["DisplayNameAndUsername_0"].BackgroundTransparency = 1
@@ -474,6 +478,7 @@ GUI["DisplayNameAndUsername_0"].Parent = GUI["LeftSide_0"]
 GUI["DisplayNameAndUsername_0"]:SetAttribute("UIFont", "Regular")
 GUI["DisplayNameAndUsername_0"]:SetAttribute("UIBoldText", true)
 GUI["DisplayNameAndUsername_0"]:SetAttribute("UITextColor", true)
+GUI["DisplayNameAndUsername_0"]:SetAttribute("UITextSize", true)
 
 GUI["ProfilePicture_0"].Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..LocalPlayer.UserId.."&width=420&height=420&format=png"
 GUI["ProfilePicture_0"].BackgroundColor3 = Color3.new(UIPrimaryColor(18, 19, 20))
@@ -666,7 +671,7 @@ _G.CreateTabButton = function(TabName, TabImage, LayoutOrder)
 	NewTabButton.TabName.Text = NameHidePlugin or TabName
 
 	if string.len(NewTabButton.TabName.Text) > 10 then
-		NewTabButton.TabName.TextSize = 10
+		NewTabButton.TabName.TextSize = NewTabButton.TabName.TextSize-2
 	end
 	
 	if not (NameHidePlugin) then

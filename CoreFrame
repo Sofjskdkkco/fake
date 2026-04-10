@@ -221,7 +221,7 @@ GUI["exHub_0"].BorderSizePixel = 0
 GUI["exHub_0"].Size = UDim2.new(0, 0, 0, 30)
 GUI["exHub_0"].Name = "exHub"
 GUI["exHub_0"].Parent = GUI["TopFrame_0"]
-GUI["exHub_0"]:SetAttribute("UIFont", true)
+GUI["exHub_0"]:SetAttribute("UIFont", "Bold")
 GUI["exHub_0"]:SetAttribute("UIBoldText", true)
 GUI["exHub_0"]:SetAttribute("UITextColor", true)
 
@@ -257,7 +257,7 @@ GUI["SectionsNameTemplate_0"].Size = UDim2.new(0, 120, 0, 4)
 GUI["SectionsNameTemplate_0"].Visible = false
 GUI["SectionsNameTemplate_0"].Name = "SectionsNameTemplate"
 GUI["SectionsNameTemplate_0"].Parent = GUI["TabChoices_0"]
-GUI["SectionsNameTemplate_0"]:SetAttribute("UIFont", true)
+GUI["SectionsNameTemplate_0"]:SetAttribute("UIFont", "Bold")
 GUI["SectionsNameTemplate_0"]:SetAttribute("UIBoldText", true)
 GUI["SectionsNameTemplate_0"]:SetAttribute("UITextColor", true)
 
@@ -325,7 +325,7 @@ GUI["TabName_0"].BorderSizePixel = 0
 GUI["TabName_0"].Size = UDim2.new(0, 85, 0, 20)
 GUI["TabName_0"].Name = "TabName"
 GUI["TabName_0"].Parent = GUI["TabTemplate_0"]
-GUI["TabName_0"]:SetAttribute("UIFont", true)
+GUI["TabName_0"]:SetAttribute("UIFont", "Bold")
 GUI["TabName_0"]:SetAttribute("UIBoldText", true)
 GUI["TabName_0"]:SetAttribute("UITextColor", true)
 
@@ -471,7 +471,7 @@ GUI["DisplayNameAndUsername_0"].Position = UDim2.new(-0.146153852, 0, 0.23333333
 GUI["DisplayNameAndUsername_0"].Size = UDim2.new(0, 100, 1, 0)
 GUI["DisplayNameAndUsername_0"].Name = "DisplayNameAndUsername"
 GUI["DisplayNameAndUsername_0"].Parent = GUI["LeftSide_0"]
-GUI["DisplayNameAndUsername_0"]:SetAttribute("UIFont", true)
+GUI["DisplayNameAndUsername_0"]:SetAttribute("UIFont", "Regular")
 GUI["DisplayNameAndUsername_0"]:SetAttribute("UIBoldText", true)
 GUI["DisplayNameAndUsername_0"]:SetAttribute("UITextColor", true)
 

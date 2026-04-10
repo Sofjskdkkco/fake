@@ -658,7 +658,7 @@ _G.CreateSettingTextBox({
 			else
 				_G.Table.GUISettings.UIFrameTransparency = tonumber(TextEntered)
 				SaveSettings()
-				
+
 				_G.PopUpNotificationOptions({
 					Title = "Setting Saved!",
 					Message = "Please re-execute VexHub to see changes",
@@ -684,11 +684,11 @@ _G.CreateSettingTextBox({
 _G.CreateSettingBoolean({
 	SettingName = "UIBoldText",
 	SettingDescription = "Only use bold text in fonts",
-	IsEnabled = _G.Table.GUISettings.UIBoldText,
+	IsEnabled = false,
 	EnableFunction = function()
 		_G.Table.GUISettings.UIBoldText = true
 		SaveSettings()
-		
+
 		_G.PopUpNotificationOptions({
 			Title = "Setting Saved!",
 			Message = "Please re-execute VexHub to see changes",
@@ -729,7 +729,7 @@ _G.CreateSettingTextBox({
 			else
 				_G.Table.GUISettings.UITextSize = tonumber(TextEntered)
 				SaveSettings()
-				
+
 				_G.PopUpNotificationOptions({
 					Title = "Setting Saved!",
 					Message = "Please re-execute VexHub to see changes",

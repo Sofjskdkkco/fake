@@ -19,6 +19,10 @@ function UIPrimaryColor(RedTweak, GreenTweak, BlueTweak)
 end
 
 function UIFont(FontWeight)
+	if _G.Table.GUISettings.UIBoldText == true then
+		FontWeight = "Bold"
+	end
+	
 	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
 		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
 	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then

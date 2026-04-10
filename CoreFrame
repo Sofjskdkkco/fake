@@ -488,10 +488,8 @@ GUI["ProfilePicture_0"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(18, 19, 20
 GUI["UICorner_05"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_05"].Parent = GUI["ProfilePicture_0"]
 
-GUI["UIStroke_0"].Color = Color3.new(UISecondaryColor(0,0,0))
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
-GUI["UIStroke_0"].Transparency = 0.2
-GUI["UIStroke_0"]:SetAttribute("UISecondaryColor", true)
+GUI["UIStroke_0"].Transparency = 0.8
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),

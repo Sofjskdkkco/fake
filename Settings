@@ -466,7 +466,7 @@ end
 function StringToRGB2(ToConvert)
 	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
 	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
-	return ColorR,ColorG,ColorB
+	return ColorR/255,ColorG/255,ColorB/255
 end
 
 _G.CreateSettingBoolean = function(SettingName, SettingVariable, SettingDescription, EnableFunction, DisableFunction)
@@ -836,7 +836,7 @@ _G.CreateSettingTextBox(
 			SaveSettings()
 			
 			local function RGBToSomething(rgb)
-				return rgb.R, rgb.B, rgb.B
+				return rgb.R, rgb.G, rgb.B
 			end
 
 			_G.CloseVexHub()

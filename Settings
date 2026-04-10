@@ -443,6 +443,7 @@ _G.CreateSettingBoolean = function(Table)
 	Template.Visible = true
 	Template.SettingNameAndDescription.Text = '<b><font size="14">'..SettingName..'</font></b>\n<font transparency="0.3">'..SettingDescription..'</font>'
 	Template.BooleanMargin.Boolean.MouseButton1Down:Connect(function()
+		print("setting variable: "..SettingVariable)
 		if SettingVariable == false then
 			EnableFunction()
 		elseif SettingVariable == true then
@@ -450,6 +451,7 @@ _G.CreateSettingBoolean = function(Table)
 		end
 		
 		UpdateColor(SettingVariable)
+		print("setting variable: "..SettingVariable)
 	end)
 
 	UpdateColor(SettingVariable)

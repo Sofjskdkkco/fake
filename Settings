@@ -836,8 +836,14 @@ _G.CreateSettingTextBox(
 			SaveSettings()
 
 			local function test(FirstColor, SecondColor)
+				function StringToRGB3(ToConvert)
+					local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+					ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+					return ColorR,ColorG,ColorB
+				end
+				
 				local RedFirst, GreenFirst, BlueFirst = StringToRGB2(_G.Table.GUISettings[FirstColor])
-				local RedSecond, GreenSecond, BlueSecond = StringToRGB2(SecondColor)
+				local RedSecond, GreenSecond, BlueSecond = StringToRGB3(SecondColor)
 				
 				local Red = RedFirst+RedSecond
 				local Green = GreenFirst+GreenSecond
@@ -845,8 +851,6 @@ _G.CreateSettingTextBox(
 				
 				return Red/255, Green/255, Blue/255
 			end
-			
-			
 
 			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do

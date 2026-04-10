@@ -663,7 +663,7 @@ _G.CreateSettingBoolean({
 
 		_G.PopUpNotificationOptions({
 			Title = "Setting Saved!",
-			Message = "Please re-execute VexHub to see changes",
+			Message = "Please re-execute VexHub to see changes (true)",
 			Button2Text = "Close",
 			Button2Function = function()
 			end,
@@ -675,7 +675,7 @@ _G.CreateSettingBoolean({
 
 		_G.PopUpNotificationOptions({
 			Title = "Setting Saved!",
-			Message = "Please re-execute VexHub to see changes",
+			Message = "Please re-execute VexHub to see changes (false",
 			Button2Text = "Close",
 			Button2Function = function()
 			end,

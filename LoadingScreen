@@ -136,7 +136,7 @@ local function Load(Name, Link)
 end
 
 NewMessage("Having troubles using VexHub? Join our Discord server! dsc.gg/vhub")
-NewMessage("GitHub Version 18")
+NewMessage("GitHub Version "..loadstring(game:HttpGet(("https://api.github.com/repos/SkibidiSource/fake/commits"),true))())
 
 Load("Table", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Table")
 Load("CoreFrame", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/CoreFrame")

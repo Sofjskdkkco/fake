@@ -845,6 +845,8 @@ _G.CreateSettingTextBox(
 				local RedFirst, GreenFirst, BlueFirst = StringToRGB2(_G.Table.GUISettings[FirstColor])
 				local RedSecond, GreenSecond, BlueSecond = StringToRGB3(SecondColor)
 				
+				print(RedFirst,GreenFirst,BlueFirst,RedSecond,GreenSecond,BlueSecond)
+				
 				local Red = RedFirst+RedSecond
 				local Green = GreenFirst+GreenSecond
 				local Blue = BlueFirst+BlueSecond
@@ -854,7 +856,7 @@ _G.CreateSettingTextBox(
 
 			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
-				if (Child:GetAttribute("UIPrimaryColor")) then
+				if (Child:GetAttribute("UIPrimaryColor")) then  
 					print(Child.Name)
 					if Child:IsA("UIGradient") then
 						Child.Color = ColorSequence.new{

@@ -437,16 +437,16 @@ _G.CreateSettingBoolean = function(SettingName, SettingVariable, SettingDescript
 	Template.Visible = true
 	Template.SettingNameAndDescription.Text = '<b><font size="14">'..SettingName..'</font></b>\n<font transparency="0.3">'..SettingDescription..'</font>'
 	Template.BooleanMargin.Boolean.MouseButton1Down:Connect(function()
-		if SettingVariable == false then
+		if SettingVariable() == false then
 			EnableFunction()
-		elseif SettingVariable == true then
+		elseif SettingVariable() == true then
 			DisableFunction()
 		end
 		
-		UpdateColor(SettingVariable)
+		UpdateColor(SettingVariable())
 	end)
 
-	UpdateColor(SettingVariable)
+	UpdateColor(SettingVariable())
 end
 
 _G.CreateSettingTextBox = function(SettingName, SettingVariable, SettingDescription, TextBoxPlaceholderText, Function)
@@ -456,14 +456,14 @@ _G.CreateSettingTextBox = function(SettingName, SettingVariable, SettingDescript
 	Template.Parent = GUI["ScrollingFrame_011"]
 	Template.Visible = true
 	Template.SettingNameAndDescription.Text = '<b><font size="14">'..SettingName..'</font></b>\n<font transparency="0.3">'..SettingDescription..'</font>'
-	Template.TextBoxMargin.TextBoxParent.TextBox.Text = tostring(SettingVariable)
+	Template.TextBoxMargin.TextBoxParent.TextBox.Text = tostring(SettingVariable())
 	Template.TextBoxMargin.TextBoxParent.TextBox.PlaceholderText = TextBoxPlaceholderText
 	Template.TextBoxMargin.TextBoxParent.TextBox.FocusLost:Connect(function(enterPressed)
 		local TextEntered = Template.TextBoxMargin.TextBoxParent.TextBox.ContentText
 		Function(TextEntered)
 		
-		if SettingVariable ~= nil then
-			Template.TextBoxMargin.TextBoxParent.TextBox.Text = tostring(SettingVariable)
+		if SettingVariable() ~= nil then
+			Template.TextBoxMargin.TextBoxParent.TextBox.Text = tostring(SettingVariable())
 		end
 	end)
 end
@@ -482,7 +482,7 @@ end
 
 _G.CreateSettingTextBox(
 	"Wallpaper",
-	_G.Table.GUISettings.Wallpaper,
+	function() return _G.Table.GUISettings.Wallpaper end,
 	"The image of the UI background",
 	"png/ID/link",
 	function(TextEntered)
@@ -565,7 +565,7 @@ _G.CreateSettingTextBox(
 
 _G.CreateSettingTextBox(
 	"UIScale",
-	_G.Table.GUISettings.UIScale,
+	function() return _G.Table.GUISettings.UIScale end,
 	"The scale of the UI",
 	"Number",
 	function(TextEntered)
@@ -600,7 +600,7 @@ _G.CreateSettingTextBox(
 
 _G.CreateSettingTextBox(
 	"UIFrameTransparency",
-	_G.Table.GUISettings.UIFrameTransparency,
+	function() return _G.Table.GUISettings.UIFrameTransparency end,
 	"The transparency of frames of pages",
 	"Number",
 	function(TextEntered)
@@ -639,7 +639,7 @@ _G.CreateSettingTextBox(
 
 _G.CreateSettingBoolean(
 	"UIBoldText", 
-	_G.Table.GUISettings.UIBoldText, 
+	function() return _G.Table.GUISettings.UIBoldText end, 
 	"Only use bold in texts",
 	function()
 		_G.Table.GUISettings.UIBoldText = true
@@ -669,7 +669,7 @@ _G.CreateSettingBoolean(
 
 _G.CreateSettingTextBox(
 	"UITextSize",
-	_G.Table.GUISettings.UITextSize,
+	function() return _G.Table.GUISettings.UITextSize end,
 	"The additional text size of the UI (0 is default)",
 	"Number",
 	function(TextEntered)
@@ -708,7 +708,7 @@ _G.CreateSettingTextBox(
 
 _G.CreateSettingTextBox(
 	"UIFont",
-	_G.Table.GUISettings.UIFont,
+	function() return _G.Table.GUISettings.UIFont end,
 	"The font of texts in the UI",
 	"FontName",
 	function(TextEntered)
@@ -769,7 +769,7 @@ _G.CreateSettingButton(
 
 _G.CreateSettingTextBox(
 	"UIPrimaryColor",
-	_G.Table.GUISettings.UIPrimaryColor,
+	function() return _G.Table.GUISettings.UIPrimaryColor end,
 	"The primary color of the frames in the UI",
 	"RGB",
 	function(TextEntered)
@@ -798,7 +798,7 @@ _G.CreateSettingTextBox(
 
 _G.CreateSettingTextBox(
 	"UISecondaryColor",
-	_G.Table.GUISettings.UISecondaryColor,
+	function() return _G.Table.GUISettings.UISecondaryColor end,
 	"The secondary color of the frames in the UI",
 	"RGB",
 	function(TextEntered)
@@ -827,7 +827,7 @@ _G.CreateSettingTextBox(
 
 _G.CreateSettingTextBox(
 	"UIShadowColor",
-	_G.Table.GUISettings.UIShadowColor,
+	function() return _G.Table.GUISettings.UIShadowColor end,
 	"The color of the shadow in the UI",
 	"RGB",
 	function(TextEntered)
@@ -856,7 +856,7 @@ _G.CreateSettingTextBox(
 
 _G.CreateSettingTextBox(
 	"UITextColor",
-	_G.Table.GUISettings.UITextColor,
+	function() return _G.Table.GUISettings.UITextColor end,
 	"The color of the texts in the UI",
 	"RGB",
 	function(TextEntered)
@@ -885,7 +885,7 @@ _G.CreateSettingTextBox(
 
 _G.CreateSettingTextBox(
 	"UIImageColor",
-	_G.Table.GUISettings.UIImageColor,
+	function() return _G.Table.GUISettings.UIImageColor end,
 	"The color of the images in the UI",
 	"RGB",
 	function(TextEntered)

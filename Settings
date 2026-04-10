@@ -832,9 +832,9 @@ _G.CreateSettingTextBox(
 			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UIPrimaryColor")) then
-					local UIPrimaryColorRed = tonumber(Child:GetAttribute("UIPrimaryColor").R*255)
-					local UIPrimaryColorGreen = tonumber(Child:GetAttribute("UIPrimaryColor").G*255)
-					local UIPrimaryColorBlue  = tonumber(Child:GetAttribute("UIPrimaryColor").B*255)
+					local UIPrimaryColorRed = math.floor(Child:GetAttribute("UIPrimaryColor").R*255)
+					local UIPrimaryColorGreen = math.floor(Child:GetAttribute("UIPrimaryColor").G*255)
+					local UIPrimaryColorBlue  = math.floor(Child:GetAttribute("UIPrimaryColor").B*255)
 					
 					print(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue)
 					if Child:IsA("UIGradient") then

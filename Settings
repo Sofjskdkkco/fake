@@ -836,13 +836,15 @@ _G.CreateSettingTextBox(
 			SaveSettings()
 
 			local function test(FirstColor, SecondColor)
-				function StringToRGB3(ToConvert)
-					local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
-					ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
-					return ColorR,ColorG,ColorB
+				local function StringToRGB3(ToConvert)
+					local New = string.split(ToConvert, ",")
+					return tonumber(New[1]), tonumber(New[2]), tonumber(New[3])
 				end
 				
-				local RedFirst, GreenFirst, BlueFirst = StringToRGB2(_G.Table.GUISettings[FirstColor])
+				print("Second Color:")
+				print(SecondColor)
+				
+				local RedFirst, GreenFirst, BlueFirst = StringToRGB3(_G.Table.GUISettings[FirstColor])
 				local RedSecond, GreenSecond, BlueSecond = StringToRGB3(SecondColor)
 				
 				print(RedFirst,GreenFirst,BlueFirst,RedSecond,GreenSecond,BlueSecond)

@@ -843,7 +843,7 @@ _G.CreateSettingTextBox(
 							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue)))
 						}
 					else
-						Child.BackgroundColor3 = Color3.new((UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue)))
+						Child.BackgroundColor3 = Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue))
 					end
 				end
 			end

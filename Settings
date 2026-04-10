@@ -658,6 +658,14 @@ _G.CreateSettingTextBox({
 			else
 				_G.Table.GUISettings.UIFrameTransparency = tonumber(TextEntered)
 				SaveSettings()
+				
+				_G.PopUpNotificationOptions({
+					Title = "Setting Saved!",
+					Message = "Please re-execute VexHub to see changes",
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
 			end
 		else
 			_G.PopUpNotificationOptions({
@@ -670,6 +678,77 @@ _G.CreateSettingTextBox({
 		end
 
 		ChangeTextOfTextBoxSetting("UIFrameTransparency", _G.Table.GUISettings.UIFrameTransparency)
+	end,
+})
+
+_G.CreateSettingBoolean({
+	SettingName = "UIBoldText",
+	SettingDescription = "Only use bold text in fonts",
+	IsEnabled = _G.Table.GUISettings.UIBoldText,
+	EnableFunction = function()
+		_G.Table.GUISettings.UIBoldText = true
+		SaveSettings()
+		
+		_G.PopUpNotificationOptions({
+			Title = "Setting Saved!",
+			Message = "Please re-execute VexHub to see changes",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	end,
+	DisableFunction = function()
+		_G.Table.GUISettings.UIBoldText = false
+		SaveSettings()
+
+		_G.PopUpNotificationOptions({
+			Title = "Setting Saved!",
+			Message = "Please re-execute VexHub to see changes",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	end,
+})
+
+_G.CreateSettingTextBox({
+	SettingName = "UITextSize",
+	SettingDescription = "The additional text size of the UI (0 is default)",
+	TextBoxText = _G.Table.GUISettings.UITextSize,
+	TextBoxPlaceholderText = "Number",
+	Function = function(TextEntered)
+		if IsNumber(TextEntered) then
+			if tonumber(TextEntered) > 3 or tonumber(TextEntered) < -3 then
+				_G.PopUpNotificationOptions({
+					Title = "Error!",
+					Message = "Must not be greater than 3 or lower than -3",
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
+			else
+				_G.Table.GUISettings.UITextSize = tonumber(TextEntered)
+				SaveSettings()
+				
+				_G.PopUpNotificationOptions({
+					Title = "Setting Saved!",
+					Message = "Please re-execute VexHub to see changes",
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
+			end
+		else
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Invalid input. Must be a number.",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
+
+		ChangeTextOfTextBoxSetting("UITextSize", _G.Table.GUISettings.UITextSize)
 	end,
 })
 

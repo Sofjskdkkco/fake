@@ -446,7 +446,7 @@ local function SaveSettings()
 	writefile("VexHub7/Settings.vex", JSon:Encode(_G.Table.GUISettings))
 end
 
-function StringToRGB(String)
+function StringToValidRGBString(String)
 	local RGB = string.split(String, ",")
 	if (RGB[2]) and (RGB[3]) and not (RGB[4]) then
 		if tonumber(RGB[1]) or tonumber(RGB[2]) or tonumber(RGB[3]) then
@@ -461,12 +461,6 @@ function StringToRGB(String)
 	else
 		return false
 	end
-end
-
-function StringToRGB2(ToConvert)
-	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
-	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
-	return ColorR/255,ColorG/255,ColorB/255
 end
 
 _G.CreateSettingBoolean = function(SettingName, SettingVariable, SettingDescription, EnableFunction, DisableFunction)
@@ -823,7 +817,7 @@ _G.CreateSettingTextBox(
 	"The primary color of the frames in the UI",
 	"RGB",
 	function(TextEntered)
-		if StringToRGB(TextEntered) == false then
+		if StringToValidRGBString(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
 				Message = "Invalid input. Must be a valid RGB.",
@@ -832,33 +826,8 @@ _G.CreateSettingTextBox(
 				end,
 			})
 		else
-			_G.Table.GUISettings.UIPrimaryColor = StringToRGB(TextEntered)
+			_G.Table.GUISettings.UIPrimaryColor = StringToValidRGBString(TextEntered)
 			SaveSettings()
-
-			local function test(FirstColor, SecondColor)
-				local function StringToRGB3(ToConvert)
-					local New = string.split(ToConvert, ",")
-					return tonumber(New[1]), tonumber(New[2]), tonumber(New[3])
-				end
-				
-				print("Second Color:")
-				print(SecondColor)
-				
-				local RedFirst, GreenFirst, BlueFirst = StringToRGB3(_G.Table.GUISettings[FirstColor])
-				local RedSecond, GreenSecond, BlueSecond = StringToRGB3(SecondColor)
-				
-				print(RedFirst,GreenFirst,BlueFirst,RedSecond,GreenSecond,BlueSecond)
-				
-				local Red = RedFirst+RedSecond
-				local Green = GreenFirst+GreenSecond
-				local Blue = BlueFirst+BlueSecond
-				
-				print("returning:")
-				print(Red)
-				print(Green)
-				print(Blue)
-				return Red, Green, Blue
-			end
 
 			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
@@ -866,8 +835,8 @@ _G.CreateSettingTextBox(
 					print(Child.Name)
 					if Child:IsA("UIGradient") then
 						Child.Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.fromRGB(test("UIPrimaryColor", "0, 0, 0"))),
-							ColorSequenceKeypoint.new(1, Color3.fromRGB(test("UIPrimaryColor", "-7, -8, -10")))
+							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
 						}
 					end
 				end
@@ -883,7 +852,7 @@ _G.CreateSettingTextBox(
 	"The secondary color of the frames in the UI",
 	"RGB",
 	function(TextEntered)
-		if StringToRGB(TextEntered) == false then
+		if StringToValidRGBString(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
 				Message = "Invalid input. Must be a valid RGB.",
@@ -892,18 +861,18 @@ _G.CreateSettingTextBox(
 				end,
 			})
 		else
-			_G.Table.GUISettings.UISecondaryColor = StringToRGB(TextEntered)
+			_G.Table.GUISettings.UISecondaryColor = StringToValidRGBString(TextEntered)
 			SaveSettings()
 
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UISecondaryColor")) then
 					if Child:IsA("UIGradient") then
 						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.new(StringToRGB2(UISecondaryColor(0, 0, 0)))),
-							ColorSequenceKeypoint.new(1, Color3.new(StringToRGB2(UISecondaryColor(Child:GetAttribute("UISecondaryColor")))))
+							ColorSequenceKeypoint.new(0, Color3.new(StringToRGB(UISecondaryColor(0, 0, 0)))),
+							ColorSequenceKeypoint.new(1, Color3.new(StringToRGB(UISecondaryColor(Child:GetAttribute("UISecondaryColor")))))
 						}}):Play()
 					else
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = StringToRGB2(UISecondaryColor(Child:GetAttribute("UISecondaryColor")))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = StringToRGB(UISecondaryColor(Child:GetAttribute("UISecondaryColor")))}):Play()
 					end
 				end
 			end
@@ -917,7 +886,7 @@ _G.CreateSettingTextBox(
 	"The color of the shadow in the UI",
 	"RGB",
 	function(TextEntered)
-		if StringToRGB(TextEntered) == false then
+		if StringToValidRGBString(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
 				Message = "Invalid input. Must be a valid RGB.",
@@ -926,10 +895,10 @@ _G.CreateSettingTextBox(
 				end,
 			})
 		else
-			_G.Table.GUISettings.UIShadowColor = StringToRGB(TextEntered)
+			_G.Table.GUISettings.UIShadowColor = StringToValidRGBString(TextEntered)
 			SaveSettings()
 
-			TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = StringToRGB2(_G.Table.GUISettings.UIShadowColor)}):Play()
+			TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = StringToRGB(_G.Table.GUISettings.UIShadowColor)}):Play()
 		end
 	end
 )
@@ -940,7 +909,7 @@ _G.CreateSettingTextBox(
 	"The color of the texts in the UI",
 	"RGB",
 	function(TextEntered)
-		if StringToRGB(TextEntered) == false then
+		if StringToValidRGBString(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
 				Message = "Invalid input. Must be a valid RGB.",
@@ -949,14 +918,14 @@ _G.CreateSettingTextBox(
 				end,
 			})
 		else
-			_G.Table.GUISettings.UITextColor = StringToRGB(TextEntered)
+			_G.Table.GUISettings.UITextColor = StringToValidRGBString(TextEntered)
 			SaveSettings()	
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UITextColor")) then
 					if Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB2(_G.Table.GUISettings.UITextColor))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 					elseif Child:IsA("TextLabel") or Child:IsA("TextButton") or Child:IsA("TextBox") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB2(_G.Table.GUISettings.UITextColor))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 					end
 				end
 			end
@@ -970,7 +939,7 @@ _G.CreateSettingTextBox(
 	"The color of the images in the UI",
 	"RGB",
 	function(TextEntered)
-		if StringToRGB(TextEntered) == false then
+		if StringToValidRGBString(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
 				Message = "Invalid input. Must be a valid RGB.",
@@ -979,7 +948,7 @@ _G.CreateSettingTextBox(
 				end,
 			})
 		else
-			_G.Table.GUISettings.UIImageColor = StringToRGB(TextEntered)
+			_G.Table.GUISettings.UIImageColor = StringToValidRGBString(TextEntered)
 			SaveSettings()
 
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do

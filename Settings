@@ -463,6 +463,12 @@ function StringToRGB(String)
 	end
 end
 
+function StringToRGB2(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
 _G.CreateSettingBoolean = function(SettingName, SettingVariable, SettingDescription, EnableFunction, DisableFunction)
 	local Template = GUI["BooleanTemplate_013"]:Clone()
 
@@ -833,11 +839,11 @@ _G.CreateSettingTextBox(
 				if (Child:GetAttribute("UIPrimaryColor")) then
 					if Child:IsA("UIGradient") then
 						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(Child:GetAttribute("UIPrimaryColor"))))
+							ColorSequenceKeypoint.new(0, Color3.new(StringToRGB2(UIPrimaryColor(0, 0, 0)))),
+							ColorSequenceKeypoint.new(1, Color3.new(StringToRGB2(UIPrimaryColor(Child:GetAttribute("UIPrimaryColor")))))
 						}}):Play()
 					else
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = UIPrimaryColor(Child:GetAttribute("UIPrimaryColor"))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = StringToRGB2(UIPrimaryColor(Child:GetAttribute("UIPrimaryColor")))}):Play()
 					end
 				end
 			end
@@ -867,11 +873,11 @@ _G.CreateSettingTextBox(
 				if (Child:GetAttribute("UISecondaryColor")) then
 					if Child:IsA("UIGradient") then
 						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.new(UISecondaryColor(0, 0, 0))),
-							ColorSequenceKeypoint.new(1, Color3.new(UISecondaryColor(Child:GetAttribute("UISecondaryColor"))))
+							ColorSequenceKeypoint.new(0, Color3.new(StringToRGB2(UISecondaryColor(0, 0, 0)))),
+							ColorSequenceKeypoint.new(1, Color3.new(StringToRGB2(UISecondaryColor(Child:GetAttribute("UISecondaryColor")))))
 						}}):Play()
 					else
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = UISecondaryColor(Child:GetAttribute("UISecondaryColor"))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = StringToRGB2(UISecondaryColor(Child:GetAttribute("UISecondaryColor")))}):Play()
 					end
 				end
 			end
@@ -897,7 +903,7 @@ _G.CreateSettingTextBox(
 			_G.Table.GUISettings.UIShadowColor = StringToRGB(TextEntered)
 			SaveSettings()
 			
-			TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = _G.Table.GUISettings.UIShadowColor}):Play()
+			TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = StringToRGB2(_G.Table.GUISettings.UIShadowColor)}):Play()
 		end
 	end
 )
@@ -918,20 +924,13 @@ _G.CreateSettingTextBox(
 			})
 		else
 			_G.Table.GUISettings.UITextColor = StringToRGB(TextEntered)
-			SaveSettings()
-			
-			local function StringToRGBTest(ToConvert)
-				local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
-				ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
-				return ColorR/255,ColorG/255,ColorB/255
-			end
-			
+			SaveSettings()	
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UITextColor")) then
 					if Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGBTest(_G.Table.GUISettings.UITextColor))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB2(_G.Table.GUISettings.UITextColor))}):Play()
 					elseif Child:IsA("TextLabel") or Child:IsA("TextButton") or Child:IsA("TextBox") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGBTest(_G.Table.GUISettings.UITextColor))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB2(_G.Table.GUISettings.UITextColor))}):Play()
 					end
 				end
 			end

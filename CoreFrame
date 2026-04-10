@@ -191,7 +191,7 @@ GUI["TopFrame_0"].Size = UDim2.new(1, 0, 0, 30)
 GUI["TopFrame_0"].Name = "TopFrame"
 GUI["TopFrame_0"].Parent = GUI["SideFrame_0"]
 
-GUI["UIListLayout_02"].Padding = UDim.new(0, -3)
+GUI["UIListLayout_02"].Padding = UDim.new(0, 0)
 GUI["UIListLayout_02"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_02"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_02"].SortOrder = Enum.SortOrder.LayoutOrder
@@ -204,7 +204,7 @@ GUI["Logo_0"].BackgroundTransparency = 1
 GUI["Logo_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Logo_0"].BorderSizePixel = 0
 GUI["Logo_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
-GUI["Logo_0"].Size = UDim2.new(0, 30, 0, 30)
+GUI["Logo_0"].Size = UDim2.new(0, 25, 0, 30)
 GUI["Logo_0"].Name = "Logo"
 GUI["Logo_0"].Parent = GUI["TopFrame_0"]
 GUI["Logo_0"]:SetAttribute("UIImageColor", true)
@@ -488,6 +488,7 @@ GUI["UICorner_05"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_05"].Parent = GUI["ProfilePicture_0"]
 
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
+GUI["UIStroke_0"].Color = Color3.fromRGB(255, 255, 255)
 GUI["UIStroke_0"].Transparency = 0.8
 
 GUI["UIGradient_0"].Color = ColorSequence.new{

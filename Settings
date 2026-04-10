@@ -841,7 +841,6 @@ _G.CreateSettingTextBox(
 			
 			local function test(FirstColor, SecondColor)
 				local Red, Green, Blue = _G.Table.GUISettings[FirstColor]
-				local Red
 			end
 
 			_G.CloseVexHub()
@@ -851,8 +850,8 @@ _G.CreateSettingTextBox(
 					print(Child:GetAttribute("UIPrimaryColor"))
 					if Child:IsA("UIGradient") then
 						Child.Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.new(255, 255, 0)),
-							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
+							ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 0)),
+							ColorSequenceKeypoint.new(1, Color3.fromRGB(0,0,0)))
 						}
 					else
 						Child.BackgroundColor3 = Color3.fromRGB(UIPrimaryColor(0,0,0))

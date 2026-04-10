@@ -843,7 +843,7 @@ _G.CreateSettingTextBox(
 					if Child:IsA("UIGradient") then
 						Child.Color = ColorSequence.new{
 							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(StringToRGB2(tostring(Child:GetAttribute("UIPrimaryColor"))))))
+							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
 						}
 					else
 						Child.BackgroundColor3 = Color3.new(UIPrimaryColor(StringToRGB2(Child:GetAttribute("UIPrimaryColor"))))

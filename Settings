@@ -831,13 +831,14 @@ _G.CreateSettingTextBox(
 
 			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
-				if (Child:GetAttribute("UIPrimaryColor")) then  
-					print(Child.Name)
+				if (Child:GetAttribute("UIPrimaryColor")) then
 					if Child:IsA("UIGradient") then
 						Child.Color = ColorSequence.new{
 							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
+							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(StringToRGB(Child:GetAttribute("UIPrimaryColor")))))
 						}
+					else
+						Child.BackgroundColor3 = Color3.new(StringToRGB(Child:GetAttribute("UIPrimaryColor")))
 					end
 				end
 			end

@@ -419,13 +419,7 @@ function StringToRGB(String)
 	end
 end
 
-_G.CreateSettingBoolean = function(Table)
-	local SettingName = Table.SettingName
-	local SettingVariable = Table.SettingVariable
-	local SettingDescription = Table.SettingDescription
-	local EnableFunction = Table.EnableFunction
-	local DisableFunction = Table.DisableFunction
-
+_G.CreateSettingBoolean = function(SettingName, SettingVariable, SettingDescription, EnableFunction, DisableFunction)
 	local Template = GUI["BooleanTemplate_013"]:Clone()
 
 	local function UpdateColor(Boolean)
@@ -443,7 +437,6 @@ _G.CreateSettingBoolean = function(Table)
 	Template.Visible = true
 	Template.SettingNameAndDescription.Text = '<b><font size="14">'..SettingName..'</font></b>\n<font transparency="0.3">'..SettingDescription..'</font>'
 	Template.BooleanMargin.Boolean.MouseButton1Down:Connect(function()
-		print("setting variable: "..SettingVariable)
 		if SettingVariable == false then
 			EnableFunction()
 		elseif SettingVariable == true then
@@ -451,19 +444,12 @@ _G.CreateSettingBoolean = function(Table)
 		end
 		
 		UpdateColor(SettingVariable)
-		print("setting variable: "..SettingVariable)
 	end)
 
 	UpdateColor(SettingVariable)
 end
 
-_G.CreateSettingTextBox = function(Table)
-	local SettingName = Table.SettingName
-	local SettingVariable = Table.SettingVariable
-	local SettingDescription = Table.SettingDescription
-	local TextBoxPlaceholderText = Table.TextBoxPlaceholderText
-	local Function = Table.Function
-
+_G.CreateSettingTextBox = function(SettingName, SettingVariable, SettingDescription, TextBoxPlaceholderText, Function)
 	local Template = GUI["TextBoxTemplate_025"]:Clone()
 
 	Template.Name = SettingName
@@ -482,11 +468,7 @@ _G.CreateSettingTextBox = function(Table)
 	end)
 end
 
-_G.CreateSettingButton = function(Table)
-	local SettingName = Table.SettingName
-	local SettingDescription = Table.SettingDescription
-	local Function = Table.Function
-
+_G.CreateSettingButton = function(SettingName, SettingDescription, Function)
 	local Template = GUI["ButtonTemplate_035"]:Clone()
 
 	Template.Name = SettingName
@@ -498,12 +480,12 @@ _G.CreateSettingButton = function(Table)
 	end)
 end
 
-_G.CreateSettingTextBox({
-	SettingName = "Wallpaper",
-	SettingVariable = _G.Table.GUISettings.Wallpaper,
-	SettingDescription = "The image of the UI background",
-	TextBoxPlaceholderText = "png/ID/link",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"Wallpaper",
+	_G.Table.GUISettings.Wallpaper,
+	"The image of the UI background",
+	"png/ID/link",
+	function(TextEntered)
 		function CheckIfDecalOrImage(Id)
 			local Success, Error = pcall(function() 
 				if game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 0 then end
@@ -578,15 +560,15 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)
 
-_G.CreateSettingTextBox({
-	SettingName = "UIScale",
-	SettingVariable = _G.Table.GUISettings.UIScale,
-	SettingDescription = "The scale of the UI",
-	TextBoxPlaceholderText = "Number",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"UIScale",
+	_G.Table.GUISettings.UIScale,
+	"The scale of the UI",
+	"Number",
+	function(TextEntered)
 		if tonumber(TextEntered) then
 			if tonumber(TextEntered) > 1.5 or tonumber(TextEntered) < 0.5 then
 				_G.PopUpNotificationOptions({
@@ -613,15 +595,15 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)
 
-_G.CreateSettingTextBox({
-	SettingName = "UIFrameTransparency",
-	SettingVariable = _G.Table.GUISettings.UIFrameTransparency,
-	SettingDescription = "The transparency of frames of pages",
-	TextBoxPlaceholderText = "Number",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"UIFrameTransparency",
+	_G.Table.GUISettings.UIFrameTransparency,
+	"The transparency of frames of pages",
+	"Number",
+	function(TextEntered)
 		if tonumber(TextEntered) then
 			if tonumber(TextEntered) > 1 or tonumber(TextEntered) < 0 then
 				_G.PopUpNotificationOptions({
@@ -652,14 +634,14 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)
 
-_G.CreateSettingBoolean({
-	SettingName = "UIBoldText",
-	SettingVariable = _G.Table.GUISettings.UIBoldText,
-	SettingDescription = "Only use bold in texts",
-	EnableFunction = function()
+_G.CreateSettingBoolean(
+	"UIBoldText", 
+	_G.Table.GUISettings.UIBoldText, 
+	"Only use bold in texts",
+	function()
 		_G.Table.GUISettings.UIBoldText = true
 		SaveSettings()
 
@@ -671,7 +653,7 @@ _G.CreateSettingBoolean({
 			end,
 		})
 	end,
-	DisableFunction = function()
+	function()
 		_G.Table.GUISettings.UIBoldText = false
 		SaveSettings()
 
@@ -682,15 +664,15 @@ _G.CreateSettingBoolean({
 			Button2Function = function()
 			end,
 		})
-	end,
-})
+	end
+)
 
-_G.CreateSettingTextBox({
-	SettingName = "UITextSize",
-	SettingVariable = _G.Table.GUISettings.UITextSize,
-	SettingDescription = "The additional text size of the UI (0 is default)",
-	TextBoxPlaceholderText = "Number",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"UITextSize",
+	_G.Table.GUISettings.UITextSize,
+	"The additional text size of the UI (0 is default)",
+	"Number",
+	function(TextEntered)
 		if tonumber(TextEntered) then
 			if tonumber(TextEntered) > 3 or tonumber(TextEntered) < -3 then
 				_G.PopUpNotificationOptions({
@@ -721,15 +703,15 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)
 
-_G.CreateSettingTextBox({
-	SettingName = "UIFont",
-	SettingVariable = _G.Table.GUISettings.UIFont,
-	SettingDescription = "The font of texts in the UI",
-	TextBoxPlaceholderText = "FontName",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"UIFont",
+	_G.Table.GUISettings.UIFont,
+	"The font of texts in the UI",
+	"FontName",
+	function(TextEntered)
 		local FontFound = false
 
 		for FontName, FontID in _G.Table.Fonts do
@@ -758,13 +740,13 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)
 
-_G.CreateSettingButton({
-	SettingName = "View Fonts",
-	SettingDescription = "View supported fonts",
-	Function = function()
+_G.CreateSettingButton(
+	"View Fonts",
+	"View supported fonts",
+	function()
 		local Message = ""
 
 		for i, v in _G.Table.Fonts do
@@ -782,15 +764,15 @@ _G.CreateSettingButton({
 			Button2Function = function()
 			end,
 		})
-	end,
-})
+	end
+)
 
-_G.CreateSettingTextBox({
-	SettingName = "UIPrimaryColor",
-	SettingVariable = _G.Table.GUISettings.UIPrimaryColor,
-	SettingDescription = "The primary color of the frames in the UI",
-	TextBoxPlaceholderText = "RGB",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"UIPrimaryColor",
+	_G.Table.GUISettings.UIPrimaryColor,
+	"The primary color of the frames in the UI",
+	"RGB",
+	function(TextEntered)
 		if StringToRGB(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
@@ -811,15 +793,15 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)
 
-_G.CreateSettingTextBox({
-	SettingName = "UISecondaryColor",
-	SettingVariable = _G.Table.GUISettings.UISecondaryColor,
-	SettingDescription = "The secondary color of the frames in the UI",
-	TextBoxPlaceholderText = "RGB",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"UISecondaryColor",
+	_G.Table.GUISettings.UISecondaryColor,
+	"The secondary color of the frames in the UI",
+	"RGB",
+	function(TextEntered)
 		if StringToRGB(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
@@ -840,15 +822,15 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)
 
-_G.CreateSettingTextBox({
-	SettingName = "UIShadowColor",
-	SettingVariable = _G.Table.GUISettings.UIShadowColor,
-	SettingDescription = "The color of the shadow in the UI",
-	TextBoxPlaceholderText = "RGB",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"UIShadowColor",
+	_G.Table.GUISettings.UIShadowColor,
+	"The color of the shadow in the UI",
+	"RGB",
+	function(TextEntered)
 		if StringToRGB(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
@@ -869,15 +851,15 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)
 
-_G.CreateSettingTextBox({
-	SettingName = "UITextColor",
-	SettingVariable = _G.Table.GUISettings.UITextColor,
-	SettingDescription = "The color of the texts in the UI",
-	TextBoxPlaceholderText = "RGB",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"UITextColor",
+	_G.Table.GUISettings.UITextColor,
+	"The color of the texts in the UI",
+	"RGB",
+	function(TextEntered)
 		if StringToRGB(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
@@ -898,15 +880,15 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)
 
-_G.CreateSettingTextBox({
-	SettingName = "UIImageColor",
-	SettingVariable = _G.Table.GUISettings.UIImageColor,
-	SettingDescription = "The color of the images in the UI",
-	TextBoxPlaceholderText = "RGB",
-	Function = function(TextEntered)
+_G.CreateSettingTextBox(
+	"UIImageColor",
+	_G.Table.GUISettings.UIImageColor,
+	"The color of the images in the UI",
+	"RGB",
+	function(TextEntered)
 		if StringToRGB(TextEntered) == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
@@ -927,5 +909,5 @@ _G.CreateSettingTextBox({
 				end,
 			})
 		end
-	end,
-})
+	end
+)

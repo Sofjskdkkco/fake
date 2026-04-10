@@ -304,11 +304,10 @@ GUI["TabImage_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TabImage_0"].BackgroundTransparency = 1
 GUI["TabImage_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TabImage_0"].BorderSizePixel = 0
-GUI["TabImage_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["TabImage_0"].ImageColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TabImage_0"].Size = UDim2.new(0, 25, 0, 25)
 GUI["TabImage_0"].Name = "TabImage"
 GUI["TabImage_0"].Parent = GUI["TabTemplate_0"]
-GUI["TabImage_0"]:SetAttribute("UIImageColor", true)
 
 GUI["TabName_0"].FontFace = UIFont("Bold")
 GUI["TabName_0"].Text = "Required Accessories"
@@ -641,7 +640,6 @@ GUI.TabChoices_0.ChildAdded:Connect(function(Child)
 end)
 
 local function centerFrame(frame, xSize, ySize)
-	-- Center the frame on the screen
 	frame.Position = UDim2.new(0.5, -xSize / 2, 0.5, -ySize / 2)
 	frame.AnchorPoint = Vector2.new(0, 0)
 end
@@ -668,11 +666,10 @@ _G.CreateTabButton = function(TabName, TabImage, LayoutOrder)
 	if string.len(NewTabButton.TabName.Text) > 10 then
 		NewTabButton.TabName.TextSize = 10
 	end
-
-	if TabName == "Favorites" and _G.Table.GUISettings.UIImageColor == "255, 255, 255"then
-		NewTabButton.TabImage.ImageColor3 = Color3.fromRGB(255, 188, 87)
-	elseif (NameHidePlugin) then
-		NewTabButton.TabImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
+	
+	if not (NameHidePlugin) then
+		NewTabButton.TabImage.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+		NewTabButton.TabImage:SetAttribute("UIImageColor", true)
 	end
 
 	NewTabButton.MouseButton1Down:Connect(function()

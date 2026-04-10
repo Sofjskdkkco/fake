@@ -694,7 +694,7 @@ _G.CreateSettingBoolean(
 	function()
 		_G.Table.GUISettings.UIBoldText = true
 		SaveSettings()
-		
+
 		_G.CloseVexHub()
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UIBoldText")) then
@@ -769,7 +769,7 @@ _G.CreateSettingTextBox(
 				_G.Table.GUISettings.UIFont = FontName
 				FontFound = true
 				SaveSettings()
-				
+
 				_G.CloseVexHub()
 				for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 					if (Child:GetAttribute("UIFont")) then
@@ -835,6 +835,10 @@ _G.CreateSettingTextBox(
 			_G.Table.GUISettings.UIPrimaryColor = StringToRGB(TextEntered)
 			SaveSettings()
 			
+			local function RGBToSomething(rgb)
+				return rgb.R, rgb.B, rgb.B
+			end
+
 			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UIPrimaryColor")) then
@@ -846,7 +850,7 @@ _G.CreateSettingTextBox(
 							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
 						}
 					else
-						Child.BackgroundColor3 = Color3.new(UIPrimaryColor(Child:GetAttribute("UIPrimaryColor")))
+						Child.BackgroundColor3 = Color3.new(UIPrimaryColor(RGBToSomething(Child:GetAttribute("UIPrimaryColor"))))
 					end
 				end
 			end
@@ -906,7 +910,7 @@ _G.CreateSettingTextBox(
 		else
 			_G.Table.GUISettings.UIShadowColor = StringToRGB(TextEntered)
 			SaveSettings()
-			
+
 			TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = StringToRGB2(_G.Table.GUISettings.UIShadowColor)}):Play()
 		end
 	end

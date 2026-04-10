@@ -836,7 +836,6 @@ _G.CreateSettingTextBox(
 					local UIPrimaryColorGreen = math.floor(Child:GetAttribute("UIPrimaryColor").G*255)
 					local UIPrimaryColorBlue  = math.floor(Child:GetAttribute("UIPrimaryColor").B*255)
 					
-					print(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue)
 					if Child:IsA("UIGradient") then
 						Child.Color = ColorSequence.new{
 							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
@@ -869,19 +868,25 @@ _G.CreateSettingTextBox(
 		else
 			_G.Table.GUISettings.UISecondaryColor = StringToValidRGBString(TextEntered)
 			SaveSettings()
-
+			
+			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UISecondaryColor")) then
+					local UISecondaryColorRed = math.floor(Child:GetAttribute("UISecondaryColor").R*255)
+					local UISecondaryColorGreen = math.floor(Child:GetAttribute("UISecondaryColor").G*255)
+					local UISecondaryColorBlue  = math.floor(Child:GetAttribute("UISecondaryColor").B*255)
+
 					if Child:IsA("UIGradient") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.new(StringToRGB(UISecondaryColor(0, 0, 0)))),
-							ColorSequenceKeypoint.new(1, Color3.new(StringToRGB(UISecondaryColor(Child:GetAttribute("UISecondaryColor")))))
-						}}):Play()
+						Child.Color = ColorSequence.new{
+							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(UISecondaryColorRed, UISecondaryColorGreen, UISecondaryColorBlue)))
+						}
 					else
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = StringToRGB(UISecondaryColor(Child:GetAttribute("UISecondaryColor")))}):Play()
+						Child.BackgroundColor3 = Color3.new(UIPrimaryColor(UISecondaryColorRed, UISecondaryColorGreen, UISecondaryColorBlue))
 					end
 				end
 			end
+			_G.OpenVexHub()
 		end
 	end
 )
@@ -903,8 +908,10 @@ _G.CreateSettingTextBox(
 		else
 			_G.Table.GUISettings.UIShadowColor = StringToValidRGBString(TextEntered)
 			SaveSettings()
-
-			TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = StringToRGB(_G.Table.GUISettings.UIShadowColor)}):Play()
+			
+			_G.CloseVexHub()
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow.ImageColor3 = StringToRGB(_G.Table.GUISettings.UIShadowColor)
+			_G.OpenVexHub()
 		end
 	end
 )
@@ -926,15 +933,18 @@ _G.CreateSettingTextBox(
 		else
 			_G.Table.GUISettings.UITextColor = StringToValidRGBString(TextEntered)
 			SaveSettings()	
+			
+			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UITextColor")) then
-					if Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
-					elseif Child:IsA("TextLabel") or Child:IsA("TextButton") or Child:IsA("TextBox") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+					if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
+						Child.TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+					elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
+						Child.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 					end
 				end
 			end
+			_G.OpenVexHub()
 		end
 	end
 )
@@ -957,15 +967,17 @@ _G.CreateSettingTextBox(
 			_G.Table.GUISettings.UIImageColor = StringToValidRGBString(TextEntered)
 			SaveSettings()
 
+			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UIImageColor")) then
-					if Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
-					elseif Child:IsA("TextLabel") or Child:IsA("TextButton") or Child:IsA("TextBox") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+					if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
+						Child.TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+					elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
+						Child.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 					end
 				end
 			end
+			_G.OpenVexHub()
 		end
 	end
 )

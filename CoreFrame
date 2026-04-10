@@ -421,7 +421,7 @@ GUI["Top_0"].Position = UDim2.new(0.0675675645, 0, -0.0240000002, 0)
 GUI["Top_0"].Size = UDim2.new(1, 0, 0, 30)
 GUI["Top_0"].Name = "Top"
 GUI["Top_0"].Parent = GUI["RightFrame_0"]
-GUI["Top_0"]:SetAttribute("UIPrimaryColor", "0, 0, 0")
+GUI["Top_0"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(0,0,0))
 
 GUI["UICorner_04"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_04"].Parent = GUI["Top_0"]
@@ -483,7 +483,7 @@ GUI["ProfilePicture_0"].LayoutOrder = 1
 GUI["ProfilePicture_0"].Size = UDim2.new(0, 23, 0, 23)
 GUI["ProfilePicture_0"].Name = "ProfilePicture"
 GUI["ProfilePicture_0"].Parent = GUI["LeftSide_0"]
-GUI["ProfilePicture_0"]:SetAttribute("UIPrimaryColor", "18, 19, 20")
+GUI["ProfilePicture_0"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(18, 19, 20))
 
 GUI["UICorner_05"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_05"].Parent = GUI["ProfilePicture_0"]
@@ -548,7 +548,7 @@ GUI["UIGradient_01"].Color = ColorSequence.new{
 }
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["MainContents_0"]
-GUI["UIGradient_01"]:SetAttribute("UIPrimaryColor", "-7, -8, -10")
+GUI["UIGradient_01"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(-7, -8, -10))
 
 GUI["CoverFrame_0"].Image = "rbxassetid://14803348752"
 GUI["CoverFrame_0"].ImageTransparency = 1
@@ -562,7 +562,7 @@ GUI["CoverFrame_0"].Size = UDim2.new(1, 0, 1, 0)
 GUI["CoverFrame_0"].ZIndex = 100
 GUI["CoverFrame_0"].Name = "CoverFrame"
 GUI["CoverFrame_0"].Parent = GUI["MainFrame_0"]
-GUI["CoverFrame_0"]:SetAttribute("UIPrimaryColor", "-7 , -8, -10")
+GUI["CoverFrame_0"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(-7 , -8, -10))
 GUI["CoverFrame_0"]:SetAttribute("UIImageColor", true)
 
 GUI["UICorner_07"].CornerRadius = UDim.new(0, 5)

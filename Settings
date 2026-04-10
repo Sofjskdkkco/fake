@@ -853,6 +853,10 @@ _G.CreateSettingTextBox(
 				local Green = GreenFirst+GreenSecond
 				local Blue = BlueFirst+BlueSecond
 				
+				print("returning:")
+				print(Red)
+				print(Green)
+				print(Blue)
 				return Red, Green, Blue
 			end
 

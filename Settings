@@ -853,7 +853,7 @@ _G.CreateSettingTextBox(
 				local Green = GreenFirst+GreenSecond
 				local Blue = BlueFirst+BlueSecond
 				
-				return Red/255, Green/255, Blue/255
+				return Red, Green, Blue
 			end
 
 			_G.CloseVexHub()
@@ -862,11 +862,9 @@ _G.CreateSettingTextBox(
 					print(Child.Name)
 					if Child:IsA("UIGradient") then
 						Child.Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.new(test("UIPrimaryColor", "0, 0, 0"))),
-							ColorSequenceKeypoint.new(1, Color3.new(test("UIPrimaryColor", "-7, -8, -10")))
+							ColorSequenceKeypoint.new(0, Color3.fromRGB(test("UIPrimaryColor", "0, 0, 0"))),
+							ColorSequenceKeypoint.new(1, Color3.fromRGB(test("UIPrimaryColor", "-7, -8, -10")))
 						}
-					else
-						Child.BackgroundColor3 = Color3.new(UIPrimaryColor(0,0,0))
 					end
 				end
 			end

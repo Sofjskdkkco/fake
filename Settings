@@ -839,11 +839,11 @@ _G.CreateSettingTextBox(
 				if (Child:GetAttribute("UIPrimaryColor")) then
 					if Child:IsA("UIGradient") then
 						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.new(StringToRGB2(UIPrimaryColor(0, 0, 0)))),
-							ColorSequenceKeypoint.new(1, Color3.new(StringToRGB2(UIPrimaryColor(Child:GetAttribute("UIPrimaryColor")))))
+							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(StringToRGB(Child:GetAttribute("UIPrimaryColor")))))
 						}}):Play()
 					else
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = StringToRGB2(UIPrimaryColor(Child:GetAttribute("UIPrimaryColor")))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = UIPrimaryColor(StringToRGB2(Child:GetAttribute("UIPrimaryColor")))}):Play()
 					end
 				end
 			end

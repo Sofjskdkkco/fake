@@ -734,10 +734,6 @@ _G.CreateSettingTextBox(
 				for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 					if (Child:GetAttribute("UITextSize")) then
 						Child.TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize
-
-						if string.len(Child.Text) > 10 and Child.Parent == game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.SideFrame.TabChoices then
-							Child.TextSize = Child.TextSize-2
-						end
 					end
 				end
 				_G.OpenVexHub()

@@ -428,11 +428,11 @@ _G.CreateSettingBoolean = function(Table)
 
 	local Template = GUI["BooleanTemplate_013"]:Clone()
 
-	local function UpdateColor()
-		if SettingVariable == false then
+	local function UpdateColor(Boolean)
+		if Boolean == true then
 			TweenService:Create(Template.BooleanMargin.Boolean, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(51, 95, 255)}):Play()
 			TweenService:Create(Template.BooleanMargin.Boolean.Margin.Circle, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0.617617011, 0, 0, 0)}):Play()
-		elseif SettingVariable == true then
+		elseif Boolean == false then
 			TweenService:Create(Template.BooleanMargin.Boolean, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 			TweenService:Create(Template.BooleanMargin.Boolean.Margin.Circle, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0, 0)}):Play()
 		end
@@ -448,9 +448,11 @@ _G.CreateSettingBoolean = function(Table)
 		elseif SettingVariable == true then
 			DisableFunction()
 		end
+		
+		UpdateColor(SettingVariable)
 	end)
 
-	UpdateColor()
+	UpdateColor(SettingVariable)
 end
 
 _G.CreateSettingTextBox = function(Table)

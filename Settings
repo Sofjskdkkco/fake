@@ -1,4 +1,48 @@
--- Generated using RoadToGlory's Converter v1.1 (RoadToGlory#9879)
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+function UIPrimaryColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIPrimaryColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
+function UISecondaryColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UISecondaryColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
+function UIFont(FontWeight)
+	if _G.Table.GUISettings.UIBoldText == true then
+		FontWeight = "Bold"
+	end
+
+	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
+		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
+		return Font.fromName(_G.Table.GUISettings.UIFont, Enum.FontWeight[FontWeight])
+	end
+end
 
 -- Instances:
 
@@ -442,7 +486,7 @@ _G.CreateSettingBoolean = function(SettingName, SettingVariable, SettingDescript
 		elseif SettingVariable() == true then
 			DisableFunction()
 		end
-		
+
 		UpdateColor(SettingVariable())
 	end)
 
@@ -461,7 +505,7 @@ _G.CreateSettingTextBox = function(SettingName, SettingVariable, SettingDescript
 	Template.TextBoxMargin.TextBoxParent.TextBox.FocusLost:Connect(function(enterPressed)
 		local TextEntered = Template.TextBoxMargin.TextBoxParent.TextBox.ContentText
 		Function(TextEntered)
-		
+
 		if SettingVariable() ~= nil then
 			Template.TextBoxMargin.TextBoxParent.TextBox.Text = tostring(SettingVariable())
 		end
@@ -644,26 +688,26 @@ _G.CreateSettingBoolean(
 	function()
 		_G.Table.GUISettings.UIBoldText = true
 		SaveSettings()
-
-		_G.PopUpNotificationOptions({
-			Title = "Setting Saved!",
-			Message = "Please re-execute VexHub to see changes (true)",
-			Button2Text = "Close",
-			Button2Function = function()
-			end,
-		})
+		
+		_G.CloseVexHub()
+		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+			if (Child:GetAttribute("UIBoldText")) then
+				Child.FontFace = UIFont(Child:GetAttribute("UIFont"))
+			end
+		end
+		_G.OpenVexHub()
 	end,
 	function()
 		_G.Table.GUISettings.UIBoldText = false
 		SaveSettings()
 
-		_G.PopUpNotificationOptions({
-			Title = "Setting Saved!",
-			Message = "Please re-execute VexHub to see changes (false",
-			Button2Text = "Close",
-			Button2Function = function()
-			end,
-		})
+		_G.CloseVexHub()
+		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+			if (Child:GetAttribute("UIBoldText")) then
+				Child.FontFace = UIFont(Child:GetAttribute("UIFont"))
+			end
+		end
+		_G.OpenVexHub()
 	end
 )
 
@@ -719,19 +763,19 @@ _G.CreateSettingTextBox(
 				_G.Table.GUISettings.UIFont = FontName
 				FontFound = true
 				SaveSettings()
+				
+				_G.CloseVexHub()
+				for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+					if (Child:GetAttribute("UIFont")) then
+						Child.FontFace = UIFont(Child:GetAttribute("UIFont"))
+					end
+				end
+				_G.OpenVexHub()
 				break
 			end
 		end
 
-		if FontFound == true then
-			_G.PopUpNotificationOptions({
-				Title = "Setting Saved!",
-				Message = "Please re-execute VexHub to see changes",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		else
+		if FontFound == false then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
 				Message = "Not a valid font/not supported in VexHub",
@@ -784,14 +828,19 @@ _G.CreateSettingTextBox(
 		else
 			_G.Table.GUISettings.UIPrimaryColor = StringToRGB(TextEntered)
 			SaveSettings()
-
-			_G.PopUpNotificationOptions({
-				Title = "Setting Saved!",
-				Message = "Please re-execute VexHub to see changes",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
+			
+			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+				if (Child:GetAttribute("UIPrimaryColor")) then
+					if Child:IsA("UIGradient") then
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Color = ColorSequence.new{
+							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(Child:GetAttribute("UIPrimaryColor"))))
+						}}):Play()
+					else
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = UIPrimaryColor(Child:GetAttribute("UIPrimaryColor"))}):Play()
+					end
+				end
+			end
 		end
 	end
 )
@@ -814,13 +863,18 @@ _G.CreateSettingTextBox(
 			_G.Table.GUISettings.UISecondaryColor = StringToRGB(TextEntered)
 			SaveSettings()
 
-			_G.PopUpNotificationOptions({
-				Title = "Setting Saved!",
-				Message = "Please re-execute VexHub to see changes",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
+			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+				if (Child:GetAttribute("UISecondaryColor")) then
+					if Child:IsA("UIGradient") then
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Color = ColorSequence.new{
+							ColorSequenceKeypoint.new(0, Color3.new(UISecondaryColor(0, 0, 0))),
+							ColorSequenceKeypoint.new(1, Color3.new(UISecondaryColor(Child:GetAttribute("UISecondaryColor"))))
+						}}):Play()
+					else
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundColor3 = UISecondaryColor(Child:GetAttribute("UISecondaryColor"))}):Play()
+					end
+				end
+			end
 		end
 	end
 )
@@ -842,14 +896,8 @@ _G.CreateSettingTextBox(
 		else
 			_G.Table.GUISettings.UIShadowColor = StringToRGB(TextEntered)
 			SaveSettings()
-
-			_G.PopUpNotificationOptions({
-				Title = "Setting Saved!",
-				Message = "Please re-execute VexHub to see changes",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
+			
+			TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = _G.Table.GUISettings.UIShadowColor}):Play()
 		end
 	end
 )
@@ -871,14 +919,16 @@ _G.CreateSettingTextBox(
 		else
 			_G.Table.GUISettings.UITextColor = StringToRGB(TextEntered)
 			SaveSettings()
-
-			_G.PopUpNotificationOptions({
-				Title = "Setting Saved!",
-				Message = "Please re-execute VexHub to see changes",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
+			
+			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+				if (Child:GetAttribute("UITextColor")) then
+					if Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+					elseif Child:IsA("TextLabel") or Child:IsA("TextButton") or Child:IsA("TextBox") then
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+					end
+				end
+			end
 		end
 	end
 )
@@ -901,13 +951,15 @@ _G.CreateSettingTextBox(
 			_G.Table.GUISettings.UIImageColor = StringToRGB(TextEntered)
 			SaveSettings()
 
-			_G.PopUpNotificationOptions({
-				Title = "Setting Saved!",
-				Message = "Please re-execute VexHub to see changes",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
+			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+				if (Child:GetAttribute("UIImageColor")) then
+					if Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+					elseif Child:IsA("TextLabel") or Child:IsA("TextButton") or Child:IsA("TextBox") then
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+					end
+				end
+			end
 		end
 	end
 )

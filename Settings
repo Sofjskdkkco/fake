@@ -920,12 +920,18 @@ _G.CreateSettingTextBox(
 			_G.Table.GUISettings.UITextColor = StringToRGB(TextEntered)
 			SaveSettings()
 			
+			local function StringToRGBTest(ToConvert)
+				local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+				ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+				return ColorR/255,ColorG/255,ColorB/255
+			end
+			
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UITextColor")) then
 					if Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGBTest(_G.Table.GUISettings.UITextColor))}):Play()
 					elseif Child:IsA("TextLabel") or Child:IsA("TextButton") or Child:IsA("TextBox") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGBTest(_G.Table.GUISettings.UITextColor))}):Play()
 					end
 				end
 			end

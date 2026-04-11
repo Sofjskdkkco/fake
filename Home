@@ -223,7 +223,7 @@ GUI["UIListLayout_02"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_02"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_02"].Parent = GUI["RightFrame_0"]
 
-GUI["VexHubInfo_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["VexHubInfo_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["VexHubInfo_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["VexHubInfo_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["VexHubInfo_0"].BorderSizePixel = 0
@@ -252,7 +252,7 @@ GUI["UIListLayout_03"].Parent = GUI["VexHubInfo_0"]
 GUI["Scripts_0"].FontFace = UIFont("Regular")
 GUI["Scripts_0"].RichText = true
 GUI["Scripts_0"].Text = 'Scripts\n<b><font size="14">100</font></b>'
-GUI["Scripts_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Scripts_0"].TextColor3 = Color3.new(UIColor(0,0,0))
 GUI["Scripts_0"].TextSize = 10
 GUI["Scripts_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["Scripts_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -264,7 +264,8 @@ GUI["Scripts_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Scripts_0"].Name = "Scripts"
 GUI["Scripts_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(35, 66, 178) -- -16, -29, -77
+GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- -16, -29, -77
+GUI["Border_0"].BackgroundTransparency = 0.9
 GUI["Border_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_0"].BorderSizePixel = 0
 GUI["Border_0"].LayoutOrder = 4
@@ -275,7 +276,7 @@ GUI["Border_0"].Parent = GUI["VexHubInfo_0"]
 GUI["Executed_0"].FontFace = UIFont("Regular")
 GUI["Executed_0"].RichText = true
 GUI["Executed_0"].Text = 'Executed\n<b><font size="14">10000</font></b>\ntimes'
-GUI["Executed_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Executed_0"].TextColor3 = Color3.new(UIColor(0,0,0))
 GUI["Executed_0"].TextSize = 10
 GUI["Executed_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["Executed_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -290,7 +291,7 @@ GUI["Executed_0"].Parent = GUI["VexHubInfo_0"]
 GUI["Version_0"].FontFace = UIFont("Regular")
 GUI["Version_0"].RichText = true
 GUI["Version_0"].Text = 'Version\n<b><font size="14">7.150</font></b>'
-GUI["Version_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Version_0"].TextColor3 = Color3.new(UIColor(0,0,0))
 GUI["Version_0"].TextSize = 10
 GUI["Version_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["Version_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -302,7 +303,8 @@ GUI["Version_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Version_0"].Name = "Version"
 GUI["Version_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Border_01"].BackgroundColor3 = Color3.fromRGB(35, 66, 178) -- -16, -29, -77
+GUI["Border_01"].BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- -16, -29, -77
+GUI["Border_01"].BackgroundTransparency = 0.9
 GUI["Border_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_01"].BorderSizePixel = 0
 GUI["Border_01"].LayoutOrder = 2

@@ -16,19 +16,7 @@ _G.Table = {
 		AdVisible = false,
 	},
 
-	GUISettings = {
-		Wallpaper = "11926598891",
-		UIScale = 1,
-		UIFrameTransparency = 0,
-		UIFont = "Montserrat",
-		UIBoldText = false,
-		UITextSize = 0,
-		UIPrimaryColor = "25, 26, 31",
-		UISecondaryColor = "51, 95, 255",
-		UIShadowColor = "25, 26, 31",
-		UITextColor = "255, 255, 255",
-		UIImageColor = "255, 255, 255",
-	},
+	GUISettings = loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/SettingsTable"))(),
 
 	Favorites = {},
 

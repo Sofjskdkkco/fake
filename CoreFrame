@@ -530,7 +530,7 @@ GUI["Border_01"].Parent = GUI["RightSide_0"]
 GUI["UIStroke_01"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 GUI["UIStroke_01"].Parent = GUI["MainContents_0"]
 GUI["UIStroke_01"].Transparency = 0.5
-GUI["UIStroke_01"].Color = UIColor(0, 0, 0)
+GUI["UIStroke_01"].Color = Color3.new(UIColor(0, 0, 0))
 GUI["UIStroke_01"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
 
 GUI["UIGradient_01"].Color = ColorSequence.new{

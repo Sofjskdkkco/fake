@@ -711,33 +711,6 @@ _G.CreateSettingBoolean(
 	end
 )
 
-local Test = 14+_G.Table.GUISettings.UITextSize
-
-local function Resize(Number)
-	if Test == 11 then
-		Test = Test+3+Number
-		return 3+Number
-	elseif Test == 12 then
-		Test = Test+2+Number
-		return 2+Number
-	elseif Test == 13 then
-		Test = Test+1+Number
-		return 1+Number
-	elseif Test == 14 then
-		Test = Test+0+Number
-		return 0+Number
-	elseif Test == 15 then
-		Test = Test+(-1)+Number
-		return (-1)+Number
-	elseif Test == 16 then
-		Test = Test+(-2)+Number
-		return (-2)+Number
-	elseif Test == 17 then
-		Test = Test+(-3)+Number
-		return (-3)+Number
-	end
-end
-
 _G.CreateSettingTextBox(
 	"UITextSize",
 	function() return _G.Table.GUISettings.UITextSize end,
@@ -760,7 +733,7 @@ _G.CreateSettingTextBox(
 				_G.CloseVexHub()
 				for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 					if (Child:GetAttribute("UITextSize")) then
-						Child.TextSize = Child.TextSize+Resize(tonumber(TextEntered))
+						Child.TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize
 					end
 				end
 				_G.OpenVexHub()

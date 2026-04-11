@@ -93,6 +93,7 @@ GUI["NotificationTemplate_0"].Size = UDim2.new(0, 150, 0, 0)
 GUI["NotificationTemplate_0"].Visible = false
 GUI["NotificationTemplate_0"].Name = "NotificationTemplate"
 GUI["NotificationTemplate_0"].Parent = GUI["PopUpNotificationOptions_0"]
+GUI["NotificationTemplate_0"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(0,0,0))
 
 GUI["UICorner_0"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_0"].Parent = GUI["NotificationTemplate_0"]
@@ -146,7 +147,7 @@ GUI["UIListLayout_01"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_01"].Parent = GUI["Buttons_0"]
 
 GUI["Button1_0"].FontFace = UIFont("Bold")
-GUI["Button1_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Button1_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Button1_0"].TextSize = 12
 GUI["Button1_0"].TextWrapped = true
 GUI["Button1_0"].AutoButtonColor = false
@@ -157,6 +158,9 @@ GUI["Button1_0"].BorderSizePixel = 0
 GUI["Button1_0"].Size = UDim2.new(0, 62, 1, 0)
 GUI["Button1_0"].Name = "Button1"
 GUI["Button1_0"].Parent = GUI["Buttons_0"]
+GUI["Button1_0"]:SetAttribute("UIFont", "Bold")
+GUI["Button1_0"]:SetAttribute("UIBoldText", true)
+GUI["Button1_0"]:SetAttribute("UITextColor", true)
 
 GUI["UIListLayout_02"].Padding = UDim.new(0, 10)
 GUI["UIListLayout_02"].FillDirection = Enum.FillDirection.Horizontal
@@ -175,7 +179,7 @@ GUI["UIStroke_01"].Parent = GUI["Button1_0"]
 GUI["UIScale_01"].Parent = GUI["Button1_0"]
 
 GUI["Button2_0"].FontFace = UIFont("Bold")
-GUI["Button2_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Button2_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Button2_0"].TextSize = 12
 GUI["Button2_0"].TextWrapped = true
 GUI["Button2_0"].AutoButtonColor = false
@@ -185,6 +189,9 @@ GUI["Button2_0"].BorderSizePixel = 0
 GUI["Button2_0"].Size = UDim2.new(0, 62, 1, 0)
 GUI["Button2_0"].Name = "Button2"
 GUI["Button2_0"].Parent = GUI["Buttons_0"]
+GUI["Button2_0"]:SetAttribute("UIFont", "Bold")
+GUI["Button2_0"]:SetAttribute("UIBoldText", true)
+GUI["Button2_0"]:SetAttribute("UITextColor", true)
 
 GUI["UIListLayout_03"].Padding = UDim.new(0, 10)
 GUI["UIListLayout_03"].FillDirection = Enum.FillDirection.Horizontal
@@ -214,7 +221,7 @@ GUI["TopFrame_0"].Parent = GUI["NotificationInsides_0"]
 
 GUI["Title_0"].FontFace = UIFont("Bold")
 GUI["Title_0"].Text = "Title"
-GUI["Title_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Title_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Title_0"].TextSize = 14
 GUI["Title_0"].TextWrapped = true
 GUI["Title_0"].AutomaticSize = Enum.AutomaticSize.Y
@@ -227,10 +234,13 @@ GUI["Title_0"].LineHeight = 0.8
 GUI["Title_0"].Size = UDim2.new(0.899999976, 0, 0, 0)
 GUI["Title_0"].Name = "Title"
 GUI["Title_0"].Parent = GUI["TopFrame_0"]
+GUI["Title_0"]:SetAttribute("UIFont", "Bold")
+GUI["Title_0"]:SetAttribute("UIBoldText", true)
+GUI["Title_0"]:SetAttribute("UITextColor", true)
 
 GUI["Message_0"].FontFace = UIFont("Medium")
 GUI["Message_0"].Text = "Message"
-GUI["Message_0"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Message_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Message_0"].TextSize = 9
 GUI["Message_0"].TextTransparency = 0.10000000149011612
 GUI["Message_0"].TextWrapped = true
@@ -244,6 +254,9 @@ GUI["Message_0"].LineHeight = 0.9
 GUI["Message_0"].Size = UDim2.new(0.899999976, 0, 0, 0)
 GUI["Message_0"].Name = "Message"
 GUI["Message_0"].Parent = GUI["TopFrame_0"]
+GUI["Message_0"]:SetAttribute("UIFont", "Medium")
+GUI["Message_0"]:SetAttribute("UIBoldText", true)
+GUI["Message_0"]:SetAttribute("UITextColor", true)
 
 GUI["UIListLayout_05"].Padding = UDim.new(0, 1)
 GUI["UIListLayout_05"].HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -253,7 +266,7 @@ GUI["UIListLayout_05"].Parent = GUI["TopFrame_0"]
 
 GUI["CoverFrame_0"].Image = "http://www.roblox.com/asset/?id=14586137987"
 GUI["CoverFrame_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
-GUI["CoverFrame_0"].ImageTransparency = 1
+GUI["CoverFrame_0"].ImageTransparency = 0
 GUI["CoverFrame_0"].ScaleType = Enum.ScaleType.Fit
 GUI["CoverFrame_0"].BackgroundColor3 = Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512)
 GUI["CoverFrame_0"].BackgroundTransparency = 1
@@ -262,6 +275,7 @@ GUI["CoverFrame_0"].BorderSizePixel = 0
 GUI["CoverFrame_0"].Size = UDim2.new(1, 0, 1, 0)
 GUI["CoverFrame_0"].Name = "CoverFrame"
 GUI["CoverFrame_0"].Parent = GUI["NotificationTemplate_0"]
+GUI["CoverFrame_0"]:SetAttribute("UIImageColor", true)
 
 GUI["UICorner_03"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_03"].Parent = GUI["CoverFrame_0"]

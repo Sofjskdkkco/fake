@@ -981,3 +981,22 @@ _G.CreateSettingTextBox(
 		end
 	end
 )
+
+_G.CreateSettingButton(
+	"Revert to Default Settings",
+	"Make your settings go back to the default",
+	function()
+		_G.PopUpNotificationOptions({
+			Title = "Wait!",
+			Message = "Are you sure you want to change your settings to the default?",
+			Button1Text = "No",
+			Button1Function = function()
+			end,
+			Button2Text = "Yes",
+			Button2Function = function()
+				_G.Table.GUISettings = loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/SettingsTable"))()
+				SaveSettings()
+			end,
+		})
+	end
+)

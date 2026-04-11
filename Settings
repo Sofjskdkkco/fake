@@ -986,7 +986,7 @@ _G.CreateSettingButton(
 	"Export Settings",
 	"Export your settings to share to others",
 	function()
-		setclipboard(JSon:Encode(_G.Table.GuiSettings))
+		setclipboard(JSon:Encode(_G.Table.GUISettings))
 		
 		_G.PopUpNotificationOptions({
 			Title = "Success!",

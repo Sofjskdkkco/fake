@@ -4,22 +4,8 @@ function StringToRGB(ToConvert)
 	return ColorR/255,ColorG/255,ColorB/255
 end
 
-function UIPrimaryColor(RedTweak, GreenTweak, BlueTweak)
-	local RGB = string.split(_G.Table.GUISettings.UIPrimaryColor, ",")
-	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
-		RedTweak = 0
-	end
-	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
-		GreenTweak = 0
-	end
-	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
-		BlueTweak = 0
-	end
-	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
-end
-
-function UISecondaryColor(RedTweak, GreenTweak, BlueTweak)
-	local RGB = string.split(_G.Table.GUISettings.UISecondaryColor, ",")
+function UIColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
 	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
 		RedTweak = 0
 	end
@@ -841,7 +827,7 @@ _G.CreateSettingButton(
 	end
 )
 
-ChangeSetting.UIPrimaryColor = function(TextEntered)
+ChangeSetting.UIColor = function(TextEntered)
 	if StringToValidRGBString(TextEntered) == false then
 		_G.PopUpNotificationOptions({
 			Title = "Error!",
@@ -851,25 +837,25 @@ ChangeSetting.UIPrimaryColor = function(TextEntered)
 			end,
 		})
 	else
-		_G.Table.GUISettings.UIPrimaryColor = StringToValidRGBString(TextEntered)
+		_G.Table.GUISettings.UIColor = StringToValidRGBString(TextEntered)
 		SaveSettings()
 
 		_G.CloseVexHub()
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
-			if (Child:GetAttribute("UIPrimaryColor")) then
-				local UIPrimaryColorRed = math.floor(Child:GetAttribute("UIPrimaryColor").R*255)
-				local UIPrimaryColorGreen = math.floor(Child:GetAttribute("UIPrimaryColor").G*255)
-				local UIPrimaryColorBlue  = math.floor(Child:GetAttribute("UIPrimaryColor").B*255)
+			if (Child:GetAttribute("UIColor")) then
+				local UIColorRed = math.floor(Child:GetAttribute("UIColor").R*255)
+				local UIColorGreen = math.floor(Child:GetAttribute("UIColor").G*255)
+				local UIColorBlue  = math.floor(Child:GetAttribute("UIColor").B*255)
 
 				if Child:IsA("UIGradient") then
 					Child.Color = ColorSequence.new{
-						ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-						ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue)))
+						ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
+						ColorSequenceKeypoint.new(1, Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue)))
 					}
 				elseif Child:IsA("UIStroke") then
-					Child.Color = Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue))
+					Child.Color = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))
 				else
-					Child.BackgroundColor3 = Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue))
+					Child.BackgroundColor3 = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))
 				end
 			end
 		end
@@ -878,12 +864,12 @@ ChangeSetting.UIPrimaryColor = function(TextEntered)
 end
 
 _G.CreateSettingTextBox(
-	"UIPrimaryColor",
-	function() return _G.Table.GUISettings.UIPrimaryColor end,
+	"UIColor",
+	function() return _G.Table.GUISettings.UIColor end,
 	"The primary color of the frames in the UI",
 	"RGB",
 	function(TextEntered)
-		ChangeSetting.UIPrimaryColor(TextEntered)
+		ChangeSetting.UIColor(TextEntered)
 	end
 )
 
@@ -1007,7 +993,7 @@ _G.CreateSettingTextBox(
 					ChangeSetting[Setting](Value)
 				end
 			end
-			
+
 			_G.PopUpNotificationOptions({
 				Title = "Success!",
 				Message = "Settings imported successfully",

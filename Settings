@@ -983,6 +983,22 @@ _G.CreateSettingTextBox(
 )
 
 _G.CreateSettingButton(
+	"Export Settings",
+	"Export your settings to share to others",
+	function()
+		setclipboard(JSon:Encode(_G.Table.GuiSettings))
+		
+		_G.PopUpNotificationOptions({
+			Title = "Success!",
+			Message = "Your settings is in your clipboard",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	end
+)
+
+_G.CreateSettingButton(
 	"Revert to Default Settings",
 	"Make your settings go back to the default",
 	function()

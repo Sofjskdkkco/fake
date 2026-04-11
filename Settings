@@ -524,88 +524,123 @@ _G.CreateSettingButton = function(SettingName, SettingDescription, Function)
 	end)
 end
 
+local ChangeSetting = {}
+
+ChangeSetting.Wallpaper = function(TextEntered)
+	local function CheckIfDecalOrImage(Id)
+		local Success, Error = pcall(function() 
+			if game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 0 then end
+		end)
+
+		if Success then
+			if game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 1 then
+				return "Image"
+			elseif game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 13 then
+				return "Decal"
+			end
+		end
+	end
+
+	if string.find(TextEntered, "http://") or string.find(TextEntered, "https://") then
+		local ImageName = game:GetService("HttpService"):GenerateGUID(false)
+		local ImagePath = "VexHub7/Wallpapers/"..ImageName..".png"
+		writefile(ImagePath, game:HttpGet(TextEntered))
+
+		game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = getcustomasset(ImagePath)
+		game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = getcustomasset(ImagePath)
+
+		_G.Table.GUISettings.Wallpaper = ImagePath
+		SaveSettings()
+
+	elseif string.find(string.lower(TextEntered), ".png") then
+		if isfile(TextEntered) then
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = getcustomasset(TextEntered)
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = getcustomasset(TextEntered)
+
+			_G.Table.GUISettings.Wallpaper = TextEntered
+			SaveSettings()
+		else
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Invalid path",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
+
+	elseif tonumber(TextEntered) then
+		if CheckIfDecalOrImage(TextEntered) == "Image" then
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = "rbxassetid://"..TextEntered
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = "rbxassetid://"..TextEntered
+
+			_G.Table.GUISettings.Wallpaper = TextEntered
+			SaveSettings()
+		elseif CheckIfDecalOrImage(TextEntered) == "Decal" then
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
+			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
+
+			_G.Table.GUISettings.Wallpaper = TextEntered
+			SaveSettings()
+		else
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Invalid ID.",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
+
+	else
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Invalid input. Must be a ID, PNG, or Link.",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	end
+end
+
 _G.CreateSettingTextBox(
 	"Wallpaper",
 	function() return _G.Table.GUISettings.Wallpaper end,
 	"The image of the UI background",
 	"png/ID/link",
 	function(TextEntered)
-		function CheckIfDecalOrImage(Id)
-			local Success, Error = pcall(function() 
-				if game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 0 then end
-			end)
+		ChangeSetting.Wallpaper(TextEntered)
+	end
+)
 
-			if Success then
-				if game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 1 then
-					return "Image"
-				elseif game:GetService("MarketplaceService"):GetProductInfo(tonumber(Id)).AssetTypeId == 13 then
-					return "Decal"
-				end
-			end
-		end
-
-		if string.find(TextEntered, "http://") or string.find(TextEntered, "https://") then
-			local ImageName = game:GetService("HttpService"):GenerateGUID(false)
-			local ImagePath = "VexHub7/Wallpapers/"..ImageName..".png"
-			writefile(ImagePath, game:HttpGet(TextEntered))
-
-			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = getcustomasset(ImagePath)
-			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = getcustomasset(ImagePath)
-
-			_G.Table.GUISettings.Wallpaper = ImagePath
-			SaveSettings()
-
-		elseif string.find(string.lower(TextEntered), ".png") then
-			if isfile(TextEntered) then
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = getcustomasset(TextEntered)
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = getcustomasset(TextEntered)
-
-				_G.Table.GUISettings.Wallpaper = TextEntered
-				SaveSettings()
-			else
-				_G.PopUpNotificationOptions({
-					Title = "Error!",
-					Message = "Invalid path",
-					Button2Text = "Close",
-					Button2Function = function()
-					end,
-				})
-			end
-
-		elseif tonumber(TextEntered) then
-			if CheckIfDecalOrImage(TextEntered) == "Image" then
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = "rbxassetid://"..TextEntered
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = "rbxassetid://"..TextEntered
-
-				_G.Table.GUISettings.Wallpaper = TextEntered
-				SaveSettings()
-			elseif CheckIfDecalOrImage(TextEntered) == "Decal" then
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Image = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
-				game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.WallpaperCover.Image = "https://www.roblox.com/asset-thumbnail/image?assetId="..TextEntered.."&width=420&height=420&format=png"
-
-				_G.Table.GUISettings.Wallpaper = TextEntered
-				SaveSettings()
-			else
-				_G.PopUpNotificationOptions({
-					Title = "Error!",
-					Message = "Invalid ID.",
-					Button2Text = "Close",
-					Button2Function = function()
-					end,
-				})
-			end
-
-		else
+ChangeSetting.UIScale = function(TextEntered)
+	if tonumber(TextEntered) then
+		if tonumber(TextEntered) > 1.5 or tonumber(TextEntered) < 0.5 then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
-				Message = "Invalid input. Must be a ID, PNG, or Link.",
+				Message = "Must not be greater than 1.5 or lower than 0.5",
 				Button2Text = "Close",
 				Button2Function = function()
 				end,
 			})
+		else
+			_G.CloseVexHub()
+			game:GetService("CoreGui").VexHubUI.DragFrame.UIScale.Scale = tonumber(TextEntered)
+			_G.OpenVexHub()
+
+			_G.Table.GUISettings.UIScale = tonumber(TextEntered)
+			SaveSettings()
 		end
+	else
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Invalid input. Must be a number.",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
 	end
-)
+end
 
 _G.CreateSettingTextBox(
 	"UIScale",
@@ -613,34 +648,42 @@ _G.CreateSettingTextBox(
 	"The scale of the UI",
 	"Number",
 	function(TextEntered)
-		if tonumber(TextEntered) then
-			if tonumber(TextEntered) > 1.5 or tonumber(TextEntered) < 0.5 then
-				_G.PopUpNotificationOptions({
-					Title = "Error!",
-					Message = "Must not be greater than 1.5 or lower than 0.5",
-					Button2Text = "Close",
-					Button2Function = function()
-					end,
-				})
-			else
-				_G.CloseVexHub()
-				game:GetService("CoreGui").VexHubUI.DragFrame.UIScale.Scale = tonumber(TextEntered)
-				_G.OpenVexHub()
+		ChangeSetting.UIScale(TextEntered)
+	end
+)
 
-				_G.Table.GUISettings.UIScale = tonumber(TextEntered)
-				SaveSettings()
-			end
-		else
+ChangeSetting.UIFrameTransparency = function(TextEntered)
+	if tonumber(TextEntered) then
+		if tonumber(TextEntered) > 1 or tonumber(TextEntered) < 0 then
 			_G.PopUpNotificationOptions({
 				Title = "Error!",
-				Message = "Invalid input. Must be a number.",
+				Message = "Must not be greater than 1 or lower than 0",
 				Button2Text = "Close",
 				Button2Function = function()
 				end,
 			})
+		else
+			_G.Table.GUISettings.UIFrameTransparency = tonumber(TextEntered)
+			SaveSettings()
+
+			_G.CloseVexHub()
+			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+				if (Child:GetAttribute("UIFrameTransparency")) then
+					Child.BackgroundTransparency = tonumber(TextEntered)
+				end
+			end
+			_G.OpenVexHub()
 		end
+	else
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Invalid input. Must be a number.",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
 	end
-)
+end
 
 _G.CreateSettingTextBox(
 	"UIFrameTransparency",
@@ -648,44 +691,12 @@ _G.CreateSettingTextBox(
 	"The transparency of frames of pages",
 	"Number",
 	function(TextEntered)
-		if tonumber(TextEntered) then
-			if tonumber(TextEntered) > 1 or tonumber(TextEntered) < 0 then
-				_G.PopUpNotificationOptions({
-					Title = "Error!",
-					Message = "Must not be greater than 1 or lower than 0",
-					Button2Text = "Close",
-					Button2Function = function()
-					end,
-				})
-			else
-				_G.Table.GUISettings.UIFrameTransparency = tonumber(TextEntered)
-				SaveSettings()
-
-				_G.PopUpNotificationOptions({
-					Title = "Setting Saved!",
-					Message = "Please re-execute VexHub to see changes",
-					Button2Text = "Close",
-					Button2Function = function()
-					end,
-				})
-			end
-		else
-			_G.PopUpNotificationOptions({
-				Title = "Error!",
-				Message = "Invalid input. Must be a number.",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		end
+		ChangeSetting.UIFrameTransparency(TextEntered)
 	end
 )
 
-_G.CreateSettingBoolean(
-	"UIBoldText", 
-	function() return _G.Table.GUISettings.UIBoldText end, 
-	"Only use bold in texts",
-	function()
+ChangeSetting.UIBoldText = function(Boolean)
+	if Boolean == true then
 		_G.Table.GUISettings.UIBoldText = true
 		SaveSettings()
 
@@ -696,8 +707,7 @@ _G.CreateSettingBoolean(
 			end
 		end
 		_G.OpenVexHub()
-	end,
-	function()
+	else
 		_G.Table.GUISettings.UIBoldText = false
 		SaveSettings()
 
@@ -709,7 +719,52 @@ _G.CreateSettingBoolean(
 		end
 		_G.OpenVexHub()
 	end
+end
+
+_G.CreateSettingBoolean(
+	"UIBoldText", 
+	function() return _G.Table.GUISettings.UIBoldText end, 
+	"Only use bold in texts",
+	function()
+		ChangeSetting.UIBoldText(true)
+	end,
+	function()
+		ChangeSetting.UIBoldText(false)
+	end
 )
+
+ChangeSetting.UITextSize = function(TextEntered)
+	if tonumber(TextEntered) then
+		if tonumber(TextEntered) > 3 or tonumber(TextEntered) < -3 then
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Must not be greater than 3 or lower than -3",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		else
+			_G.Table.GUISettings.UITextSize = tonumber(TextEntered)
+			SaveSettings()
+
+			_G.CloseVexHub()
+			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+				if (Child:GetAttribute("UITextSize")) then
+					Child.TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize
+				end
+			end
+			_G.OpenVexHub()
+		end
+	else
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Invalid input. Must be a number.",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	end
+end
 
 _G.CreateSettingTextBox(
 	"UITextSize",
@@ -717,38 +772,40 @@ _G.CreateSettingTextBox(
 	"The additional text size of the UI (0 is default)",
 	"Number",
 	function(TextEntered)
-		if tonumber(TextEntered) then
-			if tonumber(TextEntered) > 3 or tonumber(TextEntered) < -3 then
-				_G.PopUpNotificationOptions({
-					Title = "Error!",
-					Message = "Must not be greater than 3 or lower than -3",
-					Button2Text = "Close",
-					Button2Function = function()
-					end,
-				})
-			else
-				_G.Table.GUISettings.UITextSize = tonumber(TextEntered)
-				SaveSettings()
-
-				_G.CloseVexHub()
-				for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
-					if (Child:GetAttribute("UITextSize")) then
-						Child.TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize
-					end
-				end
-				_G.OpenVexHub()
-			end
-		else
-			_G.PopUpNotificationOptions({
-				Title = "Error!",
-				Message = "Invalid input. Must be a number.",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		end
+		ChangeSetting.UITextSize(TextEntered)
 	end
 )
+
+ChangeSetting.UIFont = function(TextEntered)
+	local FontFound = false
+
+	for FontName, FontID in _G.Table.Fonts do
+		if string.find(string.lower(FontName), string.lower(TextEntered)) then
+			_G.Table.GUISettings.UIFont = FontName
+			FontFound = true
+			SaveSettings()
+
+			_G.CloseVexHub()
+			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+				if (Child:GetAttribute("UIFont")) then
+					Child.FontFace = UIFont(Child:GetAttribute("UIFont"))
+				end
+			end
+			_G.OpenVexHub()
+			break
+		end
+	end
+
+	if FontFound == false then
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Not a valid font/not supported in VexHub",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	end
+end
 
 _G.CreateSettingTextBox(
 	"UIFont",
@@ -756,34 +813,7 @@ _G.CreateSettingTextBox(
 	"The font of texts in the UI",
 	"FontName",
 	function(TextEntered)
-		local FontFound = false
-
-		for FontName, FontID in _G.Table.Fonts do
-			if string.find(string.lower(FontName), string.lower(TextEntered)) then
-				_G.Table.GUISettings.UIFont = FontName
-				FontFound = true
-				SaveSettings()
-
-				_G.CloseVexHub()
-				for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
-					if (Child:GetAttribute("UIFont")) then
-						Child.FontFace = UIFont(Child:GetAttribute("UIFont"))
-					end
-				end
-				_G.OpenVexHub()
-				break
-			end
-		end
-
-		if FontFound == false then
-			_G.PopUpNotificationOptions({
-				Title = "Error!",
-				Message = "Not a valid font/not supported in VexHub",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		end
+		ChangeSetting.UIFont(TextEntered)
 	end
 )
 
@@ -811,85 +841,70 @@ _G.CreateSettingButton(
 	end
 )
 
+ChangeSetting.UIPrimaryColor = function(TextEntered)
+	if StringToValidRGBString(TextEntered) == false then
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Invalid input. Must be a valid RGB.",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	else
+		_G.Table.GUISettings.UIPrimaryColor = StringToValidRGBString(TextEntered)
+		SaveSettings()
+
+		_G.CloseVexHub()
+		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+			if (Child:GetAttribute("UIPrimaryColor")) then
+				local UIPrimaryColorRed = math.floor(Child:GetAttribute("UIPrimaryColor").R*255)
+				local UIPrimaryColorGreen = math.floor(Child:GetAttribute("UIPrimaryColor").G*255)
+				local UIPrimaryColorBlue  = math.floor(Child:GetAttribute("UIPrimaryColor").B*255)
+
+				if Child:IsA("UIGradient") then
+					Child.Color = ColorSequence.new{
+						ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
+						ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue)))
+					}
+				elseif Child:IsA("UIStroke") then
+					Child.Color = Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue))
+				else
+					Child.BackgroundColor3 = Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue))
+				end
+			end
+		end
+		_G.OpenVexHub()
+	end
+end
+
 _G.CreateSettingTextBox(
 	"UIPrimaryColor",
 	function() return _G.Table.GUISettings.UIPrimaryColor end,
 	"The primary color of the frames in the UI",
 	"RGB",
 	function(TextEntered)
-		if StringToValidRGBString(TextEntered) == false then
-			_G.PopUpNotificationOptions({
-				Title = "Error!",
-				Message = "Invalid input. Must be a valid RGB.",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		else
-			_G.Table.GUISettings.UIPrimaryColor = StringToValidRGBString(TextEntered)
-			SaveSettings()
-
-			_G.CloseVexHub()
-			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
-				if (Child:GetAttribute("UIPrimaryColor")) then
-					local UIPrimaryColorRed = math.floor(Child:GetAttribute("UIPrimaryColor").R*255)
-					local UIPrimaryColorGreen = math.floor(Child:GetAttribute("UIPrimaryColor").G*255)
-					local UIPrimaryColorBlue  = math.floor(Child:GetAttribute("UIPrimaryColor").B*255)
-
-					if Child:IsA("UIGradient") then
-						Child.Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue)))
-						}
-					else
-						Child.BackgroundColor3 = Color3.new(UIPrimaryColor(UIPrimaryColorRed, UIPrimaryColorGreen, UIPrimaryColorBlue))
-					end
-				end
-			end
-			_G.OpenVexHub()
-		end
+		ChangeSetting.UIPrimaryColor(TextEntered)
 	end
 )
 
-_G.CreateSettingTextBox(
-	"UISecondaryColor",
-	function() return _G.Table.GUISettings.UISecondaryColor end,
-	"The secondary color of the frames in the UI",
-	"RGB",
-	function(TextEntered)
-		if StringToValidRGBString(TextEntered) == false then
-			_G.PopUpNotificationOptions({
-				Title = "Error!",
-				Message = "Invalid input. Must be a valid RGB.",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		else
-			_G.Table.GUISettings.UISecondaryColor = StringToValidRGBString(TextEntered)
-			SaveSettings()
+ChangeSetting.UIShadowColor = function(TextEntered)
+	if StringToValidRGBString(TextEntered) == false then
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Invalid input. Must be a valid RGB.",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	else
+		_G.Table.GUISettings.UIShadowColor = StringToValidRGBString(TextEntered)
+		SaveSettings()
 
-			_G.CloseVexHub()
-			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
-				if (Child:GetAttribute("UISecondaryColor")) then
-					local UISecondaryColorRed = math.floor(Child:GetAttribute("UISecondaryColor").R*255)
-					local UISecondaryColorGreen = math.floor(Child:GetAttribute("UISecondaryColor").G*255)
-					local UISecondaryColorBlue  = math.floor(Child:GetAttribute("UISecondaryColor").B*255)
-
-					if Child:IsA("UIGradient") then
-						Child.Color = ColorSequence.new{
-							ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-							ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(UISecondaryColorRed, UISecondaryColorGreen, UISecondaryColorBlue)))
-						}
-					else
-						Child.BackgroundColor3 = Color3.new(UIPrimaryColor(UISecondaryColorRed, UISecondaryColorGreen, UISecondaryColorBlue))
-					end
-				end
-			end
-			_G.OpenVexHub()
-		end
+		_G.CloseVexHub()
+		game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIShadowColor))
+		_G.OpenVexHub()
 	end
-)
+end
 
 _G.CreateSettingTextBox(
 	"UIShadowColor",
@@ -897,24 +912,36 @@ _G.CreateSettingTextBox(
 	"The color of the shadow in the UI",
 	"RGB",
 	function(TextEntered)
-		if StringToValidRGBString(TextEntered) == false then
-			_G.PopUpNotificationOptions({
-				Title = "Error!",
-				Message = "Invalid input. Must be a valid RGB.",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		else
-			_G.Table.GUISettings.UIShadowColor = StringToValidRGBString(TextEntered)
-			SaveSettings()
-
-			_G.CloseVexHub()
-			game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIShadowColor))
-			_G.OpenVexHub()
-		end
+		ChangeSetting.UIShadowColor(TextEntered)
 	end
 )
+
+ChangeSetting.UITextColor = function(TextEntered)
+	if StringToValidRGBString(TextEntered) == false then
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Invalid input. Must be a valid RGB.",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	else
+		_G.Table.GUISettings.UITextColor = StringToValidRGBString(TextEntered)
+		SaveSettings()	
+
+		_G.CloseVexHub()
+		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+			if (Child:GetAttribute("UITextColor")) then
+				if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
+					Child.TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+				elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
+					Child.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+				end
+			end
+		end
+		_G.OpenVexHub()
+	end
+end
 
 _G.CreateSettingTextBox(
 	"UITextColor",
@@ -922,32 +949,36 @@ _G.CreateSettingTextBox(
 	"The color of the texts in the UI",
 	"RGB",
 	function(TextEntered)
-		if StringToValidRGBString(TextEntered) == false then
-			_G.PopUpNotificationOptions({
-				Title = "Error!",
-				Message = "Invalid input. Must be a valid RGB.",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		else
-			_G.Table.GUISettings.UITextColor = StringToValidRGBString(TextEntered)
-			SaveSettings()	
-
-			_G.CloseVexHub()
-			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
-				if (Child:GetAttribute("UITextColor")) then
-					if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
-						Child.TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
-					elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-						Child.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
-					end
-				end
-			end
-			_G.OpenVexHub()
-		end
+		ChangeSetting.UITextColor(TextEntered)
 	end
 )
+
+ChangeSetting.UIImageColor = function(TextEntered)
+	if StringToValidRGBString(TextEntered) == false then
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Invalid input. Must be a valid RGB.",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	else
+		_G.Table.GUISettings.UIImageColor = StringToValidRGBString(TextEntered)
+		SaveSettings()
+
+		_G.CloseVexHub()
+		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
+			if (Child:GetAttribute("UIImageColor")) then
+				if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
+					Child.TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+				elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
+					Child.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+				end
+			end
+		end
+		_G.OpenVexHub()
+	end
+end
 
 _G.CreateSettingTextBox(
 	"UIImageColor",
@@ -955,29 +986,43 @@ _G.CreateSettingTextBox(
 	"The color of the images in the UI",
 	"RGB",
 	function(TextEntered)
-		if StringToValidRGBString(TextEntered) == false then
+		ChangeSetting.UIImageColor(TextEntered)
+	end
+)
+
+_G.CreateSettingTextBox(
+	"Import Settings",
+	function() return "" end,
+	"Load a exported settings",
+	"Json",
+	function(TextEntered)
+		local ImportedSettings = nil
+		local success, result = pcall(function()
+			ImportedSettings = JSon:Decode(TextEntered)
+		end)
+
+		if success then
+			for Setting, Value in ImportedSettings do
+				if (ChangeSetting[Setting]) and Value ~= nil then
+					ChangeSetting[Setting](Value)
+				end
+			end
+			
 			_G.PopUpNotificationOptions({
-				Title = "Error!",
-				Message = "Invalid input. Must be a valid RGB.",
+				Title = "Success!",
+				Message = "Settings imported successfully",
 				Button2Text = "Close",
 				Button2Function = function()
 				end,
 			})
 		else
-			_G.Table.GUISettings.UIImageColor = StringToValidRGBString(TextEntered)
-			SaveSettings()
-
-			_G.CloseVexHub()
-			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
-				if (Child:GetAttribute("UIImageColor")) then
-					if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
-						Child.TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
-					elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-						Child.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
-					end
-				end
-			end
-			_G.OpenVexHub()
+			_G.PopUpNotificationOptions({
+				Title = "Error!",
+				Message = "Invalid input. Must be a valid Json table.",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
 		end
 	end
 )
@@ -987,7 +1032,7 @@ _G.CreateSettingButton(
 	"Export your settings to share to others",
 	function()
 		setclipboard(JSon:Encode(_G.Table.GUISettings))
-		
+
 		_G.PopUpNotificationOptions({
 			Title = "Success!",
 			Message = "Your settings is in your clipboard",

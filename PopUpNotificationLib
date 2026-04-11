@@ -4,8 +4,8 @@ function StringToRGB(ToConvert)
 	return ColorR/255,ColorG/255,ColorB/255
 end
 
-function UIPrimaryColor(RedTweak, GreenTweak, BlueTweak)
-	local RGB = string.split(_G.Table.GUISettings.UIPrimaryColor, ",")
+function UIColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
 	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
 		RedTweak = 0
 	end
@@ -85,7 +85,7 @@ GUI["UIListLayout_0"].Parent = GUI["PopUpNotificationOptions_0"]
 
 GUI["NotificationTemplate_0"].Active = true
 GUI["NotificationTemplate_0"].AutomaticSize = Enum.AutomaticSize.Y
-GUI["NotificationTemplate_0"].BackgroundColor3 = Color3.new(UIPrimaryColor(0,0,0))
+GUI["NotificationTemplate_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["NotificationTemplate_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["NotificationTemplate_0"].BorderSizePixel = 0
 GUI["NotificationTemplate_0"].Position = UDim2.new(0.349999994, 0, 0.423999995, 0)
@@ -93,7 +93,7 @@ GUI["NotificationTemplate_0"].Size = UDim2.new(0, 150, 0, 0)
 GUI["NotificationTemplate_0"].Visible = false
 GUI["NotificationTemplate_0"].Name = "NotificationTemplate"
 GUI["NotificationTemplate_0"].Parent = GUI["PopUpNotificationOptions_0"]
-GUI["NotificationTemplate_0"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(0,0,0))
+GUI["NotificationTemplate_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UICorner_0"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_0"].Parent = GUI["NotificationTemplate_0"]
@@ -173,9 +173,9 @@ GUI["UICorner_01"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_01"].Parent = GUI["Button1_0"]
 
 GUI["UIStroke_01"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-GUI["UIStroke_01"].Color = Color3.new(UIPrimaryColor(34, 36, 42))
+GUI["UIStroke_01"].Color = Color3.new(UIColor(34, 36, 42))
 GUI["UIStroke_01"].Parent = GUI["Button1_0"]
-GUI["UIStroke_01"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(34, 36, 42))
+GUI["UIStroke_01"]:SetAttribute("UIColor", Color3.fromRGB(34, 36, 42))
 
 GUI["UIScale_01"].Parent = GUI["Button1_0"]
 
@@ -184,7 +184,7 @@ GUI["Button2_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIText
 GUI["Button2_0"].TextSize = 12
 GUI["Button2_0"].TextWrapped = true
 GUI["Button2_0"].AutoButtonColor = false
-GUI["Button2_0"].BackgroundColor3 = Color3.new(UIPrimaryColor(34, 36, 42))
+GUI["Button2_0"].BackgroundColor3 = Color3.new(UIColor(34, 36, 42))
 GUI["Button2_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Button2_0"].BorderSizePixel = 0
 GUI["Button2_0"].Size = UDim2.new(0, 62, 1, 0)
@@ -193,7 +193,7 @@ GUI["Button2_0"].Parent = GUI["Buttons_0"]
 GUI["Button2_0"]:SetAttribute("UIFont", "Bold")
 GUI["Button2_0"]:SetAttribute("UIBoldText", true)
 GUI["Button2_0"]:SetAttribute("UITextColor", true)
-GUI["Button2_0"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(34, 36, 42))
+GUI["Button2_0"]:SetAttribute("UIColor", Color3.fromRGB(34, 36, 42))
 
 GUI["UIListLayout_03"].Padding = UDim.new(0, 10)
 GUI["UIListLayout_03"].FillDirection = Enum.FillDirection.Horizontal

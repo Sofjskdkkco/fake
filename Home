@@ -8,22 +8,8 @@ function StringToRGB(ToConvert)
 	return ColorR/255,ColorG/255,ColorB/255
 end
 
-function UIPrimaryColor(RedTweak, GreenTweak, BlueTweak)
-	local RGB = string.split(_G.Table.GUISettings.UIPrimaryColor, ",")
-	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
-		RedTweak = 0
-	end
-	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
-		GreenTweak = 0
-	end
-	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
-		BlueTweak = 0
-	end
-	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
-end
-
-function UISecondaryColor(RedTweak, GreenTweak, BlueTweak)
-	local RGB = string.split(_G.Table.GUISettings.UISecondaryColor, ",")
+function UIColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
 	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
 		RedTweak = 0
 	end
@@ -40,7 +26,7 @@ function UIFont(FontWeight)
 	if _G.Table.GUISettings.UIBoldText == true then
 		FontWeight = "Bold"
 	end
-	
+
 	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
 		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
 	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
@@ -174,7 +160,7 @@ GUI["UIListLayout_01"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_01"].Parent = GUI["UserGreetings_0"]
 
 GUI["ProfilePicture_0"].Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..LocalPlayer.UserId.."&width=420&height=420&format=png"
-GUI["ProfilePicture_0"].BackgroundColor3 = Color3.new(UIPrimaryColor(18, 19, 20))
+GUI["ProfilePicture_0"].BackgroundColor3 = Color3.new(UIColor(18, 19, 20))
 GUI["ProfilePicture_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["ProfilePicture_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["ProfilePicture_0"].BorderSizePixel = 0
@@ -185,9 +171,9 @@ GUI["ProfilePicture_0"].Parent = GUI["UserGreetings_0"]
 GUI["UICorner_01"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_01"].Parent = GUI["ProfilePicture_0"]
 
-GUI["UIStroke_0"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UISecondaryColor))
+GUI["UIStroke_0"].Color = Color3.fromRGB(255, 255, 255)
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
-GUI["UIStroke_0"].Transparency = 0.2
+GUI["UIStroke_0"].Transparency = 0.8
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -217,8 +203,8 @@ GUI["UIStroke_01"].Parent = GUI["UserGreetings_0"]
 GUI["UIStroke_01"].Transparency = 0.9
 
 GUI["UIGradient_01"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
 }
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["UserGreetings_0"]
@@ -246,11 +232,12 @@ GUI["VexHubInfo_0"].Name = "VexHubInfo"
 GUI["VexHubInfo_0"].Parent = GUI["RightFrame_0"]
 
 GUI["UIGradient_02"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UISecondaryColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UISecondaryColor(-11, -19, -51)))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(51, 95, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 76, 204))
 }
 GUI["UIGradient_02"].Rotation = 90
 GUI["UIGradient_02"].Parent = GUI["VexHubInfo_0"]
+-- -11, -19, -51
 
 GUI["UICorner_02"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_02"].Parent = GUI["VexHubInfo_0"]
@@ -277,7 +264,7 @@ GUI["Scripts_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Scripts_0"].Name = "Scripts"
 GUI["Scripts_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Border_0"].BackgroundColor3 = Color3.new(UISecondaryColor(-16, -29, -77))
+GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(35, 66, 178) -- -16, -29, -77
 GUI["Border_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_0"].BorderSizePixel = 0
 GUI["Border_0"].LayoutOrder = 4
@@ -315,7 +302,7 @@ GUI["Version_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Version_0"].Name = "Version"
 GUI["Version_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Border_01"].BackgroundColor3 = Color3.new(UISecondaryColor(-16, -29, -77))
+GUI["Border_01"].BackgroundColor3 = Color3.fromRGB(35, 66, 178) -- -16, -29, -77
 GUI["Border_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_01"].BorderSizePixel = 0
 GUI["Border_01"].LayoutOrder = 2
@@ -323,7 +310,7 @@ GUI["Border_01"].Size = UDim2.new(0, 1, 0.5, 0)
 GUI["Border_01"].Name = "Border"
 GUI["Border_01"].Parent = GUI["VexHubInfo_0"]
 
-GUI["UIStroke_02"].Color = Color3.new(UISecondaryColor(-16, -29, -77))
+GUI["UIStroke_02"].Color = Color3.fromRGB(35, 66, 178) -- -16, -29, -77
 GUI["UIStroke_02"].Parent = GUI["VexHubInfo_0"]
 GUI["UIStroke_02"].Transparency = 0.9
 
@@ -336,8 +323,8 @@ GUI["Socials_0"].Name = "Socials"
 GUI["Socials_0"].Parent = GUI["RightFrame_0"]
 
 GUI["UIGradient_03"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
 }
 GUI["UIGradient_03"].Rotation = 90
 GUI["UIGradient_03"].Parent = GUI["Socials_0"]
@@ -617,8 +604,8 @@ GUI["UIStroke_05"].Parent = GUI["AnnouncementFrame_0"]
 GUI["UIStroke_05"].Transparency = 0.9
 
 GUI["UIGradient_06"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
 }
 GUI["UIGradient_06"].Rotation = 90
 GUI["UIGradient_06"].Parent = GUI["AnnouncementFrame_0"]
@@ -722,15 +709,15 @@ GUI["UIStroke_06"].Parent = GUI["UpdatesFrame_0"]
 GUI["UIStroke_06"].Transparency = 0.9
 
 GUI["UIGradient_07"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
 }
 GUI["UIGradient_07"].Rotation = 90
 GUI["UIGradient_07"].Parent = GUI["UpdatesFrame_0"]
 
 GUI["UIGradient_08"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
 }
 GUI["UIGradient_08"].Rotation = 90
 GUI["UIGradient_08"].Parent = GUI["BottomFrame_0"]

@@ -22,7 +22,7 @@ function UIFont(FontWeight)
 	if _G.Table.GUISettings.UIBoldText == true then
 		FontWeight = "Bold"
 	end
-	
+
 	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
 		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
 	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
@@ -175,6 +175,7 @@ GUI["UICorner_01"].Parent = GUI["Button1_0"]
 GUI["UIStroke_01"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 GUI["UIStroke_01"].Color = Color3.new(UIPrimaryColor(34, 36, 42))
 GUI["UIStroke_01"].Parent = GUI["Button1_0"]
+GUI["UIStroke_01"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(34, 36, 42))
 
 GUI["UIScale_01"].Parent = GUI["Button1_0"]
 
@@ -192,6 +193,7 @@ GUI["Button2_0"].Parent = GUI["Buttons_0"]
 GUI["Button2_0"]:SetAttribute("UIFont", "Bold")
 GUI["Button2_0"]:SetAttribute("UIBoldText", true)
 GUI["Button2_0"]:SetAttribute("UITextColor", true)
+GUI["Button2_0"]:SetAttribute("UIPrimaryColor", Color3.fromRGB(34, 36, 42))
 
 GUI["UIListLayout_03"].Padding = UDim.new(0, 10)
 GUI["UIListLayout_03"].FillDirection = Enum.FillDirection.Horizontal

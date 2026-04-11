@@ -4,8 +4,8 @@ function StringToRGB(ToConvert)
 	return ColorR/255,ColorG/255,ColorB/255
 end
 
-function UIPrimaryColor(RedTweak, GreenTweak, BlueTweak)
-	local RGB = string.split(_G.Table.GUISettings.UIPrimaryColor, ",")
+function UIColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
 	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
 		RedTweak = 0
 	end
@@ -80,11 +80,12 @@ GUI["UICorner_0"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_0"].Parent = GUI["ActionButton_0"]
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIPrimaryColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIPrimaryColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
+	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
 }
 GUI["UIGradient_0"].Rotation = 90
 GUI["UIGradient_0"].Parent = GUI["ActionButton_0"]
+GUI["UIGradient_0"]:SetAttribute("UIColor", Color3.fromRGB(-7, -8, -10))
 
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")

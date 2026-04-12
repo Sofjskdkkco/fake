@@ -223,7 +223,7 @@ GUI["UIListLayout_02"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_02"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_02"].Parent = GUI["RightFrame_0"]
 
-GUI["VexHubInfo_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["VexHubInfo_0"].BackgroundColor3 = Color3.new(UIColor(18, 19, 20))
 GUI["VexHubInfo_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["VexHubInfo_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["VexHubInfo_0"].BorderSizePixel = 0
@@ -232,8 +232,8 @@ GUI["VexHubInfo_0"].Name = "VexHubInfo"
 GUI["VexHubInfo_0"].Parent = GUI["RightFrame_0"]
 
 GUI["UIGradient_02"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(51, 95, 255)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 76, 204))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_02"].Rotation = 90
 GUI["UIGradient_02"].Parent = GUI["VexHubInfo_0"]

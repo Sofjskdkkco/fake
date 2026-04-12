@@ -264,11 +264,12 @@ GUI["Scripts_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Scripts_0"].Name = "Scripts"
 GUI["Scripts_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(35, 66, 178) -- -16, -29, -77
+GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_0"].BorderSizePixel = 0
 GUI["Border_0"].LayoutOrder = 4
 GUI["Border_0"].Size = UDim2.new(0, 1, 0.5, 0)
+GUI["Border_0"].Transparency = 0.9
 GUI["Border_0"].Name = "Border"
 GUI["Border_0"].Parent = GUI["VexHubInfo_0"]
 
@@ -302,11 +303,12 @@ GUI["Version_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Version_0"].Name = "Version"
 GUI["Version_0"].Parent = GUI["VexHubInfo_0"]
 
-GUI["Border_01"].BackgroundColor3 = Color3.fromRGB(35, 66, 178) -- -16, -29, -77
+GUI["Border_01"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_01"].BorderSizePixel = 0
 GUI["Border_01"].LayoutOrder = 2
 GUI["Border_01"].Size = UDim2.new(0, 1, 0.5, 0)
+GUI["Border_01"].Transparency = 0.9
 GUI["Border_01"].Name = "Border"
 GUI["Border_01"].Parent = GUI["VexHubInfo_0"]
 

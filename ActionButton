@@ -48,7 +48,7 @@ GUI["ActionButton_0"].TextColor3 = Color3.fromRGB(0, 0, 0)
 GUI["ActionButton_0"].TextSize = 14
 GUI["ActionButton_0"].Active = true
 GUI["ActionButton_0"].AutoButtonColor = false
-GUI["ActionButton_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ActionButton_0"].BackgroundColor3 = Color3.new(UIColor(0, 0, 0))
 GUI["ActionButton_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["ActionButton_0"].BorderSizePixel = 0
 GUI["ActionButton_0"].Draggable = true
@@ -56,6 +56,7 @@ GUI["ActionButton_0"].Position = UDim2.new(0.842000008, 0, 0, 2)
 GUI["ActionButton_0"].Size = UDim2.new(0, 96, 0, 44)
 GUI["ActionButton_0"].Name = "ActionButton"
 GUI["ActionButton_0"].Parent = GUI["TopBar_0"]
+GUI["ActionButton_0"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
 
 GUI["UIListLayout_0"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_0"].SortOrder = Enum.SortOrder.LayoutOrder
@@ -80,12 +81,11 @@ GUI["UICorner_0"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_0"].Parent = GUI["ActionButton_0"]
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_0"].Rotation = 90
 GUI["UIGradient_0"].Parent = GUI["ActionButton_0"]
-GUI["UIGradient_0"]:SetAttribute("UIColor", Color3.fromRGB(-7, -8, -10))
 
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")

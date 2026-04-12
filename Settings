@@ -652,13 +652,11 @@ ChangeSetting.UIFrameTransparency = function(TextEntered)
 			_G.Table.GUISettings.UIFrameTransparency = tonumber(TextEntered)
 			SaveSettings()
 
-			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UIFrameTransparency")) then
-					Child.BackgroundTransparency = tonumber(TextEntered)
+					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {BackgroundTransparency = tonumber(TextEntered)}):Play()
 				end
 			end
-			_G.OpenVexHub()
 		end
 	else
 		_G.PopUpNotificationOptions({
@@ -697,13 +695,11 @@ ChangeSetting.UIBoldText = function(Boolean)
 		_G.Table.GUISettings.UIBoldText = false
 		SaveSettings()
 
-		_G.CloseVexHub()
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UIBoldText")) then
 				Child.FontFace = UIFont(Child:GetAttribute("UIFont"))
 			end
 		end
-		_G.OpenVexHub()
 	end
 end
 
@@ -733,13 +729,11 @@ ChangeSetting.UITextSize = function(TextEntered)
 			_G.Table.GUISettings.UITextSize = tonumber(TextEntered)
 			SaveSettings()
 
-			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UITextSize")) then
-					Child.TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize
+					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize}):Play()
 				end
 			end
-			_G.OpenVexHub()
 		end
 	else
 		_G.PopUpNotificationOptions({
@@ -771,13 +765,11 @@ ChangeSetting.UIFont = function(TextEntered)
 			FontFound = true
 			SaveSettings()
 
-			_G.CloseVexHub()
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UIFont")) then
 					Child.FontFace = UIFont(Child:GetAttribute("UIFont"))
 				end
 			end
-			_G.OpenVexHub()
 			break
 		end
 	end
@@ -840,26 +832,19 @@ ChangeSetting.UIColor = function(TextEntered)
 		_G.Table.GUISettings.UIColor = StringToValidRGBString(TextEntered)
 		SaveSettings()
 
-		_G.CloseVexHub()
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UIColor")) then
 				local UIColorRed = math.floor(Child:GetAttribute("UIColor").R*255)
 				local UIColorGreen = math.floor(Child:GetAttribute("UIColor").G*255)
 				local UIColorBlue  = math.floor(Child:GetAttribute("UIColor").B*255)
-
-				if Child:IsA("UIGradient") then
-					Child.Color = ColorSequence.new{
-						ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
-						ColorSequenceKeypoint.new(1, Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue)))
-					}
-				elseif Child:IsA("UIStroke") then
-					Child.Color = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))
+				
+				if Child:IsA("UIStroke") then
+					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Color = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
 				else
-					Child.BackgroundColor3 = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))
+					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {BackgroundColor3 = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
 				end
 			end
 		end
-		_G.OpenVexHub()
 	end
 end
 
@@ -886,9 +871,7 @@ ChangeSetting.UIShadowColor = function(TextEntered)
 		_G.Table.GUISettings.UIShadowColor = StringToValidRGBString(TextEntered)
 		SaveSettings()
 
-		_G.CloseVexHub()
-		game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIShadowColor))
-		_G.OpenVexHub()
+		TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIShadowColor))}):Play()
 	end
 end
 
@@ -915,17 +898,15 @@ ChangeSetting.UITextColor = function(TextEntered)
 		_G.Table.GUISettings.UITextColor = StringToValidRGBString(TextEntered)
 		SaveSettings()	
 
-		_G.CloseVexHub()
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UITextColor")) then
 				if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
-					Child.TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 				elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-					Child.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 				end
 			end
 		end
-		_G.OpenVexHub()
 	end
 end
 
@@ -952,17 +933,15 @@ ChangeSetting.UIImageColor = function(TextEntered)
 		_G.Table.GUISettings.UIImageColor = StringToValidRGBString(TextEntered)
 		SaveSettings()
 
-		_G.CloseVexHub()
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UIImageColor")) then
 				if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
-					Child.TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
 				elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-					Child.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
 				end
 			end
 		end
-		_G.OpenVexHub()
 	end
 end
 

@@ -74,6 +74,7 @@ GUI["Image_0"].Position = UDim2.new(0.270833343, 0, 1.5454545, 0)
 GUI["Image_0"].Size = UDim2.new(0, 44, 0, 44)
 GUI["Image_0"].Name = "Image"
 GUI["Image_0"].Parent = GUI["ActionButton_0"]
+GUI["Image_0"]:SetAttribute("UIImageColor", true)
 
 GUI["UIScale_0"].Parent = GUI["Image_0"]
 
@@ -84,6 +85,7 @@ GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
+GUI["UIGradient_0"].Offset = Vector2.new(0, 0.5)
 GUI["UIGradient_0"].Rotation = 90
 GUI["UIGradient_0"].Parent = GUI["ActionButton_0"]
 

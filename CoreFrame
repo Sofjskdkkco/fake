@@ -136,7 +136,7 @@ GUI["MainFrame_0"].Parent = GUI["DragFrame_0"]
 
 GUI["UIScale_01"].Parent = GUI["MainFrame_0"]
 
-GUI["MainContents_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["MainContents_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["MainContents_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["MainContents_0"].BorderSizePixel = 0
 GUI["MainContents_0"].LayoutOrder = 1
@@ -484,7 +484,7 @@ GUI["UIStroke_0"].Transparency = 0.8
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_0"].Offset = Vector2.new(0, 0.30000001192092896)
 GUI["UIGradient_0"].Rotation = 90
@@ -534,8 +534,8 @@ GUI["UIStroke_01"].Color = Color3.new(UIColor(0, 0, 0))
 GUI["UIStroke_01"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
 
 GUI["UIGradient_01"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["MainContents_0"]

@@ -223,7 +223,7 @@ GUI["UIListLayout_02"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_02"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_02"].Parent = GUI["RightFrame_0"]
 
-GUI["VexHubInfo_0"].BackgroundColor3 = Color3.new(UIColor(18, 19, 20))
+GUI["VexHubInfo_0"].BackgroundColor3 = Color3.new(UIColor(50, 50, 50))
 GUI["VexHubInfo_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["VexHubInfo_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["VexHubInfo_0"].BorderSizePixel = 0

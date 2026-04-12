@@ -142,7 +142,7 @@ GUI["TopFrame_0"].Size = UDim2.new(1, 0, 0, 100)
 GUI["TopFrame_0"].Name = "TopFrame"
 GUI["TopFrame_0"].Parent = GUI["Home_0"]
 
-GUI["UserGreetings_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["UserGreetings_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["UserGreetings_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["UserGreetings_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["UserGreetings_0"].BorderSizePixel = 0
@@ -203,8 +203,8 @@ GUI["UIStroke_01"].Parent = GUI["UserGreetings_0"]
 GUI["UIStroke_01"].Transparency = 0.9
 
 GUI["UIGradient_01"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["UserGreetings_0"]
@@ -314,7 +314,7 @@ GUI["UIStroke_02"].Color = Color3.fromRGB(255, 255, 255) -- -16, -29, -77
 GUI["UIStroke_02"].Parent = GUI["VexHubInfo_0"]
 GUI["UIStroke_02"].Transparency = 0.9
 
-GUI["Socials_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Socials_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["Socials_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["Socials_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Socials_0"].BorderSizePixel = 0
@@ -323,8 +323,8 @@ GUI["Socials_0"].Name = "Socials"
 GUI["Socials_0"].Parent = GUI["RightFrame_0"]
 
 GUI["UIGradient_03"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_03"].Rotation = 90
 GUI["UIGradient_03"].Parent = GUI["Socials_0"]
@@ -466,7 +466,7 @@ GUI["UIScale_01"].Parent = GUI["PayPal_0"]
 
 GUI["UIGradient_05"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_05"].Offset = Vector2.new(0, 0.30000001192092896)
 GUI["UIGradient_05"].Rotation = 90
@@ -482,7 +482,7 @@ GUI["UIListLayout_08"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_08"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_08"].Parent = GUI["TopFrame_0"]
 
-GUI["BottomFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["BottomFrame_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["BottomFrame_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["BottomFrame_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["BottomFrame_0"].BorderSizePixel = 0
@@ -505,7 +505,7 @@ GUI["UIStroke_04"].Transparency = 0.9
 GUI["UICorner_06"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_06"].Parent = GUI["BottomFrame_0"]
 
-GUI["AnnouncementFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AnnouncementFrame_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["AnnouncementFrame_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["AnnouncementFrame_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["AnnouncementFrame_0"].BorderSizePixel = 0
@@ -604,13 +604,13 @@ GUI["UIStroke_05"].Parent = GUI["AnnouncementFrame_0"]
 GUI["UIStroke_05"].Transparency = 0.9
 
 GUI["UIGradient_06"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_06"].Rotation = 90
 GUI["UIGradient_06"].Parent = GUI["AnnouncementFrame_0"]
 
-GUI["UpdatesFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["UpdatesFrame_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["UpdatesFrame_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["UpdatesFrame_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["UpdatesFrame_0"].BorderSizePixel = 0
@@ -709,15 +709,15 @@ GUI["UIStroke_06"].Parent = GUI["UpdatesFrame_0"]
 GUI["UIStroke_06"].Transparency = 0.9
 
 GUI["UIGradient_07"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_07"].Rotation = 90
 GUI["UIGradient_07"].Parent = GUI["UpdatesFrame_0"]
 
 GUI["UIGradient_08"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.new(UIColor(0, 0, 0))),
-	ColorSequenceKeypoint.new(1, Color3.new(UIColor(-7, -8, -10)))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
 GUI["UIGradient_08"].Rotation = 90
 GUI["UIGradient_08"].Parent = GUI["BottomFrame_0"]

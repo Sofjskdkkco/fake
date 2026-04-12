@@ -487,7 +487,7 @@ GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
-GUI["UIGradient_0"].Offset = Vector2.new(0, 0.30000001192092896)
+GUI["UIGradient_0"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_0"].Rotation = 90
 GUI["UIGradient_0"].Parent = GUI["ProfilePicture_0"]
 
@@ -538,6 +538,7 @@ GUI["UIGradient_01"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
+GUI["UIGradient_01"].Offset = Vector2.new(0, 0.5)
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["MainContents_0"]
 

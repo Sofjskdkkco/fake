@@ -175,9 +175,10 @@ GUI["ProfilePicture_0"]:SetAttribute("UIColor", Color3.fromRGB(18, 19, 20))
 GUI["UICorner_01"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_01"].Parent = GUI["ProfilePicture_0"]
 
-GUI["UIStroke_0"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_0"].Color = Color3.new(UIColor(0,0,0))
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
 GUI["UIStroke_0"].Transparency = 0.8
+GUI["UIStroke_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -206,9 +207,10 @@ GUI["Greetings_0"]:SetAttribute("UIBoldText", true)
 GUI["Greetings_0"]:SetAttribute("UITextColor", true)
 GUI["Greetings_0"]:SetAttribute("UITextSize", true)
 
-GUI["UIStroke_01"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_01"].Color = Color3.new(UIColor(0,0,0))
 GUI["UIStroke_01"].Parent = GUI["UserGreetings_0"]
 GUI["UIStroke_01"].Transparency = 0.9
+GUI["UIStroke_01"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UIGradient_01"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -336,9 +338,10 @@ GUI["Border_01"].Transparency = 0.9
 GUI["Border_01"].Name = "Border"
 GUI["Border_01"].Parent = GUI["VexHubInfo_0"]
 
-GUI["UIStroke_02"].Color = Color3.fromRGB(255, 255, 255) -- -16, -29, -77
+GUI["UIStroke_02"].Color = Color3.new(UIColor(0,0,0))
 GUI["UIStroke_02"].Parent = GUI["VexHubInfo_0"]
 GUI["UIStroke_02"].Transparency = 0.9
+GUI["UIStroke_02"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["Socials_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["Socials_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
@@ -502,9 +505,10 @@ GUI["UIGradient_05"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_05"].Rotation = 90
 GUI["UIGradient_05"].Parent = GUI["PayPal_0"]
 
-GUI["UIStroke_03"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_03"].Color = Color3.new(UIColor(0,0,0))
 GUI["UIStroke_03"].Parent = GUI["Socials_0"]
 GUI["UIStroke_03"].Transparency = 0.9
+GUI["UIStroke_03"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UIListLayout_08"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_08"].FillDirection = Enum.FillDirection.Horizontal
@@ -530,9 +534,10 @@ GUI["UIListLayout_09"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_09"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_09"].Parent = GUI["BottomFrame_0"]
 
-GUI["UIStroke_04"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_04"].Color = Color3.new(UIColor(0,0,0))
 GUI["UIStroke_04"].Parent = GUI["BottomFrame_0"]
 GUI["UIStroke_04"].Transparency = 0.9
+GUI["UIStroke_04"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UICorner_06"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_06"].Parent = GUI["BottomFrame_0"]
@@ -642,9 +647,10 @@ GUI["Border_02"].Size = UDim2.new(0, 1, 0, 0)
 GUI["Border_02"].Name = "Border"
 GUI["Border_02"].Parent = GUI["TopFrame_01"]
 
-GUI["UIStroke_05"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_05"].Color = Color3.new(UIColor(0,0,0))
 GUI["UIStroke_05"].Parent = GUI["AnnouncementFrame_0"]
 GUI["UIStroke_05"].Transparency = 0.9
+GUI["UIStroke_05"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UIGradient_06"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -759,9 +765,10 @@ GUI["Border_03"].Size = UDim2.new(0, 1, 0, 0)
 GUI["Border_03"].Name = "Border"
 GUI["Border_03"].Parent = GUI["TopFrame_02"]
 
-GUI["UIStroke_06"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_06"].Color = Color3.new(UIColor(0,0,0))
 GUI["UIStroke_06"].Parent = GUI["UpdatesFrame_0"]
 GUI["UIStroke_06"].Transparency = 0.9
+GUI["UIStroke_06"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UIGradient_07"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),

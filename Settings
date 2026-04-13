@@ -832,16 +832,12 @@ ChangeSetting.UIColor = function(TextEntered)
 
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UIColor")) then
-				local UIColorRed = math.floor(Child:GetAttribute("UIColor").R*255)
-				local UIColorGreen = math.floor(Child:GetAttribute("UIColor").G*255)
-				local UIColorBlue  = math.floor(Child:GetAttribute("UIColor").B*255)
-
 				if Child:GetAttribute("UIColor") == "Text" then
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextColor3 = Color3.new(UIColor(0, 0, 0))}):Play()
 				elseif Child:IsA("UIStroke") then
-					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Color = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Color = Color3.new(UIColor(math.floor(Child:GetAttribute("UIColor").R*255), math.floor(Child:GetAttribute("UIColor").G*255), math.floor(Child:GetAttribute("UIColor").B*255)))}):Play()
 				else
-					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(UIColor(math.floor(Child:GetAttribute("UIColor").R*255), math.floor(Child:GetAttribute("UIColor").G*255), math.floor(Child:GetAttribute("UIColor").B*255)))}):Play()
 				end
 			end
 		end

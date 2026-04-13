@@ -156,3 +156,40 @@ else
 	wait(15)
 	CloseScreen()
 end
+
+local FirebaseServer = {}
+local function FirebaseServerWrite(Path, Key, Value)
+	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
+	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+	local Folder = Path
+
+	local database = URL..Folder..".json?auth="..Secret
+	local request = request or syn.request
+	local Table = {}
+
+	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+		for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+			if key then
+				Table[key] = value
+			end
+		end
+	end
+
+	Table[Key] = Value
+
+	local send = request({
+		Url = database,
+		Method = "PUT",
+		Headers = {["Content-Type"] = "application/json"},
+		Body = game.HttpService:JSONEncode(Table)
+	})
+end
+local function FirebaseServerUpdate()
+	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
+	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+	local database = URL..".json?auth="..Secret
+	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(database))
+end
+
+FirebaseServerUpdate()
+FirebaseServerWrite("/", "Executed", FirebaseServer.Executed+1)

@@ -632,10 +632,11 @@ GUI["UIListLayout_012"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_012"].Parent = GUI["TopFrame_01"]
 
 GUI["Megaphone_0"].Image = "http://www.roblox.com/asset/?id=87216728545375"
-GUI["Megaphone_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["Megaphone_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Megaphone_0"].BackgroundTransparency = 1
 GUI["Megaphone_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Megaphone_0"].BorderSizePixel = 0
+GUI["Megaphone_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["Megaphone_0"].LayoutOrder = 1
 GUI["Megaphone_0"].Size = UDim2.new(0, 14, 0, 14)
 GUI["Megaphone_0"].Name = "Megaphone"
@@ -750,10 +751,11 @@ GUI["UIListLayout_015"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_015"].Parent = GUI["TopFrame_02"]
 
 GUI["Pen_0"].Image = "http://www.roblox.com/asset/?id=17648224301"
-GUI["Pen_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["Pen_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Pen_0"].BackgroundTransparency = 1
 GUI["Pen_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Pen_0"].BorderSizePixel = 0
+GUI["Pen_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["Pen_0"].LayoutOrder = 1
 GUI["Pen_0"].Size = UDim2.new(0, 14, 0, 14)
 GUI["Pen_0"].Name = "Pen"

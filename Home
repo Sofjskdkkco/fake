@@ -175,10 +175,10 @@ GUI["ProfilePicture_0"]:SetAttribute("UIColor", Color3.fromRGB(18, 19, 20))
 GUI["UICorner_01"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_01"].Parent = GUI["ProfilePicture_0"]
 
-GUI["UIStroke_0"].Color = Color3.new(UIColor(0,0,0))
+GUI["UIStroke_0"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
 GUI["UIStroke_0"].Transparency = 0.8
-GUI["UIStroke_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["UIStroke_0"]:SetAttribute("UIImageColor", true)
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -207,10 +207,10 @@ GUI["Greetings_0"]:SetAttribute("UIBoldText", true)
 GUI["Greetings_0"]:SetAttribute("UITextColor", true)
 GUI["Greetings_0"]:SetAttribute("UITextSize", true)
 
-GUI["UIStroke_01"].Color = Color3.new(UIColor(0,0,0))
+GUI["UIStroke_01"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_01"].Parent = GUI["UserGreetings_0"]
 GUI["UIStroke_01"].Transparency = 0.9
-GUI["UIStroke_01"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["UIStroke_01"]:SetAttribute("UITextColor", true)
 
 GUI["UIGradient_01"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -282,7 +282,7 @@ GUI["Scripts_0"]:SetAttribute("UIBoldText", true)
 GUI["Scripts_0"]:SetAttribute("UITextColor", true)
 GUI["Scripts_0"]:SetAttribute("UITextSize", true)
 
-GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Border_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Border_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_0"].BorderSizePixel = 0
 GUI["Border_0"].LayoutOrder = 4
@@ -290,6 +290,7 @@ GUI["Border_0"].Size = UDim2.new(0, 1, 0.5, 0)
 GUI["Border_0"].Transparency = 0.9
 GUI["Border_0"].Name = "Border"
 GUI["Border_0"].Parent = GUI["VexHubInfo_0"]
+GUI["Border_0"]:SetAttribute("UITextColor", "Frame")
 
 GUI["Executed_0"].FontFace = UIFont("Regular")
 GUI["Executed_0"].RichText = true
@@ -329,7 +330,7 @@ GUI["Version_0"]:SetAttribute("UIBoldText", true)
 GUI["Version_0"]:SetAttribute("UITextColor", true)
 GUI["Version_0"]:SetAttribute("UITextSize", true)
 
-GUI["Border_01"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Border_01"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Border_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_01"].BorderSizePixel = 0
 GUI["Border_01"].LayoutOrder = 2
@@ -337,11 +338,12 @@ GUI["Border_01"].Size = UDim2.new(0, 1, 0.5, 0)
 GUI["Border_01"].Transparency = 0.9
 GUI["Border_01"].Name = "Border"
 GUI["Border_01"].Parent = GUI["VexHubInfo_0"]
+GUI["Border_01"]:SetAttribute("UITextColor", "Frame")
 
-GUI["UIStroke_02"].Color = Color3.new(UIColor(0,0,0))
+GUI["UIStroke_02"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_02"].Parent = GUI["VexHubInfo_0"]
 GUI["UIStroke_02"].Transparency = 0.9
-GUI["UIStroke_02"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["UIStroke_02"]:SetAttribute("UITextColor", true)
 
 GUI["Socials_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["Socials_0"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
@@ -505,10 +507,10 @@ GUI["UIGradient_05"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_05"].Rotation = 90
 GUI["UIGradient_05"].Parent = GUI["PayPal_0"]
 
-GUI["UIStroke_03"].Color = Color3.new(UIColor(0,0,0))
+GUI["UIStroke_03"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_03"].Parent = GUI["Socials_0"]
 GUI["UIStroke_03"].Transparency = 0.9
-GUI["UIStroke_03"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["UIStroke_03"]:SetAttribute("UITextColor", true)
 
 GUI["UIListLayout_08"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_08"].FillDirection = Enum.FillDirection.Horizontal
@@ -534,10 +536,10 @@ GUI["UIListLayout_09"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_09"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_09"].Parent = GUI["BottomFrame_0"]
 
-GUI["UIStroke_04"].Color = Color3.new(UIColor(0,0,0))
+GUI["UIStroke_04"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_04"].Parent = GUI["BottomFrame_0"]
 GUI["UIStroke_04"].Transparency = 0.9
-GUI["UIStroke_04"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["UIStroke_04"]:SetAttribute("UITextColor", true)
 
 GUI["UICorner_06"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_06"].Parent = GUI["BottomFrame_0"]
@@ -650,7 +652,7 @@ GUI["Border_02"].Parent = GUI["TopFrame_01"]
 GUI["UIStroke_05"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_05"].Parent = GUI["AnnouncementFrame_0"]
 GUI["UIStroke_05"].Transparency = 0.9
-GUI["UIStroke_05"]:SetAttribute("UITextColor", Color3.fromRGB(0,0,0))
+GUI["UIStroke_05"]:SetAttribute("UITextColor", true)
 
 GUI["UIGradient_06"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -768,7 +770,7 @@ GUI["Border_03"].Parent = GUI["TopFrame_02"]
 GUI["UIStroke_06"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_06"].Parent = GUI["UpdatesFrame_0"]
 GUI["UIStroke_06"].Transparency = 0.9
-GUI["UIStroke_05"]:SetAttribute("UITextColor", true)
+GUI["UIStroke_06"]:SetAttribute("UITextColor", true)
 
 GUI["UIGradient_07"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),

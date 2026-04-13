@@ -175,7 +175,7 @@ GUI["UICorner_01"].Parent = GUI["Button1_0"]
 GUI["UIStroke_01"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 GUI["UIStroke_01"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_01"].Parent = GUI["Button1_0"]
-GUI["UIStroke_01"]:SetAttribute("UIColor", Color3.fromRGB(34, 36, 42))
+GUI["UIStroke_01"]:SetAttribute("UITextColor", Color3.fromRGB(0, 0, 0))
 
 GUI["UIScale_01"].Parent = GUI["Button1_0"]
 
@@ -192,8 +192,8 @@ GUI["Button2_0"].Name = "Button2"
 GUI["Button2_0"].Parent = GUI["Buttons_0"]
 GUI["Button2_0"]:SetAttribute("UIFont", "Bold")
 GUI["Button2_0"]:SetAttribute("UIBoldText", true)
-GUI["Button2_0"]:SetAttribute("UITextColor", true)
-GUI["Button2_0"]:SetAttribute("UIColor", Color3.fromRGB(34, 36, 42))
+GUI["Button2_0"]:SetAttribute("UITextColor", "Frame")
+GUI["Button2_0"]:SetAttribute("UIColor", "Text")
 
 GUI["UIListLayout_03"].Padding = UDim.new(0, 10)
 GUI["UIListLayout_03"].FillDirection = Enum.FillDirection.Horizontal

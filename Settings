@@ -836,10 +836,10 @@ ChangeSetting.UIColor = function(TextEntered)
 				local UIColorGreen = math.floor(Child:GetAttribute("UIColor").G*255)
 				local UIColorBlue  = math.floor(Child:GetAttribute("UIColor").B*255)
 
-				if Child:IsA("UIStroke") then
+				if Child:GetAttribute("UIColor") == "Text" then
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextColor3 = Color3.new(UIColor(0, 0, 0))}):Play()
+				elseif Child:IsA("UIStroke") then
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Color = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
-				elseif Child:GetAttribute("UIColor") == "Text" then
-					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextColor3 = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
 				else
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
 				end

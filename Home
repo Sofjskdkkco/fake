@@ -833,11 +833,24 @@ local function FirebaseServerUpdate()
 end
 
 FirebaseServerUpdate()
-GUI["Executed_0"].Text = 'Executed\n<b><font size="14">'..FirebaseServer.Executed..'</font></b>\ntimes'
+
+local function TextTransitionExecuted(startValue, endValue, duration)
+	local steps = endValue - startValue
+	local waitTime = duration / steps
+
+	for i = startValue, endValue do
+		GUI["Executed_0"].Text = 'Executed\n<b><font size="14">'..i..'</font></b>\ntimes'
+		task.wait(waitTime)
+	end
+end
+
+TextTransitionExecuted(FirebaseServer.Executed-60, FirebaseServer.Executed, 60)
 
 coroutine.wrap(function()
 	while wait(60) do
+		local startValue = FirebaseServer.Executed
 		FirebaseServerUpdate()
-		GUI["Executed_0"].Text = 'Executed\n<b><font size="14">'..FirebaseServer.Executed..'</font></b>\ntimes'
+		local endValue = FirebaseServer.Executed
+		TextTransitionExecuted(startValue, endValue, 60)
 	end
 end)()

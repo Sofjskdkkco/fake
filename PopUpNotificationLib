@@ -175,6 +175,7 @@ GUI["UICorner_01"].Parent = GUI["Button1_0"]
 
 GUI["UIStroke_01"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 GUI["UIStroke_01"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["UIStroke_01"].Transparency = 0.5
 GUI["UIStroke_01"].Parent = GUI["Button1_0"]
 GUI["UIStroke_01"]:SetAttribute("UITextColor", Color3.fromRGB(0, 0, 0))
 

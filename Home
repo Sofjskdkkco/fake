@@ -183,7 +183,7 @@ GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
 }
-GUI["UIGradient_0"].Offset = Vector2.new(0, 0.30000001192092896)
+GUI["UIGradient_0"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_0"].Rotation = 90
 GUI["UIGradient_0"].Parent = GUI["ProfilePicture_0"]
 
@@ -214,6 +214,7 @@ GUI["UIGradient_01"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
+GUI["UIGradient_01"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_01"].Rotation = 90
 GUI["UIGradient_01"].Parent = GUI["UserGreetings_0"]
 
@@ -245,6 +246,7 @@ GUI["UIGradient_02"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
+GUI["UIGradient_02"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_02"].Rotation = 90
 GUI["UIGradient_02"].Parent = GUI["VexHubInfo_0"]
 -- -11, -19, -51
@@ -352,6 +354,7 @@ GUI["UIGradient_03"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
+GUI["UIGradient_03"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_03"].Rotation = 90
 GUI["UIGradient_03"].Parent = GUI["Socials_0"]
 
@@ -440,7 +443,7 @@ GUI["UIGradient_04"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(88.00000235438347, 101.00000157952309, 242.00000077486038)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(69.00000348687172, 79.00000289082527, 191.00000381469727))
 }
-GUI["UIGradient_04"].Offset = Vector2.new(0, 0.30000001192092896)
+GUI["UIGradient_04"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_04"].Rotation = 90
 GUI["UIGradient_04"].Parent = GUI["Discord_0"]
 
@@ -495,7 +498,7 @@ GUI["UIGradient_05"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
-GUI["UIGradient_05"].Offset = Vector2.new(0, 0.30000001192092896)
+GUI["UIGradient_05"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_05"].Rotation = 90
 GUI["UIGradient_05"].Parent = GUI["PayPal_0"]
 
@@ -647,6 +650,7 @@ GUI["UIGradient_06"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
+GUI["UIGradient_06"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_06"].Rotation = 90
 GUI["UIGradient_06"].Parent = GUI["AnnouncementFrame_0"]
 
@@ -763,6 +767,7 @@ GUI["UIGradient_07"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
+GUI["UIGradient_07"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_07"].Rotation = 90
 GUI["UIGradient_07"].Parent = GUI["UpdatesFrame_0"]
 
@@ -770,6 +775,7 @@ GUI["UIGradient_08"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
 	ColorSequenceKeypoint.new(1, Color3.fromRGB(204, 204, 204))
 }
+GUI["UIGradient_08"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_08"].Rotation = 90
 GUI["UIGradient_08"].Parent = GUI["BottomFrame_0"]
 

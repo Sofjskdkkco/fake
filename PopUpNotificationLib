@@ -173,18 +173,18 @@ GUI["UICorner_01"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_01"].Parent = GUI["Button1_0"]
 
 GUI["UIStroke_01"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-GUI["UIStroke_01"].Color = Color3.new(UIColor(34, 36, 42))
+GUI["UIStroke_01"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_01"].Parent = GUI["Button1_0"]
 GUI["UIStroke_01"]:SetAttribute("UIColor", Color3.fromRGB(34, 36, 42))
 
 GUI["UIScale_01"].Parent = GUI["Button1_0"]
 
 GUI["Button2_0"].FontFace = UIFont("Bold")
-GUI["Button2_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Button2_0"].TextColor3 = Color3.new(UIColor(0,0,0))
 GUI["Button2_0"].TextSize = 12
 GUI["Button2_0"].TextWrapped = true
 GUI["Button2_0"].AutoButtonColor = false
-GUI["Button2_0"].BackgroundColor3 = Color3.new(UIColor(34, 36, 42))
+GUI["Button2_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Button2_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Button2_0"].BorderSizePixel = 0
 GUI["Button2_0"].Size = UDim2.new(0, 62, 1, 0)

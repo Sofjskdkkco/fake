@@ -647,10 +647,10 @@ GUI["Border_02"].Size = UDim2.new(0, 1, 0, 0)
 GUI["Border_02"].Name = "Border"
 GUI["Border_02"].Parent = GUI["TopFrame_01"]
 
-GUI["UIStroke_05"].Color = Color3.new(UIColor(0,0,0))
+GUI["UIStroke_05"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_05"].Parent = GUI["AnnouncementFrame_0"]
 GUI["UIStroke_05"].Transparency = 0.9
-GUI["UIStroke_05"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["UIStroke_05"]:SetAttribute("UITextColor", Color3.fromRGB(0,0,0))
 
 GUI["UIGradient_06"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -765,10 +765,10 @@ GUI["Border_03"].Size = UDim2.new(0, 1, 0, 0)
 GUI["Border_03"].Name = "Border"
 GUI["Border_03"].Parent = GUI["TopFrame_02"]
 
-GUI["UIStroke_06"].Color = Color3.new(UIColor(0,0,0))
+GUI["UIStroke_06"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_06"].Parent = GUI["UpdatesFrame_0"]
 GUI["UIStroke_06"].Transparency = 0.9
-GUI["UIStroke_06"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["UIStroke_05"]:SetAttribute("UITextColor", true)
 
 GUI["UIGradient_07"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),

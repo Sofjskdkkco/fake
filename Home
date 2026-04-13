@@ -826,14 +826,13 @@ GUI["Scripts_0"].Text = 'Scripts\n<b><font size="14">'..AllScripts..'</font></b>
 local FirebaseServer = {}
 
 local function FirebaseServerUpdate()
-	local Secret = "oNNcXEGYApLmfkQGyTkUVuu162biz1TIVSGe4iej"
-	local URL = "https://vexhub-livechat-server-default-rtdb.firebaseio.com/"
+	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
+	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 	local database = URL..".json?auth="..Secret
 	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(database))
 end
 
 FirebaseServerUpdate()
-
 GUI["Executed_0"].Text = 'Executed\n<b><font size="14">'..FirebaseServer.Executed..'</font></b>\ntimes'
 
 coroutine.wrap(function()

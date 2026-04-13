@@ -898,6 +898,8 @@ ChangeSetting.UITextColor = function(TextEntered)
 			if (Child:GetAttribute("UITextColor")) then
 				if Child:GetAttribute("UITextColor") == "Frame" then
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+				elseif Child:IsA("UIStroke") then
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 				elseif Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 				elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
@@ -933,7 +935,11 @@ ChangeSetting.UIImageColor = function(TextEntered)
 
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UIImageColor")) then
-				if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
+				if Child:GetAttribute("UIImageColor") == "Frame" then
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+				elseif Child:IsA("UIStroke") then
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Color = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+				elseif Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
 				elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()

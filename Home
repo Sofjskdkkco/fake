@@ -301,7 +301,7 @@ GUI["Executed_0"].LayoutOrder = 3
 GUI["Executed_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Executed_0"].Name = "Executed"
 GUI["Executed_0"].Parent = GUI["VexHubInfo_0"]
-GUI["Executed_0"]:SetAttribute("UIFont", "Bold")
+GUI["Executed_0"]:SetAttribute("UIFont", "Regular")
 GUI["Executed_0"]:SetAttribute("UIBoldText", true)
 GUI["Executed_0"]:SetAttribute("UITextColor", true)
 GUI["Executed_0"]:SetAttribute("UITextSize", true)

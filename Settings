@@ -654,7 +654,7 @@ ChangeSetting.UIFrameTransparency = function(TextEntered)
 
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UIFrameTransparency")) then
-					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {BackgroundTransparency = tonumber(TextEntered)}):Play()
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundTransparency = tonumber(TextEntered)}):Play()
 				end
 			end
 		end
@@ -684,13 +684,11 @@ ChangeSetting.UIBoldText = function(Boolean)
 		_G.Table.GUISettings.UIBoldText = true
 		SaveSettings()
 
-		_G.CloseVexHub()
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UIBoldText")) then
 				Child.FontFace = UIFont(Child:GetAttribute("UIFont"))
 			end
 		end
-		_G.OpenVexHub()
 	else
 		_G.Table.GUISettings.UIBoldText = false
 		SaveSettings()
@@ -731,7 +729,7 @@ ChangeSetting.UITextSize = function(TextEntered)
 
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UITextSize")) then
-					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize}):Play()
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize}):Play()
 				end
 			end
 		end
@@ -837,9 +835,11 @@ ChangeSetting.UIColor = function(TextEntered)
 				local UIColorRed = math.floor(Child:GetAttribute("UIColor").R*255)
 				local UIColorGreen = math.floor(Child:GetAttribute("UIColor").G*255)
 				local UIColorBlue  = math.floor(Child:GetAttribute("UIColor").B*255)
-				
+
 				if Child:IsA("UIStroke") then
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Color = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
+				elseif Child:GetAttribute("UIColor") == "Text" then
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextColor3 = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
 				else
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(UIColor(UIColorRed, UIColorGreen, UIColorBlue))}):Play()
 				end
@@ -871,7 +871,7 @@ ChangeSetting.UIShadowColor = function(TextEntered)
 		_G.Table.GUISettings.UIShadowColor = StringToValidRGBString(TextEntered)
 		SaveSettings()
 
-		TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIShadowColor))}):Play()
+		TweenService:Create(game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.UIShadow.Shadow, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIShadowColor))}):Play()
 	end
 end
 
@@ -900,10 +900,12 @@ ChangeSetting.UITextColor = function(TextEntered)
 
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UITextColor")) then
-				if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
-						TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+				if Child:GetAttribute("UITextColor") == "Frame" then
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+				elseif Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 				elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 				end
 			end
 		end
@@ -936,9 +938,9 @@ ChangeSetting.UIImageColor = function(TextEntered)
 		for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 			if (Child:GetAttribute("UIImageColor")) then
 				if Child:IsA("TextBox") or Child:IsA("TextLabel") or Child:IsA("TextButton") then
-					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
 				elseif Child:IsA("ImageLabel") or Child:IsA("ImageButton") then
-					TweenService:Create(Child, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
 				end
 			end
 		end

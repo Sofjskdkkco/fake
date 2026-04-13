@@ -149,6 +149,8 @@ GUI["UserGreetings_0"].BorderSizePixel = 0
 GUI["UserGreetings_0"].Size = UDim2.new(0, 150, 0, 100)
 GUI["UserGreetings_0"].Name = "UserGreetings"
 GUI["UserGreetings_0"].Parent = GUI["TopFrame_0"]
+GUI["UserGreetings_0"]:SetAttribute("UIFrameTransparency", true)
+GUI["UserGreetings_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UICorner_0"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_0"].Parent = GUI["UserGreetings_0"]
@@ -167,6 +169,8 @@ GUI["ProfilePicture_0"].BorderSizePixel = 0
 GUI["ProfilePicture_0"].Size = UDim2.new(0, 50, 0, 50)
 GUI["ProfilePicture_0"].Name = "ProfilePicture"
 GUI["ProfilePicture_0"].Parent = GUI["UserGreetings_0"]
+GUI["ProfilePicture_0"]:SetAttribute("UIFrameTransparency", true)
+GUI["ProfilePicture_0"]:SetAttribute("UIColor", Color3.fromRGB(18, 19, 20))
 
 GUI["UICorner_01"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_01"].Parent = GUI["ProfilePicture_0"]
@@ -197,6 +201,10 @@ GUI["Greetings_0"].BorderSizePixel = 0
 GUI["Greetings_0"].Size = UDim2.new(0.800000012, 0, 0, 30)
 GUI["Greetings_0"].Name = "Greetings"
 GUI["Greetings_0"].Parent = GUI["UserGreetings_0"]
+GUI["Greetings_0"]:SetAttribute("UIFont", "Regular")
+GUI["Greetings_0"]:SetAttribute("UIBoldText", true)
+GUI["Greetings_0"]:SetAttribute("UITextColor", true)
+GUI["Greetings_0"]:SetAttribute("UITextSize", true)
 
 GUI["UIStroke_01"].Color = Color3.fromRGB(255, 255, 255)
 GUI["UIStroke_01"].Parent = GUI["UserGreetings_0"]
@@ -230,6 +238,8 @@ GUI["VexHubInfo_0"].BorderSizePixel = 0
 GUI["VexHubInfo_0"].Size = UDim2.new(1, 0, 0, 48)
 GUI["VexHubInfo_0"].Name = "VexHubInfo"
 GUI["VexHubInfo_0"].Parent = GUI["RightFrame_0"]
+GUI["VexHubInfo_0"]:SetAttribute("UIFrameTransparency", true)
+GUI["VexHubInfo_0"]:SetAttribute("UIColor", Color3.fromRGB(50, 50, 50))
 
 GUI["UIGradient_02"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -263,6 +273,10 @@ GUI["Scripts_0"].LayoutOrder = 1
 GUI["Scripts_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Scripts_0"].Name = "Scripts"
 GUI["Scripts_0"].Parent = GUI["VexHubInfo_0"]
+GUI["Scripts_0"]:SetAttribute("UIFont", "Regular")
+GUI["Scripts_0"]:SetAttribute("UIBoldText", true)
+GUI["Scripts_0"]:SetAttribute("UITextColor", true)
+GUI["Scripts_0"]:SetAttribute("UITextSize", true)
 
 GUI["Border_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -287,6 +301,10 @@ GUI["Executed_0"].LayoutOrder = 3
 GUI["Executed_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Executed_0"].Name = "Executed"
 GUI["Executed_0"].Parent = GUI["VexHubInfo_0"]
+GUI["Executed_0"]:SetAttribute("UIFont", "Bold")
+GUI["Executed_0"]:SetAttribute("UIBoldText", true)
+GUI["Executed_0"]:SetAttribute("UITextColor", true)
+GUI["Executed_0"]:SetAttribute("UITextSize", true)
 
 GUI["Version_0"].FontFace = UIFont("Regular")
 GUI["Version_0"].RichText = true
@@ -302,6 +320,10 @@ GUI["Version_0"].LayoutOrder = 5
 GUI["Version_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["Version_0"].Name = "Version"
 GUI["Version_0"].Parent = GUI["VexHubInfo_0"]
+GUI["Version_0"]:SetAttribute("UIFont", "Regular")
+GUI["Version_0"]:SetAttribute("UIBoldText", true)
+GUI["Version_0"]:SetAttribute("UITextColor", true)
+GUI["Version_0"]:SetAttribute("UITextSize", true)
 
 GUI["Border_01"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -323,6 +345,8 @@ GUI["Socials_0"].BorderSizePixel = 0
 GUI["Socials_0"].Size = UDim2.new(1, 0, 0, 47)
 GUI["Socials_0"].Name = "Socials"
 GUI["Socials_0"].Parent = GUI["RightFrame_0"]
+GUI["Socials_0"]:SetAttribute("UIFrameTransparency", true)
+GUI["Socials_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UIGradient_03"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -349,6 +373,7 @@ GUI["BuffVexHub_0"].BorderSizePixel = 0
 GUI["BuffVexHub_0"].Size = UDim2.new(0, 48, 0, 48)
 GUI["BuffVexHub_0"].Name = "BuffVexHub"
 GUI["BuffVexHub_0"].Parent = GUI["Socials_0"]
+GUI["BuffVexHub_0"]:SetAttribute("UIImageColor", true)
 
 GUI["Buttons_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Buttons_0"].BackgroundTransparency = 1
@@ -492,6 +517,8 @@ GUI["BottomFrame_0"].Position = UDim2.new(0.00497866282, 0, 0.524999976, 0)
 GUI["BottomFrame_0"].Size = UDim2.new(0, 349, 0, 94)
 GUI["BottomFrame_0"].Name = "BottomFrame"
 GUI["BottomFrame_0"].Parent = GUI["Home_0"]
+GUI["BottomFrame_0"]:SetAttribute("UIFrameTransparency", true)
+GUI["BottomFrame_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UIListLayout_09"].Padding = UDim.new(0, 7)
 GUI["UIListLayout_09"].FillDirection = Enum.FillDirection.Horizontal
@@ -515,6 +542,8 @@ GUI["AnnouncementFrame_0"].Position = UDim2.new(0.579871058, 0, -0.0319148935, 0
 GUI["AnnouncementFrame_0"].Size = UDim2.new(0, 180, 0.899999976, 0)
 GUI["AnnouncementFrame_0"].Name = "AnnouncementFrame"
 GUI["AnnouncementFrame_0"].Parent = GUI["BottomFrame_0"]
+GUI["AnnouncementFrame_0"]:SetAttribute("UIFrameTransparency", true)
+GUI["AnnouncementFrame_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UICorner_07"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_07"].Parent = GUI["AnnouncementFrame_0"]
@@ -550,6 +579,10 @@ GUI["Announcement_0"].BorderSizePixel = 0
 GUI["Announcement_0"].Size = UDim2.new(0.949999988, 0, 0, 0)
 GUI["Announcement_0"].Name = "Announcement"
 GUI["Announcement_0"].Parent = GUI["ScrollingFrame_0"]
+GUI["Announcement_0"]:SetAttribute("UIFont", "Regular")
+GUI["Announcement_0"]:SetAttribute("UIBoldText", true)
+GUI["Announcement_0"]:SetAttribute("UITextColor", true)
+GUI["Announcement_0"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_011"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_011"].SortOrder = Enum.SortOrder.LayoutOrder
@@ -577,6 +610,10 @@ GUI["AnnouncementText_0"].LayoutOrder = 2
 GUI["AnnouncementText_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["AnnouncementText_0"].Name = "AnnouncementText"
 GUI["AnnouncementText_0"].Parent = GUI["TopFrame_01"]
+GUI["AnnouncementText_0"]:SetAttribute("UIFont", "Bold")
+GUI["AnnouncementText_0"]:SetAttribute("UIBoldText", true)
+GUI["AnnouncementText_0"]:SetAttribute("UITextColor", true)
+GUI["AnnouncementText_0"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_012"].Padding = UDim.new(0, 3)
 GUI["UIListLayout_012"].FillDirection = Enum.FillDirection.Horizontal
@@ -593,6 +630,7 @@ GUI["Megaphone_0"].LayoutOrder = 1
 GUI["Megaphone_0"].Size = UDim2.new(0, 14, 0, 14)
 GUI["Megaphone_0"].Name = "Megaphone"
 GUI["Megaphone_0"].Parent = GUI["TopFrame_01"]
+GUI["Megaphone_0"]:SetAttribute("UIImageColor", true)
 
 GUI["Border_02"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_02"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -620,6 +658,8 @@ GUI["UpdatesFrame_0"].Position = UDim2.new(0.579871058, 0, -0.0319148935, 0)
 GUI["UpdatesFrame_0"].Size = UDim2.new(0, 150, 0.899999976, 0)
 GUI["UpdatesFrame_0"].Name = "UpdatesFrame"
 GUI["UpdatesFrame_0"].Parent = GUI["BottomFrame_0"]
+GUI["UpdatesFrame_0"]:SetAttribute("UIFrameTransparency", true)
+GUI["UpdatesFrame_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UICorner_08"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_08"].Parent = GUI["UpdatesFrame_0"]
@@ -655,6 +695,10 @@ GUI["Updates_0"].BorderSizePixel = 0
 GUI["Updates_0"].Size = UDim2.new(0.949999988, 0, 0, 0)
 GUI["Updates_0"].Name = "Updates"
 GUI["Updates_0"].Parent = GUI["ScrollingFrame_01"]
+GUI["Updates_0"]:SetAttribute("UIFont", "Regular")
+GUI["Updates_0"]:SetAttribute("UIBoldText", true)
+GUI["Updates_0"]:SetAttribute("UITextColor", true)
+GUI["Updates_0"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_014"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_014"].SortOrder = Enum.SortOrder.LayoutOrder
@@ -682,6 +726,10 @@ GUI["UpdatesText_0"].LayoutOrder = 2
 GUI["UpdatesText_0"].Size = UDim2.new(0, 0, 1, 0)
 GUI["UpdatesText_0"].Name = "UpdatesText"
 GUI["UpdatesText_0"].Parent = GUI["TopFrame_02"]
+GUI["UpdatesText_0"]:SetAttribute("UIFont", "Bold")
+GUI["UpdatesText_0"]:SetAttribute("UIBoldText", true)
+GUI["UpdatesText_0"]:SetAttribute("UITextColor", true)
+GUI["UpdatesText_0"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_015"].Padding = UDim.new(0, 3)
 GUI["UIListLayout_015"].FillDirection = Enum.FillDirection.Horizontal
@@ -698,6 +746,7 @@ GUI["Pen_0"].LayoutOrder = 1
 GUI["Pen_0"].Size = UDim2.new(0, 14, 0, 14)
 GUI["Pen_0"].Name = "Pen"
 GUI["Pen_0"].Parent = GUI["TopFrame_02"]
+GUI["Pen_0"]:SetAttribute("UIImageColor", true)
 
 GUI["Border_03"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_03"].BorderColor3 = Color3.fromRGB(0, 0, 0)

@@ -190,16 +190,16 @@ GUI["Logo_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Logo_0"].BackgroundTransparency = 1
 GUI["Logo_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Logo_0"].BorderSizePixel = 0
-GUI["Logo_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Logo_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["Logo_0"].ScaleType = Enum.ScaleType.Crop
 GUI["Logo_0"].Size = UDim2.new(0, 25, 0, 30)
 GUI["Logo_0"].Name = "Logo"
 GUI["Logo_0"].Parent = GUI["TopFrame_0"]
-GUI["Logo_0"]:SetAttribute("UITextColor", true)
+GUI["Logo_0"]:SetAttribute("UIImageColor", true)
 
 GUI["exHub_0"].FontFace = UIFont("Bold")
 GUI["exHub_0"].Text = "exHub"
-GUI["exHub_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["exHub_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["exHub_0"].TextSize = 18
 GUI["exHub_0"].AutomaticSize = Enum.AutomaticSize.X
 GUI["exHub_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -211,7 +211,7 @@ GUI["exHub_0"].Name = "exHub"
 GUI["exHub_0"].Parent = GUI["TopFrame_0"]
 GUI["exHub_0"]:SetAttribute("UIFont", "Bold")
 GUI["exHub_0"]:SetAttribute("UIBoldText", true)
-GUI["exHub_0"]:SetAttribute("UITextColor", true)
+GUI["exHub_0"]:SetAttribute("UIImageColor", true)
 
 GUI["TabChoices_0"].AutomaticCanvasSize = Enum.AutomaticSize.Y
 GUI["TabChoices_0"].CanvasSize = UDim2.new(0, 0, 0, 0)

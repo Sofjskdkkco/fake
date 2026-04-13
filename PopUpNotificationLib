@@ -148,7 +148,7 @@ GUI["UIListLayout_01"].Parent = GUI["Buttons_0"]
 
 GUI["Button1_0"].FontFace = UIFont("Bold")
 GUI["Button1_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
-GUI["Button1_0"].TextSize = 12
+GUI["Button1_0"].TextSize = 12+_G.Table.GUISettings.UITextSize
 GUI["Button1_0"].TextWrapped = true
 GUI["Button1_0"].AutoButtonColor = false
 GUI["Button1_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -161,6 +161,7 @@ GUI["Button1_0"].Parent = GUI["Buttons_0"]
 GUI["Button1_0"]:SetAttribute("UIFont", "Bold")
 GUI["Button1_0"]:SetAttribute("UIBoldText", true)
 GUI["Button1_0"]:SetAttribute("UITextColor", true)
+GUI["Button1_0"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_02"].Padding = UDim.new(0, 10)
 GUI["UIListLayout_02"].FillDirection = Enum.FillDirection.Horizontal
@@ -181,7 +182,7 @@ GUI["UIScale_01"].Parent = GUI["Button1_0"]
 
 GUI["Button2_0"].FontFace = UIFont("Bold")
 GUI["Button2_0"].TextColor3 = Color3.new(UIColor(0,0,0))
-GUI["Button2_0"].TextSize = 12
+GUI["Button2_0"].TextSize = 12+_G.Table.GUISettings.UITextSize
 GUI["Button2_0"].TextWrapped = true
 GUI["Button2_0"].AutoButtonColor = false
 GUI["Button2_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
@@ -194,6 +195,7 @@ GUI["Button2_0"]:SetAttribute("UIFont", "Bold")
 GUI["Button2_0"]:SetAttribute("UIBoldText", true)
 GUI["Button2_0"]:SetAttribute("UITextColor", "Frame")
 GUI["Button2_0"]:SetAttribute("UIColor", "Text")
+GUI["Button2_0"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_03"].Padding = UDim.new(0, 10)
 GUI["UIListLayout_03"].FillDirection = Enum.FillDirection.Horizontal
@@ -224,7 +226,7 @@ GUI["TopFrame_0"].Parent = GUI["NotificationInsides_0"]
 GUI["Title_0"].FontFace = UIFont("Bold")
 GUI["Title_0"].Text = "Title"
 GUI["Title_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
-GUI["Title_0"].TextSize = 14
+GUI["Title_0"].TextSize = 14+_G.Table.GUISettings.UITextSize
 GUI["Title_0"].TextWrapped = true
 GUI["Title_0"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["Title_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -239,11 +241,12 @@ GUI["Title_0"].Parent = GUI["TopFrame_0"]
 GUI["Title_0"]:SetAttribute("UIFont", "Bold")
 GUI["Title_0"]:SetAttribute("UIBoldText", true)
 GUI["Title_0"]:SetAttribute("UITextColor", true)
+GUI["Title_0"]:SetAttribute("UITextSize", true)
 
 GUI["Message_0"].FontFace = UIFont("Medium")
 GUI["Message_0"].Text = "Message"
 GUI["Message_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
-GUI["Message_0"].TextSize = 9
+GUI["Message_0"].TextSize = 9+_G.Table.GUISettings.UITextSize
 GUI["Message_0"].TextTransparency = 0.10000000149011612
 GUI["Message_0"].TextWrapped = true
 GUI["Message_0"].AutomaticSize = Enum.AutomaticSize.Y
@@ -259,6 +262,7 @@ GUI["Message_0"].Parent = GUI["TopFrame_0"]
 GUI["Message_0"]:SetAttribute("UIFont", "Medium")
 GUI["Message_0"]:SetAttribute("UIBoldText", true)
 GUI["Message_0"]:SetAttribute("UITextColor", true)
+GUI["Message_0"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_05"].Padding = UDim.new(0, 1)
 GUI["UIListLayout_05"].HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -344,7 +348,7 @@ _G.PopUpNotificationOptions = function(Table)
 		NotificationInsides.Buttons.Button1.Text = Button1Text
 
 		if string.len(Button1Text) >= 8 then
-			NotificationInsides.Buttons.Button1.TextSize = 10
+			NotificationInsides.Buttons.Button1.TextSize = NotificationInsides.Buttons.Button1.TextSize-2
 		end
 
 		if Button1Function ~= nil then
@@ -358,7 +362,7 @@ _G.PopUpNotificationOptions = function(Table)
 		NotificationInsides.Buttons.Button2.Text = Button2Text
 
 		if string.len(Button2Text) >= 8 then
-			NotificationInsides.Buttons.Button2.TextSize = 10
+			NotificationInsides.Buttons.Button2.TextSize = NotificationInsides.Buttons.Button2.TextSize-2
 		end
 
 		if Button2Function ~= nil then

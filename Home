@@ -578,7 +578,7 @@ GUI["ScrollingFrame_0"].Size = UDim2.new(1, 0, 0, 69)
 GUI["ScrollingFrame_0"].Parent = GUI["AnnouncementFrame_0"]
 
 GUI["Announcement_0"].FontFace = UIFont("Regular")
-GUI["Announcement_0"].Text = "SKIBIDI TOILET"
+GUI["Announcement_0"].Text = _G.Table.GUIStatus.Announcements
 GUI["Announcement_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Announcement_0"].TextSize = 9
 GUI["Announcement_0"].TextXAlignment = Enum.TextXAlignment.Left
@@ -697,7 +697,7 @@ GUI["ScrollingFrame_01"].Size = UDim2.new(1, 0, 0, 69)
 GUI["ScrollingFrame_01"].Parent = GUI["UpdatesFrame_0"]
 
 GUI["Updates_0"].FontFace = UIFont("Regular")
-GUI["Updates_0"].Text = "SKIBIDI TOILET"
+GUI["Updates_0"].Text = _G.Table.GUIStatus.Updates
 GUI["Updates_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Updates_0"].TextSize = 9
 GUI["Updates_0"].TextXAlignment = Enum.TextXAlignment.Left

@@ -15,7 +15,7 @@ _G.Table = {
 		DiscordLink = "https://dsc.gg/vhub",
 		Announcements = game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Announcement.md"),
 		Updates = game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Updates.md"),
-		Version = game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Version.md"),
+		Version = game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Version.md"):gsub("[\r\n]+", ""),
 		IsClosed = false,
 		AdVisible = false,
 	},

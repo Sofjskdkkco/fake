@@ -959,40 +959,58 @@ _G.CreateSettingTextBox(
 	end
 )
 
+local function VexHubImportSettings(TextEntered)
+	local ImportedSettings = nil
+	local success, result = pcall(function()
+		ImportedSettings = JSon:Decode(TextEntered)
+	end)
+
+	if success then
+		for Setting, Value in ImportedSettings do
+			if (ChangeSetting[Setting]) and Value ~= nil then
+				ChangeSetting[Setting](Value)
+			end
+		end
+
+		_G.PopUpNotificationOptions({
+			Title = "Success!",
+			Message = "Settings imported successfully",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	else
+		_G.PopUpNotificationOptions({
+			Title = "Error!",
+			Message = "Invalid input. Must be a valid Json table.",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	end
+end
+
+getgenv().VexHubImportSettings = function(TextEntered)
+	_G.PopUpNotificationOptions({
+		Title = "Hey!",
+		Message = "Do you want to import this setting to VexHub?",
+		Button1Text = "No",
+		Button1Function = function()
+		end,
+		Button2Text = "Yes",
+		Button2Function = function()
+			VexHubImportSettings(TextEntered)
+		end,
+	})
+end
+
 _G.CreateSettingTextBox(
 	"Import Settings",
 	function() return "" end,
 	"Load a exported settings",
 	"Json",
 	function(TextEntered)
-		local ImportedSettings = nil
-		local success, result = pcall(function()
-			ImportedSettings = JSon:Decode(TextEntered)
-		end)
-
-		if success then
-			for Setting, Value in ImportedSettings do
-				if (ChangeSetting[Setting]) and Value ~= nil then
-					ChangeSetting[Setting](Value)
-				end
-			end
-
-			_G.PopUpNotificationOptions({
-				Title = "Success!",
-				Message = "Settings imported successfully",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		else
-			_G.PopUpNotificationOptions({
-				Title = "Error!",
-				Message = "Invalid input. Must be a valid Json table.",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		end
+		VexHubImportSettings(TextEntered)
 	end
 )
 

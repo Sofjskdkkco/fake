@@ -116,7 +116,7 @@ GUI["UIGradient_02"].Parent = GUI["Insides_01"]
 GUI["UIStroke_03"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_03"].Parent = GUI["Insides_01"]
 GUI["UIStroke_03"].Transparency = 0.9
-GUI["UIStroke_01"]:SetAttribute("UITextColor", true)
+GUI["UIStroke_03"]:SetAttribute("UITextColor", true)
 
 GUI["UICorner_04"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_04"].Parent = GUI["Insides_01"]
@@ -170,7 +170,7 @@ GUI["ChatsText_09"].LayoutOrder = 4
 GUI["ChatsText_09"].Name = "ChatsText"
 GUI["ChatsText_09"].Parent = GUI["TopFrame_06"]
 GUI["ChatsText_09"]:SetAttribute("UIFont", "Bold")
-GUI["Greetings_09"]:SetAttribute("UIBoldText", true)
+GUI["ChatsText_09"]:SetAttribute("UIBoldText", true)
 GUI["ChatsText_09"]:SetAttribute("UITextColor", true)
 
 GUI["Border_010"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))

@@ -374,10 +374,11 @@ GUI["UICorner_03"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_03"].Parent = GUI["Socials_0"]
 
 GUI["BuffVexHub_0"].Image = "http://www.roblox.com/asset/?id=75682953725850"
-GUI["BuffVexHub_0"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["BuffVexHub_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["BuffVexHub_0"].BackgroundTransparency = 1
 GUI["BuffVexHub_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["BuffVexHub_0"].BorderSizePixel = 0
+GUI["BuffVexHub_0"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["BuffVexHub_0"].Size = UDim2.new(0, 48, 0, 48)
 GUI["BuffVexHub_0"].Name = "BuffVexHub"
 GUI["BuffVexHub_0"].Parent = GUI["Socials_0"]
@@ -848,7 +849,7 @@ local function TextTransitionExecuted(startValue, endValue, duration)
 	end)()
 end
 
-TextTransitionExecuted(FirebaseServer.Executed-60, FirebaseServer.Executed, 60)
+TextTransitionExecuted(FirebaseServer.Executed, FirebaseServer.Executed+6, 60)
 
 coroutine.wrap(function()
 	while wait(60) do

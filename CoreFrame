@@ -485,7 +485,7 @@ GUI["UICorner_05"].Parent = GUI["ProfilePicture_0"]
 GUI["UIStroke_0"].Parent = GUI["ProfilePicture_0"]
 GUI["UIStroke_0"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["UIStroke_0"].Transparency = 0.9
-GUI["UIStroke_0"]:SetAttribute("UITextColor", true)
+GUI["UIStroke_0"]:SetAttribute("UIImageColor", true)
 
 GUI["UIGradient_0"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),

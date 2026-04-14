@@ -190,7 +190,7 @@ GUI["UIGradient_0"].Parent = GUI["ProfilePicture_0"]
 
 GUI["Greetings_0"].FontFace = UIFont("Regular")
 GUI["Greetings_0"].RichText = true
-GUI["Greetings_0"].Text = '<b>Good Afternoon</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>'
+GUI["Greetings_0"].Text = '<b>Good ???</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>'
 GUI["Greetings_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Greetings_0"].TextSize = 14
 GUI["Greetings_0"].TextWrapped = true
@@ -859,3 +859,13 @@ coroutine.wrap(function()
 		TextTransitionExecuted(startValue, endValue, 60)
 	end
 end)()
+
+local Time = tonumber(os.date("%H"))
+
+if Time >= 6 and Time <= 11 then
+	GUI["Greetings_0"].Text = '<b>Good Morning,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>'
+elseif Time >= 12 and Time <= 17 then
+	GUI["Greetings_0"].Text = '<b>Good Afternoon,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>'
+else
+	GUI["Greetings_0"].Text = '<b>Good Evening,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>'
+end

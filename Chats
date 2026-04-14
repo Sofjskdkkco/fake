@@ -3,6 +3,38 @@
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local TweenService = game:GetService("TweenService")
 
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+function UIColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
+function UIFont(FontWeight)
+	if _G.Table.GUISettings.UIBoldText == true then
+		FontWeight = "Bold"
+	end
+
+	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
+		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
+		return Font.fromName(_G.Table.GUISettings.UIFont, Enum.FontWeight[FontWeight])
+	end
+end
+
 local GUI = {
 	["Chats_00"] = Instance.new("Frame");
 	["Insides_01"] = Instance.new("Frame");
@@ -61,7 +93,8 @@ GUI["Chats_00"].Visible = false
 GUI["Chats_00"].Name = "Chats"
 GUI["Chats_00"].Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
 
-GUI["Insides_01"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Insides_01"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
+GUI["Insides_01"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["Insides_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Insides_01"].BorderSizePixel = 0
 GUI["Insides_01"].ClipsDescendants = true
@@ -69,17 +102,21 @@ GUI["Insides_01"].LayoutOrder = 2
 GUI["Insides_01"].Size = UDim2.new(1, 0, 1, 0)
 GUI["Insides_01"].Name = "Insides"
 GUI["Insides_01"].Parent = GUI["Chats_00"]
+GUI["Insides_01"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["Insides_01"]:SetAttribute("UIFrameTransparency", true)
 
 GUI["UIGradient_02"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
 }
+GUI["UIGradient_02"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_02"].Rotation = 90
 GUI["UIGradient_02"].Parent = GUI["Insides_01"]
 
-GUI["UIStroke_03"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_03"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_03"].Parent = GUI["Insides_01"]
 GUI["UIStroke_03"].Transparency = 0.9
+GUI["UIStroke_01"]:SetAttribute("UITextColor", true)
 
 GUI["UICorner_04"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_04"].Parent = GUI["Insides_01"]
@@ -111,15 +148,17 @@ GUI["TextBubbles_08"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TextBubbles_08"].BackgroundTransparency = 1
 GUI["TextBubbles_08"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TextBubbles_08"].BorderSizePixel = 0
+GUI["TextBubbles_08"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["TextBubbles_08"].LayoutOrder = 2
 GUI["TextBubbles_08"].Position = UDim2.new(0.400426745, 0, 0, 0)
 GUI["TextBubbles_08"].Size = UDim2.new(0, 19, 0, 25)
 GUI["TextBubbles_08"].Name = "TextBubbles"
 GUI["TextBubbles_08"].Parent = GUI["TopFrame_06"]
+GUI["TextBubbles_08"]:SetAttribute("UIImageColor", true)
 
-GUI["ChatsText_09"].Font = Enum.Font.MontserratBold
+GUI["ChatsText_09"].FontFace = UIFont("Bold")
 GUI["ChatsText_09"].Text = "Chats"
-GUI["ChatsText_09"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ChatsText_09"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["ChatsText_09"].TextSize = 14
 GUI["ChatsText_09"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["ChatsText_09"].AutomaticSize = Enum.AutomaticSize.XY
@@ -130,8 +169,11 @@ GUI["ChatsText_09"].BorderSizePixel = 0
 GUI["ChatsText_09"].LayoutOrder = 4
 GUI["ChatsText_09"].Name = "ChatsText"
 GUI["ChatsText_09"].Parent = GUI["TopFrame_06"]
+GUI["ChatsText_09"]:SetAttribute("UIFont", "Bold")
+GUI["Greetings_09"]:SetAttribute("UIBoldText", true)
+GUI["ChatsText_09"]:SetAttribute("UITextColor", true)
 
-GUI["Border_010"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Border_010"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Border_010"].BackgroundTransparency = 0.7
 GUI["Border_010"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_010"].BorderSizePixel = 0
@@ -140,6 +182,7 @@ GUI["Border_010"].Position = UDim2.new(0.182076842, 0, 0.5, 0)
 GUI["Border_010"].Size = UDim2.new(0, 1, 0.5, 0)
 GUI["Border_010"].Name = "Border"
 GUI["Border_010"].Parent = GUI["TopFrame_06"]
+GUI["Border_010"]:SetAttribute("UITextColor", "Frame")
 
 GUI["Chats_011"].AutomaticCanvasSize = Enum.AutomaticSize.Y
 GUI["Chats_011"].CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -183,9 +226,10 @@ GUI["ProfilePicture_014"].Parent = GUI["MessageTemplate_013"]
 GUI["UICorner_015"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_015"].Parent = GUI["ProfilePicture_014"]
 
-GUI["UIStroke_016"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_016"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["UIStroke_016"].Parent = GUI["ProfilePicture_014"]
-GUI["UIStroke_016"].Transparency = 0.5
+GUI["UIStroke_016"].Transparency = 0.9
+GUI["UIStroke_016"]:SetAttribute("UIImageColor", true)
 
 GUI["UIListLayout_017"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_017"].FillDirection = Enum.FillDirection.Horizontal
@@ -193,11 +237,11 @@ GUI["UIListLayout_017"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_017"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_017"].Parent = GUI["MessageTemplate_013"]
 
-GUI["Message_018"].Font = Enum.Font.Gotham
+GUI["Message_018"].FontFace = UIFont("Regular")
 GUI["Message_018"].RichText = true
 GUI["Message_018"].Text = '<b>Vincent</b> <font size="10">(@itsyaboivincentt) 02/21/2025</font>\nhelllllooooooooooooooo chat system to VexHub!'
-GUI["Message_018"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["Message_018"].TextSize = 12
+GUI["Message_018"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Message_018"].TextSize = 12+_G.Table.GUISettings.UITextSize
 GUI["Message_018"].TextWrapped = true
 GUI["Message_018"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["Message_018"].TextYAlignment = Enum.TextYAlignment.Top
@@ -210,6 +254,10 @@ GUI["Message_018"].Position = UDim2.new(0.0832140669, 0, 0, 0)
 GUI["Message_018"].Size = UDim2.new(0, 300, 0, 25)
 GUI["Message_018"].Name = "Message"
 GUI["Message_018"].Parent = GUI["MessageTemplate_013"]
+GUI["Message_018"]:SetAttribute("UIFont", "Regular")
+GUI["Message_018"]:SetAttribute("UIBoldText", true)
+GUI["Message_018"]:SetAttribute("UITextColor", true)
+GUI["Message_018"]:SetAttribute("UITextSize", true)
 
 GUI["UICorner_019"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_019"].Parent = GUI["MessageTemplate_013"]
@@ -255,11 +303,11 @@ GUI["UICorner_025"].CornerRadius = UDim.new(1, 0)
 GUI["UICorner_025"].Parent = GUI["TextBoxParent_024"]
 
 GUI["TextBox_026"].ClearTextOnFocus = false
-GUI["TextBox_026"].Font = Enum.Font.MontserratMedium
+GUI["TextBox_026"].FontFace = UIFont("Medium")
 GUI["TextBox_026"].PlaceholderText = "Chat or type slash for commands"
 GUI["TextBox_026"].Text = ""
-GUI["TextBox_026"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["TextBox_026"].TextSize = 12
+GUI["TextBox_026"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["TextBox_026"].TextSize = 12+_G.Table.GUISettings.UITextSize
 GUI["TextBox_026"].TextWrapped = true
 GUI["TextBox_026"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["TextBox_026"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -268,13 +316,18 @@ GUI["TextBox_026"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TextBox_026"].BorderSizePixel = 0
 GUI["TextBox_026"].Size = UDim2.new(0.930000007, 0, 1, 0)
 GUI["TextBox_026"].Parent = GUI["TextBoxParent_024"]
+GUI["TextBox_026"]:SetAttribute("UIFont", "Medium")
+GUI["TextBox_026"]:SetAttribute("UIBoldText", true)
+GUI["TextBox_026"]:SetAttribute("UITextColor", true)
+GUI["TextBox_026"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_027"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_027"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_027"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_027"].Parent = GUI["TextBoxParent_024"]
 
-GUI["SlashCommandsFrame_028"].BackgroundColor3 = Color3.fromRGB(44.000001177191734, 45.00000111758709, 48.000000938773155)
+GUI["SlashCommandsFrame_028"].BackgroundColor3 = Color3.new(UIColor(0, 0, 0))
+GUI["SlashCommandsFrame_028"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["SlashCommandsFrame_028"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["SlashCommandsFrame_028"].BorderSizePixel = 0
 GUI["SlashCommandsFrame_028"].Position = UDim2.new(0.030583255, 0, 0.540000021, 0)
@@ -282,6 +335,8 @@ GUI["SlashCommandsFrame_028"].Size = UDim2.new(0, 330, 0, 55)
 GUI["SlashCommandsFrame_028"].Visible = false
 GUI["SlashCommandsFrame_028"].Name = "SlashCommandsFrame"
 GUI["SlashCommandsFrame_028"].Parent = GUI["Chats_00"]
+GUI["SlashCommandsFrame_028"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
+GUI["SlashCommandsFrame_028"]:SetAttribute("UIFrameTransparency", true)
 
 GUI["UICorner_029"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_029"].Parent = GUI["SlashCommandsFrame_028"]
@@ -302,11 +357,11 @@ GUI["UIListLayout_031"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_031"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_031"].Parent = GUI["ScrollingFrame_030"]
 
-GUI["SlashCommandTemplate_032"].Font = Enum.Font.Gotham
+GUI["SlashCommandTemplate_032"].FontFace = UIFont("Regular")
 GUI["SlashCommandTemplate_032"].RichText = true
 GUI["SlashCommandTemplate_032"].Text = '<b>/help</b>\n<font size="9">Returns avalable commands</font>'
-GUI["SlashCommandTemplate_032"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["SlashCommandTemplate_032"].TextSize = 12
+GUI["SlashCommandTemplate_032"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["SlashCommandTemplate_032"].TextSize = 12+_G.Table.GUISettings.UITextSize
 GUI["SlashCommandTemplate_032"].TextWrapped = true
 GUI["SlashCommandTemplate_032"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["SlashCommandTemplate_032"].AutomaticSize = Enum.AutomaticSize.Y
@@ -319,6 +374,10 @@ GUI["SlashCommandTemplate_032"].Size = UDim2.new(0.949999988, 0, 0, 0)
 GUI["SlashCommandTemplate_032"].Visible = false
 GUI["SlashCommandTemplate_032"].Name = "SlashCommandTemplate"
 GUI["SlashCommandTemplate_032"].Parent = GUI["ScrollingFrame_030"]
+GUI["SlashCommandTemplate_032"]:SetAttribute("UIFont", "Regular")
+GUI["SlashCommandTemplate_032"]:SetAttribute("UIBoldText", true)
+GUI["SlashCommandTemplate_032"]:SetAttribute("UITextColor", true)
+GUI["SlashCommandTemplate_032"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_033"].Padding = UDim.new(0, 3)
 GUI["UIListLayout_033"].HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -336,9 +395,10 @@ GUI["BannedFrame_034"].Name = "BannedFrame"
 GUI["BannedFrame_034"].Parent = GUI["Chats_00"]
 
 GUI["UIGradient_035"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
 }
+GUI["UIGradient_035"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_035"].Rotation = 90
 GUI["UIGradient_035"].Parent = GUI["BannedFrame_034"]
 
@@ -354,9 +414,10 @@ GUI["CoverFrame_037"].Name = "CoverFrame"
 GUI["CoverFrame_037"].Parent = GUI["BannedFrame_034"]
 
 GUI["UIGradient_038"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
 }
+GUI["UIGradient_038"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_038"].Rotation = 90
 GUI["UIGradient_038"].Parent = GUI["CoverFrame_037"]
 
@@ -387,12 +448,12 @@ GUI["Robot_042"].Size = UDim2.new(0, 50, 0, 50)
 GUI["Robot_042"].Name = "Robot"
 GUI["Robot_042"].Parent = GUI["Insides_040"]
 
-GUI["Message_043"].Font = Enum.Font.Montserrat
-GUI["Message_043"].LineHeight = 0.699999988079071
+GUI["Message_043"].FontFace = UIFont("Regular")
+GUI["Message_043"].LineHeight = 0.7
 GUI["Message_043"].RichText = true
 GUI["Message_043"].Text = '<b>You got banned</b>\n\n<font size="10">Appeal in VexHub Discord server</font>'
-GUI["Message_043"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["Message_043"].TextSize = 14
+GUI["Message_043"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Message_043"].TextSize = 14+_G.Table.GUISettings.UITextSize
 GUI["Message_043"].TextWrapped = true
 GUI["Message_043"].AutomaticSize = Enum.AutomaticSize.XY
 GUI["Message_043"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -401,6 +462,11 @@ GUI["Message_043"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Message_043"].BorderSizePixel = 0
 GUI["Message_043"].Name = "Message"
 GUI["Message_043"].Parent = GUI["Insides_040"]
+GUI["Message_043"]:SetAttribute("UIFont", "Regular")
+GUI["Message_043"]:SetAttribute("UIBoldText", true)
+GUI["Message_043"]:SetAttribute("UIBoldText", true)
+GUI["Message_043"]:SetAttribute("UITextColor", true)
+GUI["Message_043"]:SetAttribute("UITextSize", true)
 
 local SlashCommandsFrame = GUI["SlashCommandsFrame_028"]
 local BannedFrame = GUI["BannedFrame_034"]
@@ -593,9 +659,9 @@ local function TextContentToShow(Table)
 	local ContentText = ""
 
 	if LiveChatServer.VerifiedPeople[Username] then
-		ContentText = utf8.char("0xE000")..' <b>'..DisplayName..'</b> <font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)
+		ContentText = utf8.char("0xE000")..' <font transparency="0.3"><b>'..DisplayName..'</b> <font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)..'</font>'
 	else
-		ContentText = '<b>'..DisplayName..'</b> <font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)
+		ContentText = '<font transparency="0.3"><b>'..DisplayName..'</b> <font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)..'</font>'
 	end
 
 	local NewMessage = ""
@@ -1088,7 +1154,7 @@ local function SendMessage(Username, DisplayName, Message)
 
 									return result
 								end
-								
+
 								if not LiveChatServer.VerifiedPeople[Username] then
 									for _, Word in MessageTable do
 										local Word = string.lower(Word)
@@ -1348,12 +1414,12 @@ local function SendMessage(Username, DisplayName, Message)
 											})
 										end)()
 									end
-									
+
 								elseif MessageTable[1] == "/allowrichtext" then
 									ToSend = false
 									if IsAdmin(Username) then
 										FirebaseServerWrite("/", "RichTextAllowed", true)
-										
+
 										DisplayMessage({
 											DisplayName = "System",
 											Username = "System",
@@ -1374,7 +1440,7 @@ local function SendMessage(Username, DisplayName, Message)
 											MessageId = MessageId
 										})
 									end
-									
+
 								elseif MessageTable[1] == "/forbidrichtext" then
 									ToSend = false
 									if IsAdmin(Username) then

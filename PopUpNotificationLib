@@ -98,9 +98,10 @@ GUI["NotificationTemplate_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 GUI["UICorner_0"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_0"].Parent = GUI["NotificationTemplate_0"]
 
-GUI["UIStroke_0"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_0"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_0"].Parent = GUI["NotificationTemplate_0"]
 GUI["UIStroke_0"].Transparency = 0.9
+GUI["UIStroke_0"]:SetAttribute("UITextColor", true)
 
 GUI["UISizeConstraint_0"].MaxSize = Vector2.new(math.huge, 150)
 GUI["UISizeConstraint_0"].Parent = GUI["NotificationTemplate_0"]

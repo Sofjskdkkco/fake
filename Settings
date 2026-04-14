@@ -1044,6 +1044,20 @@ _G.CreateSettingButton(
 			Button2Function = function()
 				_G.Table.GUISettings = loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/SettingsTable"))()
 				SaveSettings()
+				
+				for Setting, Value in _G.Table.GUISettings do
+					if (ChangeSetting[Setting]) and Value ~= nil then
+						ChangeSetting[Setting](Value)
+					end
+				end
+				
+				_G.PopUpNotificationOptions({
+					Title = "Success!",
+					Message = "Settings has been reverted back to original",
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
 			end,
 		})
 	end

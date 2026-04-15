@@ -334,7 +334,7 @@ GUI["UIListLayout_027"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_027"].Parent = GUI["TextBoxParent_024"]
 
 GUI["SlashCommandsFrame_028"].BackgroundColor3 = Color3.new(UIColor(0, 0, 0))
-GUI["SlashCommandsFrame_028"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
+GUI["SlashCommandsFrame_028"].BackgroundTransparency = 0
 GUI["SlashCommandsFrame_028"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["SlashCommandsFrame_028"].BorderSizePixel = 0
 GUI["SlashCommandsFrame_028"].Position = UDim2.new(0.030583255, 0, 0.540000021, 0)
@@ -343,7 +343,6 @@ GUI["SlashCommandsFrame_028"].Visible = false
 GUI["SlashCommandsFrame_028"].Name = "SlashCommandsFrame"
 GUI["SlashCommandsFrame_028"].Parent = GUI["Chats_00"]
 GUI["SlashCommandsFrame_028"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
-GUI["SlashCommandsFrame_028"]:SetAttribute("UIFrameTransparency", true)
 
 GUI["UICorner_029"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_029"].Parent = GUI["SlashCommandsFrame_028"]
@@ -666,9 +665,9 @@ local function TextContentToShow(Table)
 	local ContentText = ""
 
 	if LiveChatServer.VerifiedPeople[Username] then
-		ContentText = utf8.char("0xE000")..' <b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)..'</font>'
+		ContentText = utf8.char("0xE000")..' <b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)
 	else
-		ContentText = '<b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)..'</font>'
+		ContentText = '<b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)
 	end
 
 	local NewMessage = ""
@@ -685,9 +684,9 @@ local function TextContentToShow(Table)
 	Message = NewMessage
 
 	if MessageId == nil then
-		ContentText = ContentText..'</font>'
+		ContentText = ContentText..'</font></font>'
 	else
-		ContentText = ContentText.. " (#"..MessageId..")</font>"
+		ContentText = ContentText.. " (#"..MessageId..")</font></font>"
 	end
 
 	if IsTemporary == true then

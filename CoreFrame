@@ -35,6 +35,13 @@ function UIFont(FontWeight)
 	end
 end
 
+local function ChangeRichTextSize(Text, SettingTextSize)
+	return Text:gsub('<font size="(%d+)">', function(size)
+		local newSize = tonumber(size) + SettingTextSize
+		return '<font size="'..newSize..'">'
+	end)
+end
+
 local GUI = {
 	["VexHubUI_0"] = Instance.new("ScreenGui");
 	["DragFrame_0"] = Instance.new("Frame");
@@ -451,7 +458,7 @@ GUI["UIListLayout_09"].Parent = GUI["LeftSide_0"]
 
 GUI["DisplayNameAndUsername_0"].FontFace = UIFont("Regular")
 GUI["DisplayNameAndUsername_0"].RichText = true
-GUI["DisplayNameAndUsername_0"].Text = '<b>'..LocalPlayer.DisplayName..'</b>\n<font size="8">@'..LocalPlayer.Name..'</font>'
+GUI["DisplayNameAndUsername_0"].Text = ChangeRichTextSize('<b>'..LocalPlayer.DisplayName..'</b>\n<font size="8">@'..LocalPlayer.Name..'</font>', _G.Table.GUISettings.UITextSize)
 GUI["DisplayNameAndUsername_0"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["DisplayNameAndUsername_0"].TextSize = 14+_G.Table.GUISettings.UITextSize
 GUI["DisplayNameAndUsername_0"].TextXAlignment = Enum.TextXAlignment.Left

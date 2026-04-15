@@ -35,6 +35,13 @@ function UIFont(FontWeight)
 	end
 end
 
+local function ChangeRichTextSize(Text, SettingTextSize)
+	return Text:gsub('<font size="(%d+)">', function(size)
+		local newSize = tonumber(size) + SettingTextSize
+		return '<font size="'..newSize..'">'
+	end)
+end
+
 local GUI = {
 	["Chats_00"] = Instance.new("Frame");
 	["Insides_01"] = Instance.new("Frame");
@@ -659,9 +666,9 @@ local function TextContentToShow(Table)
 	local ContentText = ""
 
 	if LiveChatServer.VerifiedPeople[Username] then
-		ContentText = utf8.char("0xE000")..' <font transparency="0.3"><b>'..DisplayName..'</b> <font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)..'</font>'
+		ContentText = utf8.char("0xE000")..' <b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)..'</font>'
 	else
-		ContentText = '<font transparency="0.3"><b>'..DisplayName..'</b> <font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)..'</font>'
+		ContentText = '<b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)..'</font>'
 	end
 
 	local NewMessage = ""
@@ -684,16 +691,16 @@ local function TextContentToShow(Table)
 	end
 
 	if IsTemporary == true then
-		ContentText = ContentText..'\n<font color="rgb(150,150,150)">'..Message..'</font>'
+		ContentText = ContentText..'\n<font transparency="0.3">'..Message..'</font>'
 	else
 		ContentText = ContentText.. '\n'..Message
 	end
 
 	if IsClient == true then
-		ContentText = ContentText..'\n<font size="8"><font color="rgb(150,150,150)">👁️ Only you can see this message</font></font>'
+		ContentText = ContentText..'\n<font size="8"><font transparency="0.3">👁️ Only you can see this message</font></font>'
 	end
 
-	return ContentText
+	return ChangeRichTextSize(ContentText, _G.Table.GUISettings.UITextSize)
 end
 
 local function DisplayMessage(Table)

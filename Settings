@@ -30,6 +30,13 @@ function UIFont(FontWeight)
 	end
 end
 
+local function ChangeRichTextSize(Text, SettingTextSize)
+	return Text:gsub('<font size="(%d+)">', function(size)
+		local newSize = tonumber(size) + SettingTextSize
+		return '<font size="'..newSize..'">'
+	end)
+end
+
 -- Instances:
 
 local GUI = {
@@ -730,6 +737,10 @@ ChangeSetting.UITextSize = function(TextEntered)
 			for _, Child in game:GetService("CoreGui").VexHubUI:GetDescendants() do
 				if (Child:GetAttribute("UITextSize")) then
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize}):Play()
+					
+					if Child.RichText == true then
+						Child.Text = ChangeRichTextSize(Child.Text, _G.Table.GUISettings.UITextSize)
+					end
 				end
 			end
 		end
@@ -1044,13 +1055,13 @@ _G.CreateSettingButton(
 			Button2Function = function()
 				_G.Table.GUISettings = loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/SettingsTable"))()
 				SaveSettings()
-				
+
 				for Setting, Value in _G.Table.GUISettings do
 					if (ChangeSetting[Setting]) and Value ~= nil then
 						ChangeSetting[Setting](Value)
 					end
 				end
-				
+
 				_G.PopUpNotificationOptions({
 					Title = "Success!",
 					Message = "Settings has been reverted back to original",

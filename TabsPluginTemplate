@@ -653,7 +653,7 @@ GUI["UICorner_065"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_065"].Parent = GUI["CoverFrame_064"]
 
 GUI["UIListLayout_066"].FillDirection = Enum.FillDirection.Horizontal
-GUI["UIListLayout_066"].HorizontalAlignment = Enum.HorizontalAlignment.Right
+GUI["UIListLayout_066"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_066"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_066"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_066"].Parent = GUI["ScriptInfo_024"]

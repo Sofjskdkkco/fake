@@ -77,7 +77,6 @@ local GUI = {
 	["NoScripts_032"] = Instance.new("TextLabel");
 	["UIListLayout_033"] = Instance.new("UIListLayout");
 	["ScriptInfo_034"] = Instance.new("Frame");
-	["Border_035"] = Instance.new("Frame");
 	["Insides_036"] = Instance.new("Frame");
 	["UICorner_037"] = Instance.new("UICorner");
 	["UIScale_038"] = Instance.new("UIScale");
@@ -452,14 +451,6 @@ GUI["ScriptInfo_034"].Position = UDim2.new(0.6, 0, 0, 0)
 GUI["ScriptInfo_034"].Size = UDim2.new(0, 130, 1, 0)
 GUI["ScriptInfo_034"].Name = "ScriptInfo"
 GUI["ScriptInfo_034"].Parent = GUI["BottomFrame_01"]
-
-GUI["Border_035"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-GUI["Border_035"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-GUI["Border_035"].BorderSizePixel = 0
-GUI["Border_035"].LayoutOrder = 2
-GUI["Border_035"].Size = UDim2.new(0, 10, 0, 0)
-GUI["Border_035"].Name = "Border"
-GUI["Border_035"].Parent = GUI["ScriptInfo_034"]
 
 GUI["Insides_036"].BackgroundColor3 = Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512)
 GUI["Insides_036"].BorderColor3 = Color3.fromRGB(0, 0, 0)

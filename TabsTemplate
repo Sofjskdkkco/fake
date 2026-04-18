@@ -2,6 +2,45 @@
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
 
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+function UIColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
+function UIFont(FontWeight)
+	if _G.Table.GUISettings.UIBoldText == true then
+		FontWeight = "Bold"
+	end
+
+	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
+		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
+		return Font.fromName(_G.Table.GUISettings.UIFont, Enum.FontWeight[FontWeight])
+	end
+end
+
+local function ChangeRichTextSize(Text, SettingTextSize)
+	return Text:gsub('<font size="(%d+)">', function(size)
+		local newSize = tonumber(size) + SettingTextSize
+		return '<font size="'..newSize..'">'
+	end)
+end
+
 local GUI = {
 	["TabsTemplate_00"] = Instance.new("Frame");
 	["BottomFrame_01"] = Instance.new("Frame");
@@ -125,7 +164,7 @@ GUI["TabsTemplate_00"].Visible = false
 GUI["TabsTemplate_00"].Name = "TabsTemplate"
 GUI["TabsTemplate_00"].Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
 
-GUI["BottomFrame_01"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["BottomFrame_01"].BackgroundColor3 = Color3.new(UIColor(0, 0, 0))
 GUI["BottomFrame_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["BottomFrame_01"].BorderSizePixel = 0
 GUI["BottomFrame_01"].ClipsDescendants = true
@@ -134,11 +173,13 @@ GUI["BottomFrame_01"].Position = UDim2.new(4.34104912e-08, 0, 0.224999994, 0)
 GUI["BottomFrame_01"].Size = UDim2.new(0.99999994, 0, 0.0250000004, 150)
 GUI["BottomFrame_01"].Name = "BottomFrame"
 GUI["BottomFrame_01"].Parent = GUI["TabsTemplate_00"]
+GUI["BottomFrame_01"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
 
 GUI["UIGradient_02"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
 }
+GUI["UIGradient_02"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_02"].Rotation = 90
 GUI["UIGradient_02"].Parent = GUI["BottomFrame_01"]
 
@@ -407,7 +448,8 @@ GUI["ScriptInfo_034"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["ScriptInfo_034"].BackgroundTransparency = 1
 GUI["ScriptInfo_034"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["ScriptInfo_034"].BorderSizePixel = 0
-GUI["ScriptInfo_034"].Size = UDim2.new(1, 0, 1, 0)
+GUI["ScriptInfo_034"].Position = UDim2.new(0.6, 0, 0, 0)
+GUI["ScriptInfo_034"].Size = UDim2.new(0, 130, 1, 0)
 GUI["ScriptInfo_034"].Name = "ScriptInfo"
 GUI["ScriptInfo_034"].Parent = GUI["BottomFrame_01"]
 
@@ -860,18 +902,19 @@ GUI["UICorner_088"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_088"].Parent = GUI["CoverFrame_087"]
 
 GUI["UIListLayout_089"].FillDirection = Enum.FillDirection.Horizontal
-GUI["UIListLayout_089"].HorizontalAlignment = Enum.HorizontalAlignment.Right
+GUI["UIListLayout_089"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_089"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_089"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_089"].Parent = GUI["ScriptInfo_034"]
 
-GUI["TabInfo_090"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TabInfo_090"].BackgroundColor3 = Color3.new(UIColor(0, 0, 0))
 GUI["TabInfo_090"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TabInfo_090"].BorderSizePixel = 0
 GUI["TabInfo_090"].LayoutOrder = 1
 GUI["TabInfo_090"].Size = UDim2.new(1, 0, 0, 40)
 GUI["TabInfo_090"].Name = "TabInfo"
 GUI["TabInfo_090"].Parent = GUI["TabsTemplate_00"]
+GUI["TabInfo_090"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
 
 GUI["Border_091"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_091"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -891,9 +934,10 @@ GUI["TabImage_092"].Name = "TabImage"
 GUI["TabImage_092"].Parent = GUI["TabInfo_090"]
 
 GUI["UIGradient_093"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
 }
+GUI["UIGradient_093"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_093"].Rotation = 90
 GUI["UIGradient_093"].Parent = GUI["TabInfo_090"]
 

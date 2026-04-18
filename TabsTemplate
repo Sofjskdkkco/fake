@@ -182,9 +182,10 @@ GUI["UIGradient_02"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_02"].Rotation = 90
 GUI["UIGradient_02"].Parent = GUI["BottomFrame_01"]
 
-GUI["UIStroke_03"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_03"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_03"].Parent = GUI["BottomFrame_01"]
 GUI["UIStroke_03"].Transparency = 0.9
+GUI["UIStroke_03"]:SetAttribute("UITextColor", true)
 
 GUI["UICorner_04"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_04"].Parent = GUI["BottomFrame_01"]
@@ -253,11 +254,11 @@ GUI["ScrollingFrame_012"].Position = UDim2.new(0.0283018872, 0, 0.414285719, 0)
 GUI["ScrollingFrame_012"].Size = UDim2.new(0, 100, 0, 25)
 GUI["ScrollingFrame_012"].Parent = GUI["ScriptTemplate_08"]
 
-GUI["ScriptName_013"].Font = Enum.Font.MontserratMedium
+GUI["ScriptName_013"].Font = UIFont("Medium")
 GUI["ScriptName_013"].RichText = true
 GUI["ScriptName_013"].Text = "Script Name"
-GUI["ScriptName_013"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["ScriptName_013"].TextSize = 12
+GUI["ScriptName_013"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["ScriptName_013"].TextSize = 12+_G.Table.GUISettings.UITextSize
 GUI["ScriptName_013"].TextWrapped = true
 GUI["ScriptName_013"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["ScriptName_013"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -267,6 +268,10 @@ GUI["ScriptName_013"].BorderSizePixel = 0
 GUI["ScriptName_013"].Size = UDim2.new(1, 0, 0, 0)
 GUI["ScriptName_013"].Name = "ScriptName"
 GUI["ScriptName_013"].Parent = GUI["ScrollingFrame_012"]
+GUI["ScriptName_013"]:SetAttribute("UIFont", "Medium")
+GUI["ScriptName_013"]:SetAttribute("UIBoldText", true)
+GUI["ScriptName_013"]:SetAttribute("UITextColor", true)
+GUI["ScriptName_013"]:SetAttribute("UITextSize", true)
 
 GUI["BottomFrame_014"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["BottomFrame_014"].BackgroundTransparency = 1
@@ -302,10 +307,10 @@ GUI["ScriptPlay_017"].Size = UDim2.new(0, 15, 0, 15)
 GUI["ScriptPlay_017"].Name = "ScriptPlay"
 GUI["ScriptPlay_017"].Parent = GUI["NumberOfExecutions_016"]
 
-GUI["Executions_018"].Font = Enum.Font.GothamMedium
+GUI["Executions_018"].Font = UIFont("Medium")
 GUI["Executions_018"].Text = "0"
-GUI["Executions_018"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["Executions_018"].TextSize = 10
+GUI["Executions_018"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Executions_018"].TextSize = 10+_G.Table.GUISettings.UITextSize
 GUI["Executions_018"].AutomaticSize = Enum.AutomaticSize.X
 GUI["Executions_018"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Executions_018"].BackgroundTransparency = 1
@@ -314,6 +319,10 @@ GUI["Executions_018"].BorderSizePixel = 0
 GUI["Executions_018"].Size = UDim2.new(0, 0, 0, 15)
 GUI["Executions_018"].Name = "Executions"
 GUI["Executions_018"].Parent = GUI["NumberOfExecutions_016"]
+GUI["Executions_018"]:SetAttribute("UIFont", "Medium")
+GUI["Executions_018"]:SetAttribute("UIBoldText", true)
+GUI["Executions_018"]:SetAttribute("UITextColor", true)
+GUI["Executions_018"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_019"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_019"].SortOrder = Enum.SortOrder.LayoutOrder
@@ -339,10 +348,10 @@ GUI["ThumbsUp_021"].Size = UDim2.new(0, 15, 0, 15)
 GUI["ThumbsUp_021"].Name = "ThumbsUp"
 GUI["ThumbsUp_021"].Parent = GUI["NumberOfLikes_020"]
 
-GUI["Likes_022"].Font = Enum.Font.GothamMedium
+GUI["Likes_022"].Font = UIFont("Medium")
 GUI["Likes_022"].Text = "0%"
-GUI["Likes_022"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["Likes_022"].TextSize = 10
+GUI["Likes_022"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Likes_022"].TextSize = 10+_G.Table.GUISettings.UITextSize
 GUI["Likes_022"].AutomaticSize = Enum.AutomaticSize.X
 GUI["Likes_022"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Likes_022"].BackgroundTransparency = 1
@@ -351,6 +360,10 @@ GUI["Likes_022"].BorderSizePixel = 0
 GUI["Likes_022"].Size = UDim2.new(0, 0, 0, 15)
 GUI["Likes_022"].Name = "Likes"
 GUI["Likes_022"].Parent = GUI["NumberOfLikes_020"]
+GUI["Likes_022"]:SetAttribute("UIFont", "Medium")
+GUI["Likes_022"]:SetAttribute("UIBoldText", true)
+GUI["Likes_022"]:SetAttribute("UITextColor", true)
+GUI["Likes_022"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_023"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_023"].SortOrder = Enum.SortOrder.LayoutOrder
@@ -358,9 +371,10 @@ GUI["UIListLayout_023"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_023"].Parent = GUI["NumberOfLikes_020"]
 
 GUI["UIStroke_024"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-GUI["UIStroke_024"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_024"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_024"].Parent = GUI["ScriptTemplate_08"]
 GUI["UIStroke_024"].Transparency = 0.7
+GUI["UIStroke_024"]:SetAttribute("UITextColor", true)
 
 GUI["Icons_025"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Icons_025"].BackgroundTransparency = 1
@@ -423,10 +437,11 @@ GUI["RigTypeIcon_031"].Size = UDim2.new(0, 17, 0, 17)
 GUI["RigTypeIcon_031"].Name = "RigTypeIcon"
 GUI["RigTypeIcon_031"].Parent = GUI["Icons_028"]
 
-GUI["NoScripts_032"].Font = Enum.Font.MontserratMedium
+GUI["NoScripts_032"].Font = UIFont("Medium")
 GUI["NoScripts_032"].Text = "No scripts avalable"
-GUI["NoScripts_032"].TextColor3 = Color3.fromRGB(155.00000596046448, 155.00000596046448, 155.00000596046448)
-GUI["NoScripts_032"].TextSize = 12
+GUI["NoScripts_032"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["NoScripts_032"].TextSize = 12+_G.Table.GUISettings.UITextSize
+GUI["NoScripts_032"].TextTransparency = 0.5
 GUI["NoScripts_032"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["NoScripts_032"].BackgroundTransparency = 1
 GUI["NoScripts_032"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -435,6 +450,10 @@ GUI["NoScripts_032"].Position = UDim2.new(0.146739542, 0, -0.0271646865, 0)
 GUI["NoScripts_032"].Size = UDim2.new(1, 0, 1, 0)
 GUI["NoScripts_032"].Name = "NoScripts"
 GUI["NoScripts_032"].Parent = GUI["ScrollingFrame_06"]
+GUI["NoScripts_032"]:SetAttribute("UIFont", "Medium")
+GUI["NoScripts_032"]:SetAttribute("UIBoldText", true)
+GUI["NoScripts_032"]:SetAttribute("UITextColor", true)
+GUI["NoScripts_032"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_033"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_033"].FillDirection = Enum.FillDirection.Horizontal
@@ -467,9 +486,10 @@ GUI["UICorner_037"].Parent = GUI["Insides_036"]
 GUI["UIScale_038"].Scale = 1.0000000116860974e-07
 GUI["UIScale_038"].Parent = GUI["Insides_036"]
 
-GUI["UIStroke_039"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_039"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_039"].Parent = GUI["Insides_036"]
 GUI["UIStroke_039"].Transparency = 0.5
+GUI["UIStroke_039"]:SetAttribute("UITextColor", true)
 
 GUI["Insides_040"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Insides_040"].BackgroundTransparency = 1
@@ -675,10 +695,10 @@ GUI["UIListLayout_065"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_065"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_065"].Parent = GUI["RatingSystem_064"]
 
-GUI["DislikeRating_066"].Font = Enum.Font.GothamMedium
+GUI["DislikeRating_066"].Font = UIFont("Medium")
 GUI["DislikeRating_066"].Text = "100%"
-GUI["DislikeRating_066"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["DislikeRating_066"].TextSize = 10
+GUI["DislikeRating_066"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["DislikeRating_066"].TextSize = 10+_G.Table.GUISettings.UITextSize
 GUI["DislikeRating_066"].TextTransparency = 0.10000000149011612
 GUI["DislikeRating_066"].TextWrapped = true
 GUI["DislikeRating_066"].TextXAlignment = Enum.TextXAlignment.Left
@@ -691,11 +711,15 @@ GUI["DislikeRating_066"].LayoutOrder = 4
 GUI["DislikeRating_066"].Size = UDim2.new(0, 0, 1, 0)
 GUI["DislikeRating_066"].Name = "DislikeRating"
 GUI["DislikeRating_066"].Parent = GUI["RatingSystem_064"]
+GUI["DislikeRating_066"]:SetAttribute("UIFont", "Medium")
+GUI["DislikeRating_066"]:SetAttribute("UIBoldText", true)
+GUI["DislikeRating_066"]:SetAttribute("UITextColor", true)
+GUI["DislikeRating_066"]:SetAttribute("UITextSize", true)
 
-GUI["LikeRating_067"].Font = Enum.Font.GothamMedium
+GUI["LikeRating_067"].Font = UIFont("Medium")
 GUI["LikeRating_067"].Text = "100%"
-GUI["LikeRating_067"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["LikeRating_067"].TextSize = 10
+GUI["LikeRating_067"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["LikeRating_067"].TextSize = 10+_G.Table.GUISettings.UITextSize
 GUI["LikeRating_067"].TextTransparency = 0.10000000149011612
 GUI["LikeRating_067"].TextWrapped = true
 GUI["LikeRating_067"].TextXAlignment = Enum.TextXAlignment.Left
@@ -708,6 +732,10 @@ GUI["LikeRating_067"].LayoutOrder = 2
 GUI["LikeRating_067"].Size = UDim2.new(0, 0, 1, 0)
 GUI["LikeRating_067"].Name = "LikeRating"
 GUI["LikeRating_067"].Parent = GUI["RatingSystem_064"]
+GUI["LikeRating_067"]:SetAttribute("UIFont", "Medium")
+GUI["LikeRating_067"]:SetAttribute("UIBoldText", true)
+GUI["LikeRating_067"]:SetAttribute("UITextColor", true)
+GUI["LikeRating_067"]:SetAttribute("UITextSize", true)
 
 GUI["DislikeButton_068"].Image = "http://www.roblox.com/asset/?id=121804778552765"
 GUI["DislikeButton_068"].ImageTransparency = 0.10000000149011612
@@ -747,11 +775,11 @@ GUI["ScrollingFrame_070"].Position = UDim2.new(0.0500000007, 0, 0.121863797, 0)
 GUI["ScrollingFrame_070"].Size = UDim2.new(0.899999976, 0, 0, 58)
 GUI["ScrollingFrame_070"].Parent = GUI["Insides_040"]
 
-GUI["ScriptName_071"].Font = Enum.Font.GothamMedium
+GUI["ScriptName_071"].Font = UIFont("Medium")
 GUI["ScriptName_071"].RichText = true
 GUI["ScriptName_071"].Text = "Loading..."
-GUI["ScriptName_071"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["ScriptName_071"].TextSize = 16
+GUI["ScriptName_071"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["ScriptName_071"].TextSize = 16+_G.Table.GUISettings.UITextSize
 GUI["ScriptName_071"].TextWrapped = true
 GUI["ScriptName_071"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["ScriptName_071"].TextYAlignment = Enum.TextYAlignment.Top
@@ -763,6 +791,10 @@ GUI["ScriptName_071"].BorderSizePixel = 0
 GUI["ScriptName_071"].Size = UDim2.new(1, 0, 0, 0)
 GUI["ScriptName_071"].Name = "ScriptName"
 GUI["ScriptName_071"].Parent = GUI["ScrollingFrame_070"]
+GUI["ScriptName_071"]:SetAttribute("UIFont", "Medium")
+GUI["ScriptName_071"]:SetAttribute("UIBoldText", true)
+GUI["ScriptName_071"]:SetAttribute("UITextColor", true)
+GUI["ScriptName_071"]:SetAttribute("UITextSize", true)
 
 GUI["TopFrame_072"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TopFrame_072"].BackgroundTransparency = 1
@@ -788,9 +820,9 @@ GUI["CloseButton_074"].Size = UDim2.new(0, 0, 0, 17)
 GUI["CloseButton_074"].Name = "CloseButton"
 GUI["CloseButton_074"].Parent = GUI["TopFrame_072"]
 
-GUI["CloseText_075"].Font = Enum.Font.Gotham
+GUI["CloseText_075"].Font = UIFont("Regular")
 GUI["CloseText_075"].Text = "Close"
-GUI["CloseText_075"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["CloseText_075"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["CloseText_075"].TextSize = 10
 GUI["CloseText_075"].AutomaticSize = Enum.AutomaticSize.X
 GUI["CloseText_075"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -801,6 +833,9 @@ GUI["CloseText_075"].LayoutOrder = 2
 GUI["CloseText_075"].Size = UDim2.new(0, 0, 0, 17)
 GUI["CloseText_075"].Name = "CloseText"
 GUI["CloseText_075"].Parent = GUI["CloseButton_074"]
+GUI["CloseText_075"]:SetAttribute("UIFont", "Regular")
+GUI["CloseText_075"]:SetAttribute("UIBoldText", true)
+GUI["CloseText_075"]:SetAttribute("UITextColor", true)
 
 GUI["CloseImage_076"].Image = "rbxassetid://17584397052"
 GUI["CloseImage_076"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -939,9 +974,10 @@ GUI["UIListLayout_094"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_094"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_094"].Parent = GUI["TabInfo_090"]
 
-GUI["UIStroke_095"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_095"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_095"].Parent = GUI["TabInfo_090"]
 GUI["UIStroke_095"].Transparency = 0.9
+GUI["UIStroke_095"]:SetAttribute("UITextColor", true)
 
 GUI["UICorner_096"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_096"].Parent = GUI["TabInfo_090"]
@@ -955,10 +991,10 @@ GUI["TabNameAndTotalScripts_097"].Size = UDim2.new(0, 170, 0.699999988, 0)
 GUI["TabNameAndTotalScripts_097"].Name = "TabNameAndTotalScripts"
 GUI["TabNameAndTotalScripts_097"].Parent = GUI["TabInfo_090"]
 
-GUI["TabName_098"].Font = Enum.Font.MontserratBold
+GUI["TabName_098"].Font = UIFont("Bold")
 GUI["TabName_098"].Text = "Required Accessories"
-GUI["TabName_098"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["TabName_098"].TextSize = 16
+GUI["TabName_098"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["TabName_098"].TextSize = 16+_G.Table.GUISettings.UITextSize
 GUI["TabName_098"].TextWrapped = true
 GUI["TabName_098"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["TabName_098"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -968,15 +1004,20 @@ GUI["TabName_098"].BorderSizePixel = 0
 GUI["TabName_098"].Size = UDim2.new(1, 0, 0, 17)
 GUI["TabName_098"].Name = "TabName"
 GUI["TabName_098"].Parent = GUI["TabNameAndTotalScripts_097"]
+GUI["TabName_098"]:SetAttribute("UIFont", "Bold")
+GUI["TabName_098"]:SetAttribute("UIBoldText", true)
+GUI["TabName_098"]:SetAttribute("UITextColor", true)
+GUI["TabName_098"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_099"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_099"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_099"].Parent = GUI["TabNameAndTotalScripts_097"]
 
-GUI["ScriptsTotal_0100"].Font = Enum.Font.MontserratMedium
+GUI["ScriptsTotal_0100"].Font = UIFont("Medium")
 GUI["ScriptsTotal_0100"].RichText = true
 GUI["ScriptsTotal_0100"].Text = '<b>100 Scripts</b>, <font color="rgb(255, 188, 87)">10 OP Scripts</font> and <font color="rgb(255, 102, 102)">1 New Scripts</font>'
-GUI["ScriptsTotal_0100"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ScriptsTotal_0100"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["ScriptsTotal_0100"].TextSize = 8+_G.Table.GUISettings.UITextSize
 GUI["ScriptsTotal_0100"].TextWrapped = true
 GUI["ScriptsTotal_0100"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["ScriptsTotal_0100"].AutomaticSize = Enum.AutomaticSize.Y
@@ -987,6 +1028,10 @@ GUI["ScriptsTotal_0100"].BorderSizePixel = 0
 GUI["ScriptsTotal_0100"].Size = UDim2.new(1, 0, 0, 0)
 GUI["ScriptsTotal_0100"].Name = "ScriptsTotal"
 GUI["ScriptsTotal_0100"].Parent = GUI["TabNameAndTotalScripts_097"]
+GUI["ScriptsTotal_0100"]:SetAttribute("UIFont", "Medium")
+GUI["ScriptsTotal_0100"]:SetAttribute("UIBoldText", true)
+GUI["ScriptsTotal_0100"]:SetAttribute("UITextColor", true)
+GUI["ScriptsTotal_0100"]:SetAttribute("UITextSize", true)
 
 GUI["Border_0101"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_0101"].BackgroundTransparency = 0.699999988079071
@@ -1009,9 +1054,10 @@ GUI["SearchBar_0102"].Parent = GUI["TabInfo_090"]
 GUI["UICorner_0103"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_0103"].Parent = GUI["SearchBar_0102"]
 
-GUI["UIStroke_0104"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_0104"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_0104"].Parent = GUI["SearchBar_0102"]
 GUI["UIStroke_0104"].Transparency = 0.7
+GUI["UIStroke_0104"]:SetAttribute("UITextColor", true)
 
 GUI["MagnifyingGlass_0105"].Image = "http://www.roblox.com/asset/?id=17633536608"
 GUI["MagnifyingGlass_0105"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1028,11 +1074,11 @@ GUI["UIListLayout_0106"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_0106"].Parent = GUI["SearchBar_0102"]
 
 GUI["TextBox_0107"].ClearTextOnFocus = false
-GUI["TextBox_0107"].Font = Enum.Font.Montserrat
+GUI["TextBox_0107"].Font = UIFont("Regular")
 GUI["TextBox_0107"].PlaceholderText = "search a script"
 GUI["TextBox_0107"].Text = ""
-GUI["TextBox_0107"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["TextBox_0107"].TextSize = 9
+GUI["TextBox_0107"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["TextBox_0107"].TextSize = 9+_G.Table.GUISettings.UITextSize
 GUI["TextBox_0107"].TextWrapped = true
 GUI["TextBox_0107"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["TextBox_0107"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1042,6 +1088,10 @@ GUI["TextBox_0107"].BorderSizePixel = 0
 GUI["TextBox_0107"].Position = UDim2.new(0.166666672, 0, 0, 0)
 GUI["TextBox_0107"].Size = UDim2.new(0, 100, 0, 20)
 GUI["TextBox_0107"].Parent = GUI["SearchBar_0102"]
+GUI["TextBox_0107"]:SetAttribute("UIFont", "Regular")
+GUI["TextBox_0107"]:SetAttribute("UIBoldText", true)
+GUI["TextBox_0107"]:SetAttribute("UITextColor", true)
+GUI["TextBox_0107"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_0108"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_0108"].HorizontalAlignment = Enum.HorizontalAlignment.Center

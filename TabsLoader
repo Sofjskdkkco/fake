@@ -1,3 +1,16 @@
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+local function ChangeRichTextSize(Text, SettingTextSize)
+	return Text:gsub('<font size="(%d+)">', function(size)
+		local newSize = tonumber(size) + SettingTextSize
+		return '<font size="'..newSize..'">'
+	end)
+end
+
 local Table = _G.Table
 local FileSystem = _G.FileSystem
 local FileSupporting = true
@@ -97,8 +110,8 @@ _G.CreateTab = function(TabName, Scripts)
 	TextBox.FocusLost:Connect(function()
 		InputBegan = false
 		TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-		TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-		TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+		TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+		TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 	end)
 
 	SearchBar.MouseEnter:Connect(function()
@@ -110,8 +123,8 @@ _G.CreateTab = function(TabName, Scripts)
 	SearchBar.MouseLeave:Connect(function()
 		if InputBegan ~= true then
 			TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-			TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-			TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+			TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+			TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 		end
 	end)
 
@@ -291,7 +304,7 @@ _G.CreateTab = function(TabName, Scripts)
 					DislikeRating.Text = Dislikes.."%"
 				end
 
-				ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = '<b>'..ScriptName..'</b>\n<font size="10"><font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b></font>\n\n<font transparency="0.3"><font size="9"><b>"'..ScriptInfo.Description..'"</b></font></font>'
+				ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = ChangeRichTextSize('<b>'..ScriptName..'</b>\n<font size="10"><font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b></font>\n\n<font transparency="0.3"><font size="9"><b>"'..ScriptInfo.Description..'"</b></font></font>', _G.Table.GUISettings.UITextSize)
 
 				UpdateRating()
 
@@ -585,7 +598,7 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 			ExecuteButtonFunction:Disconnect()
 			JoinButtonFunction:Disconnect()
 
-			ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = '<b>'..ScriptName..'</b>\n<font size="10"><font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b></font>\n\n<font transparency="0.3"><font size="9"><b>"'..ScriptInfo.Description..'"</b></font></font>'
+			ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = ChangeRichTextSize('<b>'..ScriptName..'</b>\n<font size="10"><font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b></font>\n\n<font transparency="0.3"><font size="9"><b>"'..ScriptInfo.Description..'"</b></font></font>', _G.Table.GUISettings.UITextSize)
 
 			if ScriptInfo.RigType == "Any" then
 				ScriptInfoFrame.Insides.IconsInsides.Icons.RigTypeIcon.Visible = false
@@ -601,7 +614,7 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 
 			ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
 				local success, result = pcall(ScriptInfo.Script)
-				
+
 				if success then
 					_G.PopUpNotificationOptions({
 						Title = "Executed Successfully!",

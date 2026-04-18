@@ -299,7 +299,7 @@ GUI["NumberOfExecutions_016"].Parent = GUI["BottomFrame_014"]
 
 GUI["ScriptPlay_017"].Image = "http://www.roblox.com/asset/?id=17658539661"
 GUI["ScriptPlay_017"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
-GUI["ScriptPlay_017"].ImageTransparency = 0.5
+GUI["ScriptPlay_017"].ImageTransparency = 0.3
 GUI["ScriptPlay_017"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["ScriptPlay_017"].BackgroundTransparency = 1
 GUI["ScriptPlay_017"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -342,7 +342,7 @@ GUI["NumberOfLikes_020"].Parent = GUI["BottomFrame_014"]
 
 GUI["ThumbsUp_021"].Image = "http://www.roblox.com/asset/?id=101996468610854"
 GUI["ThumbsUp_021"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
-GUI["ThumbsUp_021"].ImageTransparency = 0.5
+GUI["ThumbsUp_021"].ImageTransparency = 0.3
 GUI["ThumbsUp_021"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["ThumbsUp_021"].BackgroundTransparency = 1
 GUI["ThumbsUp_021"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -390,7 +390,8 @@ GUI["Icons_025"].Name = "Icons"
 GUI["Icons_025"].Parent = GUI["ScriptTemplate_08"]
 
 GUI["ScriptImage_026"].Image = "rbxassetid://11592851654"
-GUI["ScriptImage_026"].ImageTransparency = 0.10000000149011612
+GUI["ScriptImage_026"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["ScriptImage_026"].ImageTransparency = 0.1
 GUI["ScriptImage_026"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["ScriptImage_026"].BackgroundTransparency = 1
 GUI["ScriptImage_026"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -398,6 +399,7 @@ GUI["ScriptImage_026"].BorderSizePixel = 0
 GUI["ScriptImage_026"].Size = UDim2.new(0, 28, 0, 28)
 GUI["ScriptImage_026"].Name = "ScriptImage"
 GUI["ScriptImage_026"].Parent = GUI["Icons_025"]
+GUI["ScriptImage_026"]:SetAttribute("UIImageColor", true)
 
 GUI["UIListLayout_027"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_027"].SortOrder = Enum.SortOrder.LayoutOrder
@@ -420,7 +422,8 @@ GUI["UIListLayout_029"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_029"].Parent = GUI["Icons_028"]
 
 GUI["GameIcon_030"].Image = "http://www.roblox.com/asset/?id=11738116961"
-GUI["GameIcon_030"].ImageTransparency = 0.30000001192092896
+GUI["GameIcon_030"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["GameIcon_030"].ImageTransparency = 0.3
 GUI["GameIcon_030"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["GameIcon_030"].BackgroundTransparency = 1
 GUI["GameIcon_030"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -429,9 +432,11 @@ GUI["GameIcon_030"].LayoutOrder = 2
 GUI["GameIcon_030"].Size = UDim2.new(0, 17, 0, 17)
 GUI["GameIcon_030"].Name = "GameIcon"
 GUI["GameIcon_030"].Parent = GUI["Icons_028"]
+GUI["GameIcon_030"]:SetAttribute("UIImageColor", true)
 
 GUI["RigTypeIcon_031"].Image = "http://www.roblox.com/asset/?id=11704876885"
-GUI["RigTypeIcon_031"].ImageTransparency = 0.30000001192092896
+GUI["RigTypeIcon_031"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["RigTypeIcon_031"].ImageTransparency = 0.3
 GUI["RigTypeIcon_031"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["RigTypeIcon_031"].BackgroundTransparency = 1
 GUI["RigTypeIcon_031"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -440,6 +445,7 @@ GUI["RigTypeIcon_031"].LayoutOrder = 1
 GUI["RigTypeIcon_031"].Size = UDim2.new(0, 17, 0, 17)
 GUI["RigTypeIcon_031"].Name = "RigTypeIcon"
 GUI["RigTypeIcon_031"].Parent = GUI["Icons_028"]
+GUI["RigTypeIcon_031"]:SetAttribute("UIImageColor", true)
 
 GUI["NoScripts_032"].FontFace = UIFont("Medium")
 GUI["NoScripts_032"].Text = "No scripts avalable"
@@ -661,7 +667,8 @@ GUI["UIListLayout_061"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_061"].Parent = GUI["Icons_060"]
 
 GUI["GameIcon_062"].Image = "http://www.roblox.com/asset/?id=11738116961"
-GUI["GameIcon_062"].ImageTransparency = 0.30000001192092896
+GUI["GameIcon_062"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["GameIcon_062"].ImageTransparency = 0.3
 GUI["GameIcon_062"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["GameIcon_062"].BackgroundTransparency = 1
 GUI["GameIcon_062"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -671,9 +678,11 @@ GUI["GameIcon_062"].Rotation = 180
 GUI["GameIcon_062"].Size = UDim2.new(0, 15, 0, 15)
 GUI["GameIcon_062"].Name = "GameIcon"
 GUI["GameIcon_062"].Parent = GUI["Icons_060"]
+GUI["GameIcon_062"]:SetAttribute("UIImageColor", true)
 
 GUI["RigTypeIcon_063"].Image = "http://www.roblox.com/asset/?id=11704876885"
-GUI["RigTypeIcon_063"].ImageTransparency = 0.30000001192092896
+GUI["RigTypeIcon_063"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["RigTypeIcon_063"].ImageTransparency = 0.3
 GUI["RigTypeIcon_063"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["RigTypeIcon_063"].BackgroundTransparency = 1
 GUI["RigTypeIcon_063"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -683,6 +692,7 @@ GUI["RigTypeIcon_063"].Rotation = 180
 GUI["RigTypeIcon_063"].Size = UDim2.new(0, 15, 0, 15)
 GUI["RigTypeIcon_063"].Name = "RigTypeIcon"
 GUI["RigTypeIcon_063"].Parent = GUI["Icons_060"]
+GUI["RigTypeIcon_063"]:SetAttribute("UIImageColor", true)
 
 GUI["RatingSystem_064"].AutomaticSize = Enum.AutomaticSize.X
 GUI["RatingSystem_064"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -742,7 +752,8 @@ GUI["LikeRating_067"]:SetAttribute("UITextColor", true)
 GUI["LikeRating_067"]:SetAttribute("UITextSize", true)
 
 GUI["DislikeButton_068"].Image = "http://www.roblox.com/asset/?id=121804778552765"
-GUI["DislikeButton_068"].ImageTransparency = 0.10000000149011612
+GUI["DislikeButton_068"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["DislikeButton_068"].ImageTransparency = 0.1
 GUI["DislikeButton_068"].AutoButtonColor = false
 GUI["DislikeButton_068"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["DislikeButton_068"].BackgroundTransparency = 1
@@ -753,9 +764,11 @@ GUI["DislikeButton_068"].Rotation = -66
 GUI["DislikeButton_068"].Size = UDim2.new(0, 15, 0, 15)
 GUI["DislikeButton_068"].Name = "DislikeButton"
 GUI["DislikeButton_068"].Parent = GUI["RatingSystem_064"]
+GUI["DislikeButton_068"]:SetAttribute("UIImageColor", true)
 
 GUI["LikeButton_069"].Image = "http://www.roblox.com/asset/?id=101996468610854"
-GUI["LikeButton_069"].ImageTransparency = 0.10000000149011612
+GUI["LikeButton_069"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["LikeButton_069"].ImageTransparency = 0.1
 GUI["LikeButton_069"].AutoButtonColor = false
 GUI["LikeButton_069"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["LikeButton_069"].BackgroundTransparency = 1
@@ -765,6 +778,7 @@ GUI["LikeButton_069"].LayoutOrder = 1
 GUI["LikeButton_069"].Size = UDim2.new(0, 15, 0, 15)
 GUI["LikeButton_069"].Name = "LikeButton"
 GUI["LikeButton_069"].Parent = GUI["RatingSystem_064"]
+GUI["LikeButton_069"]:SetAttribute("UIImageColor", true)
 
 GUI["ScrollingFrame_070"].AutomaticCanvasSize = Enum.AutomaticSize.Y
 GUI["ScrollingFrame_070"].CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -842,6 +856,7 @@ GUI["CloseText_075"]:SetAttribute("UIBoldText", true)
 GUI["CloseText_075"]:SetAttribute("UITextColor", true)
 
 GUI["CloseImage_076"].Image = "rbxassetid://17584397052"
+GUI["CloseImage_076"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["CloseImage_076"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["CloseImage_076"].BackgroundTransparency = 1
 GUI["CloseImage_076"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -850,6 +865,7 @@ GUI["CloseImage_076"].LayoutOrder = 1
 GUI["CloseImage_076"].Size = UDim2.new(0, 17, 0, 17)
 GUI["CloseImage_076"].Name = "CloseImage"
 GUI["CloseImage_076"].Parent = GUI["CloseButton_074"]
+GUI["CloseImage_076"]:SetAttribute("UITextColor", true)
 
 GUI["UIListLayout_077"].Padding = UDim.new(0, -2)
 GUI["UIListLayout_077"].FillDirection = Enum.FillDirection.Horizontal
@@ -955,6 +971,7 @@ GUI["Border_091"].Name = "Border"
 GUI["Border_091"].Parent = GUI["TabInfo_090"]
 
 GUI["TabImage_092"].Image = "rbxassetid://11592824883"
+GUI["TabImage_092"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["TabImage_092"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TabImage_092"].BackgroundTransparency = 1
 GUI["TabImage_092"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -963,6 +980,7 @@ GUI["TabImage_092"].LayoutOrder = 1
 GUI["TabImage_092"].Size = UDim2.new(0, 30, 0, 30)
 GUI["TabImage_092"].Name = "TabImage"
 GUI["TabImage_092"].Parent = GUI["TabInfo_090"]
+GUI["TabImage_092"]:SetAttribute("UIImageColor", true)
 
 GUI["UIGradient_093"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -1064,6 +1082,7 @@ GUI["UIStroke_0104"].Transparency = 0.7
 GUI["UIStroke_0104"]:SetAttribute("UITextColor", true)
 
 GUI["MagnifyingGlass_0105"].Image = "http://www.roblox.com/asset/?id=17633536608"
+GUI["MagnifyingGlass_0105"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["MagnifyingGlass_0105"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["MagnifyingGlass_0105"].BackgroundTransparency = 1
 GUI["MagnifyingGlass_0105"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -1071,6 +1090,7 @@ GUI["MagnifyingGlass_0105"].BorderSizePixel = 0
 GUI["MagnifyingGlass_0105"].Size = UDim2.new(0, 20, 0, 20)
 GUI["MagnifyingGlass_0105"].Name = "MagnifyingGlass"
 GUI["MagnifyingGlass_0105"].Parent = GUI["SearchBar_0102"]
+GUI["MagnifyingGlass_0105"]:SetAttribute("UIImageColor", true)
 
 GUI["UIListLayout_0106"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_0106"].SortOrder = Enum.SortOrder.LayoutOrder

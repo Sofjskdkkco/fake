@@ -850,7 +850,7 @@ local function TextTransitionExecuted(startValue, endValue, duration)
 		local waitTime = duration / steps
 
 		for i = startValue, endValue do
-			GUI["Executed_0"].Text = 'Executed\n<b><font size="14">'..i..'</font></b>\ntimes'
+			GUI["Executed_0"].Text = ChangeRichTextSize('Executed\n<b><font size="14">'..i..'</font></b>\ntimes', _G.Table.GUISettings.UITextSize)
 			task.wait(waitTime)
 		end
 	end)()
@@ -870,11 +870,11 @@ end)()
 local Time = tonumber(os.date("%H"))
 
 if Time >= 6 and Time <= 11 then
-	GUI["Greetings_0"].Text = '<b>Good Morning,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>'
+	GUI["Greetings_0"].Text = ChangeRichTextSize('<b>Good Morning,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>', _G.Table.GUISettings.UITextSize)
 elseif Time >= 12 and Time <= 17 then
-	GUI["Greetings_0"].Text = '<b>Good Afternoon,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>'
+	GUI["Greetings_0"].Text = ChangeRichTextSize('<b>Good Afternoon,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>', _G.Table.GUISettings.UITextSize)
 else
-	GUI["Greetings_0"].Text = '<b>Good Evening,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>'
+	GUI["Greetings_0"].Text = ChangeRichTextSize('<b>Good Evening,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>', _G.Table.GUISettings.UITextSize)
 end
 
 GUI["Greetings_0"].Text = ChangeRichTextSize(GUI["Greetings_0"].Text, _G.Table.GUISettings.UITextSize)

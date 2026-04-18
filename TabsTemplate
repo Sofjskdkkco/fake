@@ -298,7 +298,8 @@ GUI["NumberOfExecutions_016"].Name = "NumberOfExecutions"
 GUI["NumberOfExecutions_016"].Parent = GUI["BottomFrame_014"]
 
 GUI["ScriptPlay_017"].Image = "http://www.roblox.com/asset/?id=17658539661"
-GUI["ScriptPlay_017"].ImageColor3 = Color3.fromRGB(184.00000423192978, 184.00000423192978, 185.00000417232513)
+GUI["ScriptPlay_017"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["ScriptPlay_017"].ImageTransparency = 0.5
 GUI["ScriptPlay_017"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["ScriptPlay_017"].BackgroundTransparency = 1
 GUI["ScriptPlay_017"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -306,6 +307,7 @@ GUI["ScriptPlay_017"].BorderSizePixel = 0
 GUI["ScriptPlay_017"].Size = UDim2.new(0, 15, 0, 15)
 GUI["ScriptPlay_017"].Name = "ScriptPlay"
 GUI["ScriptPlay_017"].Parent = GUI["NumberOfExecutions_016"]
+GUI["ScriptPlay_017"]:SetAttribute("UIImageColor", true)
 
 GUI["Executions_018"].FontFace = UIFont("Medium")
 GUI["Executions_018"].Text = "0"
@@ -339,7 +341,8 @@ GUI["NumberOfLikes_020"].Name = "NumberOfLikes"
 GUI["NumberOfLikes_020"].Parent = GUI["BottomFrame_014"]
 
 GUI["ThumbsUp_021"].Image = "http://www.roblox.com/asset/?id=101996468610854"
-GUI["ThumbsUp_021"].ImageColor3 = Color3.fromRGB(184.00000423192978, 184.00000423192978, 185.00000417232513)
+GUI["ThumbsUp_021"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["ThumbsUp_021"].ImageTransparency = 0.5
 GUI["ThumbsUp_021"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["ThumbsUp_021"].BackgroundTransparency = 1
 GUI["ThumbsUp_021"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -347,6 +350,7 @@ GUI["ThumbsUp_021"].BorderSizePixel = 0
 GUI["ThumbsUp_021"].Size = UDim2.new(0, 15, 0, 15)
 GUI["ThumbsUp_021"].Name = "ThumbsUp"
 GUI["ThumbsUp_021"].Parent = GUI["NumberOfLikes_020"]
+GUI["ThumbsUp_021"]:SetAttribute("UIImageColor", true)
 
 GUI["Likes_022"].FontFace = UIFont("Medium")
 GUI["Likes_022"].Text = "0%"

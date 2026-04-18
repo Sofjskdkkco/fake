@@ -531,7 +531,7 @@ GUI["UIListLayout_044"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_044"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_044"].Parent = GUI["FavoriteAndJoin_043"]
 
-GUI["FavoriteButton_045"].FontFace = Enum.Font.SourceSans
+GUI["FavoriteButton_045"].Font = Enum.Font.SourceSans
 GUI["FavoriteButton_045"].Text = ""
 GUI["FavoriteButton_045"].TextColor3 = Color3.fromRGB(0, 0, 0)
 GUI["FavoriteButton_045"].TextSize = 14

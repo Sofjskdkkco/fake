@@ -164,6 +164,7 @@ GUI["TabsTemplate_00"].Name = "TabsTemplate"
 GUI["TabsTemplate_00"].Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
 
 GUI["BottomFrame_01"].BackgroundColor3 = Color3.new(UIColor(0, 0, 0))
+GUI["BottomFrame_01"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["BottomFrame_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["BottomFrame_01"].BorderSizePixel = 0
 GUI["BottomFrame_01"].ClipsDescendants = true
@@ -173,6 +174,7 @@ GUI["BottomFrame_01"].Size = UDim2.new(0.99999994, 0, 0.0250000004, 150)
 GUI["BottomFrame_01"].Name = "BottomFrame"
 GUI["BottomFrame_01"].Parent = GUI["TabsTemplate_00"]
 GUI["BottomFrame_01"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
+GUI["BottomFrame_01"]:SetAttribute("UIFrameTransparency", true)
 
 GUI["UIGradient_02"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -955,6 +957,7 @@ GUI["UIListLayout_089"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_089"].Parent = GUI["ScriptInfo_034"]
 
 GUI["TabInfo_090"].BackgroundColor3 = Color3.new(UIColor(0, 0, 0))
+GUI["TabInfo_090"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["TabInfo_090"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TabInfo_090"].BorderSizePixel = 0
 GUI["TabInfo_090"].LayoutOrder = 1
@@ -962,6 +965,7 @@ GUI["TabInfo_090"].Size = UDim2.new(1, 0, 0, 40)
 GUI["TabInfo_090"].Name = "TabInfo"
 GUI["TabInfo_090"].Parent = GUI["TabsTemplate_00"]
 GUI["TabInfo_090"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
+GUI["TabInfo_090"]:SetAttribute("UIFrameTransparency", true)
 
 GUI["Border_091"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_091"].BorderColor3 = Color3.fromRGB(0, 0, 0)

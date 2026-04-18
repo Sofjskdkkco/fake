@@ -452,13 +452,14 @@ GUI["ScriptInfo_034"].Size = UDim2.new(0, 130, 1, 0)
 GUI["ScriptInfo_034"].Name = "ScriptInfo"
 GUI["ScriptInfo_034"].Parent = GUI["BottomFrame_01"]
 
-GUI["Insides_036"].BackgroundColor3 = Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512)
+GUI["Insides_036"].BackgroundColor3 = Color3.new(UIColor(0, 0, 0))
 GUI["Insides_036"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Insides_036"].BorderSizePixel = 0
 GUI["Insides_036"].Position = UDim2.new(0.584637284, 0, 0.095161289, 0)
 GUI["Insides_036"].Size = UDim2.new(0, 130, 0.899999976, 0)
 GUI["Insides_036"].Name = "Insides"
 GUI["Insides_036"].Parent = GUI["ScriptInfo_034"]
+GUI["Insides_036"]:SetAttribute("UIColor", Color3.fromRGB(0, 0, 0))
 
 GUI["UICorner_037"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_037"].Parent = GUI["Insides_036"]

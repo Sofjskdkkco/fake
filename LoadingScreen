@@ -170,6 +170,7 @@ else
 	CloseScreen()
 end
 
+game:GetService("CoreGui"):FindFirstChild("VexHubUI").Enabled = true
 _G.OpenVexHub()
 
 local FirebaseServer = {}

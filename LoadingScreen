@@ -5,6 +5,7 @@ if (_G.VexHubLoaded) then
 		Button2Function = function()
 		end,
 	})
+	return
 end
 
 pcall(function() _G.VexHubLoaded = true end)

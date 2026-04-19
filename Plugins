@@ -1,4 +1,41 @@
--- Instances:
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+function UIColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
+function UIFont(FontWeight)
+	if _G.Table.GUISettings.UIBoldText == true then
+		FontWeight = "Bold"
+	end
+
+	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
+		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
+		return Font.fromName(_G.Table.GUISettings.UIFont, Enum.FontWeight[FontWeight])
+	end
+end
+
+local function ChangeRichTextSize(Text, SettingTextSize)
+	return Text:gsub('<font size="(%d+)">', function(size)
+		local newSize = tonumber(size) + SettingTextSize
+		return '<font size="'..newSize..'">'
+	end)
+end
 
 local GUI = {
 	["Plugins_00"] = Instance.new("Frame");
@@ -65,13 +102,16 @@ GUI["UIListLayout_01"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_01"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_01"].Parent = GUI["Plugins_00"]
 
-GUI["Insides_02"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Insides_02"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
+GUI["Insides_02"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["Insides_02"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Insides_02"].BorderSizePixel = 0
 GUI["Insides_02"].Position = UDim2.new(0.0035562308, 0, 0, 0)
 GUI["Insides_02"].Size = UDim2.new(1, 0, 1, 0)
 GUI["Insides_02"].Name = "Insides"
 GUI["Insides_02"].Parent = GUI["Plugins_00"]
+GUI["Insides_02"]:SetAttribute("UIFrameTransparency", true)
+GUI["Insides_02"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UIListLayout_03"].Padding = UDim.new(0, 10)
 GUI["UIListLayout_03"].FillDirection = Enum.FillDirection.Horizontal
@@ -80,21 +120,24 @@ GUI["UIListLayout_03"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_03"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_03"].Parent = GUI["Insides_02"]
 
-GUI["UIStroke_04"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_04"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_04"].Parent = GUI["Insides_02"]
 GUI["UIStroke_04"].Transparency = 0.9
+GUI["UIStroke_04"]:SetAttribute("UITextColor", true)
 
 GUI["UICorner_05"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_05"].Parent = GUI["Insides_02"]
 
 GUI["UIGradient_06"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
 }
+GUI["UIGradient_06"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_06"].Rotation = 90
 GUI["UIGradient_06"].Parent = GUI["Insides_02"]
 
-GUI["RightFrame_07"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["RightFrame_07"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
+GUI["RightFrame_07"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["RightFrame_07"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["RightFrame_07"].BorderSizePixel = 0
 GUI["RightFrame_07"].LayoutOrder = 2
@@ -102,6 +145,8 @@ GUI["RightFrame_07"].Position = UDim2.new(0.33641538, 0, 0.0599999987, 0)
 GUI["RightFrame_07"].Size = UDim2.new(0, 115, 0.899999976, 0)
 GUI["RightFrame_07"].Name = "RightFrame"
 GUI["RightFrame_07"].Parent = GUI["Insides_02"]
+GUI["RightFrame_07"]:SetAttribute("UIFrameTransparency", true)
+GUI["RightFrame_07"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UIListLayout_08"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_08"].HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -109,17 +154,19 @@ GUI["UIListLayout_08"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_08"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_08"].Parent = GUI["RightFrame_07"]
 
-GUI["UIStroke_09"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_09"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_09"].Parent = GUI["RightFrame_07"]
 GUI["UIStroke_09"].Transparency = 0.9
+GUI["UIStroke_09"]:SetAttribute("UITextColor", true)
 
 GUI["UICorner_010"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_010"].Parent = GUI["RightFrame_07"]
 
 GUI["UIGradient_011"].Color = ColorSequence.new{
-	ColorSequenceKeypoint.new(0, Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)),
-	ColorSequenceKeypoint.new(1, Color3.fromRGB(18.000000827014446, 18.000000827014446, 21.000000648200512))
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
 }
+GUI["UIGradient_011"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_011"].Rotation = 90
 GUI["UIGradient_011"].Parent = GUI["RightFrame_07"]
 
@@ -132,10 +179,10 @@ GUI["TopFrame_012"].Size = UDim2.new(1, 0, 0, 18)
 GUI["TopFrame_012"].Name = "TopFrame"
 GUI["TopFrame_012"].Parent = GUI["RightFrame_07"]
 
-GUI["PluginsInstalledText_013"].Font = Enum.Font.GothamBold
+GUI["PluginsInstalledText_013"].FontFace = UIFont("Bold")
 GUI["PluginsInstalledText_013"].Text = "Plugins\nInstalled"
-GUI["PluginsInstalledText_013"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["PluginsInstalledText_013"].TextSize = 9
+GUI["PluginsInstalledText_013"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["PluginsInstalledText_013"].TextSize = 9+_G.Table.GUISettings.UITextSize
 GUI["PluginsInstalledText_013"].TextTransparency = 0.20000000298023224
 GUI["PluginsInstalledText_013"].AutomaticSize = Enum.AutomaticSize.XY
 GUI["PluginsInstalledText_013"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -145,6 +192,10 @@ GUI["PluginsInstalledText_013"].BorderSizePixel = 0
 GUI["PluginsInstalledText_013"].LayoutOrder = 2
 GUI["PluginsInstalledText_013"].Name = "PluginsInstalledText"
 GUI["PluginsInstalledText_013"].Parent = GUI["TopFrame_012"]
+GUI["PluginsInstalledText_013"]:SetAttribute("UIFont", "Bold")
+GUI["PluginsInstalledText_013"]:SetAttribute("UIBoldText", true)
+GUI["PluginsInstalledText_013"]:SetAttribute("UITextColor", true)
+GUI["PluginsInstalledText_013"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_014"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_014"].HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -153,6 +204,7 @@ GUI["UIListLayout_014"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_014"].Parent = GUI["TopFrame_012"]
 
 GUI["PlugImage_015"].Image = "rbxassetid://17666729279"
+GUI["PlugImage_015"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["PlugImage_015"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["PlugImage_015"].BackgroundTransparency = 1
 GUI["PlugImage_015"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -161,6 +213,7 @@ GUI["PlugImage_015"].LayoutOrder = 1
 GUI["PlugImage_015"].Size = UDim2.new(0, 25, 0, 25)
 GUI["PlugImage_015"].Name = "PlugImage"
 GUI["PlugImage_015"].Parent = GUI["TopFrame_012"]
+GUI["PlugImage_015"]:SetAttribute("UIImageColor", true)
 
 GUI["ScrollingFrame_016"].AutomaticCanvasSize = Enum.AutomaticSize.Y
 GUI["ScrollingFrame_016"].CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -187,10 +240,10 @@ GUI["Template_017"].Visible = false
 GUI["Template_017"].Name = "Template"
 GUI["Template_017"].Parent = GUI["ScrollingFrame_016"]
 
-GUI["PluginName_018"].Font = Enum.Font.GothamBold
+GUI["PluginName_018"].FontFace = UIFont("Bold")
 GUI["PluginName_018"].Text = "Plugin"
-GUI["PluginName_018"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["PluginName_018"].TextSize = 12
+GUI["PluginName_018"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["PluginName_018"].TextSize = 12+_G.Table.GUISettings.UITextSize
 GUI["PluginName_018"].TextTransparency = 0.20000000298023224
 GUI["PluginName_018"].TextWrapped = true
 GUI["PluginName_018"].TextXAlignment = Enum.TextXAlignment.Left
@@ -203,6 +256,10 @@ GUI["PluginName_018"].Position = UDim2.new(-0.00483091781, 0, 0, 0)
 GUI["PluginName_018"].Size = UDim2.new(0, 85, 0, 18)
 GUI["PluginName_018"].Name = "PluginName"
 GUI["PluginName_018"].Parent = GUI["Template_017"]
+GUI["PluginName_018"]:SetAttribute("UIFont", "Bold")
+GUI["PluginName_018"]:SetAttribute("UIBoldText", true)
+GUI["PluginName_018"]:SetAttribute("UITextColor", true)
+GUI["PluginName_018"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_019"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_019"].FillDirection = Enum.FillDirection.Horizontal
@@ -233,10 +290,11 @@ GUI["Border_022"].Size = UDim2.new(0.899999976, 0, 0, 1)
 GUI["Border_022"].Name = "Border"
 GUI["Border_022"].Parent = GUI["ScrollingFrame_016"]
 
-GUI["NoPlugins_023"].Font = Enum.Font.MontserratMedium
+GUI["NoPlugins_023"].FontFace = UIFont("Medium")
 GUI["NoPlugins_023"].Text = "No plugins installed"
-GUI["NoPlugins_023"].TextColor3 = Color3.fromRGB(155.00000596046448, 155.00000596046448, 155.00000596046448)
-GUI["NoPlugins_023"].TextSize = 12
+GUI["NoPlugins_023"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["NoPlugins_023"].TextSize = 12+_G.Table.GUISettings.UITextSize
+GUI["NoPlugins_023"].TextTransparency = 0.3
 GUI["NoPlugins_023"].TextWrapped = true
 GUI["NoPlugins_023"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["NoPlugins_023"].BackgroundTransparency = 1
@@ -246,6 +304,10 @@ GUI["NoPlugins_023"].Position = UDim2.new(0.0500000007, 0, 0.0272108838, 0)
 GUI["NoPlugins_023"].Size = UDim2.new(0.899999976, 0, 0.972789109, 0)
 GUI["NoPlugins_023"].Name = "NoPlugins"
 GUI["NoPlugins_023"].Parent = GUI["ScrollingFrame_016"]
+GUI["NoPlugins_023"]:SetAttribute("UIFont", "Medium")
+GUI["NoPlugins_023"]:SetAttribute("UIBoldText", true)
+GUI["NoPlugins_023"]:SetAttribute("UITextColor", true)
+GUI["NoPlugins_023"]:SetAttribute("UITextSize", true)
 
 GUI["LeftFrame_024"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["LeftFrame_024"].BackgroundTransparency = 1
@@ -271,10 +333,10 @@ GUI["TopFrame_026"].Size = UDim2.new(1, 0, 0, 18)
 GUI["TopFrame_026"].Name = "TopFrame"
 GUI["TopFrame_026"].Parent = GUI["LeftFrame_024"]
 
-GUI["PluginsText_027"].Font = Enum.Font.GothamBold
+GUI["PluginsText_027"].FontFace = UIFont("Bold")
 GUI["PluginsText_027"].Text = "Plugins"
-GUI["PluginsText_027"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["PluginsText_027"].TextSize = 18
+GUI["PluginsText_027"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["PluginsText_027"].TextSize = 18+_G.Table.GUISettings.UITextSize
 GUI["PluginsText_027"].AutomaticSize = Enum.AutomaticSize.XY
 GUI["PluginsText_027"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["PluginsText_027"].BackgroundTransparency = 1
@@ -283,6 +345,10 @@ GUI["PluginsText_027"].BorderSizePixel = 0
 GUI["PluginsText_027"].LayoutOrder = 2
 GUI["PluginsText_027"].Name = "PluginsText"
 GUI["PluginsText_027"].Parent = GUI["TopFrame_026"]
+GUI["PluginsText_027"]:SetAttribute("UIFont", "Bold")
+GUI["PluginsText_027"]:SetAttribute("UIBoldText", true)
+GUI["PluginsText_027"]:SetAttribute("UITextColor", true)
+GUI["PluginsText_027"]:SetAttribute("UITextSize", true)
 
 GUI["UIListLayout_028"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_028"].HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -291,6 +357,7 @@ GUI["UIListLayout_028"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_028"].Parent = GUI["TopFrame_026"]
 
 GUI["PlugImage_029"].Image = "rbxassetid://17645365934"
+GUI["PlugImage_029"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["PlugImage_029"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["PlugImage_029"].BackgroundTransparency = 1
 GUI["PlugImage_029"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -299,6 +366,7 @@ GUI["PlugImage_029"].LayoutOrder = 1
 GUI["PlugImage_029"].Size = UDim2.new(0, 25, 0, 25)
 GUI["PlugImage_029"].Name = "PlugImage"
 GUI["PlugImage_029"].Parent = GUI["TopFrame_026"]
+GUI["PlugImage_029"]:SetAttribute("UIImageColor", true)
 
 GUI["TextBoxParent_030"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TextBoxParent_030"].BackgroundTransparency = 0.8999999761581421
@@ -319,12 +387,12 @@ GUI["UIListLayout_032"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_032"].Parent = GUI["TextBoxParent_030"]
 
 GUI["TextBox_033"].ClearTextOnFocus = false
-GUI["TextBox_033"].Font = Enum.Font.MontserratMedium
+GUI["TextBox_033"].FontFace = UIFont("Medium")
 GUI["TextBox_033"].MultiLine = true
 GUI["TextBox_033"].PlaceholderText = "local Table = {}\n\nreturn Table"
 GUI["TextBox_033"].Text = ""
-GUI["TextBox_033"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["TextBox_033"].TextSize = 12
+GUI["TextBox_033"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["TextBox_033"].TextSize = 12+_G.Table.GUISettings.UITextSize
 GUI["TextBox_033"].TextWrapped = true
 GUI["TextBox_033"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["TextBox_033"].TextYAlignment = Enum.TextYAlignment.Top
@@ -334,14 +402,18 @@ GUI["TextBox_033"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TextBox_033"].BorderSizePixel = 0
 GUI["TextBox_033"].Size = UDim2.new(0.930000007, 0, 0.949999988, 0)
 GUI["TextBox_033"].Parent = GUI["TextBoxParent_030"]
+GUI["TextBox_033"]:SetAttribute("UIFont", "Medium")
+GUI["TextBox_033"]:SetAttribute("UIBoldText", true)
+GUI["TextBox_033"]:SetAttribute("UITextColor", true)
+GUI["TextBox_033"]:SetAttribute("UITextSize", true)
 
-GUI["Tip_034"].Font = Enum.Font.GothamMedium
+GUI["Tip_034"].FontFace = UIFont("Medium")
 GUI["Tip_034"].LineHeight = 0.8999999761581421
 GUI["Tip_034"].RichText = true
 GUI["Tip_034"].Text = 'Visit <font color="rgb(76, 188, 255)">bit.ly/VexHubPlugins</font> if you want to create your own plugins'
-GUI["Tip_034"].TextColor3 = Color3.fromRGB(255, 255, 255)
-GUI["Tip_034"].TextSize = 9
-GUI["Tip_034"].TextTransparency = 0.5
+GUI["Tip_034"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
+GUI["Tip_034"].TextSize = 9+_G.Table.GUISettings.UITextSize
+GUI["Tip_034"].TextTransparency = 0.3
 GUI["Tip_034"].TextWrapped = true
 GUI["Tip_034"].TextXAlignment = Enum.TextXAlignment.Left
 GUI["Tip_034"].TextYAlignment = Enum.TextYAlignment.Bottom
@@ -355,6 +427,10 @@ GUI["Tip_034"].Position = UDim2.new(0.0169082116, 0, 0.850000024, 0)
 GUI["Tip_034"].Size = UDim2.new(1, 0, 0, 0)
 GUI["Tip_034"].Name = "Tip"
 GUI["Tip_034"].Parent = GUI["LeftFrame_024"]
+GUI["Tip_034"]:SetAttribute("UIFont", "Medium")
+GUI["Tip_034"]:SetAttribute("UIBoldText", true)
+GUI["Tip_034"]:SetAttribute("UITextColor", true)
+GUI["Tip_034"]:SetAttribute("UITextSize", true)
 
 GUI["InstallButton_035"].Font = Enum.Font.SourceSans
 GUI["InstallButton_035"].Text = ""

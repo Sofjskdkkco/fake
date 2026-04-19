@@ -834,4 +834,3 @@ GUI.Close_0.MouseButton1Down:Connect(function()
 end)
 
 _G.CloseVexHub()
-GUI["VexHubUI_0"].Enabled = true

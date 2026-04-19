@@ -170,6 +170,8 @@ else
 	CloseScreen()
 end
 
+_G.OpenVexHub()
+
 local FirebaseServer = {}
 local function FirebaseServerWrite(Path, Key, Value)
 	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"

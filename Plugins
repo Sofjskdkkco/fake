@@ -283,7 +283,7 @@ GUI["UIListLayout_021"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_021"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_021"].Parent = GUI["ScrollingFrame_016"]
 
-GUI["Border_022"].BackgroundColor3 = GUI["UIStroke_04"]:SetAttribute("UITextColor", true)
+GUI["Border_022"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Border_022"].BackgroundTransparency = 0.9
 GUI["Border_022"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_022"].BorderSizePixel = 0

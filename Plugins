@@ -283,12 +283,14 @@ GUI["UIListLayout_021"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_021"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_021"].Parent = GUI["ScrollingFrame_016"]
 
-GUI["Border_022"].BackgroundColor3 = Color3.fromRGB(47.0000009983778, 49.00000087916851, 58.00000034272671)
+GUI["Border_022"].BackgroundColor3 = GUI["UIStroke_04"]:SetAttribute("UITextColor", true)
+GUI["Border_022"].BackgroundTransparency = 0.9
 GUI["Border_022"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_022"].BorderSizePixel = 0
-GUI["Border_022"].Size = UDim2.new(0.899999976, 0, 0, 1)
+GUI["Border_022"].Size = UDim2.new(0.9, 0, 0, 1)
 GUI["Border_022"].Name = "Border"
 GUI["Border_022"].Parent = GUI["ScrollingFrame_016"]
+GUI["Border_022"]:SetAttribute("UITextColor", "Frame")
 
 GUI["NoPlugins_023"].FontFace = UIFont("Medium")
 GUI["NoPlugins_023"].Text = "No plugins installed"

@@ -1059,7 +1059,7 @@ GUI["ScriptsTotal_0100"]:SetAttribute("UIBoldText", true)
 GUI["ScriptsTotal_0100"]:SetAttribute("UITextColor", true)
 GUI["ScriptsTotal_0100"]:SetAttribute("UITextSize", true)
 
-GUI["Border_0101"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Border_0101"].BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Border_0101"].BackgroundTransparency = 0.699999988079071
 GUI["Border_0101"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_0101"].BorderSizePixel = 0
@@ -1067,6 +1067,7 @@ GUI["Border_0101"].LayoutOrder = 2
 GUI["Border_0101"].Size = UDim2.new(0, 1, 0.5, 0)
 GUI["Border_0101"].Name = "Border"
 GUI["Border_0101"].Parent = GUI["TabInfo_090"]
+GUI["Border_0101"]:SetAttribute("UITextColor", "Frame")
 
 GUI["SearchBar_0102"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["SearchBar_0102"].BackgroundTransparency = 1

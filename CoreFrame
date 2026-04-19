@@ -115,6 +115,7 @@ GUI["VexHubUI_0"].IgnoreGuiInset = true
 GUI["VexHubUI_0"].ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
 GUI["VexHubUI_0"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 GUI["VexHubUI_0"].Name = "VexHubUI"
+GUI["VexHubUI_0"].Enabled = false
 GUI["VexHubUI_0"].Parent = game:GetService("CoreGui")
 GUI["VexHubUI_0"].ClipToDeviceSafeArea = false
 
@@ -831,3 +832,6 @@ loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/r
 GUI.Close_0.MouseButton1Down:Connect(function()
 	_G.CloseVexHub()
 end)
+
+_G.CloseVexHub()
+GUI["VexHubUI_0"].Enabled = true

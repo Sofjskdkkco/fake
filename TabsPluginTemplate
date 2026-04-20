@@ -231,7 +231,7 @@ GUI["ScrollingFrame_012"].Position = UDim2.new(0.0283018872, 0, 0.414285719, 0)
 GUI["ScrollingFrame_012"].Size = UDim2.new(0, 100, 0, 40)
 GUI["ScrollingFrame_012"].Parent = GUI["ScriptTemplate_08"]
 
-GUI["ScriptName_013"].Font = UIFont("Medium")
+GUI["ScriptName_013"].FontFace = UIFont("Medium")
 GUI["ScriptName_013"].RichText = true
 GUI["ScriptName_013"].Text = "Script Name"
 GUI["ScriptName_013"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
@@ -323,7 +323,7 @@ GUI["RigTypeIcon_021"].Name = "RigTypeIcon"
 GUI["RigTypeIcon_021"].Parent = GUI["Icons_018"]
 GUI["RigTypeIcon_021"]:SetAttribute("UIImageColor", true)
 
-GUI["NoScripts_022"].Font = UIFont("Medium")
+GUI["NoScripts_022"].FontFace = UIFont("Medium")
 GUI["NoScripts_022"].Text = "No scripts avalable"
 GUI["NoScripts_022"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["NoScripts_022"].TextSize = 12+_G.Table.GUISettings.UITextSize
@@ -413,7 +413,7 @@ GUI["ScrollingFrame_033"].Position = UDim2.new(0.0500000007, 0, 0.121863797, 0)
 GUI["ScrollingFrame_033"].Size = UDim2.new(0.899999976, 0, 0, 58)
 GUI["ScrollingFrame_033"].Parent = GUI["Insides_030"]
 
-GUI["ScriptName_034"].Font = UIFont("Medium")
+GUI["ScriptName_034"].FontFace = UIFont("Medium")
 GUI["ScriptName_034"].RichText = true
 GUI["ScriptName_034"].Text = "Loading..."
 GUI["ScriptName_034"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
@@ -458,7 +458,7 @@ GUI["CloseButton_037"].Size = UDim2.new(0, 0, 0, 17)
 GUI["CloseButton_037"].Name = "CloseButton"
 GUI["CloseButton_037"].Parent = GUI["TopFrame_035"]
 
-GUI["CloseText_038"].Font = UIFont("Regular")
+GUI["CloseText_038"].FontFace = UIFont("Regular")
 GUI["CloseText_038"].Text = "Close"
 GUI["CloseText_038"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["CloseText_038"].TextSize = 10+_G.Table.GUISettings.UITextSize
@@ -753,7 +753,7 @@ GUI["TabNameAndTotalScripts_074"].Size = UDim2.new(0, 170, 0.699999988, 0)
 GUI["TabNameAndTotalScripts_074"].Name = "TabNameAndTotalScripts"
 GUI["TabNameAndTotalScripts_074"].Parent = GUI["TabInfo_067"]
 
-GUI["TabName_075"].Font = UIFont("Bold")
+GUI["TabName_075"].FontFace = UIFont("Bold")
 GUI["TabName_075"].Text = "Required Accessories"
 GUI["TabName_075"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["TabName_075"].TextSize = 16+_G.Table.GUISettings.UITextSize
@@ -775,7 +775,7 @@ GUI["UIListLayout_076"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_076"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_076"].Parent = GUI["TabNameAndTotalScripts_074"]
 
-GUI["ScriptsTotal_077"].Font = UIFont("Medium")
+GUI["ScriptsTotal_077"].FontFace = UIFont("Medium")
 GUI["ScriptsTotal_077"].RichText = true
 GUI["ScriptsTotal_077"].Text = '<b>100 Scripts</b>, <font color="rgb(255, 188, 87)">10 OP Scripts</font> and <font color="rgb(255, 102, 102)">1 New Scripts</font>'
 GUI["ScriptsTotal_077"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
@@ -839,7 +839,7 @@ GUI["UIListLayout_083"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_083"].Parent = GUI["SearchBar_079"]
 
 GUI["TextBox_084"].ClearTextOnFocus = false
-GUI["TextBox_084"].Font = UIFont("Regular")
+GUI["TextBox_084"].FontFace = UIFont("Regular")
 GUI["TextBox_084"].PlaceholderText = "search a script"
 GUI["TextBox_084"].Text = ""
 GUI["TextBox_084"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))

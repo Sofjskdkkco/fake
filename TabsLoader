@@ -526,6 +526,37 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 	NewTab.Visible = false
 	NewTab.TabInfo.TabNameAndTotalScripts.TabName.Text = PluginName
 	NewTab.TabInfo.TabImage.Image = PluginImage
+	
+	local TextBox = NewTab.TabInfo.SearchBar.TextBox
+	local MagnifyingGlass = NewTab.TabInfo.SearchBar.MagnifyingGlass
+	local SearchBar = NewTab.TabInfo.SearchBar
+	local TweenService = game:GetService("TweenService")
+	local InputBegan = false
+
+	TextBox.Focused:Connect(function()
+		InputBegan = true
+	end)
+
+	TextBox.FocusLost:Connect(function()
+		InputBegan = false
+		TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+		TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+		TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+	end)
+
+	SearchBar.MouseEnter:Connect(function()
+		TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
+		TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.fromRGB(0, 0, 0)}):Play()
+		TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.fromRGB(0, 0, 0)}):Play()
+	end)
+
+	SearchBar.MouseLeave:Connect(function()
+		if InputBegan ~= true then
+			TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+			TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+			TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+		end
+	end)
 
 	local TotalScripts = 0
 

@@ -2184,7 +2184,61 @@ local function SendMessage(Username, DisplayName, Message)
 				end,
 				Button2Text = "Ok",
 				Button2Function = function()
-					setclipboard("code:"..HWID())
+					local function expandAcronym(str)
+						local dictionary = {
+							A = "Apple",
+							B = "Beta",
+							C = "Cat",
+							D = "Doctor",
+							E = "Elephant",
+							F = "Friends",
+							G = "Gerald",
+							H = "Hot",
+							I = "Ivan",
+							J = "Joseph",
+							K = "Kitten",
+							L = "Love",
+							M = "Man",
+							N = "Night",
+							O = "Octopus",
+							P = "Plushy",
+							Q = "Queen",
+							R = "Right",
+							S = "Satire",
+							T = "Toblerone",
+							U = "Umbrella",
+							V = "Vincent",
+							W = "Wheels",
+							X = "XRay",
+							Y = "You",
+							Z = "Zebra",
+							["0"] = "Egg",
+							["1"] = "Juan",
+							["2"] = "Dos",
+							["3"] = "Tree",
+							["4"] = "Poor",
+							["5"] = "Flied",
+							["6"] = "Six",
+							["7"] = "Seven",
+							["8"] = "Ate",
+							["9"] = "Nein",
+						}
+
+						local result = {}
+
+						for i = 1, #str do
+							local char = string.sub(string.upper(str), i, i)
+							if dictionary[char] then
+								table.insert(result, dictionary[char])
+							else
+								table.insert(result, char)
+							end
+						end
+
+						return table.concat(result, " ")
+					end
+					
+					setclipboard(expandAcronym(HWID()))
 					
 					_G.PopUpNotificationOptions({
 						Title = "Text Copied!",
@@ -2200,7 +2254,7 @@ local function SendMessage(Username, DisplayName, Message)
 							
 							local Description = JSon:Decode(game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId))["description"]
 							
-							if string.find(Description, HWID()) then
+							if string.find(Description, expandAcronym(HWID())) then
 								FirebaseServerWrite("VerifiedHWID", Username, HWID())
 								
 								_G.PopUpNotificationOptions({

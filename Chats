@@ -2176,68 +2176,101 @@ local function SendMessage(Username, DisplayName, Message)
 				end
 			end
 		else
+			local function expandAcronym(str)
+				local dictionary = {
+					A = "Apple",
+					B = "Beta",
+					C = "Cat",
+					D = "Doctor",
+					E = "Elephant",
+					F = "Friends",
+					G = "Gerald",
+					H = "Hot",
+					I = "Ivan",
+					J = "Joseph",
+					K = "Kitten",
+					L = "Love",
+					M = "Man",
+					N = "Night",
+					O = "Octopus",
+					P = "Plushy",
+					Q = "Queen",
+					R = "Right",
+					S = "Satire",
+					T = "Toblerone",
+					U = "Umbrella",
+					V = "Vincent",
+					W = "Wheels",
+					X = "XRay",
+					Y = "You",
+					Z = "Zebra",
+					["0"] = "Egg",
+					["1"] = "Juan",
+					["2"] = "Dos",
+					["3"] = "Tree",
+					["4"] = "Poor",
+					["5"] = "Flied",
+					["6"] = "Six",
+					["7"] = "Seven",
+					["8"] = "Ate",
+					["9"] = "Nein",
+				}
+
+				local result = {}
+
+				for i = 1, #str do
+					local char = string.sub(string.upper(str), i, i)
+					if dictionary[char] then
+						table.insert(result, dictionary[char])
+					else
+						table.insert(result, char)
+					end
+				end
+
+				return table.concat(result, " ")
+			end
+			
+			local function VerifyAccount()
+				_G.PopUpNotificationOptions({
+					Title = "Verifying...",
+					Button2Text = "Ok",
+					Button2Function = function()
+					end,
+				})
+
+				local Description = JSon:Decode(game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId))["description"]
+
+				if string.find(Description, expandAcronym(HWID())) then
+					FirebaseServerWrite("VerifiedHWID", Username, HWID())
+
+					_G.PopUpNotificationOptions({
+						Title = "Account verified!",
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+				else
+					_G.PopUpNotificationOptions({
+						Title = "Invalid!",
+						Message = "The verification code hasnt been found in your profile's description",
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+				end
+			end
+			
+			VerifyAccount()
+			wait()
+			
 			_G.PopUpNotificationOptions({
-				Title = "Wait a minute!",
-				Message = "Before you chat in, please verify your Roblox account by putting a verification code to your profile's description",
+				Title = "Hey!",
+				Message = "Before you chat, please verify your Roblox account by putting a verification code to your profile's description",
 				Button1Text = "Later",
 				Button1Function = function()
 				end,
 				Button2Text = "Ok",
 				Button2Function = function()
-					local function expandAcronym(str)
-						local dictionary = {
-							A = "Apple",
-							B = "Beta",
-							C = "Cat",
-							D = "Doctor",
-							E = "Elephant",
-							F = "Friends",
-							G = "Gerald",
-							H = "Hot",
-							I = "Ivan",
-							J = "Joseph",
-							K = "Kitten",
-							L = "Love",
-							M = "Man",
-							N = "Night",
-							O = "Octopus",
-							P = "Plushy",
-							Q = "Queen",
-							R = "Right",
-							S = "Satire",
-							T = "Toblerone",
-							U = "Umbrella",
-							V = "Vincent",
-							W = "Wheels",
-							X = "XRay",
-							Y = "You",
-							Z = "Zebra",
-							["0"] = "Egg",
-							["1"] = "Juan",
-							["2"] = "Dos",
-							["3"] = "Tree",
-							["4"] = "Poor",
-							["5"] = "Flied",
-							["6"] = "Six",
-							["7"] = "Seven",
-							["8"] = "Ate",
-							["9"] = "Nein",
-						}
-
-						local result = {}
-
-						for i = 1, #str do
-							local char = string.sub(string.upper(str), i, i)
-							if dictionary[char] then
-								table.insert(result, dictionary[char])
-							else
-								table.insert(result, char)
-							end
-						end
-
-						return table.concat(result, " ")
-					end
-					
 					setclipboard(expandAcronym(HWID()))
 					
 					_G.PopUpNotificationOptions({
@@ -2245,33 +2278,7 @@ local function SendMessage(Username, DisplayName, Message)
 						Message = "The verification code has been copied to your clipboard and paste it to your profile's description. \n\n⚠️ After verification, IMMEDIATELY change your profile's description to avoid someone from using your name in VexHub's chat.",
 						Button1Text = "Verify",
 						Button1Function = function()
-							_G.PopUpNotificationOptions({
-								Title = "Verifying...",
-								Button2Text = "Ok",
-								Button2Function = function()
-								end,
-							})
-							
-							local Description = JSon:Decode(game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId))["description"]
-							
-							if string.find(Description, expandAcronym(HWID())) then
-								FirebaseServerWrite("VerifiedHWID", Username, HWID())
-								
-								_G.PopUpNotificationOptions({
-									Title = "Account verified!",
-									Button2Text = "Ok",
-									Button2Function = function()
-									end,
-								})
-							else
-								_G.PopUpNotificationOptions({
-									Title = "Invalid!",
-									Message = "The verification code hasnt been found in your profile's description",
-									Button2Text = "Ok",
-									Button2Function = function()
-									end,
-								})
-							end
+							VerifyAccount()
 						end,
 						Button2Text = "Ok",
 						Button2Function = function()

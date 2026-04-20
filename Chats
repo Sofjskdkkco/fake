@@ -2178,13 +2178,51 @@ local function SendMessage(Username, DisplayName, Message)
 		else
 			_G.PopUpNotificationOptions({
 				Title = "Wait a minute!",
-				Message = "Before you join in, please verify your Roblox account by joining this game!",
+				Message = "Before you chat in, please verify your Roblox account by putting a verification code to your profile's description",
 				Button1Text = "Later",
 				Button1Function = function()
 				end,
 				Button2Text = "Ok",
 				Button2Function = function()
-					FirebaseServerWrite("VerifiedHWID", Username, HWID())
+					setclipboard("code:"..HWID())
+					
+					_G.PopUpNotificationOptions({
+						Title = "Text Copied!",
+						Message = "The verification code has been copied to your clipboard and paste it to your profile's description. \n\n⚠️ After verification, IMMEDIATELY change your profile's description to avoid someone from using your name in VexHub's chat.",
+						Button1Text = "Verify",
+						Button1Function = function()
+							_G.PopUpNotificationOptions({
+								Title = "Verifying...",
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+							
+							local Description = JSon:Decode(game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId))["description"]
+							
+							if string.find(Description, HWID()) then
+								FirebaseServerWrite("VerifiedHWID", Username, HWID())
+								
+								_G.PopUpNotificationOptions({
+									Title = "Account verified!",
+									Button2Text = "Ok",
+									Button2Function = function()
+									end,
+								})
+							else
+								_G.PopUpNotificationOptions({
+									Title = "Invalid!",
+									Message = "The verification code hasnt been found in your profile's description",
+									Button2Text = "Ok",
+									Button2Function = function()
+									end,
+								})
+							end
+						end,
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
 				end,
 			})
 		end

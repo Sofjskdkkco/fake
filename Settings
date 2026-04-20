@@ -493,10 +493,12 @@ _G.CreateSettingBoolean = function(SettingName, SettingVariable, SettingDescript
 
 	local function UpdateColor(Boolean)
 		if Boolean == true then
-			TweenService:Create(Template.BooleanMargin.Boolean, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(UIColor(0, 0, 0))}):Play()
+			TweenService:Create(Template.BooleanMargin.Boolean, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
+			TweenService:Create(Template.BooleanMargin.Boolean.Margin.Circle, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(UIColor(0, 0, 0))}):Play()
 			TweenService:Create(Template.BooleanMargin.Boolean.Margin.Circle, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0.617617011, 0, 0, 0)}):Play()
 		elseif Boolean == false then
-			TweenService:Create(Template.BooleanMargin.Boolean, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+			TweenService:Create(Template.BooleanMargin.Boolean, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(UIColor(0, 0, 0))}):Play()
+			TweenService:Create(Template.BooleanMargin.Boolean.Margin.Circle, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 			TweenService:Create(Template.BooleanMargin.Boolean.Margin.Circle, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0, 0)}):Play()
 		end
 	end

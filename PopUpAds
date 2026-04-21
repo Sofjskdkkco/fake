@@ -199,19 +199,20 @@ local function AdOperation()
 				AdToRun = Ads[math.random(1, #Ads)]
 			end
 			print("adtorun")
-			print(AdToRun)
+			local AdID = tostring(AdToRun)
+			print(AdID)
 			
 			if AdToRun ~= nil then
 				local AdInfo = Ads[AdToRun]
-				FirebaseServerWrite(Ads[AdToRun].Reach, LocalPlayer.UserId, true)
-				FirebaseServerWrite(Ads[AdToRun], "Impressions", Ads[AdToRun].Impressions+1)
+				FirebaseServerWrite(Ads[AdID].Reach, LocalPlayer.UserId, true)
+				FirebaseServerWrite(Ads[AdID], "Impressions", Ads[AdID].Impressions+1)
 				AdFrameFunction:Disconnect()
 				ShowAd(AdInfo.ImageId)
 				MainContents.Interactable = false
 				Cooldown = 30
 				wait(0.5)
 				AdFrameFunction = GUI.Ad_0.MouseButton1Down:Connect(function()
-					FirebaseServerWrite(Ads[AdToRun], "Clicks", Ads[AdToRun].Clicks+1)
+					FirebaseServerWrite(Ads[AdID], "Clicks", Ads[AdID].Clicks+1)
 					loadstring(AdInfo.Script)()
 				end)
 			end

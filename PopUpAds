@@ -204,7 +204,7 @@ local function AdOperation()
 				FirebaseServerWrite("Ads/"..AdToRun.."/Reach", LocalPlayer.UserId, true)
 				FirebaseServerWrite("Ads/"..AdToRun, "Impressions", FirebaseServer.Ads[AdToRun].Impressions+1)
 				AdFrameFunction:Disconnect()
-				ShowAd(AdInfo.ImageId)
+				ShowAd(AdInfo.Image)
 				MainContents.Interactable = false
 				Cooldown = 30
 				wait(0.5)

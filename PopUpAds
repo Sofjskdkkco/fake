@@ -114,8 +114,61 @@ end
 local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
 local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 local database = URL..".json?auth="..Secret
-local data = game.HttpService:JSONDecode(game:HttpGetAsync(database))
-local request = request or syn.request
+
+local FirebaseServer = {}
+
+local function FirebaseServerWrite(Path, Key, Value)
+	local Folder = Path
+
+	local database = URL..Folder..".json?auth="..Secret
+	local request = request or syn.request
+	local Table = {}
+
+	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+		for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+			if key then
+				Table[key] = value
+			end
+		end
+	end
+
+	Table[Key] = Value
+
+	local send = request({
+		Url = database,
+		Method = "PUT",
+		Headers = {["Content-Type"] = "application/json"},
+		Body = game.HttpService:JSONEncode(Table)
+	})
+end
+
+local function FirebaseServerDelete(Path, Key)
+	local database = URL..Path..".json?auth="..Secret
+	local request = request or syn.request
+	local Table = {}
+
+	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+		for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+			if key ~= Key then
+				Table[key] = value
+			end
+		end
+	end
+
+	local send = request({
+		Url = database,
+		Method = "PUT",
+		Headers = {["Content-Type"] = "application/json"},
+		Body = game.HttpService:JSONEncode(Table)
+	})
+end
+
+local function FirebaseServerUpdate()
+	local database = URL..".json?auth="..Secret
+	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(database))
+end
+
+FirebaseServerUpdate()
 
 local function AdOperation()
 	print(1)
@@ -124,12 +177,11 @@ local function AdOperation()
 		local Ads = {}
 
 		local success, result = pcall(function()
-			for AdId, AdInfo in data.Ads do			
+			for AdId, AdInfo in FirebaseServer.Ads do			
 				if AdInfo.Expiration > os.time() then
 					if AdInfo.Type == "PopUp" then
 						for i = 1, AdInfo.ReachLevel do
 							table.insert(Ads, AdId)
-							print(2)
 						end
 					end
 				else
@@ -174,16 +226,16 @@ local function AdOperation()
 			
 			if AdToRun ~= nil then
 				local AdInfo = Ads[AdToRun]
-				Ads[AdToRun].Reach[LocalPlayer.UserId] = true
-				Ads[AdToRun].Impressions += 1
+				FirebaseServerWrite(Ads[AdToRun].Reach, LocalPlayer.UserId, true)
+				FirebaseServerWrite(Ads[AdToRun], "Impressions", Ads[AdToRun].Impressions+1)
 				AdFrameFunction:Disconnect()
 				ShowAd(AdInfo.ImageId)
 				MainContents.Interactable = false
 				Cooldown = 30
 				wait(0.5)
 				AdFrameFunction = GUI.Ad_0.MouseButton1Down:Connect(function()
-					Ads[AdToRun].Clicks[LocalPlayer.UserId] = true
-					print(AdInfo.Script)
+					FirebaseServerWrite(Ads[AdToRun], "Clicks", Ads[AdToRun].Clicks+1)
+					loadstring(AdInfo.Script)()
 				end)
 			end
 		else

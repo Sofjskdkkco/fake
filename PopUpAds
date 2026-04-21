@@ -209,7 +209,7 @@ local function AdOperation()
 				Cooldown = 30
 				wait(0.5)
 				AdFrameFunction = GUI.Ad_0.MouseButton1Down:Connect(function()
-					FirebaseServerWrite("Ads/"..AdToRun, "Clicks", Ads[AdToRun].Clicks+1)
+					FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)
 					loadstring(FirebaseServer.Ads[AdToRun].Script)()
 				end)
 			end

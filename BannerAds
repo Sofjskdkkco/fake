@@ -93,8 +93,57 @@ end)
 local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
 local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 local database = URL..".json?auth="..Secret
-local data = game.HttpService:JSONDecode(game:HttpGetAsync(database))
-local request = request or syn.request
+
+local FirebaseServer = {}
+
+local function FirebaseServerWrite(Path, Key, Value)
+	local Folder = Path
+	local request = request or syn.request
+	local Table = {}
+
+	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+		for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+			if key then
+				Table[key] = value
+			end
+		end
+	end
+
+	Table[Key] = Value
+
+	local send = request({
+		Url = database,
+		Method = "PUT",
+		Headers = {["Content-Type"] = "application/json"},
+		Body = game.HttpService:JSONEncode(Table)
+	})
+end
+
+local function FirebaseServerDelete(Path, Key)
+	local request = request or syn.request
+	local Table = {}
+
+	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+		for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+			if key ~= Key then
+				Table[key] = value
+			end
+		end
+	end
+
+	local send = request({
+		Url = database,
+		Method = "PUT",
+		Headers = {["Content-Type"] = "application/json"},
+		Body = game.HttpService:JSONEncode(Table)
+	})
+end
+
+local function FirebaseServerUpdate()
+	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(database))
+end
+
+FirebaseServerUpdate()
 
 coroutine.wrap(function()
 	while wait(30) do
@@ -103,7 +152,7 @@ coroutine.wrap(function()
 			local Ads = {}
 
 			local success, result = pcall(function()
-				for AdId, AdInfo in data.Ads do			
+				for AdId, AdInfo in FirebaseServer.Ads do			
 					if AdInfo.Expiration > os.time() then
 						if AdInfo.Type == "Banner" then
 							for i = 1, AdInfo.ReachLevel do
@@ -112,25 +161,7 @@ coroutine.wrap(function()
 						end
 					else				
 						local success, result = pcall(function()
-							local Folder = "Ads"
-							local Delete = AdId
-
-							local Table = {}
-
-							if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-								for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
-									if key ~= Delete then
-										Table[key] = value
-									end
-								end
-							end
-
-							local send = request({
-								Url = database,
-								Method = "PUT",
-								Headers = {["Content-Type"] = "application/json"},
-								Body = game.HttpService:JSONEncode(Table)
-							})
+							FirebaseServerDelete("Ads", AdId)
 						end)
 
 						if not success then
@@ -149,17 +180,17 @@ coroutine.wrap(function()
 
 				if AdToRun ~= nil then
 					local AdInfo = _G.Server.Ads[AdToRun]
-					_G.Server.Ads[AdToRun].Reach[LocalPlayer.UserId] = true
-					_G.Server.Ads[AdToRun].Impressions += 1
+					FirebaseServerWrite("Ads/"..AdToRun.."/Reach", LocalPlayer.UserId, true)
+					FirebaseServerWrite("Ads/"..AdToRun, "Impressions", FirebaseServer.Ads[AdToRun].Impressions+1)
 					AdFrameFunction:Disconnect()
-					GUI.Ads_0.Image = "rbxassetid://"..AdInfo.ImageId
+					GUI.Ads_0.Image = "rbxassetid://"..AdInfo.Image
 					wait(0.5)
 					AdVisible = true
 					GUI.Ads_0.Visible = true
 					TweenService:Create(GUI.Ads_0, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play()
 					AdFrameFunction = GUI.Ads_0.MouseButton1Down:Connect(function()
-						_G.Server.Ads[AdToRun].Clicks[LocalPlayer.UserId] = true
-						print(AdInfo.Script)
+						FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)
+						loadstring(FirebaseServer.Ads[AdToRun].Script)()
 						TweenService:Create(GUI.Ads_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.798, 0)}):Play()
 						wait(0.4)
 						AdVisible = false

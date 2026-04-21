@@ -204,13 +204,13 @@ local function AdOperation()
 				FirebaseServerWrite("Ads/"..AdToRun.."/Reach", LocalPlayer.UserId, true)
 				FirebaseServerWrite("Ads/"..AdToRun, "Impressions", FirebaseServer.Ads[AdToRun].Impressions+1)
 				AdFrameFunction:Disconnect()
-				ShowAd(AdInfo.Image)
+				ShowAd(FirebaseServer.Ads[AdToRun].Image)
 				MainContents.Interactable = false
 				Cooldown = 30
 				wait(0.5)
 				AdFrameFunction = GUI.Ad_0.MouseButton1Down:Connect(function()
 					FirebaseServerWrite("Ads/"..AdToRun, "Clicks", Ads[AdToRun].Clicks+1)
-					loadstring(AdInfo.Script)()
+					loadstring(FirebaseServer.Ads[AdToRun].Script)()
 				end)
 			end
 		else

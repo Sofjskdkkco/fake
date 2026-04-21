@@ -118,6 +118,7 @@ local data = game.HttpService:JSONDecode(game:HttpGetAsync(database))
 local request = request or syn.request
 
 local function AdOperation()
+	print(1)
 	if math.random(1, 10) == 1 then
 		local AdToRun = nil
 		local Ads = {}
@@ -128,6 +129,7 @@ local function AdOperation()
 					if AdInfo.Type == "PopUp" then
 						for i = 1, AdInfo.ReachLevel do
 							table.insert(Ads, AdId)
+							print(2)
 						end
 					end
 				else
@@ -166,18 +168,21 @@ local function AdOperation()
 				AdToRun = Ads[math.random(1, #Ads)]
 			end
 			wait()
-
+			
+			print("ad to run:")
+			print(AdToRun)
+			
 			if AdToRun ~= nil then
-				local AdInfo = _G.Server.Ads[AdToRun]
-				_G.Server.Ads[AdToRun].Reach[LocalPlayer.UserId] = true
-				_G.Server.Ads[AdToRun].Impressions += 1
+				local AdInfo = Ads[AdToRun]
+				Ads[AdToRun].Reach[LocalPlayer.UserId] = true
+				Ads[AdToRun].Impressions += 1
 				AdFrameFunction:Disconnect()
 				ShowAd(AdInfo.ImageId)
 				MainContents.Interactable = false
 				Cooldown = 30
 				wait(0.5)
 				AdFrameFunction = GUI.Ad_0.MouseButton1Down:Connect(function()
-					_G.Server.Ads[AdToRun].Clicks[LocalPlayer.UserId] = true
+					Ads[AdToRun].Clicks[LocalPlayer.UserId] = true
 					print(AdInfo.Script)
 				end)
 			end

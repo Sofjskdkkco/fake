@@ -202,7 +202,7 @@ local function AdOperation()
 			if AdToRun ~= nil then
 				local AdInfo = Ads[AdToRun]
 				FirebaseServerWrite("Ads/"..AdToRun.."/Reach", LocalPlayer.UserId, true)
-				FirebaseServerWrite("Ads/"..AdToRun, "Impressions", Ads[AdToRun].Impressions+1)
+				FirebaseServerWrite("Ads/"..AdToRun, "Impressions", FirebaseServer.Ads[AdToRun].Impressions+1)
 				AdFrameFunction:Disconnect()
 				ShowAd(AdInfo.ImageId)
 				MainContents.Interactable = false

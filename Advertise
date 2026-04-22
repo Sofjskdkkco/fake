@@ -1482,11 +1482,11 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 
 			local success, error = pcall(function()
 				FirebaseServerUpdate()
-				
+
 				local GamepassUsed, _ = pcall(function()
 					print(FirebaseServer.AdsGamepassUsedStatus[GamepassId][LocalPlayer.Name])
 				end)
-				
+
 				if GamepassUsed then
 					UserUsedGamepass = true
 				else
@@ -1509,7 +1509,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 				else
 					local function PublishAd()
 						local Success, Error = pcall(function()
-							FirebaseServerWrite("Ads/", game:GetService("HttpService"):GenerateGUID(false), {
+							FirebaseServerWrite("/", "Ads/"..game:GetService("HttpService"):GenerateGUID(false), {
 								Clicks = {
 									[1] = true
 								},
@@ -1526,7 +1526,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 								Type = NewAdType
 							})
 
-							FirebaseServerWrite("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name, true)
+							FirebaseServerWrite("AdsGamepassUsedStatus/"..tostring(GamepassId), LocalPlayer.Name, true)
 
 						end)
 
@@ -1579,7 +1579,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 
 					elseif UserOwnsGamepass == false and UserUsedGamepass == true then
 						print("scenario 4")
-						
+
 						FirebaseServerDelete("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name)
 						wait()
 						PublishAd()

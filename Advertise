@@ -1482,10 +1482,10 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 
 			local success, error = pcall(function()
 				FirebaseServerUpdate()
-				if (FirebaseServer.AdsGamepassUsedStatus[GamepassId][LocalPlayer.Name]) ~= nil then
-					UserUsedGamepass = true
-				else
+				if FirebaseServer.AdsGamepassUsedStatus[GamepassId][LocalPlayer.Name] == nil then
 					UserUsedGamepass = false
+				else
+					UserUsedGamepass = true
 				end
 
 				UserOwnsGamepass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, GamepassId)

@@ -1443,7 +1443,7 @@ local Template = GUI["PackageTemplate_097"]:Clone()
 
 Template.Name = "PackageFree"
 Template.LayoutOrder = 1
-Template.Parent = GUI["Packages_096"]
+Template.Parent = GUI["Plans_096"]
 Template.Visible = true
 Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' FREE</b></font>\n- Reach Level 1\n- 24 hours duration\n(1 out of 10 people will see your ad)'
 Template.PublishButton.MouseButton1Down:Connect(function()
@@ -1466,7 +1466,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 
 		Template.Name = "Package"..PackageType..''..GamepassInfo.PriceInRobux
 		Template.LayoutOrder = 2
-		Template.Parent = GUI["Packages_096"]
+		Template.Parent = GUI["Plans_096"]
 		Template.Visible = true
 		Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' '..GamepassInfo.PriceInRobux..'</b></font>\n'..GamepassInfo.Description
 		Template.PublishButton.MouseButton1Down:Connect(function()

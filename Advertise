@@ -1,0 +1,1155 @@
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local TweenService = game:GetService("TweenService")
+
+function StringToRGB(ToConvert)
+	local ColorR, ColorG, ColorB = tostring(ToConvert):match("(%d+), (%d+), (%d+)")
+	ColorR, ColorG, ColorB = tonumber(ColorR),tonumber(ColorG),tonumber(ColorB)
+	return ColorR/255,ColorG/255,ColorB/255
+end
+
+function UIColor(RedTweak, GreenTweak, BlueTweak)
+	local RGB = string.split(_G.Table.GUISettings.UIColor, ",")
+	if RGB[1]+RedTweak > 255 or RGB[1]+RedTweak < 0 then
+		RedTweak = 0
+	end
+	if RGB[2]+GreenTweak > 255 or RGB[2]+GreenTweak < 0 then
+		GreenTweak = 0
+	end
+	if RGB[3]+BlueTweak > 255 or RGB[3]+BlueTweak < 0 then
+		BlueTweak = 0
+	end
+	return StringToRGB(tonumber(RGB[1]+RedTweak)..", "..tonumber(RGB[2]+GreenTweak)..", "..tonumber(RGB[3]+BlueTweak))
+end
+
+function UIFont(FontWeight)
+	if _G.Table.GUISettings.UIBoldText == true then
+		FontWeight = "Bold"
+	end
+
+	if typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "number" then
+		return Font.fromId(_G.Table.Fonts[_G.Table.GUISettings.UIFont], Enum.FontWeight[FontWeight])
+	elseif typeof(_G.Table.Fonts[_G.Table.GUISettings.UIFont]) == "string" then
+		return Font.fromName(_G.Table.GUISettings.UIFont, Enum.FontWeight[FontWeight])
+	end
+end
+
+local function ChangeRichTextSize(Text, SettingTextSize)
+	return Text:gsub('<font size="(%d+)">', function(size)
+		local newSize = tonumber(size) + SettingTextSize
+		return '<font size="'..newSize..'">'
+	end)
+end
+
+-- Instances:
+
+local GUI = {
+	["Advertise_00"] = Instance.new("Frame");
+	["Insides_01"] = Instance.new("Frame");
+	["TopFrame_02"] = Instance.new("Frame");
+	["UIListLayout_03"] = Instance.new("UIListLayout");
+	["BillboardImage_04"] = Instance.new("ImageLabel");
+	["AdvertiseText_05"] = Instance.new("TextLabel");
+	["Border_06"] = Instance.new("Frame");
+	["BottomFrame_07"] = Instance.new("Frame");
+	["RightFrame_08"] = Instance.new("Frame");
+	["UIListLayout_09"] = Instance.new("UIListLayout");
+	["UIStroke_010"] = Instance.new("UIStroke");
+	["UICorner_011"] = Instance.new("UICorner");
+	["UIGradient_012"] = Instance.new("UIGradient");
+	["TopFrame_013"] = Instance.new("Frame");
+	["ActiveAdsText_014"] = Instance.new("TextLabel");
+	["UIListLayout_015"] = Instance.new("UIListLayout");
+	["BillboardImage_016"] = Instance.new("ImageLabel");
+	["ScrollingFrame_017"] = Instance.new("ScrollingFrame");
+	["UIListLayout_018"] = Instance.new("UIListLayout");
+	["Border_019"] = Instance.new("Frame");
+	["NoAds_020"] = Instance.new("TextLabel");
+	["Template_021"] = Instance.new("Frame");
+	["UICorner_022"] = Instance.new("UICorner");
+	["UIGradient_023"] = Instance.new("UIGradient");
+	["UIStroke_024"] = Instance.new("UIStroke");
+	["AdImage_025"] = Instance.new("ImageLabel");
+	["UICorner_026"] = Instance.new("UICorner");
+	["AdInfo_027"] = Instance.new("TextLabel");
+	["UIListLayout_028"] = Instance.new("UIListLayout");
+	["BottomFrame_029"] = Instance.new("Frame");
+	["UIStroke_030"] = Instance.new("UIStroke");
+	["UICorner_031"] = Instance.new("UICorner");
+	["UIListLayout_032"] = Instance.new("UIListLayout");
+	["Reach_033"] = Instance.new("Frame");
+	["EyeImage_034"] = Instance.new("ImageLabel");
+	["UIListLayout_035"] = Instance.new("UIListLayout");
+	["ReachText_036"] = Instance.new("TextLabel");
+	["Clicks_037"] = Instance.new("Frame");
+	["HandImage_038"] = Instance.new("ImageLabel");
+	["UIListLayout_039"] = Instance.new("UIListLayout");
+	["ClicksText_040"] = Instance.new("TextLabel");
+	["Impressions_041"] = Instance.new("Frame");
+	["PersonImage_042"] = Instance.new("ImageLabel");
+	["UIListLayout_043"] = Instance.new("UIListLayout");
+	["ImpressionsText_044"] = Instance.new("TextLabel");
+	["Border_045"] = Instance.new("Frame");
+	["Border_046"] = Instance.new("Frame");
+	["UIListLayout_047"] = Instance.new("UIListLayout");
+	["ScrollingFrame_048"] = Instance.new("ScrollingFrame");
+	["UIListLayout_049"] = Instance.new("UIListLayout");
+	["Heading_050"] = Instance.new("TextLabel");
+	["AdNameTextBox_051"] = Instance.new("Frame");
+	["TitleAndDescription_052"] = Instance.new("TextLabel");
+	["UIListLayout_053"] = Instance.new("UIListLayout");
+	["TextBoxParent_054"] = Instance.new("Frame");
+	["TextBox_055"] = Instance.new("TextBox");
+	["UICorner_056"] = Instance.new("UICorner");
+	["UIListLayout_057"] = Instance.new("UIListLayout");
+	["AdTypeChoices_058"] = Instance.new("Frame");
+	["UIListLayout_059"] = Instance.new("UIListLayout");
+	["Choices_060"] = Instance.new("Frame");
+	["UIListLayout_061"] = Instance.new("UIListLayout");
+	["PopUp_062"] = Instance.new("TextButton");
+	["UICorner_063"] = Instance.new("UICorner");
+	["UIStroke_064"] = Instance.new("UIStroke");
+	["Banner_065"] = Instance.new("TextButton");
+	["UICorner_066"] = Instance.new("UICorner");
+	["UIStroke_067"] = Instance.new("UIStroke");
+	["TitleAndDescription_068"] = Instance.new("TextLabel");
+	["ImageTextBox_069"] = Instance.new("Frame");
+	["UIListLayout_070"] = Instance.new("UIListLayout");
+	["TextBoxParent_071"] = Instance.new("Frame");
+	["TextBox_072"] = Instance.new("TextBox");
+	["UICorner_073"] = Instance.new("UICorner");
+	["UIListLayout_074"] = Instance.new("UIListLayout");
+	["TitleAndDescription_075"] = Instance.new("TextLabel");
+	["AdPreview_076"] = Instance.new("Frame");
+	["TitleAndDescription_077"] = Instance.new("TextLabel");
+	["UIListLayout_078"] = Instance.new("UIListLayout");
+	["Preview_079"] = Instance.new("Frame");
+	["UIListLayout_080"] = Instance.new("UIListLayout");
+	["Banner_081"] = Instance.new("ImageLabel");
+	["UICorner_082"] = Instance.new("UICorner");
+	["PopUp_083"] = Instance.new("ImageLabel");
+	["UICorner_084"] = Instance.new("UICorner");
+	["UICorner_085"] = Instance.new("UICorner");
+	["ScriptTextBox_086"] = Instance.new("Frame");
+	["UIListLayout_087"] = Instance.new("UIListLayout");
+	["TextBoxParent_088"] = Instance.new("Frame");
+	["TextBox_089"] = Instance.new("TextBox");
+	["UICorner_090"] = Instance.new("UICorner");
+	["UIListLayout_091"] = Instance.new("UIListLayout");
+	["TitleAndDescription_092"] = Instance.new("TextLabel");
+	["Plans_093"] = Instance.new("Frame");
+	["TitleAndDescription_094"] = Instance.new("TextLabel");
+	["UIListLayout_095"] = Instance.new("UIListLayout");
+	["Plans_096"] = Instance.new("ScrollingFrame");
+	["PackageTemplate_097"] = Instance.new("Frame");
+	["UIListLayout_098"] = Instance.new("UIListLayout");
+	["UIStroke_099"] = Instance.new("UIStroke");
+	["UICorner_0100"] = Instance.new("UICorner");
+	["ScrollingFrame_0101"] = Instance.new("ScrollingFrame");
+	["Package_0102"] = Instance.new("TextLabel");
+	["UIListLayout_0103"] = Instance.new("UIListLayout");
+	["PublishButton_0104"] = Instance.new("TextButton");
+	["UICorner_0105"] = Instance.new("UICorner");
+	["UIGradient_0106"] = Instance.new("UIGradient");
+	["TextLabel_0107"] = Instance.new("TextLabel");
+	["TextBoxParent_0108"] = Instance.new("Frame");
+	["UIStroke_0109"] = Instance.new("UIStroke");
+	["UICorner_0110"] = Instance.new("UICorner");
+	["TextBox_0111"] = Instance.new("TextBox");
+	["UIListLayout_0112"] = Instance.new("UIListLayout");
+	["UIListLayout_0113"] = Instance.new("UIListLayout");
+	["Border_0114"] = Instance.new("Frame");
+	["UIStroke_0115"] = Instance.new("UIStroke");
+	["UIListLayout_0116"] = Instance.new("UIListLayout");
+	["UIGradient_0117"] = Instance.new("UIGradient");
+	["UICorner_0118"] = Instance.new("UICorner");
+	["UIListLayout_0119"] = Instance.new("UIListLayout");
+}
+
+-- Properties:
+
+GUI["Advertise_00"].BackgroundColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
+GUI["Advertise_00"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Advertise_00"].BorderSizePixel = 0
+GUI["Advertise_00"].Size = UDim2.new(1, 0, 1, 0)
+GUI["Advertise_00"].Name = "Advertise"
+GUI["Advertise_00"].Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
+GUI["Advertise_00"].Visible = false
+
+GUI["Insides_01"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Insides_01"].BackgroundTransparency = 1
+GUI["Insides_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Insides_01"].BorderSizePixel = 0
+GUI["Insides_01"].Size = UDim2.new(1, 0, 1, 0)
+GUI["Insides_01"].Name = "Insides"
+GUI["Insides_01"].Parent = GUI["Advertise_00"]
+
+GUI["TopFrame_02"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TopFrame_02"].BackgroundTransparency = 1
+GUI["TopFrame_02"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TopFrame_02"].BorderSizePixel = 0
+GUI["TopFrame_02"].Size = UDim2.new(1, 0, 0, 20)
+GUI["TopFrame_02"].Name = "TopFrame"
+GUI["TopFrame_02"].Parent = GUI["Insides_01"]
+
+GUI["UIListLayout_03"].Padding = UDim.new(0, 5)
+GUI["UIListLayout_03"].FillDirection = Enum.FillDirection.Horizontal
+GUI["UIListLayout_03"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_03"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_03"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_03"].Parent = GUI["TopFrame_02"]
+
+GUI["BillboardImage_04"].Image = "rbxassetid://111502366359306"
+GUI["BillboardImage_04"].ScaleType = Enum.ScaleType.Crop
+GUI["BillboardImage_04"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["BillboardImage_04"].BackgroundTransparency = 1
+GUI["BillboardImage_04"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["BillboardImage_04"].BorderSizePixel = 0
+GUI["BillboardImage_04"].LayoutOrder = 2
+GUI["BillboardImage_04"].Position = UDim2.new(0.400426745, 0, 0, 0)
+GUI["BillboardImage_04"].Size = UDim2.new(0, 19, 0, 25)
+GUI["BillboardImage_04"].Name = "BillboardImage"
+GUI["BillboardImage_04"].Parent = GUI["TopFrame_02"]
+
+GUI["AdvertiseText_05"].Font = Enum.Font.Unknown
+GUI["AdvertiseText_05"].Text = "Advertise"
+GUI["AdvertiseText_05"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AdvertiseText_05"].TextSize = 14
+GUI["AdvertiseText_05"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["AdvertiseText_05"].AutomaticSize = Enum.AutomaticSize.XY
+GUI["AdvertiseText_05"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AdvertiseText_05"].BackgroundTransparency = 1
+GUI["AdvertiseText_05"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["AdvertiseText_05"].BorderSizePixel = 0
+GUI["AdvertiseText_05"].LayoutOrder = 4
+GUI["AdvertiseText_05"].Name = "AdvertiseText"
+GUI["AdvertiseText_05"].Parent = GUI["TopFrame_02"]
+
+GUI["Border_06"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Border_06"].BackgroundTransparency = 0.699999988079071
+GUI["Border_06"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Border_06"].BorderSizePixel = 0
+GUI["Border_06"].LayoutOrder = 3
+GUI["Border_06"].Position = UDim2.new(0.182076842, 0, 0.5, 0)
+GUI["Border_06"].Size = UDim2.new(0, 1, 0.5, 0)
+GUI["Border_06"].Name = "Border"
+GUI["Border_06"].Parent = GUI["TopFrame_02"]
+
+GUI["BottomFrame_07"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["BottomFrame_07"].BackgroundTransparency = 1
+GUI["BottomFrame_07"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["BottomFrame_07"].BorderSizePixel = 0
+GUI["BottomFrame_07"].Position = UDim2.new(4.34104912e-08, 0, 0.307500005, 0)
+GUI["BottomFrame_07"].Size = UDim2.new(0.99999994, 0, 0.342500001, 100)
+GUI["BottomFrame_07"].Name = "BottomFrame"
+GUI["BottomFrame_07"].Parent = GUI["Insides_01"]
+
+GUI["RightFrame_08"].BackgroundColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
+GUI["RightFrame_08"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["RightFrame_08"].BorderSizePixel = 0
+GUI["RightFrame_08"].LayoutOrder = 2
+GUI["RightFrame_08"].Position = UDim2.new(0.33641538, 0, 0.0599999987, 0)
+GUI["RightFrame_08"].Size = UDim2.new(0, 115, 1, 0)
+GUI["RightFrame_08"].Name = "RightFrame"
+GUI["RightFrame_08"].Parent = GUI["BottomFrame_07"]
+
+GUI["UIListLayout_09"].Padding = UDim.new(0, 5)
+GUI["UIListLayout_09"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_09"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_09"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_09"].Parent = GUI["RightFrame_08"]
+
+GUI["UIStroke_010"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_010"].Parent = GUI["RightFrame_08"]
+
+GUI["UICorner_011"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_011"].Parent = GUI["RightFrame_08"]
+
+GUI["UIGradient_012"].Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
+}
+GUI["UIGradient_012"].Offset = Vector2.new(0, 0.30000001192092896)
+GUI["UIGradient_012"].Rotation = 90
+GUI["UIGradient_012"].Parent = GUI["RightFrame_08"]
+
+GUI["TopFrame_013"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TopFrame_013"].BackgroundTransparency = 1
+GUI["TopFrame_013"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TopFrame_013"].BorderSizePixel = 0
+GUI["TopFrame_013"].LayoutOrder = 1
+GUI["TopFrame_013"].Size = UDim2.new(1, 0, 0, 18)
+GUI["TopFrame_013"].Name = "TopFrame"
+GUI["TopFrame_013"].Parent = GUI["RightFrame_08"]
+
+GUI["ActiveAdsText_014"].Font = Enum.Font.GothamBold
+GUI["ActiveAdsText_014"].Text = "Active\nAdvertisements"
+GUI["ActiveAdsText_014"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ActiveAdsText_014"].TextSize = 9
+GUI["ActiveAdsText_014"].TextTransparency = 0.20000000298023224
+GUI["ActiveAdsText_014"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["ActiveAdsText_014"].AutomaticSize = Enum.AutomaticSize.XY
+GUI["ActiveAdsText_014"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ActiveAdsText_014"].BackgroundTransparency = 1
+GUI["ActiveAdsText_014"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["ActiveAdsText_014"].BorderSizePixel = 0
+GUI["ActiveAdsText_014"].LayoutOrder = 2
+GUI["ActiveAdsText_014"].Name = "ActiveAdsText"
+GUI["ActiveAdsText_014"].Parent = GUI["TopFrame_013"]
+
+GUI["UIListLayout_015"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_015"].FillDirection = Enum.FillDirection.Horizontal
+GUI["UIListLayout_015"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_015"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_015"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_015"].Parent = GUI["TopFrame_013"]
+
+GUI["BillboardImage_016"].Image = "rbxassetid://111502366359306"
+GUI["BillboardImage_016"].ScaleType = Enum.ScaleType.Crop
+GUI["BillboardImage_016"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["BillboardImage_016"].BackgroundTransparency = 1
+GUI["BillboardImage_016"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["BillboardImage_016"].BorderSizePixel = 0
+GUI["BillboardImage_016"].LayoutOrder = 1
+GUI["BillboardImage_016"].Size = UDim2.new(0, 20, 0, 25)
+GUI["BillboardImage_016"].Name = "BillboardImage"
+GUI["BillboardImage_016"].Parent = GUI["TopFrame_013"]
+
+GUI["ScrollingFrame_017"].AutomaticCanvasSize = Enum.AutomaticSize.Y
+GUI["ScrollingFrame_017"].CanvasPosition = Vector2.new(0, 2.3319854736328125)
+GUI["ScrollingFrame_017"].CanvasSize = UDim2.new(0, 0, 0, 0)
+GUI["ScrollingFrame_017"].ScrollBarThickness = 2
+GUI["ScrollingFrame_017"].Active = true
+GUI["ScrollingFrame_017"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ScrollingFrame_017"].BackgroundTransparency = 1
+GUI["ScrollingFrame_017"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["ScrollingFrame_017"].BorderSizePixel = 0
+GUI["ScrollingFrame_017"].LayoutOrder = 3
+GUI["ScrollingFrame_017"].Position = UDim2.new(0, 0, 0.138888896, 0)
+GUI["ScrollingFrame_017"].Size = UDim2.new(1, 0, 0.800000012, 0)
+GUI["ScrollingFrame_017"].Parent = GUI["RightFrame_08"]
+
+GUI["UIListLayout_018"].Padding = UDim.new(0, 5)
+GUI["UIListLayout_018"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_018"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_018"].Parent = GUI["ScrollingFrame_017"]
+
+GUI["Border_019"].BackgroundColor3 = Color3.fromRGB(47.0000009983778, 49.00000087916851, 58.00000034272671)
+GUI["Border_019"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Border_019"].BorderSizePixel = 0
+GUI["Border_019"].Size = UDim2.new(0.899999976, 0, 0, 1)
+GUI["Border_019"].Name = "Border"
+GUI["Border_019"].Parent = GUI["ScrollingFrame_017"]
+
+GUI["NoAds_020"].Font = Enum.Font.Unknown
+GUI["NoAds_020"].Text = "No active ads"
+GUI["NoAds_020"].TextColor3 = Color3.fromRGB(155.00000596046448, 155.00000596046448, 155.00000596046448)
+GUI["NoAds_020"].TextSize = 12
+GUI["NoAds_020"].TextWrapped = true
+GUI["NoAds_020"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["NoAds_020"].BackgroundTransparency = 1
+GUI["NoAds_020"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["NoAds_020"].BorderSizePixel = 0
+GUI["NoAds_020"].Position = UDim2.new(0.0500000007, 0, 0.0272108838, 0)
+GUI["NoAds_020"].Size = UDim2.new(0.899999976, 0, 0.972789109, 0)
+GUI["NoAds_020"].Name = "NoAds"
+GUI["NoAds_020"].Parent = GUI["ScrollingFrame_017"]
+
+GUI["Template_021"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["Template_021"].BackgroundColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
+GUI["Template_021"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Template_021"].BorderSizePixel = 0
+GUI["Template_021"].LayoutOrder = 1
+GUI["Template_021"].Position = UDim2.new(0.0500000007, 0, 0.0296735857, 0)
+GUI["Template_021"].Size = UDim2.new(0.899999976, 0, 0.43768546, 18)
+GUI["Template_021"].Visible = false
+GUI["Template_021"].Name = "Template"
+GUI["Template_021"].Parent = GUI["ScrollingFrame_017"]
+
+GUI["UICorner_022"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_022"].Parent = GUI["Template_021"]
+
+GUI["UIGradient_023"].Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
+}
+GUI["UIGradient_023"].Offset = Vector2.new(0, 0.30000001192092896)
+GUI["UIGradient_023"].Rotation = 90
+GUI["UIGradient_023"].Parent = GUI["Template_021"]
+
+GUI["UIStroke_024"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_024"].Parent = GUI["Template_021"]
+
+GUI["AdImage_025"].Image = "rbxassetid://115422872430763"
+GUI["AdImage_025"].ScaleType = Enum.ScaleType.Crop
+GUI["AdImage_025"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AdImage_025"].BackgroundTransparency = 1
+GUI["AdImage_025"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["AdImage_025"].BorderSizePixel = 0
+GUI["AdImage_025"].LayoutOrder = 1
+GUI["AdImage_025"].Position = UDim2.new(0.364734292, 0, 0.175324678, 0)
+GUI["AdImage_025"].Size = UDim2.new(0.899999976, 0, 0, 30)
+GUI["AdImage_025"].Name = "AdImage"
+GUI["AdImage_025"].Parent = GUI["Template_021"]
+
+GUI["UICorner_026"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_026"].Parent = GUI["AdImage_025"]
+
+GUI["AdInfo_027"].Font = Enum.Font.GothamMedium
+GUI["AdInfo_027"].RichText = true
+GUI["AdInfo_027"].Text = '<font size="10"><b>VexHub Ad</b></font>\nExp: 2027-04-21 04:12:12'
+GUI["AdInfo_027"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AdInfo_027"].TextWrapped = true
+GUI["AdInfo_027"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["AdInfo_027"].TextYAlignment = Enum.TextYAlignment.Top
+GUI["AdInfo_027"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["AdInfo_027"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AdInfo_027"].BackgroundTransparency = 1
+GUI["AdInfo_027"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["AdInfo_027"].BorderSizePixel = 0
+GUI["AdInfo_027"].LayoutOrder = 2
+GUI["AdInfo_027"].Size = UDim2.new(0.899999976, 0, 0, 0)
+GUI["AdInfo_027"].Name = "AdInfo"
+GUI["AdInfo_027"].Parent = GUI["Template_021"]
+
+GUI["UIListLayout_028"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_028"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_028"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_028"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_028"].Parent = GUI["Template_021"]
+
+GUI["BottomFrame_029"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["BottomFrame_029"].BackgroundTransparency = 1
+GUI["BottomFrame_029"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["BottomFrame_029"].BorderSizePixel = 0
+GUI["BottomFrame_029"].LayoutOrder = 3
+GUI["BottomFrame_029"].Size = UDim2.new(0.899999976, 0, 0, 65)
+GUI["BottomFrame_029"].Name = "BottomFrame"
+GUI["BottomFrame_029"].Parent = GUI["Template_021"]
+
+GUI["UIStroke_030"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_030"].Parent = GUI["BottomFrame_029"]
+
+GUI["UICorner_031"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_031"].Parent = GUI["BottomFrame_029"]
+
+GUI["UIListLayout_032"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_032"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_032"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_032"].Parent = GUI["BottomFrame_029"]
+
+GUI["Reach_033"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Reach_033"].BackgroundTransparency = 1
+GUI["Reach_033"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Reach_033"].BorderSizePixel = 0
+GUI["Reach_033"].LayoutOrder = 1
+GUI["Reach_033"].Size = UDim2.new(0.949999988, 0, 0, 20)
+GUI["Reach_033"].Name = "Reach"
+GUI["Reach_033"].Parent = GUI["BottomFrame_029"]
+
+GUI["EyeImage_034"].Image = "rbxassetid://108363275672720"
+GUI["EyeImage_034"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["EyeImage_034"].BackgroundTransparency = 1
+GUI["EyeImage_034"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["EyeImage_034"].BorderSizePixel = 0
+GUI["EyeImage_034"].Size = UDim2.new(0, 20, 0, 20)
+GUI["EyeImage_034"].Name = "EyeImage"
+GUI["EyeImage_034"].Parent = GUI["Reach_033"]
+
+GUI["UIListLayout_035"].FillDirection = Enum.FillDirection.Horizontal
+GUI["UIListLayout_035"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_035"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_035"].Parent = GUI["Reach_033"]
+
+GUI["ReachText_036"].Font = Enum.Font.GothamMedium
+GUI["ReachText_036"].LineHeight = 0.8999999761581421
+GUI["ReachText_036"].RichText = true
+GUI["ReachText_036"].Text = "<b>100</b>\nReach"
+GUI["ReachText_036"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ReachText_036"].TextWrapped = true
+GUI["ReachText_036"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["ReachText_036"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ReachText_036"].BackgroundTransparency = 1
+GUI["ReachText_036"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["ReachText_036"].BorderSizePixel = 0
+GUI["ReachText_036"].Position = UDim2.new(0.238563865, 0, 0, 0)
+GUI["ReachText_036"].Size = UDim2.new(0, 65, 0, 20)
+GUI["ReachText_036"].Name = "ReachText"
+GUI["ReachText_036"].Parent = GUI["Reach_033"]
+
+GUI["Clicks_037"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Clicks_037"].BackgroundTransparency = 1
+GUI["Clicks_037"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Clicks_037"].BorderSizePixel = 0
+GUI["Clicks_037"].LayoutOrder = 3
+GUI["Clicks_037"].Size = UDim2.new(0.949999988, 0, 0, 20)
+GUI["Clicks_037"].Name = "Clicks"
+GUI["Clicks_037"].Parent = GUI["BottomFrame_029"]
+
+GUI["HandImage_038"].Image = "rbxassetid://17727326510"
+GUI["HandImage_038"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["HandImage_038"].BackgroundTransparency = 1
+GUI["HandImage_038"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["HandImage_038"].BorderSizePixel = 0
+GUI["HandImage_038"].Size = UDim2.new(0, 20, 0, 20)
+GUI["HandImage_038"].Name = "HandImage"
+GUI["HandImage_038"].Parent = GUI["Clicks_037"]
+
+GUI["UIListLayout_039"].FillDirection = Enum.FillDirection.Horizontal
+GUI["UIListLayout_039"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_039"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_039"].Parent = GUI["Clicks_037"]
+
+GUI["ClicksText_040"].Font = Enum.Font.GothamMedium
+GUI["ClicksText_040"].LineHeight = 0.8999999761581421
+GUI["ClicksText_040"].RichText = true
+GUI["ClicksText_040"].Text = "<b>100</b>\nClicks"
+GUI["ClicksText_040"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ClicksText_040"].TextWrapped = true
+GUI["ClicksText_040"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["ClicksText_040"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ClicksText_040"].BackgroundTransparency = 1
+GUI["ClicksText_040"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["ClicksText_040"].BorderSizePixel = 0
+GUI["ClicksText_040"].Position = UDim2.new(0.238563865, 0, 0, 0)
+GUI["ClicksText_040"].Size = UDim2.new(0, 65, 0, 20)
+GUI["ClicksText_040"].Name = "ClicksText"
+GUI["ClicksText_040"].Parent = GUI["Clicks_037"]
+
+GUI["Impressions_041"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Impressions_041"].BackgroundTransparency = 1
+GUI["Impressions_041"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Impressions_041"].BorderSizePixel = 0
+GUI["Impressions_041"].LayoutOrder = 2
+GUI["Impressions_041"].Size = UDim2.new(0.949999988, 0, 0, 20)
+GUI["Impressions_041"].Name = "Impressions"
+GUI["Impressions_041"].Parent = GUI["BottomFrame_029"]
+
+GUI["PersonImage_042"].Image = "rbxassetid://11704876885"
+GUI["PersonImage_042"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["PersonImage_042"].BackgroundTransparency = 1
+GUI["PersonImage_042"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["PersonImage_042"].BorderSizePixel = 0
+GUI["PersonImage_042"].Size = UDim2.new(0, 20, 0, 20)
+GUI["PersonImage_042"].Name = "PersonImage"
+GUI["PersonImage_042"].Parent = GUI["Impressions_041"]
+
+GUI["UIListLayout_043"].FillDirection = Enum.FillDirection.Horizontal
+GUI["UIListLayout_043"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_043"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_043"].Parent = GUI["Impressions_041"]
+
+GUI["ImpressionsText_044"].Font = Enum.Font.GothamMedium
+GUI["ImpressionsText_044"].LineHeight = 0.8999999761581421
+GUI["ImpressionsText_044"].RichText = true
+GUI["ImpressionsText_044"].Text = "<b>100</b>\nImpressions"
+GUI["ImpressionsText_044"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ImpressionsText_044"].TextWrapped = true
+GUI["ImpressionsText_044"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["ImpressionsText_044"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ImpressionsText_044"].BackgroundTransparency = 1
+GUI["ImpressionsText_044"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["ImpressionsText_044"].BorderSizePixel = 0
+GUI["ImpressionsText_044"].Position = UDim2.new(0.238563865, 0, 0, 0)
+GUI["ImpressionsText_044"].Size = UDim2.new(0, 65, 0, 20)
+GUI["ImpressionsText_044"].Name = "ImpressionsText"
+GUI["ImpressionsText_044"].Parent = GUI["Impressions_041"]
+
+GUI["Border_045"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Border_045"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Border_045"].BorderSizePixel = 0
+GUI["Border_045"].Size = UDim2.new(0, 0, 0, 2)
+GUI["Border_045"].Name = "Border"
+GUI["Border_045"].Parent = GUI["Template_021"]
+
+GUI["Border_046"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Border_046"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Border_046"].BorderSizePixel = 0
+GUI["Border_046"].LayoutOrder = 10
+GUI["Border_046"].Size = UDim2.new(0, 0, 0, 2)
+GUI["Border_046"].Name = "Border"
+GUI["Border_046"].Parent = GUI["Template_021"]
+
+GUI["UIListLayout_047"].Padding = UDim.new(0, 10)
+GUI["UIListLayout_047"].FillDirection = Enum.FillDirection.Horizontal
+GUI["UIListLayout_047"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_047"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_047"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_047"].Parent = GUI["BottomFrame_07"]
+
+GUI["ScrollingFrame_048"].AutomaticCanvasSize = Enum.AutomaticSize.Y
+GUI["ScrollingFrame_048"].CanvasSize = UDim2.new(0, 0, 0, 0)
+GUI["ScrollingFrame_048"].ScrollBarThickness = 0
+GUI["ScrollingFrame_048"].ScrollingDirection = Enum.ScrollingDirection.Y
+GUI["ScrollingFrame_048"].Active = true
+GUI["ScrollingFrame_048"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ScrollingFrame_048"].BackgroundTransparency = 1
+GUI["ScrollingFrame_048"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["ScrollingFrame_048"].BorderSizePixel = 0
+GUI["ScrollingFrame_048"].Size = UDim2.new(0, 207, 0.949999988, 0)
+GUI["ScrollingFrame_048"].Parent = GUI["BottomFrame_07"]
+
+GUI["UIListLayout_049"].Padding = UDim.new(0, 5)
+GUI["UIListLayout_049"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_049"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_049"].Parent = GUI["ScrollingFrame_048"]
+
+GUI["Heading_050"].Font = Enum.Font.GothamMedium
+GUI["Heading_050"].LineHeight = 0.8999999761581421
+GUI["Heading_050"].RichText = true
+GUI["Heading_050"].Text = '<font size="16"><b>Create a ad!</b></font>\n<font transparency="0.3">Create a ad about your products in VexHub in a cheap price!</font>'
+GUI["Heading_050"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Heading_050"].TextSize = 9
+GUI["Heading_050"].TextWrapped = true
+GUI["Heading_050"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["Heading_050"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Heading_050"].BackgroundTransparency = 1
+GUI["Heading_050"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Heading_050"].BorderSizePixel = 0
+GUI["Heading_050"].Size = UDim2.new(0.899999976, 0, 0, 14)
+GUI["Heading_050"].Name = "Heading"
+GUI["Heading_050"].Parent = GUI["ScrollingFrame_048"]
+
+GUI["AdNameTextBox_051"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["AdNameTextBox_051"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AdNameTextBox_051"].BackgroundTransparency = 1
+GUI["AdNameTextBox_051"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["AdNameTextBox_051"].BorderSizePixel = 0
+GUI["AdNameTextBox_051"].Size = UDim2.new(1, 0, 0, 0)
+GUI["AdNameTextBox_051"].Name = "AdNameTextBox"
+GUI["AdNameTextBox_051"].Parent = GUI["ScrollingFrame_048"]
+
+GUI["TitleAndDescription_052"].Font = Enum.Font.GothamMedium
+GUI["TitleAndDescription_052"].LineHeight = 0.8999999761581421
+GUI["TitleAndDescription_052"].RichText = true
+GUI["TitleAndDescription_052"].Text = '<font size="10"><b>Ad Name</b></font>\n<font transparency="0.3">The name of your ad</font>'
+GUI["TitleAndDescription_052"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_052"].TextWrapped = true
+GUI["TitleAndDescription_052"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TitleAndDescription_052"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["TitleAndDescription_052"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_052"].BackgroundTransparency = 1
+GUI["TitleAndDescription_052"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TitleAndDescription_052"].BorderSizePixel = 0
+GUI["TitleAndDescription_052"].Size = UDim2.new(0.930000007, 0, 0, 0)
+GUI["TitleAndDescription_052"].Name = "TitleAndDescription"
+GUI["TitleAndDescription_052"].Parent = GUI["AdNameTextBox_051"]
+
+GUI["UIListLayout_053"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_053"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_053"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_053"].Parent = GUI["AdNameTextBox_051"]
+
+GUI["TextBoxParent_054"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBoxParent_054"].BackgroundTransparency = 0.8999999761581421
+GUI["TextBoxParent_054"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TextBoxParent_054"].BorderSizePixel = 0
+GUI["TextBoxParent_054"].Size = UDim2.new(1, 0, 0, 16)
+GUI["TextBoxParent_054"].Name = "TextBoxParent"
+GUI["TextBoxParent_054"].Parent = GUI["AdNameTextBox_051"]
+
+GUI["TextBox_055"].ClearTextOnFocus = false
+GUI["TextBox_055"].Font = Enum.Font.Gotham
+GUI["TextBox_055"].PlaceholderText = "*"
+GUI["TextBox_055"].Text = ""
+GUI["TextBox_055"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBox_055"].TextSize = 10
+GUI["TextBox_055"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TextBox_055"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBox_055"].BackgroundTransparency = 1
+GUI["TextBox_055"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TextBox_055"].BorderSizePixel = 0
+GUI["TextBox_055"].Size = UDim2.new(0.930000007, 0, 0, 16)
+GUI["TextBox_055"].Parent = GUI["TextBoxParent_054"]
+
+GUI["UICorner_056"].CornerRadius = UDim.new(1, 0)
+GUI["UICorner_056"].Parent = GUI["TextBoxParent_054"]
+
+GUI["UIListLayout_057"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_057"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_057"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_057"].Parent = GUI["TextBoxParent_054"]
+
+GUI["AdTypeChoices_058"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["AdTypeChoices_058"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AdTypeChoices_058"].BackgroundTransparency = 1
+GUI["AdTypeChoices_058"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["AdTypeChoices_058"].BorderSizePixel = 0
+GUI["AdTypeChoices_058"].Size = UDim2.new(1, 0, 0, 0)
+GUI["AdTypeChoices_058"].Name = "AdTypeChoices"
+GUI["AdTypeChoices_058"].Parent = GUI["ScrollingFrame_048"]
+
+GUI["UIListLayout_059"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_059"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_059"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_059"].Parent = GUI["AdTypeChoices_058"]
+
+GUI["Choices_060"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["Choices_060"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Choices_060"].BackgroundTransparency = 1
+GUI["Choices_060"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Choices_060"].BorderSizePixel = 0
+GUI["Choices_060"].LayoutOrder = 1
+GUI["Choices_060"].Size = UDim2.new(1, 0, 0, 0)
+GUI["Choices_060"].Name = "Choices"
+GUI["Choices_060"].Parent = GUI["AdTypeChoices_058"]
+
+GUI["UIListLayout_061"].Padding = UDim.new(0, 5)
+GUI["UIListLayout_061"].FillDirection = Enum.FillDirection.Horizontal
+GUI["UIListLayout_061"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_061"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_061"].Parent = GUI["Choices_060"]
+
+GUI["PopUp_062"].Font = Enum.Font.GothamMedium
+GUI["PopUp_062"].Text = "PopUp"
+GUI["PopUp_062"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["PopUp_062"].TextSize = 10
+GUI["PopUp_062"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["PopUp_062"].BackgroundTransparency = 1
+GUI["PopUp_062"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["PopUp_062"].BorderSizePixel = 0
+GUI["PopUp_062"].Size = UDim2.new(0, 100, 0, 16)
+GUI["PopUp_062"].Name = "PopUp"
+GUI["PopUp_062"].Parent = GUI["Choices_060"]
+
+GUI["UICorner_063"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_063"].Parent = GUI["PopUp_062"]
+
+GUI["UIStroke_064"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+GUI["UIStroke_064"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_064"].Parent = GUI["PopUp_062"]
+
+GUI["Banner_065"].Font = Enum.Font.GothamMedium
+GUI["Banner_065"].Text = "Banner"
+GUI["Banner_065"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Banner_065"].TextSize = 10
+GUI["Banner_065"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Banner_065"].BackgroundTransparency = 1
+GUI["Banner_065"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Banner_065"].BorderSizePixel = 0
+GUI["Banner_065"].Size = UDim2.new(0, 100, 0, 16)
+GUI["Banner_065"].Name = "Banner"
+GUI["Banner_065"].Parent = GUI["Choices_060"]
+
+GUI["UICorner_066"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_066"].Parent = GUI["Banner_065"]
+
+GUI["UIStroke_067"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+GUI["UIStroke_067"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_067"].Parent = GUI["Banner_065"]
+
+GUI["TitleAndDescription_068"].Font = Enum.Font.GothamMedium
+GUI["TitleAndDescription_068"].LineHeight = 0.8999999761581421
+GUI["TitleAndDescription_068"].RichText = true
+GUI["TitleAndDescription_068"].Text = '<font size="10"><b>Ad Type</b></font>\n<font transparency="0.3">What your ad is gonna be</font>'
+GUI["TitleAndDescription_068"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_068"].TextWrapped = true
+GUI["TitleAndDescription_068"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TitleAndDescription_068"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["TitleAndDescription_068"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_068"].BackgroundTransparency = 1
+GUI["TitleAndDescription_068"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TitleAndDescription_068"].BorderSizePixel = 0
+GUI["TitleAndDescription_068"].Size = UDim2.new(0.930000007, 0, 0, 0)
+GUI["TitleAndDescription_068"].Name = "TitleAndDescription"
+GUI["TitleAndDescription_068"].Parent = GUI["AdTypeChoices_058"]
+
+GUI["ImageTextBox_069"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["ImageTextBox_069"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ImageTextBox_069"].BackgroundTransparency = 1
+GUI["ImageTextBox_069"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["ImageTextBox_069"].BorderSizePixel = 0
+GUI["ImageTextBox_069"].Size = UDim2.new(1, 0, 0, 0)
+GUI["ImageTextBox_069"].Name = "ImageTextBox"
+GUI["ImageTextBox_069"].Parent = GUI["ScrollingFrame_048"]
+
+GUI["UIListLayout_070"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_070"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_070"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_070"].Parent = GUI["ImageTextBox_069"]
+
+GUI["TextBoxParent_071"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBoxParent_071"].BackgroundTransparency = 0.8999999761581421
+GUI["TextBoxParent_071"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TextBoxParent_071"].BorderSizePixel = 0
+GUI["TextBoxParent_071"].LayoutOrder = 1
+GUI["TextBoxParent_071"].Size = UDim2.new(1, 0, 0, 16)
+GUI["TextBoxParent_071"].Name = "TextBoxParent"
+GUI["TextBoxParent_071"].Parent = GUI["ImageTextBox_069"]
+
+GUI["TextBox_072"].ClearTextOnFocus = false
+GUI["TextBox_072"].Font = Enum.Font.Gotham
+GUI["TextBox_072"].PlaceholderText = "Id"
+GUI["TextBox_072"].Text = ""
+GUI["TextBox_072"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBox_072"].TextSize = 10
+GUI["TextBox_072"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TextBox_072"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBox_072"].BackgroundTransparency = 1
+GUI["TextBox_072"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TextBox_072"].BorderSizePixel = 0
+GUI["TextBox_072"].Size = UDim2.new(0.930000007, 0, 0, 16)
+GUI["TextBox_072"].Parent = GUI["TextBoxParent_071"]
+
+GUI["UICorner_073"].CornerRadius = UDim.new(1, 0)
+GUI["UICorner_073"].Parent = GUI["TextBoxParent_071"]
+
+GUI["UIListLayout_074"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_074"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_074"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_074"].Parent = GUI["TextBoxParent_071"]
+
+GUI["TitleAndDescription_075"].Font = Enum.Font.GothamMedium
+GUI["TitleAndDescription_075"].LineHeight = 0.8999999761581421
+GUI["TitleAndDescription_075"].RichText = true
+GUI["TitleAndDescription_075"].Text = '<font size="10"><b>Image</b></font>\n<font transparency="0.3">Your image of your ad (must be a image Id)</font>'
+GUI["TitleAndDescription_075"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_075"].TextWrapped = true
+GUI["TitleAndDescription_075"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TitleAndDescription_075"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["TitleAndDescription_075"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_075"].BackgroundTransparency = 1
+GUI["TitleAndDescription_075"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TitleAndDescription_075"].BorderSizePixel = 0
+GUI["TitleAndDescription_075"].Size = UDim2.new(0.930000007, 0, 0, 0)
+GUI["TitleAndDescription_075"].Name = "TitleAndDescription"
+GUI["TitleAndDescription_075"].Parent = GUI["ImageTextBox_069"]
+
+GUI["AdPreview_076"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["AdPreview_076"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["AdPreview_076"].BackgroundTransparency = 1
+GUI["AdPreview_076"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["AdPreview_076"].BorderSizePixel = 0
+GUI["AdPreview_076"].Size = UDim2.new(1, 0, 0, 0)
+GUI["AdPreview_076"].Name = "AdPreview"
+GUI["AdPreview_076"].Parent = GUI["ScrollingFrame_048"]
+
+GUI["TitleAndDescription_077"].Font = Enum.Font.GothamBold
+GUI["TitleAndDescription_077"].RichText = true
+GUI["TitleAndDescription_077"].Text = "Preview"
+GUI["TitleAndDescription_077"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_077"].TextSize = 10
+GUI["TitleAndDescription_077"].TextWrapped = true
+GUI["TitleAndDescription_077"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TitleAndDescription_077"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["TitleAndDescription_077"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_077"].BackgroundTransparency = 1
+GUI["TitleAndDescription_077"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TitleAndDescription_077"].BorderSizePixel = 0
+GUI["TitleAndDescription_077"].Size = UDim2.new(0.930000007, 0, 0, 0)
+GUI["TitleAndDescription_077"].Name = "TitleAndDescription"
+GUI["TitleAndDescription_077"].Parent = GUI["AdPreview_076"]
+
+GUI["UIListLayout_078"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_078"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_078"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_078"].Parent = GUI["AdPreview_076"]
+
+GUI["Preview_079"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["Preview_079"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Preview_079"].BackgroundTransparency = 0.8999999761581421
+GUI["Preview_079"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Preview_079"].BorderSizePixel = 0
+GUI["Preview_079"].Size = UDim2.new(1, 0, 0, 10)
+GUI["Preview_079"].Name = "Preview"
+GUI["Preview_079"].Parent = GUI["AdPreview_076"]
+
+GUI["UIListLayout_080"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_080"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_080"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_080"].Parent = GUI["Preview_079"]
+
+GUI["Banner_081"].Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+GUI["Banner_081"].ScaleType = Enum.ScaleType.Crop
+GUI["Banner_081"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Banner_081"].BackgroundTransparency = 1
+GUI["Banner_081"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Banner_081"].BorderSizePixel = 0
+GUI["Banner_081"].Size = UDim2.new(1, 0, 0, 20)
+GUI["Banner_081"].Visible = false
+GUI["Banner_081"].Name = "Banner"
+GUI["Banner_081"].Parent = GUI["Preview_079"]
+
+GUI["UICorner_082"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_082"].Parent = GUI["Banner_081"]
+
+GUI["PopUp_083"].Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+GUI["PopUp_083"].ScaleType = Enum.ScaleType.Crop
+GUI["PopUp_083"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["PopUp_083"].BackgroundTransparency = 1
+GUI["PopUp_083"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["PopUp_083"].BorderSizePixel = 0
+GUI["PopUp_083"].Size = UDim2.new(1, 0, 0, 103)
+GUI["PopUp_083"].Visible = false
+GUI["PopUp_083"].Name = "PopUp"
+GUI["PopUp_083"].Parent = GUI["Preview_079"]
+
+GUI["UICorner_084"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_084"].Parent = GUI["PopUp_083"]
+
+GUI["UICorner_085"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_085"].Parent = GUI["Preview_079"]
+
+GUI["ScriptTextBox_086"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["ScriptTextBox_086"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ScriptTextBox_086"].BackgroundTransparency = 1
+GUI["ScriptTextBox_086"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["ScriptTextBox_086"].BorderSizePixel = 0
+GUI["ScriptTextBox_086"].Size = UDim2.new(1, 0, 0, 0)
+GUI["ScriptTextBox_086"].Name = "ScriptTextBox"
+GUI["ScriptTextBox_086"].Parent = GUI["ScrollingFrame_048"]
+
+GUI["UIListLayout_087"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_087"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_087"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_087"].Parent = GUI["ScriptTextBox_086"]
+
+GUI["TextBoxParent_088"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBoxParent_088"].BackgroundTransparency = 0.8999999761581421
+GUI["TextBoxParent_088"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TextBoxParent_088"].BorderSizePixel = 0
+GUI["TextBoxParent_088"].LayoutOrder = 1
+GUI["TextBoxParent_088"].Size = UDim2.new(1, 0, 0, 48)
+GUI["TextBoxParent_088"].Name = "TextBoxParent"
+GUI["TextBoxParent_088"].Parent = GUI["ScriptTextBox_086"]
+
+GUI["TextBox_089"].ClearTextOnFocus = false
+GUI["TextBox_089"].Font = Enum.Font.Gotham
+GUI["TextBox_089"].MultiLine = true
+GUI["TextBox_089"].PlaceholderText = 'print("Hello world!")'
+GUI["TextBox_089"].Text = ""
+GUI["TextBox_089"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBox_089"].TextSize = 10
+GUI["TextBox_089"].TextWrapped = true
+GUI["TextBox_089"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TextBox_089"].TextYAlignment = Enum.TextYAlignment.Top
+GUI["TextBox_089"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBox_089"].BackgroundTransparency = 1
+GUI["TextBox_089"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TextBox_089"].BorderSizePixel = 0
+GUI["TextBox_089"].Size = UDim2.new(0.930000007, 0, 0, 45)
+GUI["TextBox_089"].Parent = GUI["TextBoxParent_088"]
+
+GUI["UICorner_090"].Parent = GUI["TextBoxParent_088"]
+
+GUI["UIListLayout_091"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_091"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_091"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_091"].Parent = GUI["TextBoxParent_088"]
+
+GUI["TitleAndDescription_092"].Font = Enum.Font.GothamMedium
+GUI["TitleAndDescription_092"].LineHeight = 0.8999999761581421
+GUI["TitleAndDescription_092"].RichText = true
+GUI["TitleAndDescription_092"].Text = '<font size="10"><b>Script</b></font>\n<font transparency="0.3">What will happen if your ad was clicked</font>'
+GUI["TitleAndDescription_092"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_092"].TextWrapped = true
+GUI["TitleAndDescription_092"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TitleAndDescription_092"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["TitleAndDescription_092"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_092"].BackgroundTransparency = 1
+GUI["TitleAndDescription_092"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TitleAndDescription_092"].BorderSizePixel = 0
+GUI["TitleAndDescription_092"].Size = UDim2.new(0.930000007, 0, 0, 0)
+GUI["TitleAndDescription_092"].Name = "TitleAndDescription"
+GUI["TitleAndDescription_092"].Parent = GUI["ScriptTextBox_086"]
+
+GUI["Plans_093"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["Plans_093"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Plans_093"].BackgroundTransparency = 1
+GUI["Plans_093"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Plans_093"].BorderSizePixel = 0
+GUI["Plans_093"].Size = UDim2.new(1, 0, 0, 0)
+GUI["Plans_093"].Name = "Plans"
+GUI["Plans_093"].Parent = GUI["ScrollingFrame_048"]
+
+GUI["TitleAndDescription_094"].Font = Enum.Font.GothamBold
+GUI["TitleAndDescription_094"].RichText = true
+GUI["TitleAndDescription_094"].Text = "Plans"
+GUI["TitleAndDescription_094"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_094"].TextSize = 10
+GUI["TitleAndDescription_094"].TextWrapped = true
+GUI["TitleAndDescription_094"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TitleAndDescription_094"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["TitleAndDescription_094"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TitleAndDescription_094"].BackgroundTransparency = 1
+GUI["TitleAndDescription_094"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TitleAndDescription_094"].BorderSizePixel = 0
+GUI["TitleAndDescription_094"].Size = UDim2.new(0.930000007, 0, 0, 0)
+GUI["TitleAndDescription_094"].Name = "TitleAndDescription"
+GUI["TitleAndDescription_094"].Parent = GUI["Plans_093"]
+
+GUI["UIListLayout_095"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_095"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_095"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_095"].Parent = GUI["Plans_093"]
+
+GUI["Plans_096"].AutomaticCanvasSize = Enum.AutomaticSize.X
+GUI["Plans_096"].CanvasSize = UDim2.new(2, 0, 0, 0)
+GUI["Plans_096"].ScrollBarThickness = 4
+GUI["Plans_096"].ScrollingDirection = Enum.ScrollingDirection.X
+GUI["Plans_096"].Active = true
+GUI["Plans_096"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Plans_096"].BackgroundTransparency = 1
+GUI["Plans_096"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Plans_096"].BorderSizePixel = 0
+GUI["Plans_096"].Size = UDim2.new(1, 0, 0, 65)
+GUI["Plans_096"].Name = "Plans"
+GUI["Plans_096"].Parent = GUI["Plans_093"]
+
+GUI["PackageTemplate_097"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["PackageTemplate_097"].BackgroundTransparency = 1
+GUI["PackageTemplate_097"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["PackageTemplate_097"].BorderSizePixel = 0
+GUI["PackageTemplate_097"].LayoutOrder = 1
+GUI["PackageTemplate_097"].Size = UDim2.new(0, 100, 0.899999976, 0)
+GUI["PackageTemplate_097"].Visible = false
+GUI["PackageTemplate_097"].Name = "PackageTemplate"
+GUI["PackageTemplate_097"].Parent = GUI["Plans_096"]
+
+GUI["UIListLayout_098"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_098"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_098"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_098"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_098"].Parent = GUI["PackageTemplate_097"]
+
+GUI["UIStroke_099"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_099"].Parent = GUI["PackageTemplate_097"]
+
+GUI["UICorner_0100"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_0100"].Parent = GUI["PackageTemplate_097"]
+
+GUI["ScrollingFrame_0101"].AutomaticCanvasSize = Enum.AutomaticSize.Y
+GUI["ScrollingFrame_0101"].CanvasPosition = Vector2.new(0, 5)
+GUI["ScrollingFrame_0101"].CanvasSize = UDim2.new(0, 0, 0, 0)
+GUI["ScrollingFrame_0101"].ScrollBarThickness = 2
+GUI["ScrollingFrame_0101"].Active = true
+GUI["ScrollingFrame_0101"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["ScrollingFrame_0101"].BackgroundTransparency = 1
+GUI["ScrollingFrame_0101"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["ScrollingFrame_0101"].BorderSizePixel = 0
+GUI["ScrollingFrame_0101"].Size = UDim2.new(1, 0, 0, 30)
+GUI["ScrollingFrame_0101"].Parent = GUI["PackageTemplate_097"]
+
+GUI["Package_0102"].Font = Enum.Font.GothamMedium
+GUI["Package_0102"].LineHeight = 0.8999999761581421
+GUI["Package_0102"].RichText = true
+GUI["Package_0102"].Text = '<font size="14"><b> FREE</b></font>\n- Reach Level 1\n- 24 hours duration\n- Pixelated quality'
+GUI["Package_0102"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Package_0102"].TextWrapped = true
+GUI["Package_0102"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["Package_0102"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Package_0102"].BackgroundTransparency = 1
+GUI["Package_0102"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Package_0102"].BorderSizePixel = 0
+GUI["Package_0102"].LayoutOrder = 1
+GUI["Package_0102"].Size = UDim2.new(1, 0, 0, 0)
+GUI["Package_0102"].Name = "Package"
+GUI["Package_0102"].Parent = GUI["ScrollingFrame_0101"]
+
+GUI["UIListLayout_0103"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_0103"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_0103"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_0103"].Parent = GUI["ScrollingFrame_0101"]
+
+GUI["PublishButton_0104"].Font = Enum.Font.GothamBold
+GUI["PublishButton_0104"].Text = ""
+GUI["PublishButton_0104"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["PublishButton_0104"].TextSize = 12
+GUI["PublishButton_0104"].AutoButtonColor = false
+GUI["PublishButton_0104"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["PublishButton_0104"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["PublishButton_0104"].BorderSizePixel = 0
+GUI["PublishButton_0104"].Rotation = 90
+GUI["PublishButton_0104"].Size = UDim2.new(0.899999976, 0, 0, 16)
+GUI["PublishButton_0104"].Name = "PublishButton"
+GUI["PublishButton_0104"].Parent = GUI["PackageTemplate_097"]
+
+GUI["UICorner_0105"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_0105"].Parent = GUI["PublishButton_0104"]
+
+GUI["UIGradient_0106"].Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(51.00000075995922, 95.00000193715096, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(40.00000141561031, 76.0000030696392, 204.00000303983688))
+}
+GUI["UIGradient_0106"].Offset = Vector2.new(0, 1)
+GUI["UIGradient_0106"].Parent = GUI["PublishButton_0104"]
+
+GUI["TextLabel_0107"].Font = Enum.Font.GothamBold
+GUI["TextLabel_0107"].Text = "Publish"
+GUI["TextLabel_0107"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextLabel_0107"].TextSize = 10
+GUI["TextLabel_0107"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextLabel_0107"].BackgroundTransparency = 1
+GUI["TextLabel_0107"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TextLabel_0107"].BorderSizePixel = 0
+GUI["TextLabel_0107"].Size = UDim2.new(1, 0, 1, 0)
+GUI["TextLabel_0107"].Parent = GUI["PublishButton_0104"]
+
+GUI["TextBoxParent_0108"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBoxParent_0108"].BackgroundTransparency = 1
+GUI["TextBoxParent_0108"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TextBoxParent_0108"].BorderSizePixel = 0
+GUI["TextBoxParent_0108"].Size = UDim2.new(0.899999976, 0, 0, 16)
+GUI["TextBoxParent_0108"].Visible = false
+GUI["TextBoxParent_0108"].Name = "TextBoxParent"
+GUI["TextBoxParent_0108"].Parent = GUI["PackageTemplate_097"]
+
+GUI["UIStroke_0109"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_0109"].Parent = GUI["TextBoxParent_0108"]
+
+GUI["UICorner_0110"].CornerRadius = UDim.new(1, 0)
+GUI["UICorner_0110"].Parent = GUI["TextBoxParent_0108"]
+
+GUI["TextBox_0111"].Font = Enum.Font.GothamMedium
+GUI["TextBox_0111"].PlaceholderText = "Key Here"
+GUI["TextBox_0111"].Text = ""
+GUI["TextBox_0111"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBox_0111"].TextSize = 10
+GUI["TextBox_0111"].TextXAlignment = Enum.TextXAlignment.Left
+GUI["TextBox_0111"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["TextBox_0111"].BackgroundTransparency = 1
+GUI["TextBox_0111"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["TextBox_0111"].BorderSizePixel = 0
+GUI["TextBox_0111"].Size = UDim2.new(0.899999976, 0, 1, 0)
+GUI["TextBox_0111"].Parent = GUI["TextBoxParent_0108"]
+
+GUI["UIListLayout_0112"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_0112"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_0112"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_0112"].Parent = GUI["TextBoxParent_0108"]
+
+GUI["UIListLayout_0113"].Padding = UDim.new(0, 5)
+GUI["UIListLayout_0113"].FillDirection = Enum.FillDirection.Horizontal
+GUI["UIListLayout_0113"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_0113"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_0113"].Parent = GUI["Plans_096"]
+
+GUI["Border_0114"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Border_0114"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Border_0114"].BorderSizePixel = 0
+GUI["Border_0114"].Name = "Border"
+GUI["Border_0114"].Parent = GUI["Plans_096"]
+
+GUI["UIStroke_0115"].Color = Color3.fromRGB(255, 255, 255)
+GUI["UIStroke_0115"].Parent = GUI["Insides_01"]
+
+GUI["UIListLayout_0116"].Padding = UDim.new(0, 3)
+GUI["UIListLayout_0116"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_0116"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_0116"].VerticalAlignment = Enum.VerticalAlignment.Center
+GUI["UIListLayout_0116"].Parent = GUI["Insides_01"]
+
+GUI["UIGradient_0117"].Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(204.00000303983688, 204.00000303983688, 204.00000303983688))
+}
+GUI["UIGradient_0117"].Offset = Vector2.new(0, 0.30000001192092896)
+GUI["UIGradient_0117"].Rotation = 90
+GUI["UIGradient_0117"].Parent = GUI["Insides_01"]
+
+GUI["UICorner_0118"].CornerRadius = UDim.new(0, 5)
+GUI["UICorner_0118"].Parent = GUI["Insides_01"]
+
+GUI["UIListLayout_0119"].Padding = UDim.new(0, 5)
+GUI["UIListLayout_0119"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+GUI["UIListLayout_0119"].SortOrder = Enum.SortOrder.LayoutOrder
+GUI["UIListLayout_0119"].Parent = GUI["Advertise_00"]

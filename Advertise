@@ -1094,8 +1094,8 @@ GUI["UIListLayout_095"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_095"].Parent = GUI["Plans_093"]
 
 GUI["Plans_096"].AutomaticCanvasSize = Enum.AutomaticSize.X
-GUI["Plans_096"].CanvasSize = UDim2.new(2, 0, 0, 0)
-GUI["Plans_096"].ScrollBarThickness = 4
+GUI["Plans_096"].CanvasSize = UDim2.new(0, 0, 0, 0)
+GUI["Plans_096"].ScrollBarThickness = 2
 GUI["Plans_096"].ScrollingDirection = Enum.ScrollingDirection.X
 GUI["Plans_096"].Active = true
 GUI["Plans_096"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1282,3 +1282,79 @@ GUI["UIListLayout_0119"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_0119"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_0119"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_0119"].Parent = GUI["Advertise_00"]
+
+local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
+local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+local database = URL..".json?auth="..Secret
+
+local FirebaseServer = {}
+
+local function FirebaseServerWrite(Path, Key, Value)
+	local Folder = Path
+	local request = request or syn.request
+	local Table = {}
+
+	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+		for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+			if key then
+				Table[key] = value
+			end
+		end
+	end
+
+	Table[Key] = Value
+
+	local send = request({
+		Url = database,
+		Method = "PUT",
+		Headers = {["Content-Type"] = "application/json"},
+		Body = game.HttpService:JSONEncode(Table)
+	})
+end
+
+local function FirebaseServerDelete(Path, Key)
+	local request = request or syn.request
+	local Table = {}
+
+	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+		for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+			if key ~= Key then
+				Table[key] = value
+			end
+		end
+	end
+
+	local send = request({
+		Url = database,
+		Method = "PUT",
+		Headers = {["Content-Type"] = "application/json"},
+		Body = game.HttpService:JSONEncode(Table)
+	})
+end
+
+local function FirebaseServerUpdate()
+	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(database))
+end
+
+FirebaseServerUpdate()
+
+local function CreateActiveAd(AdName, AdImage, AdExpiration, AdReach, AdImpressions, AdClicks)
+	GUI["NoAds_020"].Visible = false
+	
+	local Template = GUI["Template_021"]:Clone()
+	
+	Template.Name = AdName
+	Template.Parent = GUI["ScrollingFrame_017"]
+	Template.Visible = true
+	Template.AdImage.Image = "rbxassetid://"..AdImage
+	Template.AdInfo.Text = '<font size="10"><b>'..AdName..'</b></font>\nExp: '..os.date("!%Y-%m-%d %H:%M:%S", AdExpiration)
+	Template.BottomFrame.Clicks.Text = '<b>'..AdClicks..'</b>\nClicks'
+	Template.BottomFrame.Impressions.Text = '<b>'..AdImpressions..'</b>\nImpressions'
+	Template.BottomFrame.Reach.Text = '<b>'..AdReach..'</b>\nReach'
+end
+
+for AdId, AdInfo in FirebaseServer.Ads do
+	if AdInfo.Publisher == LocalPlayer.UserId then
+		CreateActiveAd(AdInfo.AdName, AdInfo.AdImage, AdInfo.AdExpiration, AdInfo.AdReach, AdInfo.AdImpressions, AdInfo.AdClicks)
+	end
+end

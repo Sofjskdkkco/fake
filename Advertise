@@ -1577,6 +1577,14 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 						PublishAd()
 					end
 				end
+			else
+				_G.PopUpNotificationOptions({
+					Title = "Something went wrong!",
+					Message = error,
+					Button2Text = "Ok",
+					Button2Function = function()
+					end,
+				})
 			end
 		end)
 	end

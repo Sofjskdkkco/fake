@@ -773,7 +773,7 @@ ChangeSetting.UITextSize = function(TextEntered)
 					TweenService:Create(Child, TweenInfo.new(1, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {TextSize = Child.TextSize+_G.Table.GUISettings.UITextSize}):Play()
 
 					if Child.RichText == true then
-						Child.Text = ChangeRichTextSize(Child.ContentText, _G.Table.GUISettings.UITextSize)
+						Child.Text = ChangeRichTextSize(Child.Text, _G.Table.GUISettings.UITextSize)
 					end
 				end
 			end

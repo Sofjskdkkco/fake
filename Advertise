@@ -1355,6 +1355,17 @@ end
 
 for AdId, AdInfo in FirebaseServer.Ads do
 	if AdInfo.Publisher == LocalPlayer.UserId then
-		CreateActiveAd(AdInfo.Name, AdInfo.Image, AdInfo.Expiration, #AdInfo.Reach, AdInfo.Impressions, #AdInfo.Clicks)
+		local AdReach = 0
+		local AdClicks = 0
+		
+		for i in AdInfo.Reach do
+			AdReach += 1
+		end
+		
+		for i in AdInfo.Clicks do
+			AdClicks += 1
+		end
+		
+		CreateActiveAd(AdInfo.Name, AdInfo.Image, AdInfo.Expiration, AdReach, AdInfo.Impressions, AdClicks)
 	end
 end

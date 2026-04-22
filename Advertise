@@ -1509,7 +1509,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 				else
 					local function PublishAd()
 						local Success, Error = pcall(function()
-							FirebaseServerWrite("", "Ads/"..game:GetService("HttpService"):GenerateGUID(false), {
+							FirebaseServerWrite("Ads", game:GetService("HttpService"):GenerateGUID(false), {
 								Clicks = {
 									[1] = true
 								},
@@ -1527,7 +1527,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 							})
 							wait()
 
-							FirebaseServerWrite("AdsGamepassUsedStatus/"..tostring(GamepassId), LocalPlayer.Name, true)
+							FirebaseServerWrite("AdsGamepassUsedStatus/meow", LocalPlayer.Name, true)
 
 						end)
 

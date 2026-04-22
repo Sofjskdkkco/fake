@@ -1340,9 +1340,9 @@ FirebaseServerUpdate()
 
 local function CreateActiveAd(AdName, AdImage, AdExpiration, AdReach, AdImpressions, AdClicks)
 	GUI["NoAds_020"].Visible = false
-	
+
 	local Template = GUI["Template_021"]:Clone()
-	
+
 	Template.Name = AdName
 	Template.Parent = GUI["ScrollingFrame_017"]
 	Template.Visible = true
@@ -1353,19 +1353,110 @@ local function CreateActiveAd(AdName, AdImage, AdExpiration, AdReach, AdImpressi
 	Template.BottomFrame.Reach.ReachText.Text = '<b>'..AdReach..'</b>\nReach'
 end
 
+local NewAdName = ""
+local NewAdType = nil
+local NewAdImage = ""
+local NewAdScript = ""
+
 for AdId, AdInfo in FirebaseServer.Ads do
 	if AdInfo.Publisher == LocalPlayer.UserId then
 		local AdReach = 0
 		local AdClicks = 0
-		
+
 		for i in AdInfo.Reach do
 			AdReach += 1
 		end
-		
+
 		for i in AdInfo.Clicks do
 			AdClicks += 1
 		end
-		
+
 		CreateActiveAd(AdInfo.Name, AdInfo.Image, AdInfo.Expiration, AdReach, AdInfo.Impressions, AdClicks)
 	end
+end
+
+for i, v in GUI["Choices_060"]:GetChildren() do
+	if v:IsA("TextButton") then
+		v.MouseEnter:Connect(function()
+			TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 0.5}):Play()
+		end)
+
+		v.MouseLeave:Connect(function()
+			TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 0.9}):Play()
+		end)
+	end
+end
+
+function UpdateAdTypeOptionsColorsAndPreviews()
+	if NewAdType == "PopUp" then
+		GUI["PopUp_083"].Visible = true
+		GUI["Banner_081"].Visible = false
+		TweenService:Create(GUI.PopUp_062.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+		TweenService:Create(GUI.Banner_065.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
+	elseif NewAdType == "Banner" then
+		GUI["PopUp_083"].Visible = false
+		GUI["Banner_081"].Visible = true
+		TweenService:Create(GUI.PopUp_062.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
+		TweenService:Create(GUI.Banner_065.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+	else
+		GUI["PopUp_083"].Visible = false
+		GUI["Banner_081"].Visible = false
+		TweenService:Create(GUI.PopUp_062.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+		TweenService:Create(GUI.Banner_065.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+	end
+end
+
+GUI["TextBox_055"].FocusLost:Connect(function()
+	NewAdName = GUI["TextBox_055"].ContentText
+end)
+
+GUI["PopUp_062"].MouseButton1Down:Connect(function()
+	NewAdType = "PopUp"
+	UpdateAdTypeOptionsColorsAndPreviews()
+end)
+
+GUI["Banner_065"].MouseButton1Down:Connect(function()
+	NewAdType = "Banner"
+	UpdateAdTypeOptionsColorsAndPreviews()
+end)
+
+GUI["TextBox_072"].FocusLost:Connect(function()
+	NewAdImage = GUI["TextBox_072"].Text
+	GUI["PopUp_083"].Image = "rbxassetid://"..NewAdImage
+	GUI["Banner_081"].Image = "rbxassetid://"..NewAdImage
+end)
+
+GUI["TextBox_089"].FocusLost:Connect(function()
+	NewAdScript = GUI["TextBox_089"].Text
+end)
+
+coroutine.wrap(function()
+	local Template = GUI["PackageTemplate_097"]:Clone()
+
+	Template.Name = "PackageFree"
+	Template.LayoutOrder = 1
+	Template.Parent = GUI["Packages_096"]
+	Template.Visible = true
+	Template.ScrollingFrame.Package.Text = AdDescription
+	Template.PublishButton.MouseButton1Down:Connect(function()
+		Template.PublishButton.Visible = false
+		Template.TextBoxParent.Visible = true
+	end)
+
+	Template.TextBoxParent.TextBox.FocusLost:Connect(function()
+		local Key = Template.TextBoxParent.TextBox.Text
+	end)
+end)()
+
+function CreatePackage(GamepassId, AdDescription)
+	local Template = GUI["PackageTemplate_097"]:Clone()
+
+	Template.Name = "PackageFree"
+	Template.Parent = GUI["Packages_096"]
+	Template.Visible = true
+	Template.ScrollingFrame.Package.Text = AdDescription
+	Template.PublishButton.MouseButton1Down:Connect(function()
+		Template.PublishButton.Visible = false
+		Template.TextBoxParent.Visible = true
+	end)
 end

@@ -1348,9 +1348,9 @@ local function CreateActiveAd(AdName, AdImage, AdExpiration, AdReach, AdImpressi
 	Template.Visible = true
 	Template.AdImage.Image = "rbxassetid://"..AdImage
 	Template.AdInfo.Text = '<font size="10"><b>'..AdName..'</b></font>\nExp: '..os.date("!%Y-%m-%d %H:%M:%S", AdExpiration)
-	Template.BottomFrame.Clicks.Text = '<b>'..AdClicks..'</b>\nClicks'
-	Template.BottomFrame.Impressions.Text = '<b>'..AdImpressions..'</b>\nImpressions'
-	Template.BottomFrame.Reach.Text = '<b>'..AdReach..'</b>\nReach'
+	Template.BottomFrame.Clicks.ClicksText.Text = '<b>'..AdClicks..'</b>\nClicks'
+	Template.BottomFrame.Impressions.ImpressionsText.Text = '<b>'..AdImpressions..'</b>\nImpressions'
+	Template.BottomFrame.Reach.ReachText.Text = '<b>'..AdReach..'</b>\nReach'
 end
 
 for AdId, AdInfo in FirebaseServer.Ads do

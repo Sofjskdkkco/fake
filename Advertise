@@ -1338,6 +1338,15 @@ end
 
 FirebaseServerUpdate()
 
+local function AllSpace(String)
+	for i, v in string.split(String, " ") do
+		if v ~= "" and v ~= " " then
+			return false
+		end
+		return true
+	end
+end
+
 local function CreateActiveAd(AdName, AdImage, AdExpiration, AdReach, AdImpressions, AdClicks)
 	GUI["NoAds_020"].Visible = false
 
@@ -1354,7 +1363,7 @@ local function CreateActiveAd(AdName, AdImage, AdExpiration, AdReach, AdImpressi
 end
 
 local NewAdName = ""
-local NewAdType = nil
+local NewAdType = ""
 local NewAdImage = ""
 local NewAdScript = ""
 
@@ -1448,15 +1457,131 @@ coroutine.wrap(function()
 	end)
 end)()
 
-function CreatePackage(GamepassId, AdDescription)
-	local Template = GUI["PackageTemplate_097"]:Clone()
-
-	Template.Name = "PackageFree"
-	Template.Parent = GUI["Packages_096"]
-	Template.Visible = true
-	Template.ScrollingFrame.Package.Text = AdDescription
-	Template.PublishButton.MouseButton1Down:Connect(function()
-		Template.PublishButton.Visible = false
-		Template.TextBoxParent.Visible = true
+function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
+	local GamepassInfo = nil
+	local success, error = pcall(function()
+		GamepassInfo = game:GetService("MarketplaceService"):GetProductInfoAsync(GamepassId, Enum.InfoType.GamePass)
 	end)
+
+	if success then
+		local Template = GUI["PackageTemplate_097"]:Clone()
+
+		Template.Name = "Package"..PackageType..''..GamepassInfo.PriceInRobux
+		Template.LayoutOrder = 2
+		Template.Parent = GUI["Packages_096"]
+		Template.Visible = true
+		Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' '..GamepassInfo.PriceInRobux..'</b></font>\n'..GamepassInfo.Description
+		Template.PublishButton.MouseButton1Down:Connect(function()
+			_G.PopUpNotificationOptions({
+				Title = "Checking Payment..",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+
+			local UserOwnsGamepass = nil
+			local UserUsedGamepass = nil
+
+			local success, error = pcall(function()
+				FirebaseServerUpdate()
+				if (FirebaseServer.AdsGamepassUsedStatus[GamepassId][LocalPlayer.Name]) then
+					UserUsedGamepass = true
+				else
+					UserUsedGamepass = false
+				end
+
+				UserOwnsGamepass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, GamepassId)
+			end)
+
+			if success then
+				if AllSpace(NewAdName) == true or AllSpace(NewAdType) == true or AllSpace(NewAdImage) == true or AllSpace(NewAdScript) == true then
+					_G.PopUpNotificationOptions({
+						Title = "Missing Information",
+						Message = "Theres missing information in your ad",
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+					
+				else
+					local function PublishAd()
+						local Success, Error = pcall(function()
+							FirebaseServerWrite("Ads", game:GetService("HttpService"):GenerateGUID(false), {
+								Clicks = {
+									[1] = true
+								},
+								Expiration = os.time()+UNIXTimeExpiration,
+								Image = NewAdImage,
+								Impressions = 0,
+								Name = NewAdName,
+								Publisher = LocalPlayer.UserId,
+								Reach = {
+									[1] = true
+								},
+								ReachLevel = ReachLevel,
+								Script = NewAdScript,
+								Type = NewAdType
+							})
+
+							FirebaseServerWrite("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name, true)
+
+						end)
+
+						if Success then
+							CreateActiveAd(NewAdName, NewAdImage, os.time()+UNIXTimeExpiration, 0, 0, 0)
+
+							_G.PopUpNotificationOptions({
+								Title = "Ad Published!",
+								Message = "Your ad has been published successfully!",
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+						else
+							_G.PopUpNotificationOptions({
+								Title = "Something went wrong!",
+								Message = Error,
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+						end
+					end
+					
+					if UserOwnsGamepass == false and UserUsedGamepass == false then
+						setclipboard("https://www.roblox.com/game-pass/"..GamepassId)
+						
+						_G.PopUpNotificationOptions({
+							Title = "Pending Payment",
+							Message = "A link to the ad's gamepass has been copied to your keyboard.\n\nAfter purchasing the gamepass, click the Publish button again and youll be able to publish your ad!",
+							Button2Text = "Ok",
+							Button2Function = function()
+							end,
+						})
+						
+					elseif UserOwnsGamepass == true and UserUsedGamepass == true then
+						setclipboard("https://www.roblox.com/game-pass/"..GamepassId)
+						
+						_G.PopUpNotificationOptions({
+							Title = "Payment Blocked",
+							Message = "Please delete the gamepass that you purchased before you publish a ad again\n\nA link to the ad's gamepass has been copied to your keyboard",
+							Button2Text = "Ok",
+							Button2Function = function()
+							end,
+						})
+						
+					elseif UserOwnsGamepass == true and UserUsedGamepass == false then
+						PublishAd()
+						
+					elseif UserOwnsGamepass == false and UserUsedGamepass == true then
+						FirebaseServerDelete("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name)
+						wait()
+						PublishAd()
+					end
+				end
+			end
+		end)
+	end
 end
+
+CreatePackage(1804118261, "Banner", 259200, 3)

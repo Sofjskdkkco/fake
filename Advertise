@@ -1445,7 +1445,7 @@ Template.Name = "PackageFree"
 Template.LayoutOrder = 1
 Template.Parent = GUI["Packages_096"]
 Template.Visible = true
-Template.ScrollingFrame.Package.Text = AdDescription
+Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' FREE</b></font>\n- Reach Level 1\n- 24 hours duration\n(1 out of 10 people will see your ad)'
 Template.PublishButton.MouseButton1Down:Connect(function()
 	Template.PublishButton.Visible = false
 	Template.TextBoxParent.Visible = true

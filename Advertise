@@ -1493,7 +1493,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 					UserUsedGamepass = false
 				end
 
-				UserOwnsGamepass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(game:GetService("Players").LocalPlayer.UserId, GamepassId)
+				UserOwnsGamepass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(LocalPlayer.UserId, GamepassId)
 			end)
 
 			if success then
@@ -1574,9 +1574,12 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 						})
 
 					elseif UserOwnsGamepass == true and UserUsedGamepass == false then
+						print("scenario 3")
 						PublishAd()
 
 					elseif UserOwnsGamepass == false and UserUsedGamepass == true then
+						print("scenario 4")
+						
 						FirebaseServerDelete("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name)
 						wait()
 						PublishAd()

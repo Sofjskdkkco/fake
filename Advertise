@@ -1473,7 +1473,6 @@ local function PublishAd(Expiration, ReachLevel)
 end
 
 local Template = GUI["PackageTemplate_097"]:Clone()
-local BannerAdsKeySystem = loadstring(game:HttpGet(("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI"),true))()
 
 Template.Name = "PackageFree"
 Template.LayoutOrder = 1
@@ -1481,6 +1480,8 @@ Template.Parent = GUI["Package_096"]
 Template:SetAttribute("AdType", "Banner")
 Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' FREE</b></font>\n- Reach Level 1\n- 24 hours duration\n(1 out of 10 people will see your ad)'
 Template.PublishButton.MouseButton1Down:Connect(function()
+	local BannerAdsKeySystem = loadstring(game:HttpGet(("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI"),true))()
+	
 	_G.PopUpNotificationOptions({
 		Title = "Checking Key System...",
 		Button2Text = "Ok",
@@ -1532,6 +1533,7 @@ Template.PublishButton.MouseButton1Down:Connect(function()
 end)
 
 Template.TextBoxParent.TextBox.FocusLost:Connect(function()
+	local BannerAdsKeySystem = loadstring(game:HttpGet(("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI"),true))()
 	if BannerAdsKeySystem.VerifyKey(Template.TextBoxParent.TextBox.Text) == true then
 		PublishAd(os.time()+86400, 1)
 	end

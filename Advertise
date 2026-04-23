@@ -1484,14 +1484,8 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 				FirebaseServerUpdate()
 
 				local GamepassUsed, _ = pcall(function()
-					print(FirebaseServer.AdsGamepassUsedStatus[GamepassId][LocalPlayer.Name])
+					UserUsedGamepass = FirebaseServer.AdsGamepassUsedStatus[GamepassId][LocalPlayer.Name]
 				end)
-
-				if GamepassUsed then
-					UserUsedGamepass = true
-				else
-					UserUsedGamepass = false
-				end
 
 				UserOwnsGamepass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(LocalPlayer.UserId, GamepassId)
 			end)
@@ -1528,7 +1522,6 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 							wait()
 
 							FirebaseServerWrite("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name, true)
-
 						end)
 
 						if Success then
@@ -1552,7 +1545,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 						end
 					end
 
-					if UserOwnsGamepass == false and UserUsedGamepass == false then
+					if UserOwnsGamepass == false and UserUsedGamepass ~= true then
 						setclipboard("https://www.roblox.com/game-pass/"..GamepassId)
 
 						_G.PopUpNotificationOptions({
@@ -1574,7 +1567,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 							end,
 						})
 
-					elseif UserOwnsGamepass == true and UserUsedGamepass == false then
+					elseif UserOwnsGamepass == true and UserUsedGamepass ~= true then
 						PublishAd()
 
 					elseif UserOwnsGamepass == false and UserUsedGamepass == true then

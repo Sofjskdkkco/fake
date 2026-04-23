@@ -182,6 +182,7 @@ coroutine.wrap(function()
 
 				if AdToRun ~= nil then
 					local AdInfo = FirebaseServer.Ads[AdToRun]
+					FirebaseServerUpdate()
 					FirebaseServerWrite("Ads/"..AdToRun.."/Reach", LocalPlayer.UserId, true)
 					FirebaseServerWrite("Ads/"..AdToRun, "Impressions", FirebaseServer.Ads[AdToRun].Impressions+1)
 					AdFrameFunction:Disconnect()

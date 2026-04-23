@@ -1620,6 +1620,13 @@ function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 	end)
 
 	if success then
+		if not FirebaseServer.AdsGamepassUsedStatus[GamepassId] then
+			FirebaseServerWrite("AdsGamepassUsedStatus", tostring(GamepassId), {
+				Roblox = true
+			})
+			FirebaseServerUpdate()
+		end
+		
 		local Template = GUI["PackageTemplate_097"]:Clone()
 
 		Template.Name = "Package"..AdType..''..GamepassInfo.PriceInRobux

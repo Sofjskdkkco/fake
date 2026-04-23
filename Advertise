@@ -1407,30 +1407,36 @@ function UpdateAdTypeOptionsColorsAndPreviews()
 		TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
 		TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
 	end
-	
-	for i, v in GUI.Package_096:GetChildren() do
-		if v:GetAttribute("AdType") == "PopUp" then
-			v.Visible = true
-		elseif v:GetAttribute("AdType") == "Banner" then
-			v.Visible = true
-		else
-			v.Visible = false
-		end
-	end
 end
 
 GUI["TextBox_055"].FocusLost:Connect(function()
-	NewAdName = GUI["TextBox_055"].ContentText
+	NewAdName = GUI["TextBox_055"].Text
 end)
 
 GUI["PopUp_062"].MouseButton1Down:Connect(function()
 	NewAdType = "PopUp"
 	UpdateAdTypeOptionsColorsAndPreviews()
+	
+	for i, v in GUI["Package_096"]:GetChildren() do
+		if v:GetAttribute("AdType") == "PopUp" then
+			v.Visible = true
+		else
+			v.Visible = false
+		end
+	end
 end)
 
 GUI["Banner_065"].MouseButton1Down:Connect(function()
 	NewAdType = "Banner"
 	UpdateAdTypeOptionsColorsAndPreviews()
+	
+	for i, v in GUI["Package_096"]:GetChildren() do
+		if v:GetAttribute("AdType") == "Banner" then
+			v.Visible = true
+		else
+			v.Visible = false
+		end
+	end
 end)
 
 GUI["TextBox_072"].FocusLost:Connect(function()

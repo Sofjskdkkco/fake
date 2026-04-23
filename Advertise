@@ -1289,374 +1289,211 @@ GUI["UIListLayout_0119"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_0119"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_0119"].Parent = GUI["Advertise_00"]
 
-local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
-local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 
-local FirebaseServer = {}
+coroutine.wrap(function()
+	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
+	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 
-local function FirebaseServerWrite(Path, Key, Value)
-	local database = URL..Path..".json?auth="..Secret
-	local request = request or syn.request
-	local Table = {}
+	local FirebaseServer = {}
 
-	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-			if key then
-				Table[key] = value
+	local function FirebaseServerWrite(Path, Key, Value)
+		local database = URL..Path..".json?auth="..Secret
+		local request = request or syn.request
+		local Table = {}
+
+		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+				if key then
+					Table[key] = value
+				end
 			end
 		end
-	end
 
-	Table[Key] = Value
+		Table[Key] = Value
 
-	local send = request({
-		Url = database,
-		Method = "PUT",
-		Headers = {["Content-Type"] = "application/json"},
-		Body = game:GetService("HttpService"):JSONEncode(Table)
-	})
-end
-
-local function FirebaseServerDelete(Path, Key)
-	local database = URL..Path..".json?auth="..Secret
-	local request = request or syn.request
-	local Table = {}
-
-	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-			if key ~= Key then
-				Table[key] = value
-			end
-		end
-	end
-
-	local send = request({
-		Url = database,
-		Method = "PUT",
-		Headers = {["Content-Type"] = "application/json"},
-		Body = game.HttpService:JSONEncode(Table)
-	})
-end
-
-local function FirebaseServerUpdate()
-	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
-end
-
-FirebaseServerUpdate()
-
-local function AllSpace(String)
-	for i, v in string.split(String, " ") do
-		if v ~= "" and v ~= " " then
-			return false
-		end
-		return true
-	end
-end
-
-local function CreateActiveAd(AdName, AdImage, AdExpiration, AdReach, AdImpressions, AdClicks)
-	GUI["NoAds_020"].Visible = false
-
-	local Template = GUI["Template_021"]:Clone()
-
-	Template.Name = AdName
-	Template.Parent = GUI["ScrollingFrame_017"]
-	Template.Visible = true
-	Template.AdImage.Image = "rbxassetid://"..AdImage
-	Template.AdInfo.Text = '<font size="10"><b>'..AdName..'</b></font>\nExp: '..os.date("!%Y-%m-%d %H:%M:%S", AdExpiration)
-	Template.BottomFrame.Clicks.ClicksText.Text = '<b>'..AdClicks..'</b>\nClicks'
-	Template.BottomFrame.Impressions.ImpressionsText.Text = '<b>'..AdImpressions..'</b>\nImpressions'
-	Template.BottomFrame.Reach.ReachText.Text = '<b>'..AdReach..'</b>\nReach'
-end
-
-local NewAdName = ""
-local NewAdType = ""
-local NewAdImage = ""
-local NewAdScript = ""
-
-for AdId, AdInfo in FirebaseServer.Ads do
-	if AdInfo.Publisher == LocalPlayer.UserId then
-		local AdReach = 0
-		local AdClicks = 0
-
-		for i in AdInfo.Reach do
-			AdReach += 1
-		end
-
-		for i in AdInfo.Clicks do
-			AdClicks += 1
-		end
-
-		CreateActiveAd(AdInfo.Name, AdInfo.Image, AdInfo.Expiration, AdReach, AdInfo.Impressions, AdClicks)
-	end
-end
-
-function UpdateAdTypeOptionsColorsAndPreviews()
-	if NewAdType == "PopUp" then
-		GUI["PopUp_083"].Visible = true
-		GUI["Banner_081"].Visible = false
-		TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
-		TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
-	elseif NewAdType == "Banner" then
-		GUI["PopUp_083"].Visible = false
-		GUI["Banner_081"].Visible = true
-		TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
-		TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
-	else
-		GUI["PopUp_083"].Visible = false
-		GUI["Banner_081"].Visible = false
-		TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
-		TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
-	end
-end
-
-GUI["TextBox_055"].FocusLost:Connect(function()
-	NewAdName = GUI["TextBox_055"].Text
-end)
-
-GUI["PopUp_062"].MouseButton1Down:Connect(function()
-	NewAdType = "PopUp"
-	UpdateAdTypeOptionsColorsAndPreviews()
-
-	for i, v in GUI["Package_096"]:GetChildren() do
-		if v:IsA("Frame") then
-			if v:GetAttribute("AdType") == "PopUp" then
-				v.Visible = true
-			else
-				v.Visible = false
-			end
-		end
-	end
-end)
-
-GUI["Banner_065"].MouseButton1Down:Connect(function()
-	NewAdType = "Banner"
-	UpdateAdTypeOptionsColorsAndPreviews()
-
-	for i, v in GUI["Package_096"]:GetChildren() do
-		if v:IsA("Frame") then
-			if v:GetAttribute("AdType") == "Banner" then
-				v.Visible = true
-			else
-				v.Visible = false
-			end
-		end
-	end
-end)
-
-GUI["TextBox_072"].FocusLost:Connect(function()
-	NewAdImage = GUI["TextBox_072"].Text
-	GUI["PopUp_083"].Image = "rbxassetid://"..NewAdImage
-	GUI["Banner_081"].Image = "rbxassetid://"..NewAdImage
-end)
-
-GUI["TextBox_089"].FocusLost:Connect(function()
-	NewAdScript = GUI["TextBox_089"].Text
-end)
-
-local function PublishAd(Expiration, ReachLevel)
-	FirebaseServerWrite("Ads", game:GetService("HttpService"):GenerateGUID(false), {
-		Clicks = {
-			["1"] = true
-		},
-		Expiration = Expiration,
-		Image = NewAdImage,
-		Impressions = 0,
-		Name = NewAdName,
-		Publisher = LocalPlayer.UserId,
-		Reach = {
-			["1"] = true
-		},
-		ReachLevel = ReachLevel,
-		Script = NewAdScript,
-		Type = NewAdType
-	})
-end
-
-local function CreateFreePackage(KeySystemAPILink, AdType, Description)
-	local Template = GUI["PackageTemplate_097"]:Clone()
-
-	Template.Name = "PackageFree"..AdType
-	Template.LayoutOrder = 1
-	Template.Parent = GUI["Package_096"]
-	Template:SetAttribute("AdType", AdType)
-	Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' FREE</b></font>\n'..Description
-	Template.PublishButton.MouseButton1Down:Connect(function()
-		_G.PopUpNotificationOptions({
-			Title = "Checking Key System...",
-			Button2Text = "Ok",
-			Button2Function = function()
-			end,
+		local send = request({
+			Url = database,
+			Method = "PUT",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = game:GetService("HttpService"):JSONEncode(Table)
 		})
+	end
 
-		local AdsKeySystem = nil
+	local function FirebaseServerDelete(Path, Key)
+		local database = URL..Path..".json?auth="..Secret
+		local request = request or syn.request
+		local Table = {}
 
-		local success, error = pcall(function()
-			AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
-		end)
+		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+				if key ~= Key then
+					Table[key] = value
+				end
+			end
+		end
 
-		if success then
-			if AllSpace(NewAdName) == true or AllSpace(NewAdType) == true or AllSpace(NewAdImage) == true or AllSpace(NewAdScript) == true then
-				_G.PopUpNotificationOptions({
-					Title = "Missing Information",
-					Message = "Theres missing information in your ad",
-					Button2Text = "Ok",
-					Button2Function = function()
-					end,
-				})
-			else
-				local FileKey = nil
+		local send = request({
+			Url = database,
+			Method = "PUT",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = game.HttpService:JSONEncode(Table)
+		})
+	end
 
-				if isfile("VexHub7/"..AdType.."AdsKey.vex") then
-					FileKey = readfile("VexHub7/"..AdType.."AdsKey.vex")
+	local function FirebaseServerUpdate()
+		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+	end
+
+	FirebaseServerUpdate()
+
+	local function AllSpace(String)
+		for i, v in string.split(String, " ") do
+			if v ~= "" and v ~= " " then
+				return false
+			end
+			return true
+		end
+	end
+
+	local function CreateActiveAd(AdName, AdImage, AdExpiration, AdReach, AdImpressions, AdClicks)
+		GUI["NoAds_020"].Visible = false
+
+		local Template = GUI["Template_021"]:Clone()
+
+		Template.Name = AdName
+		Template.Parent = GUI["ScrollingFrame_017"]
+		Template.Visible = true
+		Template.AdImage.Image = "rbxassetid://"..AdImage
+		Template.AdInfo.Text = '<font size="10"><b>'..AdName..'</b></font>\nExp: '..os.date("!%Y-%m-%d %H:%M:%S", AdExpiration)
+		Template.BottomFrame.Clicks.ClicksText.Text = '<b>'..AdClicks..'</b>\nClicks'
+		Template.BottomFrame.Impressions.ImpressionsText.Text = '<b>'..AdImpressions..'</b>\nImpressions'
+		Template.BottomFrame.Reach.ReachText.Text = '<b>'..AdReach..'</b>\nReach'
+	end
+
+	local NewAdName = ""
+	local NewAdType = ""
+	local NewAdImage = ""
+	local NewAdScript = ""
+
+	for AdId, AdInfo in FirebaseServer.Ads do
+		if AdInfo.Publisher == LocalPlayer.UserId then
+			local AdReach = 0
+			local AdClicks = 0
+
+			for i in AdInfo.Reach do
+				AdReach += 1
+			end
+
+			for i in AdInfo.Clicks do
+				AdClicks += 1
+			end
+
+			CreateActiveAd(AdInfo.Name, AdInfo.Image, AdInfo.Expiration, AdReach, AdInfo.Impressions, AdClicks)
+		end
+	end
+
+	function UpdateAdTypeOptionsColorsAndPreviews()
+		if NewAdType == "PopUp" then
+			GUI["PopUp_083"].Visible = true
+			GUI["Banner_081"].Visible = false
+			TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+			TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
+		elseif NewAdType == "Banner" then
+			GUI["PopUp_083"].Visible = false
+			GUI["Banner_081"].Visible = true
+			TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
+			TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+		else
+			GUI["PopUp_083"].Visible = false
+			GUI["Banner_081"].Visible = false
+			TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+			TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+		end
+	end
+
+	GUI["TextBox_055"].FocusLost:Connect(function()
+		NewAdName = GUI["TextBox_055"].Text
+	end)
+
+	GUI["PopUp_062"].MouseButton1Down:Connect(function()
+		NewAdType = "PopUp"
+		UpdateAdTypeOptionsColorsAndPreviews()
+
+		for i, v in GUI["Package_096"]:GetChildren() do
+			if v:IsA("Frame") then
+				if v:GetAttribute("AdType") == "PopUp" then
+					v.Visible = true
 				else
-					FileKey = ""
-					writefile("VexHub7/"..AdType.."AdsKey.vex", "")
-				end
-
-				if FileKey == "" or AdsKeySystem.VerifyKey(FileKey) == false then
-					Template.PublishButton.Visible = false
-					Template.TextBoxParent.Visible = true
-
-					_G.PopUpNotificationOptions({
-						Title = "Key Required",
-						Message = "In order to publish a ad for free, you have to do a key system first!",
-						Button1Text = "Copy Link",
-						Button1Function = function()
-							_G.PopUpNotificationOptions({
-								Title = "Generating Link...",
-								Button2Text = "Ok",
-								Button2Function = function()
-								end,
-							})
-
-							AdsKeySystem.CopyLink()
-
-							_G.PopUpNotificationOptions({
-								Title = "Link Copied!",
-								Message = "Do the key system and paste the key in the textbox!",
-								Button2Text = "Ok",
-								Button2Function = function()
-								end,
-							})
-						end,
-						Button2Text = "Close",
-						Button2Function = function()
-						end,
-					})
-
-				elseif AdsKeySystem.VerifyKey(FileKey) == true then
-					_G.PopUpNotificationOptions({
-						Title = "Oops!",
-						Message = "You have already done the key system for this package! Wait until the key expires",
-						Button2Text = "Ok",
-						Button2Function = function()
-						end,
-					})
+					v.Visible = false
 				end
 			end
-		else
-			_G.PopUpNotificationOptions({
-				Title = "Something Went Wrong!",
-				Message = error,
-				Button2Text = "Ok",
-				Button2Function = function()
-				end,
-			})
 		end
 	end)
 
-	Template.TextBoxParent.TextBox.FocusLost:Connect(function()
-		_G.PopUpNotificationOptions({
-			Title = "Checking Key...",
-			Button2Text = "Ok",
-			Button2Function = function()
-			end,
+	GUI["Banner_065"].MouseButton1Down:Connect(function()
+		NewAdType = "Banner"
+		UpdateAdTypeOptionsColorsAndPreviews()
+
+		for i, v in GUI["Package_096"]:GetChildren() do
+			if v:IsA("Frame") then
+				if v:GetAttribute("AdType") == "Banner" then
+					v.Visible = true
+				else
+					v.Visible = false
+				end
+			end
+		end
+	end)
+
+	GUI["TextBox_072"].FocusLost:Connect(function()
+		NewAdImage = GUI["TextBox_072"].Text
+		GUI["PopUp_083"].Image = "rbxassetid://"..NewAdImage
+		GUI["Banner_081"].Image = "rbxassetid://"..NewAdImage
+	end)
+
+	GUI["TextBox_089"].FocusLost:Connect(function()
+		NewAdScript = GUI["TextBox_089"].Text
+	end)
+
+	local function PublishAd(Expiration, ReachLevel)
+		FirebaseServerWrite("Ads", game:GetService("HttpService"):GenerateGUID(false), {
+			Clicks = {
+				["1"] = true
+			},
+			Expiration = Expiration,
+			Image = NewAdImage,
+			Impressions = 0,
+			Name = NewAdName,
+			Publisher = LocalPlayer.UserId,
+			Reach = {
+				["1"] = true
+			},
+			ReachLevel = ReachLevel,
+			Script = NewAdScript,
+			Type = NewAdType
 		})
+	end
 
-		local AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
-		if AdsKeySystem.VerifyKey(Template.TextBoxParent.TextBox.Text) == true then
-			local success, error = pcall(function()
-				PublishAd(os.time()+86400, 1)
-			end)
-
-			if success then
-				writefile("VexHub7/"..AdType.."AdsKey.vex", Template.TextBoxParent.TextBox.Text)
-
-				Template.PublishButton.Visible = true
-				Template.TextBoxParent.Visible = false
-
-				_G.PopUpNotificationOptions({
-					Title = "Ad Published!",
-					Message = "Your ad has been published successfully!",
-					Button2Text = "Ok",
-					Button2Function = function()
-					end,
-				})
-			else
-				_G.PopUpNotificationOptions({
-					Title = "Something went wrong!",
-					Message = error,
-					Button2Text = "Ok",
-					Button2Function = function()
-					end,
-				})
-			end
-		else
-			_G.PopUpNotificationOptions({
-				Title = "Key Invalid!",
-				Message = "Please do the key system to publish your ad",
-				Button2Text = "Ok",
-				Button2Function = function()
-				end,
-			})
-		end
-	end)
-end
-
-function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
-	local GamepassInfo = nil
-	local success, error = pcall(function()
-		GamepassInfo = game:GetService("MarketplaceService"):GetProductInfoAsync(GamepassId, Enum.InfoType.GamePass)
-	end)
-
-	if success then
-		if not FirebaseServer.AdsGamepassUsedStatus[GamepassId] then
-			FirebaseServerWrite("AdsGamepassUsedStatus", tostring(GamepassId), {
-				Roblox = true
-			})
-			FirebaseServerUpdate()
-		end
-		
+	local function CreateFreePackage(KeySystemAPILink, AdType, Description)
 		local Template = GUI["PackageTemplate_097"]:Clone()
 
-		Template.Name = "Package"..AdType..''..GamepassInfo.PriceInRobux
-		Template.LayoutOrder = 2
+		Template.Name = "PackageFree"..AdType
+		Template.LayoutOrder = 1
 		Template.Parent = GUI["Package_096"]
 		Template:SetAttribute("AdType", AdType)
-		Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' '..GamepassInfo.PriceInRobux..'</b></font>\n'..GamepassInfo.Description
+		Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' FREE</b></font>\n'..Description
 		Template.PublishButton.MouseButton1Down:Connect(function()
 			_G.PopUpNotificationOptions({
-				Title = "Checking Payment..",
-				Button2Text = "Close",
+				Title = "Checking Key System...",
+				Button2Text = "Ok",
 				Button2Function = function()
 				end,
 			})
 
-			local UserOwnsGamepass = nil
-			local UserUsedGamepass = nil
+			local AdsKeySystem = nil
 
 			local success, error = pcall(function()
-				FirebaseServerUpdate()
-
-				UserUsedGamepass = false
-
-				for Username, _ in FirebaseServer.AdsGamepassUsedStatus[tostring(GamepassId)] do
-					if Username == LocalPlayer.Name then
-						UserUsedGamepass = true
-					end
-				end
-
-				UserOwnsGamepass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(LocalPlayer.UserId, GamepassId)
+				AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
 			end)
 
 			if success then
@@ -1669,59 +1506,50 @@ function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 						end,
 					})
 				else
-					if UserOwnsGamepass == false and UserUsedGamepass == false then
-						setclipboard("https://www.roblox.com/game-pass/"..GamepassId)
+					local FileKey = nil
+
+					if isfile("VexHub7/"..AdType.."AdsKey.vex") then
+						FileKey = readfile("VexHub7/"..AdType.."AdsKey.vex")
+					else
+						FileKey = ""
+						writefile("VexHub7/"..AdType.."AdsKey.vex", "")
+					end
+
+					if FileKey == "" or AdsKeySystem.VerifyKey(FileKey) == false then
+						Template.PublishButton.Visible = false
+						Template.TextBoxParent.Visible = true
 
 						_G.PopUpNotificationOptions({
-							Title = "Pending Payment",
-							Message = "A link to the ad's gamepass has been copied to your keyboard.\n\nAfter purchasing the gamepass, click the Publish button again and youll be able to publish your ad!",
-							Button2Text = "Ok",
+							Title = "Key Required",
+							Message = "In order to publish a ad for free, you have to do a key system first!",
+							Button1Text = "Copy Link",
+							Button1Function = function()
+								_G.PopUpNotificationOptions({
+									Title = "Generating Link...",
+									Button2Text = "Ok",
+									Button2Function = function()
+									end,
+								})
+
+								AdsKeySystem.CopyLink()
+
+								_G.PopUpNotificationOptions({
+									Title = "Link Copied!",
+									Message = "Do the key system and paste the key in the textbox!",
+									Button2Text = "Ok",
+									Button2Function = function()
+									end,
+								})
+							end,
+							Button2Text = "Close",
 							Button2Function = function()
 							end,
 						})
 
-					elseif UserOwnsGamepass == true and UserUsedGamepass == true then
-						setclipboard("https://www.roblox.com/game-pass/"..GamepassId)
-
+					elseif AdsKeySystem.VerifyKey(FileKey) == true then
 						_G.PopUpNotificationOptions({
-							Title = "Payment Blocked",
-							Message = "Please delete the gamepass that you purchased before you publish a ad again. After deleting, do not repurchase the gamepass until you click the publish button again to verify that youve deleted the gamepass.\n\nA link to the ad's gamepass has been copied to your keyboard",
-							Button2Text = "Ok",
-							Button2Function = function()
-							end,
-						})
-
-					elseif UserOwnsGamepass == true and UserUsedGamepass == false then
-						local success, error = pcall(function()
-							PublishAd(os.time()+UNIXTimeExpiration, ReachLevel)
-						end)
-
-						if success then
-							FirebaseServerWrite("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name, true)
-
-							_G.PopUpNotificationOptions({
-								Title = "Ad Published!",
-								Message = "Your ad has been published successfully!",
-								Button2Text = "Ok",
-								Button2Function = function()
-								end,
-							})
-						else
-							_G.PopUpNotificationOptions({
-								Title = "Something went wrong!",
-								Message = error,
-								Button2Text = "Ok",
-								Button2Function = function()
-								end,
-							})
-						end
-
-					elseif UserOwnsGamepass == false and UserUsedGamepass == true then
-						FirebaseServerDelete("AdsGamepassUsedStatus/"..tostring(GamepassId), LocalPlayer.Name)
-
-						_G.PopUpNotificationOptions({
-							Title = "Payment Status Approved",
-							Message = "You can now repurchase the gamepass",
+							Title = "Oops!",
+							Message = "You have already done the key system for this package! Wait until the key expires",
 							Button2Text = "Ok",
 							Button2Function = function()
 							end,
@@ -1730,7 +1558,7 @@ function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 				end
 			else
 				_G.PopUpNotificationOptions({
-					Title = "Something went wrong!",
+					Title = "Something Went Wrong!",
 					Message = error,
 					Button2Text = "Ok",
 					Button2Function = function()
@@ -1738,11 +1566,187 @@ function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 				})
 			end
 		end)
-	end
-end
 
-CreateFreePackage("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI", "Banner", "- 24 hours duration\n- Reach level 3\n(1 out of 10 people will see your ad)")
-CreatePackage(1804118261, "Banner", 259200, 3) -- 3 Days
-CreatePackage(1811650255, "Banner", 604800, 5) -- 7 Days
-CreatePackage(1811464262, "Banner", 1209600, 7) -- 14 Days
-CreatePackage(1811566260, "Banner", 2592000, 10) -- 30 Days
+		Template.TextBoxParent.TextBox.FocusLost:Connect(function()
+			_G.PopUpNotificationOptions({
+				Title = "Checking Key...",
+				Button2Text = "Ok",
+				Button2Function = function()
+				end,
+			})
+
+			local AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
+			if AdsKeySystem.VerifyKey(Template.TextBoxParent.TextBox.Text) == true then
+				local success, error = pcall(function()
+					PublishAd(os.time()+86400, 1)
+				end)
+
+				if success then
+					writefile("VexHub7/"..AdType.."AdsKey.vex", Template.TextBoxParent.TextBox.Text)
+					CreateActiveAd(NewAdName, NewAdImage, os.time()+86400, 0, 0, 0)
+					Template.PublishButton.Visible = true
+					Template.TextBoxParent.Visible = false
+
+					_G.PopUpNotificationOptions({
+						Title = "Ad Published!",
+						Message = "Your ad has been published successfully!",
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+				else
+					_G.PopUpNotificationOptions({
+						Title = "Something went wrong!",
+						Message = error,
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+				end
+			else
+				_G.PopUpNotificationOptions({
+					Title = "Key Invalid!",
+					Message = "Please do the key system to publish your ad",
+					Button2Text = "Ok",
+					Button2Function = function()
+					end,
+				})
+			end
+		end)
+	end
+
+	function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
+		local GamepassInfo = nil
+		local success, error = pcall(function()
+			GamepassInfo = game:GetService("MarketplaceService"):GetProductInfoAsync(GamepassId, Enum.InfoType.GamePass)
+		end)
+
+		if success then
+			if not FirebaseServer.AdsGamepassUsedStatus[GamepassId] then
+				FirebaseServerWrite("AdsGamepassUsedStatus", tostring(GamepassId), {
+					Roblox = true
+				})
+				FirebaseServerUpdate()
+			end
+
+			local Template = GUI["PackageTemplate_097"]:Clone()
+
+			Template.Name = "Package"..AdType..''..GamepassInfo.PriceInRobux
+			Template.LayoutOrder = 2
+			Template.Parent = GUI["Package_096"]
+			Template:SetAttribute("AdType", AdType)
+			Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' '..GamepassInfo.PriceInRobux..'</b></font>\n'..GamepassInfo.Description
+			Template.PublishButton.MouseButton1Down:Connect(function()
+				_G.PopUpNotificationOptions({
+					Title = "Checking Payment..",
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
+
+				local UserOwnsGamepass = nil
+				local UserUsedGamepass = nil
+
+				local success, error = pcall(function()
+					FirebaseServerUpdate()
+
+					UserUsedGamepass = false
+
+					for Username, _ in FirebaseServer.AdsGamepassUsedStatus[tostring(GamepassId)] do
+						if Username == LocalPlayer.Name then
+							UserUsedGamepass = true
+						end
+					end
+
+					UserOwnsGamepass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(LocalPlayer.UserId, GamepassId)
+				end)
+
+				if success then
+					if AllSpace(NewAdName) == true or AllSpace(NewAdType) == true or AllSpace(NewAdImage) == true or AllSpace(NewAdScript) == true then
+						_G.PopUpNotificationOptions({
+							Title = "Missing Information",
+							Message = "Theres missing information in your ad",
+							Button2Text = "Ok",
+							Button2Function = function()
+							end,
+						})
+					else
+						if UserOwnsGamepass == false and UserUsedGamepass == false then
+							setclipboard("https://www.roblox.com/game-pass/"..GamepassId)
+
+							_G.PopUpNotificationOptions({
+								Title = "Pending Payment",
+								Message = "A link to the ad's gamepass has been copied to your keyboard.\n\nAfter purchasing the gamepass, click the Publish button again and youll be able to publish your ad!",
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+
+						elseif UserOwnsGamepass == true and UserUsedGamepass == true then
+							setclipboard("https://www.roblox.com/game-pass/"..GamepassId)
+
+							_G.PopUpNotificationOptions({
+								Title = "Payment Blocked",
+								Message = "Please delete the gamepass that you purchased before you publish a ad again. After deleting, do not repurchase the gamepass until you click the publish button again to verify that youve deleted the gamepass.\n\nA link to the ad's gamepass has been copied to your keyboard",
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+
+						elseif UserOwnsGamepass == true and UserUsedGamepass == false then
+							local success, error = pcall(function()
+								PublishAd(os.time()+UNIXTimeExpiration, ReachLevel)
+							end)
+
+							if success then
+								FirebaseServerWrite("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name, true)
+								CreateActiveAd(NewAdName, NewAdImage, os.time()+UNIXTimeExpiration, ReachLevel, 0, 0)
+
+								_G.PopUpNotificationOptions({
+									Title = "Ad Published!",
+									Message = "Your ad has been published successfully!",
+									Button2Text = "Ok",
+									Button2Function = function()
+									end,
+								})
+							else
+								_G.PopUpNotificationOptions({
+									Title = "Something went wrong!",
+									Message = error,
+									Button2Text = "Ok",
+									Button2Function = function()
+									end,
+								})
+							end
+
+						elseif UserOwnsGamepass == false and UserUsedGamepass == true then
+							FirebaseServerDelete("AdsGamepassUsedStatus/"..tostring(GamepassId), LocalPlayer.Name)
+
+							_G.PopUpNotificationOptions({
+								Title = "Payment Status Approved",
+								Message = "You can now repurchase the gamepass",
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+						end
+					end
+				else
+					_G.PopUpNotificationOptions({
+						Title = "Something went wrong!",
+						Message = error,
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+				end
+			end)
+		end
+	end
+
+	CreateFreePackage("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI", "Banner", "- 24 hours duration\n- Reach level 3\n(1 out of 10 people will see your ad)")
+	CreatePackage(1804118261, "Banner", 259200, 3) -- 3 Days
+	CreatePackage(1811650255, "Banner", 604800, 5) -- 7 Days
+	CreatePackage(1811464262, "Banner", 1209600, 7) -- 14 Days
+	CreatePackage(1811566260, "Banner", 2592000, 10) -- 30 Days
+end)()

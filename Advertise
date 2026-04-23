@@ -136,10 +136,10 @@ local GUI = {
 	["UICorner_090"] = Instance.new("UICorner");
 	["UIListLayout_091"] = Instance.new("UIListLayout");
 	["TitleAndDescription_092"] = Instance.new("TextLabel");
-	["Plans_093"] = Instance.new("Frame");
+	["Package_093"] = Instance.new("Frame");
 	["TitleAndDescription_094"] = Instance.new("TextLabel");
 	["UIListLayout_095"] = Instance.new("UIListLayout");
-	["Plans_096"] = Instance.new("ScrollingFrame");
+	["Package_096"] = Instance.new("ScrollingFrame");
 	["PackageTemplate_097"] = Instance.new("Frame");
 	["UIListLayout_098"] = Instance.new("UIListLayout");
 	["UIStroke_099"] = Instance.new("UIStroke");
@@ -252,7 +252,8 @@ GUI["BottomFrame_07"].Size = UDim2.new(0.99999994, 0, 0.342500001, 100)
 GUI["BottomFrame_07"].Name = "BottomFrame"
 GUI["BottomFrame_07"].Parent = GUI["Insides_01"]
 
-GUI["RightFrame_08"].BackgroundColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
+GUI["RightFrame_08"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
+GUI["RightFrame_08"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["RightFrame_08"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["RightFrame_08"].BorderSizePixel = 0
 GUI["RightFrame_08"].LayoutOrder = 2
@@ -260,6 +261,8 @@ GUI["RightFrame_08"].Position = UDim2.new(0.33641538, 0, 0.0599999987, 0)
 GUI["RightFrame_08"].Size = UDim2.new(0, 115, 1, 0)
 GUI["RightFrame_08"].Name = "RightFrame"
 GUI["RightFrame_08"].Parent = GUI["BottomFrame_07"]
+GUI["RightFrame_08"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["RightFrame_08"]:SetAttribute("UIFrameTransparency", true)
 
 GUI["UIListLayout_09"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_09"].HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -1059,18 +1062,18 @@ GUI["TitleAndDescription_092"]:SetAttribute("UIBoldText", true)
 GUI["TitleAndDescription_092"]:SetAttribute("UITextColor", true)
 GUI["TitleAndDescription_092"]:SetAttribute("UITextSize", true)
 
-GUI["Plans_093"].AutomaticSize = Enum.AutomaticSize.Y
-GUI["Plans_093"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-GUI["Plans_093"].BackgroundTransparency = 1
-GUI["Plans_093"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-GUI["Plans_093"].BorderSizePixel = 0
-GUI["Plans_093"].Size = UDim2.new(1, 0, 0, 0)
-GUI["Plans_093"].Name = "Plans"
-GUI["Plans_093"].Parent = GUI["ScrollingFrame_048"]
+GUI["Package_093"].AutomaticSize = Enum.AutomaticSize.Y
+GUI["Package_093"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Package_093"].BackgroundTransparency = 1
+GUI["Package_093"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Package_093"].BorderSizePixel = 0
+GUI["Package_093"].Size = UDim2.new(1, 0, 0, 0)
+GUI["Package_093"].Name = "Package"
+GUI["Package_093"].Parent = GUI["ScrollingFrame_048"]
 
 GUI["TitleAndDescription_094"].FontFace = UIFont("Bold")
 GUI["TitleAndDescription_094"].RichText = true
-GUI["TitleAndDescription_094"].Text = "Plans"
+GUI["TitleAndDescription_094"].Text = "Package"
 GUI["TitleAndDescription_094"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["TitleAndDescription_094"].TextSize = 10+_G.Table.GUISettings.UITextSize
 GUI["TitleAndDescription_094"].TextWrapped = true
@@ -1082,7 +1085,7 @@ GUI["TitleAndDescription_094"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TitleAndDescription_094"].BorderSizePixel = 0
 GUI["TitleAndDescription_094"].Size = UDim2.new(0.930000007, 0, 0, 0)
 GUI["TitleAndDescription_094"].Name = "TitleAndDescription"
-GUI["TitleAndDescription_094"].Parent = GUI["Plans_093"]
+GUI["TitleAndDescription_094"].Parent = GUI["Package_093"]
 GUI["TitleAndDescription_094"]:SetAttribute("UIFont", "Medium")
 GUI["TitleAndDescription_094"]:SetAttribute("UIBoldText", true)
 GUI["TitleAndDescription_094"]:SetAttribute("UITextColor", true)
@@ -1091,20 +1094,20 @@ GUI["TitleAndDescription_094"]:SetAttribute("UITextSize", true)
 GUI["UIListLayout_095"].Padding = UDim.new(0, 3)
 GUI["UIListLayout_095"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_095"].SortOrder = Enum.SortOrder.LayoutOrder
-GUI["UIListLayout_095"].Parent = GUI["Plans_093"]
+GUI["UIListLayout_095"].Parent = GUI["Package_093"]
 
-GUI["Plans_096"].AutomaticCanvasSize = Enum.AutomaticSize.X
-GUI["Plans_096"].CanvasSize = UDim2.new(0, 0, 0, 0)
-GUI["Plans_096"].ScrollBarThickness = 2
-GUI["Plans_096"].ScrollingDirection = Enum.ScrollingDirection.X
-GUI["Plans_096"].Active = true
-GUI["Plans_096"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-GUI["Plans_096"].BackgroundTransparency = 1
-GUI["Plans_096"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-GUI["Plans_096"].BorderSizePixel = 0
-GUI["Plans_096"].Size = UDim2.new(1, 0, 0, 65)
-GUI["Plans_096"].Name = "Plans"
-GUI["Plans_096"].Parent = GUI["Plans_093"]
+GUI["Package_096"].AutomaticCanvasSize = Enum.AutomaticSize.X
+GUI["Package_096"].CanvasSize = UDim2.new(0, 0, 0, 0)
+GUI["Package_096"].ScrollBarThickness = 2
+GUI["Package_096"].ScrollingDirection = Enum.ScrollingDirection.X
+GUI["Package_096"].Active = true
+GUI["Package_096"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GUI["Package_096"].BackgroundTransparency = 1
+GUI["Package_096"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI["Package_096"].BorderSizePixel = 0
+GUI["Package_096"].Size = UDim2.new(1, 0, 0, 65)
+GUI["Package_096"].Name = "Package"
+GUI["Package_096"].Parent = GUI["Package_093"]
 
 GUI["PackageTemplate_097"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["PackageTemplate_097"].BackgroundTransparency = 1
@@ -1114,7 +1117,7 @@ GUI["PackageTemplate_097"].LayoutOrder = 1
 GUI["PackageTemplate_097"].Size = UDim2.new(0, 100, 0.899999976, 0)
 GUI["PackageTemplate_097"].Visible = false
 GUI["PackageTemplate_097"].Name = "PackageTemplate"
-GUI["PackageTemplate_097"].Parent = GUI["Plans_096"]
+GUI["PackageTemplate_097"].Parent = GUI["Package_096"]
 
 GUI["UIListLayout_098"].Padding = UDim.new(0, 3)
 GUI["UIListLayout_098"].HorizontalAlignment = Enum.HorizontalAlignment.Center
@@ -1248,13 +1251,13 @@ GUI["UIListLayout_0113"].Padding = UDim.new(0, 5)
 GUI["UIListLayout_0113"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_0113"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_0113"].VerticalAlignment = Enum.VerticalAlignment.Center
-GUI["UIListLayout_0113"].Parent = GUI["Plans_096"]
+GUI["UIListLayout_0113"].Parent = GUI["Package_096"]
 
 GUI["Border_0114"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Border_0114"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Border_0114"].BorderSizePixel = 0
 GUI["Border_0114"].Name = "Border"
-GUI["Border_0114"].Parent = GUI["Plans_096"]
+GUI["Border_0114"].Parent = GUI["Package_096"]
 
 GUI["UIStroke_0115"].Color = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["UIStroke_0115"].Transparency = 0.9
@@ -1384,18 +1387,6 @@ for AdId, AdInfo in FirebaseServer.Ads do
 	end
 end
 
-for i, v in GUI["Choices_060"]:GetChildren() do
-	if v:IsA("TextButton") then
-		v.MouseEnter:Connect(function()
-			TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 0.5}):Play()
-		end)
-
-		v.MouseLeave:Connect(function()
-			TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 0.9}):Play()
-		end)
-	end
-end
-
 function UpdateAdTypeOptionsColorsAndPreviews()
 	if NewAdType == "PopUp" then
 		GUI["PopUp_083"].Visible = true
@@ -1412,6 +1403,14 @@ function UpdateAdTypeOptionsColorsAndPreviews()
 		GUI["Banner_081"].Visible = false
 		TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
 		TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+	end
+	
+	for i, v in GUI.Package_096:GetChildren() do
+		if v:GetAttribute("AdType") == "PopUp" then
+			v.Visible = true
+		elseif v:GetAttribute("AdType") == "Banner" then
+			v.Visible = true
+		end
 	end
 end
 
@@ -1443,7 +1442,7 @@ local Template = GUI["PackageTemplate_097"]:Clone()
 
 Template.Name = "PackageFree"
 Template.LayoutOrder = 1
-Template.Parent = GUI["Plans_096"]
+Template.Parent = GUI["Package_096"]
 Template.Visible = true
 Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' FREE</b></font>\n- Reach Level 1\n- 24 hours duration\n(1 out of 10 people will see your ad)'
 Template.PublishButton.MouseButton1Down:Connect(function()
@@ -1455,7 +1454,7 @@ Template.TextBoxParent.TextBox.FocusLost:Connect(function()
 	local Key = Template.TextBoxParent.TextBox.Text
 end)
 
-function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
+function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 	local GamepassInfo = nil
 	local success, error = pcall(function()
 		GamepassInfo = game:GetService("MarketplaceService"):GetProductInfoAsync(GamepassId, Enum.InfoType.GamePass)
@@ -1464,10 +1463,11 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 	if success then
 		local Template = GUI["PackageTemplate_097"]:Clone()
 
-		Template.Name = "Package"..PackageType..''..GamepassInfo.PriceInRobux
+		Template.Name = "Package"..AdType..''..GamepassInfo.PriceInRobux
 		Template.LayoutOrder = 2
-		Template.Parent = GUI["Plans_096"]
+		Template.Parent = GUI["Package_096"]
 		Template.Visible = true
+		Template:SetAttribute("AdType", AdType)
 		Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' '..GamepassInfo.PriceInRobux..'</b></font>\n'..GamepassInfo.Description
 		Template.PublishButton.MouseButton1Down:Connect(function()
 			_G.PopUpNotificationOptions({
@@ -1579,7 +1579,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 						
 						_G.PopUpNotificationOptions({
 							Title = "Payment Status Approved",
-							Message = "You can now purchase the gamepass",
+							Message = "You can now repurchase the gamepass",
 							Button2Text = "Ok",
 							Button2Function = function()
 							end,

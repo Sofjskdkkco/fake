@@ -268,7 +268,7 @@ Table.CopyLink = function()
 end
 
 Table.VerifyKey = function(Key)
-	local success = verifyKey(key)
+	local success = verifyKey(Key)
 
 	if success then
 		return true

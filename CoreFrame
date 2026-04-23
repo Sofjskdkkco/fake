@@ -115,6 +115,7 @@ GUI["VexHubUI_0"].IgnoreGuiInset = true
 GUI["VexHubUI_0"].ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
 GUI["VexHubUI_0"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 GUI["VexHubUI_0"].Name = "VexHubUI"
+GUI["VexHubUI_0"].DisplayOrder = 2147483647
 GUI["VexHubUI_0"].Enabled = false
 GUI["VexHubUI_0"].Parent = game:GetService("CoreGui")
 GUI["VexHubUI_0"].ClipToDeviceSafeArea = false

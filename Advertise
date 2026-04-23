@@ -1549,7 +1549,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 						end
 					end
 
-					if UserOwnsGamepass == false and UserUsedGamepass ~= true then
+					if UserOwnsGamepass == false and UserUsedGamepass == false then
 						setclipboard("https://www.roblox.com/game-pass/"..GamepassId)
 
 						_G.PopUpNotificationOptions({
@@ -1565,19 +1565,25 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 
 						_G.PopUpNotificationOptions({
 							Title = "Payment Blocked",
-							Message = "Please delete the gamepass that you purchased before you publish a ad again\n\nA link to the ad's gamepass has been copied to your keyboard",
+							Message = "Please delete the gamepass that you purchased before you publish a ad again. After deleting, do not repurchase the gamepass until you click the publish button again to verify your purchase.\n\nA link to the ad's gamepass has been copied to your keyboard",
 							Button2Text = "Ok",
 							Button2Function = function()
 							end,
 						})
 
-					elseif UserOwnsGamepass == true and UserUsedGamepass ~= true then
+					elseif UserOwnsGamepass == true and UserUsedGamepass == false then
 						PublishAd()
 
 					elseif UserOwnsGamepass == false and UserUsedGamepass == true then
 						FirebaseServerDelete("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name)
-						wait()
-						PublishAd()
+						
+						_G.PopUpNotificationOptions({
+							Title = "Payment Status Approved",
+							Message = "You can now purchase the gamepass",
+							Button2Text = "Ok",
+							Button2Function = function()
+							end,
+						})
 					end
 				end
 			else

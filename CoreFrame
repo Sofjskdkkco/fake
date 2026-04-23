@@ -680,11 +680,11 @@ coroutine.wrap(function()
 			NewTabButton.TabImage:SetAttribute("UIImageColor", true)
 		end
 		
-		local OngoingAnimation = false
+		local OngoingTabAnimation = false
 
 		NewTabButton.MouseButton1Down:Connect(function()
 			if _G.Table.GUIStatus.ActiveTab ~= TabName and OngoingAnimation == false then
-				OngoingAnimation = true
+				OngoingTabAnimation = true
 				
 				TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
 				TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.3}):Play()
@@ -745,8 +745,8 @@ coroutine.wrap(function()
 					
 					NewTabButton:Destroy()
 				end
-				
-				OngoingAnimation = false
+				wait(0.6)
+				OngoingTabAnimation = false
 			end
 		end)
 	end

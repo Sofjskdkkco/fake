@@ -71,7 +71,7 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local TweenService = game:GetService("TweenService")
 local MainContents = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents
 local AdFrameFunction = GUI.Ad_0.MouseButton1Down:Connect(function()end)
-local Cooldown = 30
+local Cooldown = 60
 
 coroutine.wrap(function()
 	while wait(1) do
@@ -202,7 +202,7 @@ local function AdOperation()
 				AdFrameFunction:Disconnect()
 				ShowAd(FirebaseServer.Ads[AdToRun].Image)
 				MainContents.Interactable = false
-				Cooldown = 30
+				Cooldown = 60
 				wait(1)
 				AdFrameFunction = GUI.Ad_0.MouseButton1Down:Connect(function()
 					FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)

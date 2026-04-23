@@ -683,7 +683,7 @@ coroutine.wrap(function()
 		local OngoingTabAnimation = false
 
 		NewTabButton.MouseButton1Down:Connect(function()
-			if _G.Table.GUIStatus.ActiveTab ~= TabName and OngoingAnimation == false then
+			if _G.Table.GUIStatus.ActiveTab ~= TabName and OngoingTabAnimation == false then
 				OngoingTabAnimation = true
 				
 				TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()

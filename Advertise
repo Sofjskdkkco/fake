@@ -1485,12 +1485,6 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 				
 				UserUsedGamepass = false
 				
-				for i, v in FirebaseServer.AdsGamepassUsedStatus do
-					print("Gamepasses")
-					print(i)
-					print(type(i))
-				end
-				
 				for Username, _ in FirebaseServer.AdsGamepassUsedStatus[tostring(GamepassId)] do
 					if Username == LocalPlayer.Name then
 						UserUsedGamepass = true
@@ -1581,7 +1575,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 						PublishAd()
 
 					elseif UserOwnsGamepass == false and UserUsedGamepass == true then
-						FirebaseServerDelete("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name)
+						FirebaseServerDelete("AdsGamepassUsedStatus/"..tostring(GamepassId), LocalPlayer.Name)
 						
 						_G.PopUpNotificationOptions({
 							Title = "Payment Status Approved",

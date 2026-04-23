@@ -1480,8 +1480,6 @@ Template.Parent = GUI["Package_096"]
 Template:SetAttribute("AdType", "Banner")
 Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' FREE</b></font>\n- Reach Level 1\n- 24 hours duration\n(1 out of 10 people will see your ad)'
 Template.PublishButton.MouseButton1Down:Connect(function()
-	local BannerAdsKeySystem = loadstring(game:HttpGet(("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI"),true))()
-	
 	_G.PopUpNotificationOptions({
 		Title = "Checking Key System...",
 		Button2Text = "Ok",
@@ -1489,6 +1487,8 @@ Template.PublishButton.MouseButton1Down:Connect(function()
 		end,
 	})
 	
+	local BannerAdsKeySystem = loadstring(game:HttpGet(("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI"),true))()
+
 	if AllSpace(NewAdName) == true or AllSpace(NewAdType) == true or AllSpace(NewAdImage) == true or AllSpace(NewAdScript) == true then
 		_G.PopUpNotificationOptions({
 			Title = "Missing Information",
@@ -1499,7 +1499,7 @@ Template.PublishButton.MouseButton1Down:Connect(function()
 		})
 	else
 		local FileKey = nil
-		
+
 		if isfile("VexHub7/BannerAdsKey.vex") then
 			FileKey = readfile("VexHub7/BannerAdsKey.vex")
 		else
@@ -1511,15 +1511,33 @@ Template.PublishButton.MouseButton1Down:Connect(function()
 			Template.PublishButton.Visible = false
 			Template.TextBoxParent.Visible = true
 
-			BannerAdsKeySystem.CopyLink()
 			_G.PopUpNotificationOptions({
 				Title = "Key Required",
-				Message = "In order to publish a ad for free, you have to do a key system first!\n\nA link has been copied to your keyboard",
-				Button2Text = "Ok",
+				Message = "In order to publish a ad for free, you have to do a key system first!",
+				Button1Text = "Copy Link",
+				Button1Function = function()
+					_G.PopUpNotificationOptions({
+						Title = "Generating Link...",
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+					
+					BannerAdsKeySystem.CopyLink()
+					
+					_G.PopUpNotificationOptions({
+						Title = "Link Copied!",
+						Message = "Do the key system and paste the key in the textbox!",
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+				end,
+				Button2Text = "Close",
 				Button2Function = function()
 				end,
 			})
-			
+
 		elseif BannerAdsKeySystem.VerifyKey(FileKey) == true then
 			_G.PopUpNotificationOptions({
 				Title = "Oops!",
@@ -1535,7 +1553,37 @@ end)
 Template.TextBoxParent.TextBox.FocusLost:Connect(function()
 	local BannerAdsKeySystem = loadstring(game:HttpGet(("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI"),true))()
 	if BannerAdsKeySystem.VerifyKey(Template.TextBoxParent.TextBox.Text) == true then
-		PublishAd(os.time()+86400, 1)
+		local success, error = pcall(function()
+			PublishAd(os.time()+86400, 1)
+		end)
+		
+		if success then
+			writefile("VexHub7/BannerAdsKey.vex", Template.TextBoxParent.TextBox.Text)
+			
+			_G.PopUpNotificationOptions({
+				Title = "Ad Published!",
+				Message = "Your ad has been published successfully!",
+				Button2Text = "Ok",
+				Button2Function = function()
+				end,
+			})
+		else
+			_G.PopUpNotificationOptions({
+				Title = "Something went wrong!",
+				Message = error,
+				Button2Text = "Ok",
+				Button2Function = function()
+				end,
+			})
+		end
+	else
+		_G.PopUpNotificationOptions({
+			Title = "Key Invalid!",
+			Message = "Please do the key system to publish your ad",
+			Button2Text = "Ok",
+			Button2Function = function()
+			end,
+		})
 	end
 end)
 
@@ -1614,10 +1662,10 @@ function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 						local success, error = pcall(function()
 							PublishAd(os.time()+UNIXTimeExpiration, ReachLevel)
 						end)
-						
+
 						if success then
 							FirebaseServerWrite("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name, true)
-							
+
 							_G.PopUpNotificationOptions({
 								Title = "Ad Published!",
 								Message = "Your ad has been published successfully!",
@@ -1634,7 +1682,7 @@ function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 								end,
 							})
 						end
-						
+
 					elseif UserOwnsGamepass == false and UserUsedGamepass == true then
 						FirebaseServerDelete("AdsGamepassUsedStatus/"..tostring(GamepassId), LocalPlayer.Name)
 

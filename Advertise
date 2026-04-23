@@ -1482,6 +1482,8 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 
 			local success, error = pcall(function()
 				FirebaseServerUpdate()
+				
+				print(FirebaseServer.AdsGamepassUsedStatus[GamepassId][LocalPlayer.Name])
 
 				local GamepassUsed, _ = pcall(function()
 					if FirebaseServer.AdsGamepassUsedStatus[GamepassId][LocalPlayer.Name] == true then

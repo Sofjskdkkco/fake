@@ -1472,120 +1472,139 @@ local function PublishAd(Expiration, ReachLevel)
 	})
 end
 
-local Template = GUI["PackageTemplate_097"]:Clone()
+local function CreateFreePackage(KeySystemAPILink, AdType, Description)
+	local Template = GUI["PackageTemplate_097"]:Clone()
 
-Template.Name = "PackageFree"
-Template.LayoutOrder = 1
-Template.Parent = GUI["Package_096"]
-Template:SetAttribute("AdType", "Banner")
-Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' FREE</b></font>\n- Reach Level 1\n- 24 hours duration\n(1 out of 10 people will see your ad)'
-Template.PublishButton.MouseButton1Down:Connect(function()
-	_G.PopUpNotificationOptions({
-		Title = "Checking Key System...",
-		Button2Text = "Ok",
-		Button2Function = function()
-		end,
-	})
-	
-	local BannerAdsKeySystem = loadstring(game:HttpGet(("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI"),true))()
-
-	if AllSpace(NewAdName) == true or AllSpace(NewAdType) == true or AllSpace(NewAdImage) == true or AllSpace(NewAdScript) == true then
+	Template.Name = "PackageFree"..AdType
+	Template.LayoutOrder = 1
+	Template.Parent = GUI["Package_096"]
+	Template:SetAttribute("AdType", AdType)
+	Template.ScrollingFrame.Package.Text = '<font size="14"><b>'..utf8.char(0xE002)..' FREE</b></font>\n'..Description
+	Template.PublishButton.MouseButton1Down:Connect(function()
 		_G.PopUpNotificationOptions({
-			Title = "Missing Information",
-			Message = "Theres missing information in your ad",
+			Title = "Checking Key System...",
 			Button2Text = "Ok",
 			Button2Function = function()
 			end,
 		})
-	else
-		local FileKey = nil
 
-		if isfile("VexHub7/BannerAdsKey.vex") then
-			FileKey = readfile("VexHub7/BannerAdsKey.vex")
-		else
-			FileKey = ""
-			writefile("VexHub7/BannerAdsKey.vex", "")
-		end
-
-		if FileKey == "" or BannerAdsKeySystem.VerifyKey(FileKey) == false then
-			Template.PublishButton.Visible = false
-			Template.TextBoxParent.Visible = true
-
-			_G.PopUpNotificationOptions({
-				Title = "Key Required",
-				Message = "In order to publish a ad for free, you have to do a key system first!",
-				Button1Text = "Copy Link",
-				Button1Function = function()
-					_G.PopUpNotificationOptions({
-						Title = "Generating Link...",
-						Button2Text = "Ok",
-						Button2Function = function()
-						end,
-					})
-					
-					BannerAdsKeySystem.CopyLink()
-					
-					_G.PopUpNotificationOptions({
-						Title = "Link Copied!",
-						Message = "Do the key system and paste the key in the textbox!",
-						Button2Text = "Ok",
-						Button2Function = function()
-						end,
-					})
-				end,
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-
-		elseif BannerAdsKeySystem.VerifyKey(FileKey) == true then
-			_G.PopUpNotificationOptions({
-				Title = "Oops!",
-				Message = "You have already done the key system for this package! Wait until the key expires",
-				Button2Text = "Ok",
-				Button2Function = function()
-				end,
-			})
-		end
-	end
-end)
-
-Template.TextBoxParent.TextBox.FocusLost:Connect(function()
-	local BannerAdsKeySystem = loadstring(game:HttpGet(("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI"),true))()
-	if BannerAdsKeySystem.VerifyKey(Template.TextBoxParent.TextBox.Text) == true then
+		local AdsKeySystem = nil
+		
 		local success, error = pcall(function()
-			PublishAd(os.time()+86400, 1)
+			AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
 		end)
 		
 		if success then
-			writefile("VexHub7/BannerAdsKey.vex", Template.TextBoxParent.TextBox.Text)
-			
-			_G.PopUpNotificationOptions({
-				Title = "Ad Published!",
-				Message = "Your ad has been published successfully!",
-				Button2Text = "Ok",
-				Button2Function = function()
-				end,
-			})
+			if AllSpace(NewAdName) == true or AllSpace(NewAdType) == true or AllSpace(NewAdImage) == true or AllSpace(NewAdScript) == true then
+				_G.PopUpNotificationOptions({
+					Title = "Missing Information",
+					Message = "Theres missing information in your ad",
+					Button2Text = "Ok",
+					Button2Function = function()
+					end,
+				})
+			else
+				local FileKey = nil
+
+				if isfile("VexHub7/"..AdType.."AdsKey.vex") then
+					FileKey = readfile("VexHub7/"..AdType.."AdsKey.vex")
+				else
+					FileKey = ""
+					writefile("VexHub7/"..AdType.."AdsKey.vex", "")
+				end
+
+				if FileKey == "" or AdsKeySystem.VerifyKey(FileKey) == false then
+					Template.PublishButton.Visible = false
+					Template.TextBoxParent.Visible = true
+
+					_G.PopUpNotificationOptions({
+						Title = "Key Required",
+						Message = "In order to publish a ad for free, you have to do a key system first!",
+						Button1Text = "Copy Link",
+						Button1Function = function()
+							_G.PopUpNotificationOptions({
+								Title = "Generating Link...",
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+
+							AdsKeySystem.CopyLink()
+
+							_G.PopUpNotificationOptions({
+								Title = "Link Copied!",
+								Message = "Do the key system and paste the key in the textbox!",
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+						end,
+						Button2Text = "Close",
+						Button2Function = function()
+						end,
+					})
+
+				elseif AdsKeySystem.VerifyKey(FileKey) == true then
+					_G.PopUpNotificationOptions({
+						Title = "Oops!",
+						Message = "You have already done the key system for this package! Wait until the key expires",
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+				end
+			end
 		else
 			_G.PopUpNotificationOptions({
-				Title = "Something went wrong!",
+				Title = "Something Went Wrong!",
 				Message = error,
 				Button2Text = "Ok",
 				Button2Function = function()
 				end,
 			})
 		end
-	else
-		_G.PopUpNotificationOptions({
-			Title = "Key Invalid!",
-			Message = "Please do the key system to publish your ad",
-			Button2Text = "Ok",
-			Button2Function = function()
-			end,
-		})
-	end
-end)
+	end)
+
+	Template.TextBoxParent.TextBox.FocusLost:Connect(function()
+		local AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
+		if AdsKeySystem.VerifyKey(Template.TextBoxParent.TextBox.Text) == true then
+			local success, error = pcall(function()
+				PublishAd(os.time()+86400, 1)
+			end)
+
+			if success then
+				writefile("VexHub7/"..AdType.."AdsKey.vex", Template.TextBoxParent.TextBox.Text)
+				
+				Template.PublishButton.Visible = true
+				Template.TextBoxParent.Visible = false
+				
+				_G.PopUpNotificationOptions({
+					Title = "Ad Published!",
+					Message = "Your ad has been published successfully!",
+					Button2Text = "Ok",
+					Button2Function = function()
+					end,
+				})
+			else
+				_G.PopUpNotificationOptions({
+					Title = "Something went wrong!",
+					Message = error,
+					Button2Text = "Ok",
+					Button2Function = function()
+					end,
+				})
+			end
+		else
+			_G.PopUpNotificationOptions({
+				Title = "Key Invalid!",
+				Message = "Please do the key system to publish your ad",
+				Button2Text = "Ok",
+				Button2Function = function()
+				end,
+			})
+		end
+	end)
+end
 
 function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 	local GamepassInfo = nil
@@ -1708,4 +1727,5 @@ function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 	end
 end
 
+CreateFreePackage("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI", "Banner", "- 24 hours duration\n- Reach level 3\n(1 out of 10 people will see your ad)")
 CreatePackage(1804118261, "Banner", 259200, 3)

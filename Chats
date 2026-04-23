@@ -576,19 +576,18 @@ TextBox.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
 end)
 
 --- Firebase Functions ---
+local Secret = "oNNcXEGYApLmfkQGyTkUVuu162biz1TIVSGe4iej"
+local URL = "https://vexhub-livechat-server-default-rtdb.firebaseio.com/"
+
 local LiveChatServer = {}
 
 local function FirebaseServerWrite(Path, Key, Value)
-	local Secret = "oNNcXEGYApLmfkQGyTkUVuu162biz1TIVSGe4iej"
-	local URL = "https://vexhub-livechat-server-default-rtdb.firebaseio.com/"
-	local Folder = Path
-
-	local database = URL..Folder..".json?auth="..Secret
+	local database = URL..Path..".json?auth="..Secret
 	local request = request or syn.request
 	local Table = {}
 
 	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
 			if key then
 				Table[key] = value
 			end
@@ -601,20 +600,17 @@ local function FirebaseServerWrite(Path, Key, Value)
 		Url = database,
 		Method = "PUT",
 		Headers = {["Content-Type"] = "application/json"},
-		Body = game.HttpService:JSONEncode(Table)
+		Body = game:GetService("HttpService"):JSONEncode(Table)
 	})
 end
 
 local function FirebaseServerDelete(Path, Key)
-	local Secret = "oNNcXEGYApLmfkQGyTkUVuu162biz1TIVSGe4iej"
-	local URL = "https://vexhub-livechat-server-default-rtdb.firebaseio.com/"
-
 	local database = URL..Path..".json?auth="..Secret
 	local request = request or syn.request
 	local Table = {}
 
 	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
 			if key ~= Key then
 				Table[key] = value
 			end
@@ -630,10 +626,7 @@ local function FirebaseServerDelete(Path, Key)
 end
 
 local function FirebaseServerUpdate()
-	local Secret = "oNNcXEGYApLmfkQGyTkUVuu162biz1TIVSGe4iej"
-	local URL = "https://vexhub-livechat-server-default-rtdb.firebaseio.com/"
-	local database = URL..".json?auth="..Secret
-	LiveChatServer = game.HttpService:JSONDecode(game:HttpGetAsync(database))
+	LiveChatServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
 end
 
 FirebaseServerUpdate()

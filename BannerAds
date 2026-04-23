@@ -88,6 +88,7 @@ GUI.CloseButton_0.MouseButton1Down:Connect(function()
 	wait(0.4)
 	AdVisible = false
 	GUI.Ads_0.Visible = false
+	_G.Table.GUIStatus.AdVisible = false
 end)
 
 local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
@@ -188,6 +189,7 @@ coroutine.wrap(function()
 					wait(0.5)
 					AdVisible = true
 					GUI.Ads_0.Visible = true
+					_G.Table.GUIStatus.AdVisible = true
 					TweenService:Create(GUI.Ads_0, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play()
 					AdFrameFunction = GUI.Ads_0.MouseButton1Down:Connect(function()
 						FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)
@@ -196,6 +198,7 @@ coroutine.wrap(function()
 						wait(0.4)
 						AdVisible = false
 						GUI.Ads_0.Visible = false
+						_G.Table.GUIStatus.AdVisible = false
 					end)
 				end
 			else

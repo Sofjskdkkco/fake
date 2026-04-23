@@ -164,88 +164,90 @@ if (writefile) then
 	end
 end
 
-local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
-local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+coroutine.wrap(function()
+	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
+	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 
-local FirebaseServer = {}
+	local FirebaseServer = {}
 
-local function FirebaseServerWrite(Path, Key, Value)
-	local database = URL..Path..".json?auth="..Secret
-	local request = request or syn.request
-	local Table = {}
+	local function FirebaseServerWrite(Path, Key, Value)
+		local database = URL..Path..".json?auth="..Secret
+		local request = request or syn.request
+		local Table = {}
 
-	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-			if key then
-				Table[key] = value
-			end
-		end
-	end
-
-	Table[Key] = Value
-
-	local send = request({
-		Url = database,
-		Method = "PUT",
-		Headers = {["Content-Type"] = "application/json"},
-		Body = game:GetService("HttpService"):JSONEncode(Table)
-	})
-end
-
-local function FirebaseServerDelete(Path, Key)
-	local database = URL..Path..".json?auth="..Secret
-	local request = request or syn.request
-	local Table = {}
-
-	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-			if key ~= Key then
-				Table[key] = value
-			end
-		end
-	end
-
-	local send = request({
-		Url = database,
-		Method = "PUT",
-		Headers = {["Content-Type"] = "application/json"},
-		Body = game.HttpService:JSONEncode(Table)
-	})
-end
-
-local function FirebaseServerUpdate()
-	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
-end
-
-for _, Scripts in _G.Table.Scripts do
-	for ScriptName, ScriptInfo in Scripts do
-		if ScriptName ~= "Info" then
-			local Success, Error = pcall(function()
-				FirebaseServerUpdate()
-			end)
-			
-			if Success then
-				local ScriptIdString = tostring(ScriptInfo.ScriptId)
-				if not FirebaseServer.ScriptsInfo[ScriptIdString] then
-					local Success, Error = pcall(function()
-						FirebaseServerWrite("ScriptsInfo", ScriptIdString, {
-							NumberOfExecutions = 0,
-							["LikedBy"] = {
-								["System"] = true 
-							},
-							["DislikedBy"] = {
-								["System"] = true 
-							},
-						})
-					end)
-
-					if not Success then
-						print("Cannot create a info for "..ScriptName.." ("..ScriptInfo.ScriptId..") : "..Error)
-					end
+		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+				if key then
+					Table[key] = value
 				end
-			else
-				print("Something went wrong while trying to read server database: "..Error)
+			end
+		end
+
+		Table[Key] = Value
+
+		local send = request({
+			Url = database,
+			Method = "PUT",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = game:GetService("HttpService"):JSONEncode(Table)
+		})
+	end
+
+	local function FirebaseServerDelete(Path, Key)
+		local database = URL..Path..".json?auth="..Secret
+		local request = request or syn.request
+		local Table = {}
+
+		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+				if key ~= Key then
+					Table[key] = value
+				end
+			end
+		end
+
+		local send = request({
+			Url = database,
+			Method = "PUT",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = game.HttpService:JSONEncode(Table)
+		})
+	end
+
+	local function FirebaseServerUpdate()
+		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+	end
+
+	for _, Scripts in _G.Table.Scripts do
+		for ScriptName, ScriptInfo in Scripts do
+			if ScriptName ~= "Info" then
+				local Success, Error = pcall(function()
+					FirebaseServerUpdate()
+				end)
+
+				if Success then
+					local ScriptIdString = tostring(ScriptInfo.ScriptId)
+					if not FirebaseServer.ScriptsInfo[ScriptIdString] then
+						local Success, Error = pcall(function()
+							FirebaseServerWrite("ScriptsInfo", ScriptIdString, {
+								NumberOfExecutions = 0,
+								["LikedBy"] = {
+									["System"] = true 
+								},
+								["DislikedBy"] = {
+									["System"] = true 
+								},
+							})
+						end)
+
+						if not Success then
+							print("Cannot create a info for "..ScriptName.." ("..ScriptInfo.ScriptId..") : "..Error)
+						end
+					end
+				else
+					print("Something went wrong while trying to read server database: "..Error)
+				end
 			end
 		end
 	end
-end
+end)()

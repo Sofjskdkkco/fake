@@ -383,7 +383,8 @@ GUI["NoAds_020"]:SetAttribute("UITextColor", true)
 GUI["NoAds_020"]:SetAttribute("UITextSize", true)
 
 GUI["Template_021"].AutomaticSize = Enum.AutomaticSize.Y
-GUI["Template_021"].BackgroundColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
+GUI["Template_021"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
+GUI["Template_021"].BackgroundTransparency = _G.Table.GUISettings.UIFrameTransparency
 GUI["Template_021"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Template_021"].BorderSizePixel = 0
 GUI["Template_021"].LayoutOrder = 1
@@ -392,6 +393,8 @@ GUI["Template_021"].Size = UDim2.new(0.899999976, 0, 0.43768546, 18)
 GUI["Template_021"].Visible = false
 GUI["Template_021"].Name = "Template"
 GUI["Template_021"].Parent = GUI["ScrollingFrame_017"]
+GUI["Template_021"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
+GUI["Template_021"]:SetAttribute("UIFrameTransparency", true)
 
 GUI["UICorner_022"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_022"].Parent = GUI["Template_021"]
@@ -1410,6 +1413,8 @@ function UpdateAdTypeOptionsColorsAndPreviews()
 			v.Visible = true
 		elseif v:GetAttribute("AdType") == "Banner" then
 			v.Visible = true
+		else
+			v.Visible = false
 		end
 	end
 end
@@ -1565,7 +1570,7 @@ function CreatePackage(GamepassId, AdType, UNIXTimeExpiration, ReachLevel)
 
 						_G.PopUpNotificationOptions({
 							Title = "Payment Blocked",
-							Message = "Please delete the gamepass that you purchased before you publish a ad again. After deleting, do not repurchase the gamepass until you click the publish button again to verify your purchase.\n\nA link to the ad's gamepass has been copied to your keyboard",
+							Message = "Please delete the gamepass that you purchased before you publish a ad again. After deleting, do not repurchase the gamepass until you click the publish button again to verify that youve deleted the gamepass.\n\nA link to the ad's gamepass has been copied to your keyboard",
 							Button2Text = "Ok",
 							Button2Function = function()
 							end,

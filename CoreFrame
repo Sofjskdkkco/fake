@@ -679,9 +679,13 @@ coroutine.wrap(function()
 			NewTabButton.TabImage.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 			NewTabButton.TabImage:SetAttribute("UIImageColor", true)
 		end
+		
+		local OngoingAnimation = false
 
 		NewTabButton.MouseButton1Down:Connect(function()
-			if _G.Table.GUIStatus.ActiveTab ~= TabName then
+			if _G.Table.GUIStatus.ActiveTab ~= TabName and OngoingAnimation == false then
+				OngoingAnimation = true
+				
 				TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
 				TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.3}):Play()
 				TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 0.97}):Play()
@@ -716,13 +720,33 @@ coroutine.wrap(function()
 
 					_G.CreateTab("Favorites", FavoritesTable, 2)
 				end
+				
+				if GUI.Pages_0:FindFirstChild(TabName) then
+					GUI.Pages_0[TabName].Visible = true
+					_G.Table.GUIStatus.ActiveTab = TabName
 
-				GUI.Pages_0[TabName].Visible = true
-				_G.Table.GUIStatus.ActiveTab = TabName
+					TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+					TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+					TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
+				else
+					GUI.Pages_0.Home.Visible = true
+					_G.Table.GUIStatus.ActiveTab = "Home"
 
-				TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-				TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-				TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
+					TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+					TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+					TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
+					
+					_G.PopUpNotificationOptions({
+						Title = "Page does not exist",
+						Button2Text = "Close",
+						Button2Function = function()
+						end,
+					})
+					
+					NewTabButton:Destroy()
+				end
+				
+				OngoingAnimation = false
 			end
 		end)
 	end

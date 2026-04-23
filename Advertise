@@ -1285,12 +1285,11 @@ GUI["UIListLayout_0119"].Parent = GUI["Advertise_00"]
 
 local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
 local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
-local database = URL..".json?auth="..Secret
 
 local FirebaseServer = {}
 
 local function FirebaseServerWrite(Path, Key, Value)
-	local Folder = Path
+	local database = URL..Path..".json?auth="..Secret
 	local request = request or syn.request
 	local Table = {}
 
@@ -1313,6 +1312,7 @@ local function FirebaseServerWrite(Path, Key, Value)
 end
 
 local function FirebaseServerDelete(Path, Key)
+	local database = URL..Path..".json?auth="..Secret
 	local request = request or syn.request
 	local Table = {}
 
@@ -1400,18 +1400,18 @@ function UpdateAdTypeOptionsColorsAndPreviews()
 	if NewAdType == "PopUp" then
 		GUI["PopUp_083"].Visible = true
 		GUI["Banner_081"].Visible = false
-		TweenService:Create(GUI.PopUp_062.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
-		TweenService:Create(GUI.Banner_065.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
+		TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+		TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
 	elseif NewAdType == "Banner" then
 		GUI["PopUp_083"].Visible = false
 		GUI["Banner_081"].Visible = true
-		TweenService:Create(GUI.PopUp_062.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
-		TweenService:Create(GUI.Banner_065.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+		TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.9}):Play()
+		TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
 	else
 		GUI["PopUp_083"].Visible = false
 		GUI["Banner_081"].Visible = false
-		TweenService:Create(GUI.PopUp_062.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
-		TweenService:Create(GUI.Banner_065.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+		TweenService:Create(GUI.UIStroke_064, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
+		TweenService:Create(GUI.UIStroke_067, TweenInfo.new(0.4, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
 	end
 end
 
@@ -1527,7 +1527,7 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 							})
 							wait()
 
-							FirebaseServerWrite("AdsGamepassUsedStatus/meow", LocalPlayer.Name, true)
+							FirebaseServerWrite("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name, true)
 
 						end)
 
@@ -1575,12 +1575,9 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 						})
 
 					elseif UserOwnsGamepass == true and UserUsedGamepass == false then
-						print("scenario 3")
 						PublishAd()
 
 					elseif UserOwnsGamepass == false and UserUsedGamepass == true then
-						print("scenario 4")
-
 						FirebaseServerDelete("AdsGamepassUsedStatus/"..GamepassId, LocalPlayer.Name)
 						wait()
 						PublishAd()

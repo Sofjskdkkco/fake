@@ -29,6 +29,9 @@ function JSon:Decode(Table)
 	return game:GetService("HttpService"):JSONDecode(Table)
 end
 
+local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
+local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+
 local FirebaseServer = {}
 
 local function FirebaseServerWrite(Path, Key, Value)
@@ -519,7 +522,7 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 	NewTab.Visible = false
 	NewTab.TabInfo.TabNameAndTotalScripts.TabName.Text = PluginName
 	NewTab.TabInfo.TabImage.Image = PluginImage
-	
+
 	local TextBox = NewTab.TabInfo.SearchBar.TextBox
 	local MagnifyingGlass = NewTab.TabInfo.SearchBar.MagnifyingGlass
 	local SearchBar = NewTab.TabInfo.SearchBar

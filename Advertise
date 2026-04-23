@@ -1485,7 +1485,13 @@ function CreatePackage(GamepassId, PackageType, UNIXTimeExpiration, ReachLevel)
 				
 				UserUsedGamepass = false
 				
-				for Username, _ in FirebaseServer.AdsGamepassUsedStatus[GamepassId] do
+				for i, v in FirebaseServer.AdsGamepassUsedStatus do
+					print("Gamepasses")
+					print(i)
+					print(type(i))
+				end
+				
+				for Username, _ in FirebaseServer.AdsGamepassUsedStatus[tostring(GamepassId)] do
 					if Username == LocalPlayer.Name then
 						UserUsedGamepass = true
 					end

@@ -148,7 +148,7 @@ end
 FirebaseServerUpdate()
 
 coroutine.wrap(function()
-	while wait(30) do
+	while wait(60) do
 		if AdVisible == false then
 			local AdToRun = nil
 			local Ads = {}

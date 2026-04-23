@@ -1456,7 +1456,7 @@ end)
 local function PublishAd(Expiration, ReachLevel)
 	FirebaseServerWrite("Ads", game:GetService("HttpService"):GenerateGUID(false), {
 		Clicks = {
-			[1] = true
+			["1"] = true
 		},
 		Expiration = Expiration,
 		Image = NewAdImage,
@@ -1464,7 +1464,7 @@ local function PublishAd(Expiration, ReachLevel)
 		Name = NewAdName,
 		Publisher = LocalPlayer.UserId,
 		Reach = {
-			[1] = true
+			["1"] = true
 		},
 		ReachLevel = ReachLevel,
 		Script = NewAdScript,
@@ -1489,11 +1489,11 @@ local function CreateFreePackage(KeySystemAPILink, AdType, Description)
 		})
 
 		local AdsKeySystem = nil
-		
+
 		local success, error = pcall(function()
 			AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
 		end)
-		
+
 		if success then
 			if AllSpace(NewAdName) == true or AllSpace(NewAdType) == true or AllSpace(NewAdImage) == true or AllSpace(NewAdScript) == true then
 				_G.PopUpNotificationOptions({
@@ -1566,6 +1566,13 @@ local function CreateFreePackage(KeySystemAPILink, AdType, Description)
 	end)
 
 	Template.TextBoxParent.TextBox.FocusLost:Connect(function()
+		_G.PopUpNotificationOptions({
+			Title = "Checking Key...",
+			Button2Text = "Ok",
+			Button2Function = function()
+			end,
+		})
+		
 		local AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
 		if AdsKeySystem.VerifyKey(Template.TextBoxParent.TextBox.Text) == true then
 			local success, error = pcall(function()
@@ -1574,10 +1581,10 @@ local function CreateFreePackage(KeySystemAPILink, AdType, Description)
 
 			if success then
 				writefile("VexHub7/"..AdType.."AdsKey.vex", Template.TextBoxParent.TextBox.Text)
-				
+
 				Template.PublishButton.Visible = true
 				Template.TextBoxParent.Visible = false
-				
+
 				_G.PopUpNotificationOptions({
 					Title = "Ad Published!",
 					Message = "Your ad has been published successfully!",

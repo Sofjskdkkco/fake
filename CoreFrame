@@ -659,6 +659,7 @@ coroutine.wrap(function()
 	loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAds'),true))()
 	loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpAds'),true))()
 
+	local OngoingTabAnimation = false
 	_G.CreateTabButton = function(TabName, TabImage, LayoutOrder)
 		local NameHidePlugin = string.split(TabName, "PLUGIN_")[2]
 
@@ -679,8 +680,6 @@ coroutine.wrap(function()
 			NewTabButton.TabImage.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 			NewTabButton.TabImage:SetAttribute("UIImageColor", true)
 		end
-		
-		local OngoingTabAnimation = false
 
 		NewTabButton.MouseButton1Down:Connect(function()
 			if _G.Table.GUIStatus.ActiveTab ~= TabName and OngoingTabAnimation == false then

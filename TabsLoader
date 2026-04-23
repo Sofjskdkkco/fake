@@ -58,6 +58,7 @@ local function FirebaseServerWrite(Path, Key, Value)
 end
 
 local function FirebaseServerDelete(Path, Key)
+	print("deleted")
 	local database = URL..Path..".json?auth="..Secret
 	local request = request or syn.request
 	local Table = {}

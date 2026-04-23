@@ -102,7 +102,7 @@ end)
 local function ShowAd(AdImageId)
 	GUI.Ad_0.Image = "rbxassetid://"..AdImageId
 	game:GetService("ContentProvider"):PreloadAsync({GUI.Ad_0.Image})
-	
+
 	GUI.Ad_0.Visible = true
 	TweenService:Create(GUI.PopUpAd_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0.7}):Play()
 	TweenService:Create(GUI.Ad_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
@@ -197,6 +197,7 @@ local function AdOperation()
 
 			if AdToRun ~= nil then
 				local AdInfo = Ads[AdToRun]
+				FirebaseServerUpdate()
 				FirebaseServerWrite("Ads/"..AdToRun.."/Reach", LocalPlayer.UserId, true)
 				FirebaseServerWrite("Ads/"..AdToRun, "Impressions", FirebaseServer.Ads[AdToRun].Impressions+1)
 				AdFrameFunction:Disconnect()

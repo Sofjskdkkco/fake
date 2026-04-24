@@ -838,8 +838,12 @@ local FirebaseServer = {}
 local function FirebaseServerUpdate()
 	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
 	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
-	local database = URL..".json?auth="..Secret
-	FirebaseServer = game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))
+
+	local success, error = pcall(function()
+		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+	end)()
+
+	if not success then print("Something went wrong while reading in the server: "..error) end
 end
 
 FirebaseServerUpdate()
@@ -856,14 +860,14 @@ local function TextTransitionExecuted(startValue, endValue, duration)
 	end)()
 end
 
-TextTransitionExecuted(FirebaseServer.Executed, FirebaseServer.Executed+6, 60)
-
 coroutine.wrap(function()
 	while wait(60) do
-		local startValue = FirebaseServer.Executed
-		FirebaseServerUpdate()
-		local endValue = FirebaseServer.Executed
-		TextTransitionExecuted(startValue, endValue, 60)
+		if FirebaseServer.Executed ~= nil then
+			local startValue = FirebaseServer.Executed
+			FirebaseServerUpdate()
+			local endValue = FirebaseServer.Executed
+			TextTransitionExecuted(startValue, endValue, 60)
+		end
 	end
 end)()
 

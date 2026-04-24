@@ -217,4 +217,6 @@ end
 FirebaseServerUpdate()
 if FirebaseServer.Executed ~= nil then
 	FirebaseServerWrite("/", "Executed", FirebaseServer.Executed+1)
+else
+	print("Aborted execution recording operation: FirebaseServer.Executed does not exist")
 end

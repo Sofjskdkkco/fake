@@ -115,51 +115,63 @@ local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 local FirebaseServer = {}
 
 local function FirebaseServerWrite(Path, Key, Value)
-	local database = URL..Path..".json?auth="..Secret
-	local request = request or syn.request
-	local Table = {}
+	local success, error = pcall(function()
+		local database = URL..Path..".json?auth="..Secret
+		local request = request or syn.request
+		local Table = {}
 
-	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-			if key then
-				Table[key] = value
+		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+				if key then
+					Table[key] = value
+				end
 			end
 		end
-	end
 
-	Table[Key] = Value
+		Table[Key] = Value
 
-	local send = request({
-		Url = database,
-		Method = "PUT",
-		Headers = {["Content-Type"] = "application/json"},
-		Body = game:GetService("HttpService"):JSONEncode(Table)
-	})
+		local send = request({
+			Url = database,
+			Method = "PUT",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = game:GetService("HttpService"):JSONEncode(Table)
+		})
+	end)()
+
+	if not success then print("Something went wrong while writing in the server: "..error) end
 end
 
 local function FirebaseServerDelete(Path, Key)
-	local database = URL..Path..".json?auth="..Secret
-	local request = request or syn.request
-	local Table = {}
+	local success, error = pcall(function()
+		local database = URL..Path..".json?auth="..Secret
+		local request = request or syn.request
+		local Table = {}
 
-	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-			if key ~= Key then
-				Table[key] = value
+		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+				if key ~= Key then
+					Table[key] = value
+				end
 			end
 		end
-	end
 
-	local send = request({
-		Url = database,
-		Method = "PUT",
-		Headers = {["Content-Type"] = "application/json"},
-		Body = game.HttpService:JSONEncode(Table)
-	})
+		local send = request({
+			Url = database,
+			Method = "PUT",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = game.HttpService:JSONEncode(Table)
+		})
+	end)()
+
+	if not success then print("Something went wrong while deleting in the server: "..error) end
 end
 
 local function FirebaseServerUpdate()
-	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+	local success, error = pcall(function()
+		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+	end)()
+
+	if not success then print("Something went wrong while reading in the server: "..error) end
 end
 
 local function AdOperation()
@@ -169,23 +181,28 @@ local function AdOperation()
 		local Ads = {}
 
 		local success, result = pcall(function()
-			for AdId, AdInfo in FirebaseServer.Ads do			
-				if AdInfo.Expiration > os.time() then
-					if AdInfo.Type == "PopUp" then
-						for i = 1, AdInfo.ReachLevel do
-							table.insert(Ads, AdId)
+			if FirebaseServer.Ads ~= nil then
+				for AdId, AdInfo in FirebaseServer.Ads do			
+					if AdInfo.Expiration > os.time() then
+						if AdInfo.Type == "PopUp" then
+							for i = 1, AdInfo.ReachLevel do
+								table.insert(Ads, AdId)
+							end
+						end
+					else
+						local success, result = pcall(function()
+							FirebaseServerDelete("Ads", AdId)
+						end)
+
+						if not success then
+							print("Failed to delete a pop-up ad: "..result)
 						end
 					end
-				else
-					local success, result = pcall(function()
-						FirebaseServerDelete("Ads", AdId)
-					end)
-
-					if not success then
-						print("Failed to delete a pop-up ad: "..result)
-					end
+					wait()
 				end
-				wait()
+			else
+				print("Aborted popup ad operation: FirebaseServer.Ads does not exist")
+				return false
 			end
 		end)
 

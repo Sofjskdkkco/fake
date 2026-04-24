@@ -841,7 +841,7 @@ local function FirebaseServerUpdate()
 
 	local success, error = pcall(function()
 		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
-	end)()
+	end)
 
 	if not success then print("Something went wrong while reading in the server: "..error) end
 end

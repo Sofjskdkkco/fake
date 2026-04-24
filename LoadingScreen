@@ -180,31 +180,41 @@ local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 local FirebaseServer = {}
 
 local function FirebaseServerWrite(Path, Key, Value)
-	local database = URL..Path..".json?auth="..Secret
-	local request = request or syn.request
-	local Table = {}
+	local success, error = pcall(function()
+		local database = URL..Path..".json?auth="..Secret
+		local request = request or syn.request
+		local Table = {}
 
-	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-			if key then
-				Table[key] = value
+		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+				if key then
+					Table[key] = value
+				end
 			end
 		end
-	end
 
-	Table[Key] = Value
+		Table[Key] = Value
 
-	local send = request({
-		Url = database,
-		Method = "PUT",
-		Headers = {["Content-Type"] = "application/json"},
-		Body = game:GetService("HttpService"):JSONEncode(Table)
-	})
+		local send = request({
+			Url = database,
+			Method = "PUT",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = game:GetService("HttpService"):JSONEncode(Table)
+		})
+	end)()
+
+	if not success then print("Something went wrong while writing in the server: "..error) end
 end
 
 local function FirebaseServerUpdate()
-	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+	local success, error = pcall(function()
+		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+	end)()
+
+	if not success then print("Something went wrong while reading in the server: "..error) end
 end
 
 FirebaseServerUpdate()
-FirebaseServerWrite("/", "Executed", FirebaseServer.Executed+1)
+if FirebaseServer.Executed ~= nil then
+	FirebaseServerWrite("/", "Executed", FirebaseServer.Executed+1)
+end

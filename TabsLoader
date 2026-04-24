@@ -35,52 +35,63 @@ local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 local FirebaseServer = {}
 
 local function FirebaseServerWrite(Path, Key, Value)
-	local database = URL..Path..".json?auth="..Secret
-	local request = request or syn.request
-	local Table = {}
+	local success, error = pcall(function()
+		local database = URL..Path..".json?auth="..Secret
+		local request = request or syn.request
+		local Table = {}
 
-	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-			if key then
-				Table[key] = value
+		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+				if key then
+					Table[key] = value
+				end
 			end
 		end
-	end
 
-	Table[Key] = Value
+		Table[Key] = Value
 
-	local send = request({
-		Url = database,
-		Method = "PUT",
-		Headers = {["Content-Type"] = "application/json"},
-		Body = game:GetService("HttpService"):JSONEncode(Table)
-	})
+		local send = request({
+			Url = database,
+			Method = "PUT",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = game:GetService("HttpService"):JSONEncode(Table)
+		})
+	end)()
+
+	if not success then print("Something went wrong while writing in the server: "..error) end
 end
 
 local function FirebaseServerDelete(Path, Key)
-	print("deleted")
-	local database = URL..Path..".json?auth="..Secret
-	local request = request or syn.request
-	local Table = {}
+	local success, error = pcall(function()
+		local database = URL..Path..".json?auth="..Secret
+		local request = request or syn.request
+		local Table = {}
 
-	if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-		for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-			if key ~= Key then
-				Table[key] = value
+		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+				if key ~= Key then
+					Table[key] = value
+				end
 			end
 		end
-	end
 
-	local send = request({
-		Url = database,
-		Method = "PUT",
-		Headers = {["Content-Type"] = "application/json"},
-		Body = game.HttpService:JSONEncode(Table)
-	})
+		local send = request({
+			Url = database,
+			Method = "PUT",
+			Headers = {["Content-Type"] = "application/json"},
+			Body = game.HttpService:JSONEncode(Table)
+		})
+	end)()
+
+	if not success then print("Something went wrong while deleting in the server: "..error) end
 end
 
 local function FirebaseServerUpdate()
-	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+	local success, error = pcall(function()
+		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+	end)()
+
+	if not success then print("Something went wrong while reading in the server: "..error) end
 end
 
 FirebaseServerUpdate()
@@ -187,6 +198,17 @@ _G.CreateTab = function(TabName, Scripts)
 			end
 
 			local ScriptIdString = tostring(ScriptInfo.ScriptId)
+			
+			if not FirebaseServer.ScriptsInfo then
+				FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy = {
+					["1"] = true
+				}
+				FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy = {
+					["1"] = true
+				}
+				FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions = 0
+			end
+			
 			for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy do
 				TotalLikes += 1
 			end
@@ -351,7 +373,7 @@ _G.CreateTab = function(TabName, Scripts)
 						})
 					end
 
-					if RatelimitExecuted < os.time() then
+					if FirebaseServer.ScriptsInfo ~= nil and RatelimitExecuted < os.time() then
 						RatelimitExecuted = os.time() + 15
 						FirebaseServerWrite("ScriptsInfo/"..ScriptIdString, "NumberOfExecutions", FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions+1)
 						FirebaseServerUpdate()
@@ -428,56 +450,58 @@ _G.CreateTab = function(TabName, Scripts)
 						})
 					end
 				end)
-
-				LikeButtonFunction = LikeButton.MouseButton1Down:Connect(function()
-					if RatelimitRating < os.time() then
-						RatelimitRating = os.time() + 15
-						if FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy[UserIdString] then
-							FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString)
-						else
-							FirebaseServerWrite("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString, true)
-
-							if FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
-								FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString)
-							end
-						end
-
-						FirebaseServerUpdate()
-						wait()
-						UpdateRating()
-						UpdateRatingButtonsColors()
-					else
-						_G.PopUpNotificationOptions({
-							Title = "Slow down",
-							Button2Text = "Ok",
-						})
-					end
-				end)
-
-				DislikeButtonFunction = DislikeButton.MouseButton1Down:Connect(function()
-					if RatelimitRating < os.time() then
-						RatelimitRating = os.time() + 15
-						if FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
-							FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString)
-						else
-							FirebaseServerWrite("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString, true)
-
+				
+				if FirebaseServer.ScriptsInfo ~= nil then
+					LikeButtonFunction = LikeButton.MouseButton1Down:Connect(function()
+						if RatelimitRating < os.time() then
+							RatelimitRating = os.time() + 15
 							if FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy[UserIdString] then
 								FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString)
-							end
-						end
+							else
+								FirebaseServerWrite("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString, true)
 
-						FirebaseServerUpdate()
-						wait()
-						UpdateRating()
-						UpdateRatingButtonsColors()
-					else
-						_G.PopUpNotificationOptions({
-							Title = "Slow down",
-							Button2Text = "Ok",
-						})
-					end
-				end)
+								if FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
+									FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString)
+								end
+							end
+
+							FirebaseServerUpdate()
+							wait()
+							UpdateRating()
+							UpdateRatingButtonsColors()
+						else
+							_G.PopUpNotificationOptions({
+								Title = "Slow down",
+								Button2Text = "Ok",
+							})
+						end
+					end)
+
+					DislikeButtonFunction = DislikeButton.MouseButton1Down:Connect(function()
+						if RatelimitRating < os.time() then
+							RatelimitRating = os.time() + 15
+							if FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
+								FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString)
+							else
+								FirebaseServerWrite("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString, true)
+
+								if FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy[UserIdString] then
+									FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString)
+								end
+							end
+
+							FirebaseServerUpdate()
+							wait()
+							UpdateRating()
+							UpdateRatingButtonsColors()
+						else
+							_G.PopUpNotificationOptions({
+								Title = "Slow down",
+								Button2Text = "Ok",
+							})
+						end
+					end)
+				end
 
 				ScriptInfoFrame.Visible = true
 				TweenService:Create(ScriptInfoFrame.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()

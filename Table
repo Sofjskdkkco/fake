@@ -253,8 +253,6 @@ coroutine.wrap(function()
 							print("Cannot create a info for "..ScriptName.." ("..ScriptInfo.ScriptId..") : "..Error)
 						end
 					end
-				else
-					print("Something went wrong while trying to read server database: "..Error)
 				end
 			end
 		end

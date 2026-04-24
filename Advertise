@@ -1297,51 +1297,63 @@ coroutine.wrap(function()
 	local FirebaseServer = {}
 
 	local function FirebaseServerWrite(Path, Key, Value)
-		local database = URL..Path..".json?auth="..Secret
-		local request = request or syn.request
-		local Table = {}
+		local success, error = pcall(function()
+			local database = URL..Path..".json?auth="..Secret
+			local request = request or syn.request
+			local Table = {}
 
-		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-				if key then
-					Table[key] = value
+			if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+				for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+					if key then
+						Table[key] = value
+					end
 				end
 			end
-		end
 
-		Table[Key] = Value
+			Table[Key] = Value
 
-		local send = request({
-			Url = database,
-			Method = "PUT",
-			Headers = {["Content-Type"] = "application/json"},
-			Body = game:GetService("HttpService"):JSONEncode(Table)
-		})
+			local send = request({
+				Url = database,
+				Method = "PUT",
+				Headers = {["Content-Type"] = "application/json"},
+				Body = game:GetService("HttpService"):JSONEncode(Table)
+			})
+		end)()
+
+		if not success then print("Something went wrong while writing in the server: "..error) end
 	end
 
 	local function FirebaseServerDelete(Path, Key)
-		local database = URL..Path..".json?auth="..Secret
-		local request = request or syn.request
-		local Table = {}
+		local success, error = pcall(function()
+			local database = URL..Path..".json?auth="..Secret
+			local request = request or syn.request
+			local Table = {}
 
-		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-				if key ~= Key then
-					Table[key] = value
+			if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+				for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+					if key ~= Key then
+						Table[key] = value
+					end
 				end
 			end
-		end
 
-		local send = request({
-			Url = database,
-			Method = "PUT",
-			Headers = {["Content-Type"] = "application/json"},
-			Body = game.HttpService:JSONEncode(Table)
-		})
+			local send = request({
+				Url = database,
+				Method = "PUT",
+				Headers = {["Content-Type"] = "application/json"},
+				Body = game.HttpService:JSONEncode(Table)
+			})
+		end)()
+
+		if not success then print("Something went wrong while deleting in the server: "..error) end
 	end
 
 	local function FirebaseServerUpdate()
-		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+		local success, error = pcall(function()
+			FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+		end)()
+
+		if not success then print("Something went wrong while reading in the server: "..error) end
 	end
 
 	FirebaseServerUpdate()
@@ -1374,25 +1386,29 @@ coroutine.wrap(function()
 	local NewAdType = ""
 	local NewAdImage = ""
 	local NewAdScript = ""
+	
+	if FirebaseServer.Ads ~= nil then
+		for AdId, AdInfo in FirebaseServer.Ads do
+			if AdInfo.Publisher == LocalPlayer.UserId then
+				local AdReach = 0
+				local AdClicks = 0
 
-	for AdId, AdInfo in FirebaseServer.Ads do
-		if AdInfo.Publisher == LocalPlayer.UserId then
-			local AdReach = 0
-			local AdClicks = 0
+				for i in AdInfo.Reach do
+					AdReach += 1
+				end
 
-			for i in AdInfo.Reach do
-				AdReach += 1
+				for i in AdInfo.Clicks do
+					AdClicks += 1
+				end
+
+				CreateActiveAd(AdInfo.Name, AdInfo.Image, AdInfo.Expiration, AdReach, AdInfo.Impressions, AdClicks)
 			end
-
-			for i in AdInfo.Clicks do
-				AdClicks += 1
-			end
-
-			CreateActiveAd(AdInfo.Name, AdInfo.Image, AdInfo.Expiration, AdReach, AdInfo.Impressions, AdClicks)
 		end
+	else
+		print("Ignored ad ownership checking operation: FirebaseServer.Ads does not exist")
 	end
 
-	function UpdateAdTypeOptionsColorsAndPreviews()
+	local function UpdateAdTypeOptionsColorsAndPreviews()
 		if NewAdType == "PopUp" then
 			GUI["PopUp_083"].Visible = true
 			GUI["Banner_081"].Visible = false
@@ -1622,11 +1638,16 @@ coroutine.wrap(function()
 		end)
 
 		if success then
-			if not FirebaseServer.AdsGamepassUsedStatus[GamepassId] then
-				FirebaseServerWrite("AdsGamepassUsedStatus", tostring(GamepassId), {
-					Roblox = true
-				})
-				FirebaseServerUpdate()
+			if FirebaseServer.AdsGamepassUsedStatus ~= nil then
+				if not FirebaseServer.AdsGamepassUsedStatus[GamepassId] then
+					FirebaseServerWrite("AdsGamepassUsedStatus", tostring(GamepassId), {
+						Roblox = true
+					})
+					FirebaseServerUpdate()
+				end
+			else
+				print("Aborted ad package creation operation: FirebaseServer.AdsGamepassUsedStatus does not exist")
+				return
 			end
 
 			local Template = GUI["PackageTemplate_097"]:Clone()

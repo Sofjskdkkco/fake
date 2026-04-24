@@ -162,10 +162,9 @@ local function FirebaseServerUpdate()
 	FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
 end
 
-FirebaseServerUpdate()
-
 local function AdOperation()
-	if math.random(1, 10) == 1 then
+	if math.random(1, 10) == 1 and Cooldown == 0 then
+		FirebaseServerUpdate()
 		local AdToRun = nil
 		local Ads = {}
 
@@ -219,9 +218,7 @@ end
 for i, v in game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents:GetDescendants() do
 	if v:IsA("TextButton") or v:IsA("ImageButton") then
 		v.MouseButton1Down:Connect(function()
-			if Cooldown == 0 then
-				AdOperation()
-			end
+			AdOperation()
 		end)
 	end
 end
@@ -229,9 +226,7 @@ end
 game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.DescendantAdded:Connect(function(Child)
 	if Child:IsA("TextButton") or Child:IsA("ImageButton") then
 		Child.MouseButton1Down:Connect(function()
-			if Cooldown == 0 then
-				AdOperation()
-			end
+			AdOperation()
 		end)
 	end
 end)

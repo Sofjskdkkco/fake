@@ -603,7 +603,7 @@ local function FirebaseServerWrite(Path, Key, Value)
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode(Table)
 		})
-	end)()
+	end)
 
 	if not success then print("Something went wrong while writing in the server: "..error) end
 end
@@ -628,7 +628,7 @@ local function FirebaseServerDelete(Path, Key)
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game.HttpService:JSONEncode(Table)
 		})
-	end)()
+	end)
 
 	if not success then print("Something went wrong while deleting in the server: "..error) end
 end
@@ -636,7 +636,7 @@ end
 local function FirebaseServerUpdate()
 	local success, error = pcall(function()
 		LiveChatServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
-	end)()
+	end)
 
 	if not success then print("Something went wrong while reading in the server: "..error) end
 end

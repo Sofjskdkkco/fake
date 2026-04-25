@@ -667,7 +667,7 @@ coroutine.wrap(function()
 				RunOperations = false
 				_G.PopUpNotificationOptions({
 					Title = "Chat Operations Has Been Killed",
-					Message = "All chat operations have been killed because theres missing data in the server",
+					Message = "All chat operations have been killed because theres missing data in the server\n\n(Missing Data: "..i..")",
 					Button2Text = "Ok",
 					Button2Function = function()
 					end,
@@ -942,100 +942,104 @@ end)()
 
 --- UserData ---
 coroutine.wrap(function()
-	if not (LiveChatServer.UserData[LocalPlayer.Name]) then
-		FirebaseServerWrite("UserData", LocalPlayer.Name, {
-			AllowJoins = "AlwaysAsk",
-			PlaceId = game.PlaceId,
-			JobId = game.JobId,
-			LastOnline = os.time(),
-		})
-	end
-
-	coroutine.wrap(function()
-		while wait(10) do
-			FirebaseServerWrite("UserData/"..LocalPlayer.Name, "LastOnline", os.time())
+	if RunOperations == true then
+		if not (LiveChatServer.UserData[LocalPlayer.Name]) and RunOperations == true then
+			FirebaseServerWrite("UserData", LocalPlayer.Name, {
+				AllowJoins = "AlwaysAsk",
+				PlaceId = game.PlaceId,
+				JobId = game.JobId,
+				LastOnline = os.time(),
+			})
 		end
-	end)()
 
-	coroutine.wrap(function()
-		local IgnoreIds = {}
-		while wait(0.1) do
-			if RunOperations == true then
-				for RemoteId, Data in LiveChatServer.Remotes do
-					if RemoteId ~= "ignore" then
-						if Data.Date < os.time() - 10 then
-							FirebaseServerDelete("Remotes", RemoteId)
-						end
+		coroutine.wrap(function()
+			while wait(10) do
+				if RunOperations == true then
+					FirebaseServerWrite("UserData/"..LocalPlayer.Name, "LastOnline", os.time())
+				end
+			end
+		end)()
 
-						if Data.Receiver == LocalPlayer.Name and not (IgnoreIds[RemoteId]) then
-							IgnoreIds[RemoteId] = true
-							FirebaseServerDelete("Remotes", RemoteId)
+		coroutine.wrap(function()
+			local IgnoreIds = {}
+			while wait(0.1) do
+				if RunOperations == true then
+					for RemoteId, Data in LiveChatServer.Remotes do
+						if RemoteId ~= "ignore" then
+							if Data.Date < os.time() - 10 then
+								FirebaseServerDelete("Remotes", RemoteId)
+							end
 
-							if Data.Type == "JoinUserRequest" then
-								if LiveChatServer.UserData[LocalPlayer.Name].AllowJoins == "Always" then
-									FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
-										Type = "JoinUserAgreed",
-										Sender = LocalPlayer.Name,
-										Receiver = Data.Sender,
-										Date = os.time(),
-									})
+							if Data.Receiver == LocalPlayer.Name and not (IgnoreIds[RemoteId]) then
+								IgnoreIds[RemoteId] = true
+								FirebaseServerDelete("Remotes", RemoteId)
 
+								if Data.Type == "JoinUserRequest" then
+									if LiveChatServer.UserData[LocalPlayer.Name].AllowJoins == "Always" then
+										FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
+											Type = "JoinUserAgreed",
+											Sender = LocalPlayer.Name,
+											Receiver = Data.Sender,
+											Date = os.time(),
+										})
+
+										_G.PopUpNotificationOptions({
+											Title = "@"..Data.Sender.." has joined you!",
+											Button2Text = "Ok",
+											Button2Function = function()
+											end,
+										})
+
+									elseif LiveChatServer.UserData[LocalPlayer.Name].AllowJoins == "AlwaysAsk" then
+										_G.PopUpNotificationOptions({
+											Title = "Someone wants to join you!",
+											Message = "@"..Data.Sender.." would like to join your game",
+											Button1Text = "Ignore",
+											Button1Function = function()
+											end,
+											Button2Text = "Ok",
+											Button2Function = function()
+												FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
+													Type = "JoinUserAgreed",
+													Sender = LocalPlayer.Name,
+													Receiver = Data.Sender,
+													Date = os.time(),
+												})
+											end,
+										})
+									end
+
+								elseif Data.Type == "JoinUserAgreed" then
+									local ToJoin = LiveChatServer.UserData[Data.Sender]
 									_G.PopUpNotificationOptions({
-										Title = "@"..Data.Sender.." has joined you!",
-										Button2Text = "Ok",
+										Title = "Teleporting!",
+										Message = "Please wait...",
+										Button2Text = "Close",
 										Button2Function = function()
 										end,
 									})
 
-								elseif LiveChatServer.UserData[LocalPlayer.Name].AllowJoins == "AlwaysAsk" then
+									game:GetService("TeleportService"):TeleportToPlaceInstance(tonumber(ToJoin.PlaceId), ToJoin.JobId, LocalPlayer)
+
+								elseif Data.Type == "JoinUserDeclined" then
 									_G.PopUpNotificationOptions({
-										Title = "Someone wants to join you!",
-										Message = "@"..Data.Sender.." would like to join your game",
-										Button1Text = "Ignore",
-										Button1Function = function()
-										end,
-										Button2Text = "Ok",
+										Title = "Failed to join!",
+										Message = "@"..Data.Sender.." did not allow you to join their game.",
+										Button2Text = "Close",
 										Button2Function = function()
-											FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
-												Type = "JoinUserAgreed",
-												Sender = LocalPlayer.Name,
-												Receiver = Data.Sender,
-												Date = os.time(),
-											})
 										end,
 									})
 								end
-
-							elseif Data.Type == "JoinUserAgreed" then
-								local ToJoin = LiveChatServer.UserData[Data.Sender]
-								_G.PopUpNotificationOptions({
-									Title = "Teleporting!",
-									Message = "Please wait...",
-									Button2Text = "Close",
-									Button2Function = function()
-									end,
-								})
-
-								game:GetService("TeleportService"):TeleportToPlaceInstance(tonumber(ToJoin.PlaceId), ToJoin.JobId, LocalPlayer)
-
-							elseif Data.Type == "JoinUserDeclined" then
-								_G.PopUpNotificationOptions({
-									Title = "Failed to join!",
-									Message = "@"..Data.Sender.." did not allow you to join their game.",
-									Button2Text = "Close",
-									Button2Function = function()
-									end,
-								})
 							end
 						end
 					end
 				end
 			end
-		end
-	end)()
+		end)()
 
-	FirebaseServerWrite("UserData/"..LocalPlayer.Name, "PlaceId", game.PlaceId)
-	FirebaseServerWrite("UserData/"..LocalPlayer.Name, "JobId", game.JobId)
+		FirebaseServerWrite("UserData/"..LocalPlayer.Name, "PlaceId", game.PlaceId)
+		FirebaseServerWrite("UserData/"..LocalPlayer.Name, "JobId", game.JobId)
+	end
 end)()
 
 local Cooldown = 2

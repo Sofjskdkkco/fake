@@ -646,7 +646,7 @@ FirebaseServerUpdate()
 --- Listens if data is missing ---
 local RunOperations = true
 coroutine.wrap(function()
-	while wait() do
+	while wait(1) do
 		local Required = {
 			["BannedPeople"] = true,
 			["BannedWords"] = true,
@@ -663,6 +663,7 @@ coroutine.wrap(function()
 		}
 
 		for i, v in Required do
+			print(LiveChatServer[i])
 			if not LiveChatServer[i] then
 				RunOperations = false
 				_G.PopUpNotificationOptions({

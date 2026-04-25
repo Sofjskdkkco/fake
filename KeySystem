@@ -563,7 +563,6 @@ GUI["CoverFrame_057"].Parent = GUI["MainFrame_03"]
 GUI["UICorner_058"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_058"].Parent = GUI["CoverFrame_057"]
 
-GUI["PopUpNotificationOptions_059"].Active = true
 GUI["PopUpNotificationOptions_059"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 GUI["PopUpNotificationOptions_059"].BackgroundTransparency = 1
 GUI["PopUpNotificationOptions_059"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -762,7 +761,124 @@ GUI["UICorner_085"].Parent = GUI["CoverFrame_084"]
 GUI["UICorner_086"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_086"].Parent = GUI["PopUpNotificationOptions_059"]
 
+local function centerFrame(frame, xSize, ySize)
+	frame.Position = UDim2.new(0.5, -xSize / 2, 0.5, -ySize / 2)
+	frame.AnchorPoint = Vector2.new(0, 0)
+end
+
+centerFrame(GUI.DragFrame_01, GUI.DragFrame_01.AbsoluteSize.X, GUI.DragFrame_01.AbsoluteSize.Y)
+
+for i, v in GUI.Insides_024:GetChildren() do
+	if v:IsA("TextButton") or v:IsA("ImageButton") then
+		local UIScale = Instance.new("UIScale")
+		
+		UIScale.Parent = v
+		UIScale.Scale = 1
+	end
+end
+
 wait(5)
 TweenService:Create(GUI.CoverFrame_057, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 TweenService:Create(GUI.CoverFrame_057, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
 TweenService:Create(GUI.UIScale_06, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
+
+function PopUpNotificationOptions(Table)
+	for i, v in GUI.PopUpNotificationOptions_059:GetChildren() do
+		if string.find(v.Name, "Notification") and v.Name ~= "NotificationTemplate" and v:IsA("Frame") then
+			coroutine.wrap(function()
+				TweenService:Create(v.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+				TweenService:Create(v.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
+				TweenService:Create(v.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 0}):Play()
+				wait(0.6)
+				v:Destroy()
+			end)()
+		end
+	end
+
+	local Title = Table.Title
+	local Message = Table.Message
+	local Button1Text = Table.Button1Text
+	local Button1Function = Table.Button1Function
+	local Button2Text = Table.Button2Text
+	local Button2Function = Table.Button2Function
+
+	local NotificationTemplate = GUI.NotificationTemplate_061:Clone()
+	NotificationTemplate.Name = "Notification"..math.random(1,999999)
+	NotificationTemplate.Parent = GUI.PopUpNotificationOptions_059
+	NotificationTemplate.Visible = true
+
+	local NotificationInsides = NotificationTemplate.NotificationInsides
+
+	if Title ~= nil then
+		NotificationInsides.TopFrame.Title.Text = Title
+	else
+		NotificationInsides.TopFrame.Title.Visible = false
+	end
+
+	if Message ~= nil then
+		NotificationInsides.TopFrame.Message.Text = Message
+	else
+		NotificationInsides.TopFrame.Message.Visible = false
+	end
+
+	if Button1Text ~= nil then
+		NotificationInsides.Buttons.Button1.Text = Button1Text
+
+		if string.len(Button1Text) >= 8 then
+			NotificationInsides.Buttons.Button1.TextSize = NotificationInsides.Buttons.Button1.TextSize-2
+		end
+
+		if Button1Function ~= nil then
+			NotificationInsides.Buttons.Button1.MouseButton1Down:Connect(Button1Function)
+		end
+	else
+		NotificationInsides.Buttons.Button1.Visible = false
+	end
+
+	if Button2Text ~= nil then
+		NotificationInsides.Buttons.Button2.Text = Button2Text
+
+		if string.len(Button2Text) >= 8 then
+			NotificationInsides.Buttons.Button2.TextSize = NotificationInsides.Buttons.Button2.TextSize-2
+		end
+
+		if Button2Function ~= nil then
+			NotificationInsides.Buttons.Button2.MouseButton1Down:Connect(Button2Function)
+		end
+	else
+		NotificationInsides.Buttons.Button2.Visible = false
+	end
+
+	local function DisappearNotification()
+		TweenService:Create(GUI.PopUpNotificationOptions_059, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+		TweenService:Create(NotificationTemplate.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+		TweenService:Create(NotificationTemplate.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
+		TweenService:Create(NotificationTemplate.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 0}):Play()
+		wait(0.6)
+		NotificationTemplate:Destroy()
+		GUI.MainContents_07.Interactable = true
+	end
+
+	NotificationInsides.Buttons.Button1.MouseButton1Down:Connect(function()
+		DisappearNotification()
+	end)
+
+	NotificationInsides.Buttons.Button2.MouseButton1Down:Connect(function()
+		DisappearNotification()
+	end)
+
+	GUI.MainContents_07.Interactable = false
+	TweenService:Create(GUI.PopUpNotificationOptions_059, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0.7}):Play()
+	TweenService:Create(NotificationTemplate.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+	TweenService:Create(NotificationTemplate.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+	TweenService:Create(NotificationTemplate.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
+end
+
+wait(5)
+PopUpNotificationOptions({
+	Title = "Chat Operations Has Been Killed",
+	Message = "All chat operations have been killed because theres missing data in the server",
+	Button2Text = "Ok",
+	Button2Function = function()
+	end,
+})

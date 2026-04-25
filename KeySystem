@@ -348,7 +348,7 @@ local success, error = pcall(function()
 		ValidKeyFile = true
 	end
 	
-	if ValidKeyFile == false or getFlag("Keyless") == false then
+	if ValidKeyFile == false and getFlag("Keyless") == false then
 		-- Instances:
 
 		local GUI = {

@@ -67,7 +67,7 @@ end
 
 AppearLoading()
 
-function ExecuteVexHub()
+local function ExecuteVexHub()
 	loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/LoadingScreen'),true))()
 end
 
@@ -1228,7 +1228,7 @@ local success, error = pcall(function()
 			TweenService:Create(NotificationTemplate.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
 			TweenService:Create(NotificationTemplate.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
 		end
-		
+
 		onMessage = function(message)
 			PopUpNotificationOptions({
 				Title = "Platoboost Says:",

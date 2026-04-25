@@ -1269,7 +1269,7 @@ local success, error = pcall(function()
 				writefile("VexHubKey.vex", KeyTextBox.Text)
 				PopUpNotificationOptions({
 					Title = "Valid!",
-					Message = "Welcome to VexHub"
+					Message = "Welcome to VexHub",
 					Button2Text = "Close",
 					Button2Function = function()
 					end,

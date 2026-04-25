@@ -860,6 +860,8 @@ local function TextTransitionExecuted(startValue, endValue, duration)
 	end)()
 end
 
+TextTransitionExecuted(FirebaseServer.Executed, FirebaseServer.Executed+1, 60)
+
 coroutine.wrap(function()
 	while wait(60) do
 		if FirebaseServer.Executed ~= nil then

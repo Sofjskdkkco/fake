@@ -342,7 +342,7 @@ local success, error = pcall(function()
 		FileKey = readfile("VexHubKey.vex")
 	end
 	
-	local success = verifyKey(KeyTextBox.Text)
+	local success = verifyKey(FileKey)
 	
 	if success then
 		ValidKeyFile = true

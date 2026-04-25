@@ -663,7 +663,7 @@ coroutine.wrap(function()
 		}
 
 		for i, v in Required do
-			if not LiveChatServer[i] then
+			if LiveChatServer[i] == nil then
 				RunOperations = false
 				_G.PopUpNotificationOptions({
 					Title = "Chat Operations Has Been Killed",

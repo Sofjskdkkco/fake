@@ -953,7 +953,7 @@ coroutine.wrap(function()
 		end
 
 		coroutine.wrap(function()
-			while wait(10) do
+			while wait(60) do
 				if RunOperations == true then
 					FirebaseServerWrite("UserData/"..LocalPlayer.Name, "LastOnline", os.time())
 				end
@@ -1590,7 +1590,7 @@ local function SendMessage(Username, DisplayName, Message)
 									elseif MessageTable[1] == "/join" then
 										local FixedUsername = nil
 										for Username, Data in LiveChatServer.UserData do
-											if string.find(string.lower(Username), string.lower(MessageTable[2])) and Data.LastOnline > os.time() - 30 then
+											if string.find(string.lower(Username), string.lower(MessageTable[2])) and Data.LastOnline > os.time() - 120 then
 												FixedUsername = Username
 											end
 										end

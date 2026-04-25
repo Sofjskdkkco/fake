@@ -1242,7 +1242,7 @@ local success, error = pcall(function()
 		GUI.UnlockButton_037.MouseButton1Down:Connect(function()
 			local KeyTextBox = GUI.TextBox_034
 
-			_G.PopUpNotificationOptions({
+			PopUpNotificationOptions({
 				Title = "Verifying...",
 				Button2Text = "Close",
 				Button2Function = function()
@@ -1255,7 +1255,7 @@ local success, error = pcall(function()
 				CloseKeySystem()
 				ExecuteVexHub()
 			else
-				_G.PopUpNotificationOptions({
+				PopUpNotificationOptions({
 					Title = "Invalid Key!",
 					Message = "Key is invalid. Please do the key system.",
 					Button2Text = "Close",
@@ -1268,7 +1268,7 @@ local success, error = pcall(function()
 		GUI.GetKeyButton_043.MouseButton1Down:Connect(function()
 			copyLink()
 
-			_G.PopUpNotificationOptions({
+			PopUpNotificationOptions({
 				Title = "Link Copied!",
 				Message = "The link has been copied to your clipboard",
 				Button2Text = "Close",
@@ -1280,7 +1280,7 @@ local success, error = pcall(function()
 		GUI.DiscordButton_049.MouseButton1Down:Connect(function()
 			setclipboard("https://dsc.gg/vhub")
 
-			_G.PopUpNotificationOptions({
+			PopUpNotificationOptions({
 				Title = "Link Copied!",
 				Message = "The link has been copied to your clipboard",
 				Button2Text = "Close",
@@ -1288,7 +1288,16 @@ local success, error = pcall(function()
 				end,
 			})
 		end)
+		
+		PopUpNotificationOptions({
+			Title = "Key Required!",
+			Message = "Start using VexHub by completing the key system! Completing the key system doesnt take that long!\n\n(Key is valid for 3 days)",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
 	else
+		DisappearLoading()
 		ExecuteVexHub()
 	end
 end)

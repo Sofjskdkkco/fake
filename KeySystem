@@ -334,8 +334,21 @@ local success, error = pcall(function()
 			return nil;
 		end
 	end
-
-	if getFlag("Keyless") == false then
+	
+	local FileKey = ""
+	local ValidKeyFile = false
+	
+	if isfile("VexHubKey.vex") then
+		FileKey = readfile("VexHubKey.vex")
+	end
+	
+	local success = verifyKey(KeyTextBox.Text)
+	
+	if success then
+		ValidKeyFile = true
+	end
+	
+	if ValidKeyFile == false or getFlag("Keyless") == false then
 		-- Instances:
 
 		local GUI = {
@@ -1253,6 +1266,15 @@ local success, error = pcall(function()
 			local success = verifyKey(KeyTextBox.Text)
 
 			if success then
+				writefile("VexHubKey.vex", KeyTextBox.Text)
+				PopUpNotificationOptions({
+					Title = "Valid!",
+					Message = "Welcome to VexHub"
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
+				
 				CloseKeySystem()
 				ExecuteVexHub()
 			else

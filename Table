@@ -72,60 +72,7 @@ _G.Table = {
 		["Work Sans"] = 12187373327,
 	},
 
-	Scripts = {
-		["Scripts"] = {
-			["Info"] = {
-				Icon = "rbxassetid://11592851654",
-				Order = 1,
-			},
-		},
-
-		["Required Accessories"] = {
-			["Info"] = {
-				Icon = "rbxassetid://11592824883",
-				Order = 2,
-			},
-		},
-
-		["GUIS"] = {
-			["Info"] = {
-				Icon = "rbxassetid://11592848654",
-				Order = 3,
-			},
-		},
-
-		["Animations"] = {
-			["Info"] = {
-				Icon = "rbxassetid://11592835705",
-				Order = 4,
-			},
-		},
-
-		["Commands"] = {
-			["Info"] = {
-				Icon = "rbxassetid://11592837927",
-				Order = 5,
-			},
-
-			["Infinite Yeild"] = {
-				Creator = "edge_egg (Edge), strong.zinnia (Moon), toonarch (Toon)",
-				Description = "Commands for universal exploiting.",
-				GameId = 0,
-				RigType = "Any", -- R6, R15, Any
-				IsOP = false,
-				IsNew = false,
-				ScriptId = 5001,
-				Script = 'https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'
-			},
-		},
-
-		["Other Hubs"] = {
-			["Info"] = {
-				Icon = "rbxassetid://11592850267",
-				Order = 6,
-			},
-		},
-	}
+	Scripts = loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/ScriptsTable"))(),
 }
 
 if (writefile) then

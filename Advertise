@@ -1386,7 +1386,7 @@ coroutine.wrap(function()
 	local NewAdType = ""
 	local NewAdImage = ""
 	local NewAdScript = ""
-	
+
 	if FirebaseServer.Ads ~= nil then
 		for AdId, AdInfo in FirebaseServer.Ads do
 			if AdInfo.Publisher == LocalPlayer.UserId then
@@ -1716,6 +1716,7 @@ coroutine.wrap(function()
 
 						elseif UserOwnsGamepass == true and UserUsedGamepass == false then
 							local success, error = pcall(function()
+								NewAdType = AdType
 								PublishAd(os.time()+UNIXTimeExpiration, ReachLevel)
 							end)
 
@@ -1770,4 +1771,8 @@ coroutine.wrap(function()
 	CreatePackage(1811650255, "Banner", 604800, 5) -- 7 Days
 	CreatePackage(1811464262, "Banner", 1209600, 7) -- 14 Days
 	CreatePackage(1811566260, "Banner", 2592000, 10) -- 30 Days
+	CreatePackage(1811228046, "PopUp", 259200, 3) -- 3 Days
+	CreatePackage(1812559919, "PopUp", 604800, 5) -- 7 Days
+	CreatePackage(1811665929, "PopUp", 1209600, 7) -- 14 Days
+	CreatePackage(1811906022, "PopUp", 2592000, 10) -- 30 Days
 end)()

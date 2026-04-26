@@ -198,7 +198,7 @@ _G.CreateTab = function(TabName, Scripts)
 			end
 
 			local ScriptIdString = tostring(ScriptInfo.ScriptId)
-			
+
 			if not FirebaseServer.ScriptsInfo then
 				FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy = {
 					["1"] = true
@@ -208,7 +208,7 @@ _G.CreateTab = function(TabName, Scripts)
 				}
 				FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions = 0
 			end
-			
+
 			for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy do
 				TotalLikes += 1
 			end
@@ -355,9 +355,7 @@ _G.CreateTab = function(TabName, Scripts)
 				UpdateRatingButtonsColors()
 
 				ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
-					local success, result = pcall(function()
-						loadstring(game:HttpGet((ScriptInfo.Script),true))()
-					end)
+					local success, result = pcall(ScriptInfo.Script)
 
 					if success then
 						_G.PopUpNotificationOptions({
@@ -450,7 +448,7 @@ _G.CreateTab = function(TabName, Scripts)
 						})
 					end
 				end)
-				
+
 				if FirebaseServer.ScriptsInfo ~= nil then
 					LikeButtonFunction = LikeButton.MouseButton1Down:Connect(function()
 						if RatelimitRating < os.time() then

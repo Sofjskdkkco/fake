@@ -5,19 +5,6 @@ return {
 			Order = 1,
 		},
 
-		["Copy Chat Messages"] = {
-			Creator = "V31nc",
-			Description = "Copies chat messages. You can't stop it.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 1001,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/NWMaSHhe'),true))()
-			end,
-		},
-
 		["Anti Kick"] = {
 			Creator = "Unknown",
 			Description = "This script only works on some games.",
@@ -25,74 +12,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1002,
+			ScriptId = 1001,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/Yi2QRzTu'),true))()
-			end,
-		},
-
-		["Kill Farm"] = {
-			Creator = "Zaptosis (Unverified Creator)",
-			Description = "Freeze players to kill them. Only works on some games.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1003,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/a0jjaAyd'),true))()
-			end,
-		},
-
-		["Spy On People's Private Chat"] = {
-			Creator = "PTR KILLER (Unverified Creator)",
-			Description = "See people's private chat.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1004,
-			Script = function()
-				loadstring(game:HttpGet(('https://raw.githubusercontent.com/Obfuscatetestloluwu/Scripts/main/Spy%20Peoples%20Private%20Chat'),true))()
-			end,
-		},
-
-		["Teleport Tool"] = {
-			Creator = "Unknown",
-			Description = "Tool that makes you teleport like a enderman.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1005,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/n7wqcH9D'),true))()
-			end,
-		},
-
-		["Telekinesis Gun"] = {
-			Creator = "Quenty",
-			Description = "Makes unanchored parts fly! Only works on unanchored parts.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1006,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/uPc0ir3b'),true))()
-			end,
-		},
-
-		["Balloon Stealer"] = {
-			Creator = "garfield",
-			Description = "Steals the balloon that the person have.",
-			PlaceId = 189707,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1007,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/BVbG4ei7'),true))()
 			end,
 		},
 
@@ -103,22 +25,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1008,
+			ScriptId = 1002,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/tKu2vZrb'),true))()
-			end,
-		},
-
-		["Tower Of Hell Invincibility"] = {
-			Creator = "Unknown",
-			Description = "Makes you not get killed when you touch kill parts.",
-			PlaceId = 1962086868,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1009,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/X8cG57XV'),true))()
 			end,
 		},
 
@@ -129,87 +38,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1010,
+			ScriptId = 1003,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Set%20Spawn%20Point"))()
-			end,
-		},
-
-		["Prison Life Aimbot"] = {
-			Creator = "AlexScripterUnfounded",
-			Description = "Just aimbot.",
-			PlaceId = 155615604,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1011,
-			Script = function()
-				loadstring(game:HttpGet("https://pastebin.com/raw/6mu9gydS",true))()
-			end,
-		},
-
-		["Graphics Enchancer"] = {
-			Creator = "Unknown",
-			Description = "Enchances your view.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 1012,
-			Script = function()
-				loadstring(game:HttpGet("https://pastebin.com/raw/vmwVkPWa",true))()
-			end,
-		},
-
-		["Infinite Jump"] = {
-			Creator = "Unknown",
-			Description = "It's like one of those HappyMod features.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1013,
-			Script = function()
-				loadstring(game:HttpGet("https://pastebin.com/raw/GiA32cn6",true))()
-			end,
-		},
-
-		["Get To The Top Auto Farm"] = {
-			Creator = "Unknown",
-			Description = "Gets you to the top.",
-			PlaceId = 6902912928,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1014,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/75BD30j0'),true))()
-			end,
-		},
-
-		["99% Fail ESP"] = {
-			Creator = "Ezpi",
-			Description = "Marks the safe tiles green.",
-			PlaceId = 7584496019,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1015,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/r5BjpxR7'),true))()
-			end,
-		},
-
-		["Uctron's Sword"] = {
-			Creator = "Unknown",
-			Description = "A sword that can kill anyone.",
-			PlaceId = 155615604,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1016,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/UGNecs1d'),true))()
 			end,
 		},
 
@@ -220,7 +51,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1017,
+			ScriptId = 1004,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/6UbUN5Mv'),true))()
 			end,
@@ -233,7 +64,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1018,
+			ScriptId = 1005,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/Vk7jQ9Ft'),true))()
 			end,
@@ -246,48 +77,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1019,
+			ScriptId = 1006,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
-			end,
-		},
-
-		["Carts Speeder"] = {
-			Creator = "Unknown",
-			Description = "Makes all carts speed up. Only works on some cart games.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1020,
-			Script = function()
-				loadstring(game:HttpGet("https://pastebin.com/raw/sWDcnTga"))()
-			end,
-		},
-
-		["Rob A ATM"] = {
-			Creator = "Nona",
-			Description = "Robs a ATM.",
-			PlaceId = 2788229376,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1021,
-			Script = function()
-				loadstring(game:HttpGet("https://pastebin.com/raw/h1yHHMs6",true))()
-			end,
-		},
-
-		["Strongest Punch Simulator Auto Farm"] = {
-			Creator = "PyDubs",
-			Description = "Auto farms the game.",
-			PlaceId = 6875469709,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1022,
-			Script = function()
-				loadstring(game:HttpGet('https://pastebin.com/raw/9fhssXQd'))()
 			end,
 		},
 
@@ -298,7 +90,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1023,
+			ScriptId = 1007,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Break%20In%20Police", true))()
 			end,
@@ -311,35 +103,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1024,
+			ScriptId = 1008,
 			Script = function()
 				loadstring(game:HttpGet(('https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Koss%20Gust%20Horn%20Spammer'),true))()
-			end,
-		},
-
-		["Brainshop ChatBot"] = {
-			Creator = "MinWasTakenOnGitHub",
-			Description = "Talk like a AI robot.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 1025,
-			Script = function()
-				loadstring(game:HttpGet(('https://raw.githubusercontent.com/testforshiistuff/Scripts/main/ChatBot'),true))()
-			end,
-		},
-
-		["Chat Translator"] = {
-			Creator = "Aim, cli, rang#1234, Riptxde",
-			Description = "Translates what people chatted.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1026,
-			Script = function()
-				loadstring(game:HttpGet(('https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Chat%20Translator'),true))()
 			end,
 		},
 
@@ -350,7 +116,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1027,
+			ScriptId = 1009,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/FV3VrMrP"))()
 			end,
@@ -363,7 +129,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1028,
+			ScriptId = 1010,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/GnFPj7Vv"))()
 			end,
@@ -376,7 +142,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1029,
+			ScriptId = 1011,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/daFXeF7t"))()
 			end,
@@ -389,22 +155,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1030,
+			ScriptId = 1012,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/kdTbYUMa"))()
-			end,
-		},
-
-		["Destruction Simulator Infinite Money"] = {
-			Creator = "Unknown",
-			Description = "Makes your money infinite.",
-			PlaceId = 2248408710,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1031,
-			Script = function()
-				loadstring(game:HttpGet("https://pastebin.com/raw/tJvYdTpq"))()
 			end,
 		},
 
@@ -415,35 +168,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1032,
+			ScriptId = 1013,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Wormface%20Auto%20Farm"))()
-			end,
-		},
-
-		["Flashback"] = {
-			Creator = "Envixity",
-			Description = "Reverse yourself.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 1033,
-			Script = function()
-				loadstring(game:HttpGet("https://pastebin.com/raw/cgWLwdN9", true))()
-			end,
-		},
-
-		["Longest Answer Wins Auto Play"] = {
-			Creator = "Unknown",
-			Description = "Auto plays the game.",
-			PlaceId = 9992339729,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1034,
-			Script = function()
-				loadstring(game:HttpGet("https://pastebin.com/raw/x8r8GXUm"))()
 			end,
 		},
 
@@ -454,7 +181,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1035,
+			ScriptId = 1014,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/zephyr10101/AntiFall/main/Script"))()
 			end,
@@ -467,35 +194,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1036,
+			ScriptId = 1015,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/shittystuffs/Scripts/refs/heads/main/Infinite%20Block%20Size"))()
-			end,
-		},
-
-		["Escape The Carnival Of Terror Obby Get Gears"] = {
-			Creator = "glowxfy",
-			Description = "Gets you weapons and gears.",
-			PlaceId = 6153766069,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1037,
-			Script = function()
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/shittystuffs/Scripts/refs/heads/main/Escape%20The%20Carnival%20of%20Terror%20Obby%20Get%20Gears"))()
-			end,
-		},
-
-		["Chat Bypass"] = {
-			Creator = "bdokkx",
-			Description = "Say anything!",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 1038,
-			Script = function()
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/bennettlol/Chat-bypass/refs/heads/main/Chat",true))()
 			end,
 		},
 
@@ -506,7 +207,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
-			ScriptId = 1039,
+			ScriptId = 1016,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/shittystuffs/Scripts/refs/heads/main/ESP",true))()
 			end,

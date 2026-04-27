@@ -4,11 +4,11 @@ return {
 			Icon = "rbxassetid://11592851654",
 			Order = 1,
 		},
-		
+
 		["Copy Chat Messages"] = {
 			Creator = "V31nc",
 			Description = "Copies chat messages. You can't stop it.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
@@ -21,7 +21,7 @@ return {
 		["Anti Kick"] = {
 			Creator = "Unknown",
 			Description = "This script only works on some games.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -34,7 +34,7 @@ return {
 		["Kill Farm"] = {
 			Creator = "Zaptosis (Unverified Creator)",
 			Description = "Freeze players to kill them. Only works on some games.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -47,7 +47,7 @@ return {
 		["Spy On People's Private Chat"] = {
 			Creator = "PTR KILLER (Unverified Creator)",
 			Description = "See people's private chat.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -60,7 +60,7 @@ return {
 		["Teleport Tool"] = {
 			Creator = "Unknown",
 			Description = "Tool that makes you teleport like a enderman.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -73,7 +73,7 @@ return {
 		["Telekinesis Gun"] = {
 			Creator = "Quenty",
 			Description = "Makes unanchored parts fly! Only works on unanchored parts.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -86,7 +86,7 @@ return {
 		["Balloon Stealer"] = {
 			Creator = "garfield",
 			Description = "Steals the balloon that the person have.",
-			GameId = 189707,
+			PlaceId = 189707,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -99,7 +99,7 @@ return {
 		["Color Block Auto Play"] = {
 			Creator = "Unknown",
 			Description = "Auto plays the game!",
-			GameId = 5926001758,
+			PlaceId = 5926001758,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -112,7 +112,7 @@ return {
 		["Tower Of Hell Invincibility"] = {
 			Creator = "Unknown",
 			Description = "Makes you not get killed when you touch kill parts.",
-			GameId = 1962086868,
+			PlaceId = 1962086868,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -125,7 +125,7 @@ return {
 		["Set Spawn Point"] = {
 			Creator = "Unknown",
 			Description = "Spawn on where you died!",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -138,7 +138,7 @@ return {
 		["Prison Life Aimbot"] = {
 			Creator = "AlexScripterUnfounded",
 			Description = "Just aimbot.",
-			GameId = 155615604,
+			PlaceId = 155615604,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -151,7 +151,7 @@ return {
 		["Graphics Enchancer"] = {
 			Creator = "Unknown",
 			Description = "Enchances your view.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
@@ -164,7 +164,7 @@ return {
 		["Infinite Jump"] = {
 			Creator = "Unknown",
 			Description = "It's like one of those HappyMod features.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -177,7 +177,7 @@ return {
 		["Get To The Top Auto Farm"] = {
 			Creator = "Unknown",
 			Description = "Gets you to the top.",
-			GameId = 6902912928,
+			PlaceId = 6902912928,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -190,7 +190,7 @@ return {
 		["99% Fail ESP"] = {
 			Creator = "Ezpi",
 			Description = "Marks the safe tiles green.",
-			GameId = 7584496019,
+			PlaceId = 7584496019,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -203,7 +203,7 @@ return {
 		["Uctron's Sword"] = {
 			Creator = "Unknown",
 			Description = "A sword that can kill anyone.",
-			GameId = 155615604,
+			PlaceId = 155615604,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -216,7 +216,7 @@ return {
 		["Toh But There's Lava Rising Teleport To End"] = {
 			Creator = "V31nc",
 			Description = "Teleports you to the end.",
-			GameId = 6502546031,
+			PlaceId = 6502546031,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -229,7 +229,7 @@ return {
 		["Anti Fling"] = {
 			Creator = "Unknown",
 			Description = "Makes you not get flinged.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -242,7 +242,7 @@ return {
 		["Walk On Walls"] = {
 			Creator = "Unknown",
 			Description = "Makes you walk on walls.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -255,7 +255,7 @@ return {
 		["Carts Speeder"] = {
 			Creator = "Unknown",
 			Description = "Makes all carts speed up. Only works on some cart games.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -268,7 +268,7 @@ return {
 		["Rob A ATM"] = {
 			Creator = "Nona",
 			Description = "Robs a ATM.",
-			GameId = 2788229376,
+			PlaceId = 2788229376,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -281,7 +281,7 @@ return {
 		["Strongest Punch Simulator Auto Farm"] = {
 			Creator = "PyDubs",
 			Description = "Auto farms the game.",
-			GameId = 6875469709,
+			PlaceId = 6875469709,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -294,7 +294,7 @@ return {
 		["Get Police Role"] = {
 			Creator = "Unknown",
 			Description = "Makes you a police in the game. Execute this in the lobby.",
-			GameId = 3851622790,
+			PlaceId = 3851622790,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -307,7 +307,7 @@ return {
 		["Koss Gust Horn Spammer"] = {
 			Creator = "Unknown",
 			Description = 'Spams alot of tornadoes. Your prefix in HD Admin must be ":"',
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -320,7 +320,7 @@ return {
 		["Brainshop ChatBot"] = {
 			Creator = "MinWasTakenOnGitHub",
 			Description = "Talk like a AI robot.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
@@ -333,7 +333,7 @@ return {
 		["Chat Translator"] = {
 			Creator = "Aim, cli, rang#1234, Riptxde",
 			Description = "Translates what people chatted.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -346,7 +346,7 @@ return {
 		["Game Store Tycoon Infinite Money"] = {
 			Creator = "Unknown",
 			Description = "Makes your money infinite.",
-			GameId = 10963175,
+			PlaceId = 10963175,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -359,7 +359,7 @@ return {
 		["Apocalypse Tycoon Infinite Money"] = {
 			Creator = "Unknown",
 			Description = "Makes your money infinite.",
-			GameId = 12402669933,
+			PlaceId = 12402669933,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -372,7 +372,7 @@ return {
 		["Escape The Dungeon Obby Get Gears"] = {
 			Creator = "Unknown",
 			Description = "Get the gears/weapons in the game!",
-			GameId = 2028593804,
+			PlaceId = 2028593804,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -385,7 +385,7 @@ return {
 		["Heist Tycoon Infinite Money"] = {
 			Creator = "Unknown",
 			Description = "Makes your money infinite.",
-			GameId = 11103424163,
+			PlaceId = 11103424163,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -398,7 +398,7 @@ return {
 		["Destruction Simulator Infinite Money"] = {
 			Creator = "Unknown",
 			Description = "Makes your money infinite.",
-			GameId = 2248408710,
+			PlaceId = 2248408710,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -411,7 +411,7 @@ return {
 		["Wormface Auto Farm"] = {
 			Creator = "Unknown",
 			Description = "Auto farms the game.",
-			GameId = 5942932659,
+			PlaceId = 5942932659,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -424,7 +424,7 @@ return {
 		["Flashback"] = {
 			Creator = "Envixity",
 			Description = "Reverse yourself.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
@@ -437,7 +437,7 @@ return {
 		["Longest Answer Wins Auto Play"] = {
 			Creator = "Unknown",
 			Description = "Auto plays the game.",
-			GameId = 9992339729,
+			PlaceId = 9992339729,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -450,7 +450,7 @@ return {
 		["Anti Fall"] = {
 			Creator = "XtremeScripts",
 			Description = "Makes you teleport in the middle of the part/object where you started to fall.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -463,7 +463,7 @@ return {
 		["Block Eaters Infinite Size"] = {
 			Creator = "glowxfy",
 			Description = "Makes you big.",
-			GameId = 16178787698,
+			PlaceId = 16178787698,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -476,7 +476,7 @@ return {
 		["Escape The Carnival Of Terror Obby Get Gears"] = {
 			Creator = "glowxfy",
 			Description = "Gets you weapons and gears.",
-			GameId = 6153766069,
+			PlaceId = 6153766069,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -489,7 +489,7 @@ return {
 		["Chat Bypass"] = {
 			Creator = "bdokkx",
 			Description = "Say anything!",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
@@ -502,7 +502,7 @@ return {
 		["ESP"] = {
 			Creator = "Unknown",
 			Description = "Simple ESP.",
-			GameId = 0,
+			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,

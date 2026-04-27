@@ -154,10 +154,12 @@ _G.CreateTab = function(TabName, Scripts)
 	end
 
 	NewTab.TabInfo.SearchBar.TextBox.FocusLost:Connect(function()
+		NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = true
 		for i, v in NewTab.BottomFrame.Scripts.ScrollingFrame:GetChildren() do
 			if v:IsA("TextButton") and v.Name ~= "ScriptTemplate" then
-				if string.find(string.lower(v.ScrollingFrame.ScriptName.ContentText), string.lower(NewTab.TabInfo.SearchBar.TextBox.ContentText)) then
+				if string.find(string.lower(v.Insides.ScrollingFrame.ScriptName.ContentText), string.lower(NewTab.TabInfo.SearchBar.TextBox.ContentText)) then
 					v.Visible = true
+					NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = false
 				else
 					v.Visible = false
 				end
@@ -235,7 +237,7 @@ _G.CreateTab = function(TabName, Scripts)
 			if ScriptInfo.IsOP == true then
 				ScriptTemplate.UIStroke.Color = Color3.fromRGB(255, 188, 87)
 				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(255, 188, 87)
-				
+
 				if string.find(ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text, "\n") then
 					ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,188,87)">[OP]</font></b> '..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
 				else
@@ -317,11 +319,12 @@ _G.CreateTab = function(TabName, Scripts)
 					DislikeRating.Text = Dislikes.."%"
 				end
 
-				ScriptInfoFrame.Insides.ScrollingFrame.ScriptNameAndDescription.Text = ChangeRichTextSize('<font size="18"><b>'..ScriptName..'</b></font>\n<font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b>', _G.Table.GUISettings.UITextSize)
-
+				ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = ChangeRichTextSize('<font size="18"><b>'..ScriptName..'</b></font>\n<font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b>', _G.Table.GUISettings.UITextSize)
+				ScriptInfoFrame.Insides.ScrollingFrame.Description.Text = ChangeRichTextSize('<font size="10"><b>Description</b></font>\n'..ScriptInfo.Description, _G.Table.GUISettings.UITextSize)
+				
 				UpdateRating()
 
-				if ScriptInfo.GameId == 0 then
+				if ScriptInfo.GameId == 0 or ScriptInfo.GameId == game.GameId then
 					ExecuteButton.Visible = true
 					JoinButton.Visible = false
 				else
@@ -421,6 +424,8 @@ _G.CreateTab = function(TabName, Scripts)
 									Button2Text = "Ok",
 								})
 							end
+							
+							UpdateOtherButtonsColors()
 						end
 					else
 						_G.PopUpNotificationOptions({
@@ -499,12 +504,17 @@ _G.CreateTab = function(TabName, Scripts)
 						end
 					end)
 				end
-
-				TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0, 0)}):Play()
+				
+				NewTab.BottomFrame.Scripts.Interactable = false
+				TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0, 1, 0, 0)}):Play()
+				TweenService:Create(NewTab.BottomFrame.BackgroundFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0.5}):Play()
 			end)
 
 			ScriptInfoFrame.Insides.TopFrame.CloseButton.MouseButton1Down:Connect(function()
 				TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(1, 0, 0, 0)}):Play()
+				TweenService:Create(NewTab.BottomFrame.BackgroundFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+				wait(0.6)
+				NewTab.BottomFrame.Scripts.Interactable = true
 			end)
 
 			for i, v in NewTab.BottomFrame.Scripts.ScrollingFrame:GetChildren() do

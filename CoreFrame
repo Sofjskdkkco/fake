@@ -164,6 +164,7 @@ GUI["UIListLayout_0"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_0"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_0"].Parent = GUI["MainContents_0"]
 
+GUI["SideFrame_0"].Active = true
 GUI["SideFrame_0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["SideFrame_0"].BackgroundTransparency = 1
 GUI["SideFrame_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -341,6 +342,7 @@ GUI["RightFrame_0"].Parent = GUI["MainContents_0"]
 GUI["Wallpaper_0"].Image = "rbxassetid://11926598891"
 GUI["Wallpaper_0"].ImageTransparency = 0.3
 GUI["Wallpaper_0"].ScaleType = Enum.ScaleType.Crop
+GUI["Wallpaper_0"].Active = true
 GUI["Wallpaper_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
 GUI["Wallpaper_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Wallpaper_0"].BorderSizePixel = 0
@@ -749,7 +751,7 @@ coroutine.wrap(function()
 					wait(0.6)
 					OngoingTabAnimation = false
 				end)
-				
+
 				if not success then
 					GUI.Pages_0.Home.Visible = true
 					_G.Table.GUIStatus.ActiveTab = "Home"

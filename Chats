@@ -2312,6 +2312,7 @@ local function SendMessage(Username, DisplayName, Message)
 							Button2Function = function()
 							end,
 						})
+						return true
 					else
 						_G.PopUpNotificationOptions({
 							Title = "Invalid!",
@@ -2321,34 +2322,34 @@ local function SendMessage(Username, DisplayName, Message)
 							end,
 						})
 					end
+					return false
 				end
 
-				VerifyAccount()
-				wait()
+				if VerifyAccount() == false then
+					_G.PopUpNotificationOptions({
+						Title = "Verification Required",
+						Message = "Before you chat, please verify your Roblox account by putting a verification code to your profile's description",
+						Button1Text = "Later",
+						Button1Function = function()
+						end,
+						Button2Text = "Copy Code",
+						Button2Function = function()
+							setclipboard(expandAcronym(HWID()))
 
-				_G.PopUpNotificationOptions({
-					Title = "Verification Required",
-					Message = "Before you chat, please verify your Roblox account by putting a verification code to your profile's description",
-					Button1Text = "Later",
-					Button1Function = function()
-					end,
-					Button2Text = "Copy Code",
-					Button2Function = function()
-						setclipboard(expandAcronym(HWID()))
-
-						_G.PopUpNotificationOptions({
-							Title = "Text Copied!",
-							Message = "The verification code has been copied to your clipboard. Paste it to your profile's description then come back here!",
-							Button1Text = "Verify",
-							Button1Function = function()
-								VerifyAccount()
-							end,
-							Button2Text = "Ok",
-							Button2Function = function()
-							end,
-						})
-					end,
-				})
+							_G.PopUpNotificationOptions({
+								Title = "Text Copied!",
+								Message = "The verification code has been copied to your clipboard. Paste it to your profile's description then come back here!",
+								Button1Text = "Verify",
+								Button1Function = function()
+									VerifyAccount()
+								end,
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+						end,
+					})
+				end
 			end
 		end
 	end

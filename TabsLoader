@@ -321,10 +321,10 @@ _G.CreateTab = function(TabName, Scripts)
 
 				ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = ChangeRichTextSize('<font size="18"><b>'..ScriptName..'</b></font>\n<font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b>', _G.Table.GUISettings.UITextSize)
 				ScriptInfoFrame.Insides.ScrollingFrame.Description.Text = ChangeRichTextSize('<font size="10"><b>Description</b></font>\n'..ScriptInfo.Description, _G.Table.GUISettings.UITextSize)
-				
+
 				UpdateRating()
 
-				if ScriptInfo.GameId == 0 or ScriptInfo.GameId == game.GameId then
+				if ScriptInfo.GameId == 0 or game.GameId == tonumber(ScriptInfo.ScriptId) then
 					ExecuteButton.Visible = true
 					JoinButton.Visible = false
 				else
@@ -424,7 +424,7 @@ _G.CreateTab = function(TabName, Scripts)
 									Button2Text = "Ok",
 								})
 							end
-							
+
 							UpdateOtherButtonsColors()
 						end
 					else
@@ -504,7 +504,7 @@ _G.CreateTab = function(TabName, Scripts)
 						end
 					end)
 				end
-				
+
 				NewTab.BottomFrame.Scripts.Interactable = false
 				TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0, 1, 0, 0)}):Play()
 				TweenService:Create(NewTab.BottomFrame.BackgroundFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0.5}):Play()

@@ -263,7 +263,7 @@ _G.CreateTab = function(TabName, Scripts)
 				ScriptTemplate.Insides.Icons.Icons.RigTypeIcon.Visible = true
 			end
 
-			if ScriptInfo.GameId == 0 then
+			if ScriptInfo.PlaceId == 0 then
 				ScriptTemplate.Insides.Icons.Icons.GameIcon.Image = "http://www.roblox.com/asset/?id=11738116961"
 			else
 				ScriptTemplate.Insides.Icons.Icons.GameIcon.Image = "rbxassetid://14320976370"
@@ -324,7 +324,7 @@ _G.CreateTab = function(TabName, Scripts)
 
 				UpdateRating()
 
-				if ScriptInfo.GameId == 0 or game.GameId == tonumber(ScriptInfo.ScriptId) then
+				if ScriptInfo.PlaceId == 0 or game.PlaceId == tonumber(ScriptInfo.ScriptId) then
 					ExecuteButton.Visible = true
 					JoinButton.Visible = false
 				else
@@ -437,14 +437,14 @@ _G.CreateTab = function(TabName, Scripts)
 				end)
 
 				JoinButtonFunction = JoinButton.MouseButton1Down:Connect(function()
-					if ScriptInfo.GameId == 0 then
+					if ScriptInfo.PlaceId == 0 then
 						_G.PopUpNotificationOptions({
 							Title = "Script is for any games!",
 							Message = "No need to join a specific game to execute this script.",
 							Button2Text = "Ok",
 						})
 					else
-						game:GetService("TeleportService"):Teleport(ScriptInfo.GameId)
+						game:GetService("TeleportService"):Teleport(ScriptInfo.PlaceId)
 						_G.PopUpNotificationOptions({
 							Title = "Teleporting...",
 							Message = "Please wait...",
@@ -693,7 +693,20 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 					_G.PopUpNotificationOptions({
 						Title = "Teleporting...",
 						Message = "Please wait...",
+						Button1Text = "Copy Link",
+						Button1Function = function()
+							setclipboard("roblox.com/games/"..ScriptInfo.GameId)
+							
+							_G.PopUpNotificationOptions({
+								Title = "Link Copied!",
+								Button2Text = "Close",
+								Button2Function = function()
+								end,
+							})
+						end,
 						Button2Text = "Ok",
+						Button2Function = function()
+						end,
 					})
 				end
 			end)

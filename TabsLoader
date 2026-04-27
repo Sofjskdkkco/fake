@@ -386,7 +386,7 @@ _G.CreateTab = function(TabName, Scripts)
 					UpdateExecutions()
 				end)
 				
-				if ScriptInfo.RigType ~= "Any" then
+				if ScriptInfo.RigType ~= "Any" and LocalPlayer.Character.Humanoid.RigType ~= Enum.HumanoidRigType[ScriptInfo.RigType] then
 					ExecuteButtonFunction:Disconnect()
 					_G.PopUpNotificationOptions({
 						Title = "Script Failed to Execute!",

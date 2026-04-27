@@ -332,7 +332,7 @@ _G.CreateTab = function(TabName, Scripts)
 					JoinButton.Visible = true
 				end
 
-				local function UpdateOtherButtonsColors()
+				local function UpdateOtherButtonsStatus()
 					if FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy[UserIdString] then
 						TweenService:Create(LikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
 						TweenService:Create(DislikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
@@ -343,18 +343,17 @@ _G.CreateTab = function(TabName, Scripts)
 						TweenService:Create(LikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
 						TweenService:Create(DislikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
 					end
-
-					for i, v in _G.Table.Favorites do
-						if tostring(i) == ScriptIdString then
-							TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
-							return
-						end
-						
+					
+					if _G.Table.Favorites[ScriptIdString] ~= nil then
+						TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
+						FavoriteFrame.FavoriteText.Text = "Favorited"
+					else
 						TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
+						FavoriteFrame.FavoriteText.Text = "Favorite"
 					end
 				end
 
-				UpdateOtherButtonsColors()
+				UpdateOtherButtonsStatus()
 
 				ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
 					local success, result = pcall(ScriptInfo.Script)
@@ -425,7 +424,7 @@ _G.CreateTab = function(TabName, Scripts)
 								})
 							end
 
-							UpdateOtherButtonsColors()
+							UpdateOtherButtonsStatus()
 						end
 					else
 						_G.PopUpNotificationOptions({
@@ -484,7 +483,7 @@ _G.CreateTab = function(TabName, Scripts)
 							FirebaseServerUpdate()
 							wait()
 							UpdateRating()
-							UpdateOtherButtonsColors()
+							UpdateOtherButtonsStatus()
 						else
 							_G.PopUpNotificationOptions({
 								Title = "Slow down",
@@ -509,7 +508,7 @@ _G.CreateTab = function(TabName, Scripts)
 							FirebaseServerUpdate()
 							wait()
 							UpdateRating()
-							UpdateOtherButtonsColors()
+							UpdateOtherButtonsStatus()
 						else
 							_G.PopUpNotificationOptions({
 								Title = "Slow down",

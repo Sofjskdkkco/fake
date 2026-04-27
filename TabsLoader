@@ -444,11 +444,24 @@ _G.CreateTab = function(TabName, Scripts)
 							Button2Text = "Ok",
 						})
 					else
-						game:GetService("TeleportService"):Teleport(ScriptInfo.PlaceId)
+						game:GetService("TeleportService"):Teleport(ScriptInfo.GameId)
 						_G.PopUpNotificationOptions({
 							Title = "Teleporting...",
 							Message = "Please wait...",
+							Button1Text = "Copy Link",
+							Button1Function = function()
+								setclipboard("roblox.com/games/"..ScriptInfo.GameId)
+
+								_G.PopUpNotificationOptions({
+									Title = "Link Copied!",
+									Button2Text = "Close",
+									Button2Function = function()
+									end,
+								})
+							end,
 							Button2Text = "Ok",
+							Button2Function = function()
+							end,
 						})
 					end
 				end)

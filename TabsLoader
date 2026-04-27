@@ -385,7 +385,16 @@ _G.CreateTab = function(TabName, Scripts)
 
 					UpdateExecutions()
 				end)
-
+				
+				if ScriptInfo.RigType ~= "Any" then
+					ExecuteButtonFunction:Disconnect()
+					_G.PopUpNotificationOptions({
+						Title = "Script Failed to Execute!",
+						Message = "This script only works on "..ScriptInfo.RigType.." Rig Type",
+						Button2Text = "Close",
+					})
+				end
+				
 				FavoriteButtonFunction = FavoriteFrame.Button.MouseButton1Down:Connect(function()
 					if FileSupporting == true then
 						if isfile("VexHub7/Favorites.vex") then

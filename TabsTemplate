@@ -290,7 +290,7 @@ GUI["ScriptPlay_016"].Name = "ScriptPlay"
 GUI["ScriptPlay_016"].Parent = GUI["NumberOfExecutions_015"]
 GUI["ScriptPlay_016"]:SetAttribute("UIImageColor", true)
 
-GUI["Executions_017"].Font = UIFont("Medium")
+GUI["Executions_017"].FontFace = UIFont("Medium")
 GUI["Executions_017"].Text = "0"
 GUI["Executions_017"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Executions_017"].TextSize = 10+_G.Table.GUISettings.UITextSize
@@ -333,7 +333,7 @@ GUI["ThumbsUp_020"].Name = "ThumbsUp"
 GUI["ThumbsUp_020"].Parent = GUI["NumberOfLikes_019"]
 GUI["ThumbsUp_020"]:SetAttribute("UIImageColor", true)
 
-GUI["Likes_021"].Font = UIFont("Medium")
+GUI["Likes_021"].FontFace = UIFont("Medium")
 GUI["Likes_021"].Text = "0%"
 GUI["Likes_021"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Likes_021"].TextSize = 10+_G.Table.GUISettings.UITextSize
@@ -436,7 +436,7 @@ GUI["ScrollingFrame_030"].Position = UDim2.new(0.0283018872, 0, 0.414285719, 0)
 GUI["ScrollingFrame_030"].Size = UDim2.new(0, 100, 0, 26)
 GUI["ScrollingFrame_030"].Parent = GUI["Insides_012"]
 
-GUI["ScriptName_031"].Font = UIFont("Medium")
+GUI["ScriptName_031"].FontFace = UIFont("Medium")
 GUI["ScriptName_031"].RichText = true
 GUI["ScriptName_031"].Text = "Script Name"
 GUI["ScriptName_031"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
@@ -459,7 +459,7 @@ GUI["UIListLayout_032"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_032"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_032"].Parent = GUI["Insides_012"]
 
-GUI["NoScripts_033"].Font = UIFont("Medium")
+GUI["NoScripts_033"].FontFace = UIFont("Medium")
 GUI["NoScripts_033"].Text = "No scripts avalable"
 GUI["NoScripts_033"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["NoScripts_033"].TextSize = 12+_G.Table.GUISettings.UITextSize
@@ -537,7 +537,7 @@ GUI["ScrollingFrame_041"].LayoutOrder = 2
 GUI["ScrollingFrame_041"].Size = UDim2.new(1, 0, 0, 137)
 GUI["ScrollingFrame_041"].Parent = GUI["Insides_038"]
 
-GUI["ScriptName_042"].Font = UIFont("Medium")
+GUI["ScriptName_042"].FontFace = UIFont("Medium")
 GUI["ScriptName_042"].LineHeight = 0.8999999761581421
 GUI["ScriptName_042"].RichText = true
 GUI["ScriptName_042"].Text = '<font size="18"><b>Strongest Punch Simulator Auto Farm</b></font>\n<font transparency="0.2">By</font> <b>PyDubs</b>'
@@ -712,7 +712,7 @@ GUI["UIListLayout_061"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_061"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_061"].Parent = GUI["LikeFrame_060"]
 
-GUI["Percentage_062"].Font = UIFont("Medium")
+GUI["Percentage_062"].FontFace = UIFont("Medium")
 GUI["Percentage_062"].Text = "60%"
 GUI["Percentage_062"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Percentage_062"].TextSize = 8+_G.Table.GUISettings.UITextSize
@@ -778,7 +778,7 @@ GUI["UIListLayout_067"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_067"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_067"].Parent = GUI["DislikeFrame_066"]
 
-GUI["Percentage_068"].Font = UIFont("Medium")
+GUI["Percentage_068"].FontFace = UIFont("Medium")
 GUI["Percentage_068"].Text = "60%"
 GUI["Percentage_068"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["Percentage_068"].TextSize = 8+_G.Table.GUISettings.UITextSize
@@ -842,7 +842,7 @@ GUI["UIListLayout_073"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_073"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_073"].Parent = GUI["FavoriteFrame_072"]
 
-GUI["FavoriteText_074"].Font = UIFont("Medium")
+GUI["FavoriteText_074"].FontFace = UIFont("Medium")
 GUI["FavoriteText_074"].Text = "Favorite"
 GUI["FavoriteText_074"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["FavoriteText_074"].TextSize = 8+_G.Table.GUISettings.UITextSize
@@ -896,7 +896,7 @@ GUI["Filled_077"].Name = "Filled"
 GUI["Filled_077"].Parent = GUI["Button_075"]
 GUI["Filled_077"]:SetAttribute("UIImageColor", true)
 
-GUI["Description_078"].Font = UIFont("Medium")
+GUI["Description_078"].FontFace = UIFont("Medium")
 GUI["Description_078"].LineHeight = 0.8999999761581421
 GUI["Description_078"].RichText = true
 GUI["Description_078"].Text = '<font size="10"><b>Description</b></font>\nmeow'
@@ -977,7 +977,7 @@ GUI["CloseImage_085"].Name = "CloseImage"
 GUI["CloseImage_085"].Parent = GUI["CloseButton_084"]
 GUI["CloseImage_085"]:SetAttribute("UIImageColor", true)
 
-GUI["CloseText_086"].Font = UIFont("Medium")
+GUI["CloseText_086"].FontFace = UIFont("Medium")
 GUI["CloseText_086"].Text = "Close"
 GUI["CloseText_086"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["CloseText_086"].TextSize = 10+_G.Table.GUISettings.UITextSize
@@ -1100,7 +1100,7 @@ GUI["TabNameAndTotalScripts_0100"].Size = UDim2.new(0, 170, 0.699999988, 0)
 GUI["TabNameAndTotalScripts_0100"].Name = "TabNameAndTotalScripts"
 GUI["TabNameAndTotalScripts_0100"].Parent = GUI["TabInfo_093"]
 
-GUI["TabName_0101"].Font = UIFont("Bold")
+GUI["TabName_0101"].FontFace = UIFont("Bold")
 GUI["TabName_0101"].Text = "Required Accessories"
 GUI["TabName_0101"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["TabName_0101"].TextSize = 16+_G.Table.GUISettings.UITextSize
@@ -1122,7 +1122,7 @@ GUI["UIListLayout_0102"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_0102"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_0102"].Parent = GUI["TabNameAndTotalScripts_0100"]
 
-GUI["ScriptsTotal_0103"].Font = UIFont("Medium")
+GUI["ScriptsTotal_0103"].FontFace = UIFont("Medium")
 GUI["ScriptsTotal_0103"].RichText = true
 GUI["ScriptsTotal_0103"].Text = '<b>100 Scripts</b>, <font color="rgb(255, 188, 87)">10 OP Scripts</font> and <font color="rgb(255, 102, 102)">1 New Scripts</font>'
 GUI["ScriptsTotal_0103"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
@@ -1187,7 +1187,7 @@ GUI["UIListLayout_0109"].Parent = GUI["SearchBar_0105"]
 
 GUI["TextBox_0110"].ClearTextOnFocus = false
 GUI["TextBox_0110"].CursorPosition = -1
-GUI["TextBox_0110"].Font = UIFont("Medium")
+GUI["TextBox_0110"].FontFace = UIFont("Medium")
 GUI["TextBox_0110"].PlaceholderText = "search a script"
 GUI["TextBox_0110"].Text = ""
 GUI["TextBox_0110"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))

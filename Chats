@@ -2327,18 +2327,18 @@ local function SendMessage(Username, DisplayName, Message)
 				wait()
 
 				_G.PopUpNotificationOptions({
-					Title = "Hey!",
+					Title = "Verification Required",
 					Message = "Before you chat, please verify your Roblox account by putting a verification code to your profile's description",
 					Button1Text = "Later",
 					Button1Function = function()
 					end,
-					Button2Text = "Ok",
+					Button2Text = "Copy Code",
 					Button2Function = function()
 						setclipboard(expandAcronym(HWID()))
 
 						_G.PopUpNotificationOptions({
 							Title = "Text Copied!",
-							Message = "The verification code has been copied to your clipboard and paste it to your profile's description. \n\n⚠️ After verification, IMMEDIATELY change your profile's description to avoid someone from using your name in VexHub's chat.",
+							Message = "The verification code has been copied to your clipboard. Paste it to your profile's description then come back here!",
 							Button1Text = "Verify",
 							Button1Function = function()
 								VerifyAccount()

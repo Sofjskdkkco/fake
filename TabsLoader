@@ -324,7 +324,7 @@ _G.CreateTab = function(TabName, Scripts)
 
 				UpdateRating()
 
-				if ScriptInfo.PlaceId == 0 or game.PlaceId == tonumber(ScriptInfo.ScriptId) then
+				if ScriptInfo.PlaceId == 0 or game.PlaceId == tonumber(ScriptInfo.PlaceId) then
 					ExecuteButton.Visible = true
 					JoinButton.Visible = false
 				else
@@ -696,7 +696,7 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 						Button1Text = "Copy Link",
 						Button1Function = function()
 							setclipboard("roblox.com/games/"..ScriptInfo.GameId)
-							
+
 							_G.PopUpNotificationOptions({
 								Title = "Link Copied!",
 								Button2Text = "Close",

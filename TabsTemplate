@@ -202,7 +202,7 @@ GUI["UICorner_010"].Parent = GUI["ScriptTemplate_08"]
 GUI["UIStroke_011"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 GUI["UIStroke_011"].Color = Color3.fromRGB(255, 255, 255)
 GUI["UIStroke_011"].Parent = GUI["ScriptTemplate_08"]
-GUI["UIStroke_011"].Transparency = 0.5
+GUI["UIStroke_011"].Transparency = 0.7
 
 GUI["Insides_012"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Insides_012"].BackgroundTransparency = 0.9700000286102295

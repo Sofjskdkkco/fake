@@ -256,6 +256,11 @@ _G.CreateTab = function(TabName, Scripts)
 					ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,102,102)">[NEW]</font></b>\n'..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
 				end
 			end
+			
+			if ScriptInfo.PlaceId ~= 0 then
+				ScriptTemplate.UIStroke.Color = Color3.fromRGB(0, 185, 85)
+				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(0, 185, 85)
+			end
 
 			if ScriptInfo.RigType == "Any" then
 				ScriptTemplate.Insides.Icons.Icons.RigTypeIcon.Visible = false

@@ -345,11 +345,11 @@ _G.CreateTab = function(TabName, Scripts)
 					end
 
 					for i, v in _G.Table.Favorites do
-						if tostring(v) == ScriptIdString then
+						if tostring(i) == ScriptIdString then
 							TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
-							break
+							return
 						end
-
+						
 						TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
 					end
 				end

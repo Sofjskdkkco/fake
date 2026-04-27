@@ -450,6 +450,7 @@ _G.CreateTab = function(TabName, Scripts)
 							Message = "Please wait...",
 							Button1Text = "Copy Link",
 							Button1Function = function()
+								print(ScriptInfo.GameId)
 								setclipboard("roblox.com/games/"..ScriptInfo.GameId)
 
 								_G.PopUpNotificationOptions({

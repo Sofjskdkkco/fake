@@ -235,6 +235,7 @@ _G.CreateTab = function(TabName, Scripts)
 			ScriptTemplate.Insides.BottomFrame.NumberOfLikes.Likes.Text = Likes.."%"
 
 			if ScriptInfo.IsOP == true then
+				ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
 				ScriptTemplate.UIStroke.Color = Color3.fromRGB(255, 188, 87)
 				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(255, 188, 87)
 
@@ -246,6 +247,7 @@ _G.CreateTab = function(TabName, Scripts)
 			end
 
 			if ScriptInfo.IsNew == true then
+				ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
 				ScriptTemplate.UIStroke.Color = Color3.fromRGB(255, 102, 102)
 				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(255, 102, 102)
 				ScriptTemplate.LayoutOrder = 1
@@ -258,6 +260,7 @@ _G.CreateTab = function(TabName, Scripts)
 			end
 
 			if ScriptInfo.PlaceId ~= 0 then
+				ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
 				ScriptTemplate.UIStroke.Color = Color3.fromRGB(0, 185, 85)
 				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(0, 185, 85)
 			end

@@ -646,6 +646,7 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 			ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = ScriptName
 
 			if ScriptInfo.PlaceId ~= 0 then
+				ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
 				ScriptTemplate.UIStroke.Color = Color3.fromRGB(0, 185, 85)
 				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(0, 185, 85)
 			end

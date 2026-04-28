@@ -256,7 +256,7 @@ _G.CreateTab = function(TabName, Scripts)
 					ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,102,102)">[NEW]</font></b>\n'..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
 				end
 			end
-			
+
 			if ScriptInfo.PlaceId ~= 0 then
 				ScriptTemplate.UIStroke.Color = Color3.fromRGB(0, 185, 85)
 				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(0, 185, 85)
@@ -348,7 +348,7 @@ _G.CreateTab = function(TabName, Scripts)
 						TweenService:Create(LikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
 						TweenService:Create(DislikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
 					end
-					
+
 					if _G.Table.Favorites[ScriptIdString] ~= nil then
 						TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
 						FavoriteFrame.FavoriteText.Text = "Favorited"
@@ -385,7 +385,7 @@ _G.CreateTab = function(TabName, Scripts)
 
 					UpdateExecutions()
 				end)
-				
+
 				if ScriptInfo.RigType ~= "Any" and LocalPlayer.Character.Humanoid.RigType ~= Enum.HumanoidRigType[ScriptInfo.RigType] then
 					ExecuteButtonFunction:Disconnect()
 					_G.PopUpNotificationOptions({
@@ -394,7 +394,7 @@ _G.CreateTab = function(TabName, Scripts)
 						Button2Text = "Close",
 					})
 				end
-				
+
 				FavoriteButtonFunction = FavoriteFrame.Button.MouseButton1Down:Connect(function()
 					if FileSupporting == true then
 						if isfile("VexHub7/Favorites.vex") then
@@ -568,11 +568,11 @@ end
 _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 	local NewTab = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages.TabsPluginTemplate:Clone()
 
-	NewTab.Name = "PLUGIN_"..PluginName
+	NewTab.Name = PluginName
 	NewTab.Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
 	NewTab.Visible = false
 	NewTab.TabInfo.TabNameAndTotalScripts.TabName.Text = PluginName
-	NewTab.TabInfo.TabImage.Image = PluginImage
+	NewTab.TabInfo.TabImage.Image = Scripts.Info.Icon
 
 	local TextBox = NewTab.TabInfo.SearchBar.TextBox
 	local MagnifyingGlass = NewTab.TabInfo.SearchBar.MagnifyingGlass
@@ -605,13 +605,13 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 		end
 	end)
 
-	local TotalScripts = 0
-
 	NewTab.TabInfo.SearchBar.TextBox.FocusLost:Connect(function()
+		NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = true
 		for i, v in NewTab.BottomFrame.Scripts.ScrollingFrame:GetChildren() do
 			if v:IsA("TextButton") and v.Name ~= "ScriptTemplate" then
-				if string.find(string.lower(v.ScrollingFrame.ScriptName.ContentText), string.lower(NewTab.TabInfo.SearchBar.TextBox.ContentText)) then
+				if string.find(string.lower(v.Insides.ScrollingFrame.ScriptName.ContentText), string.lower(NewTab.TabInfo.SearchBar.TextBox.ContentText)) then
 					v.Visible = true
+					NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = false
 				else
 					v.Visible = false
 				end
@@ -619,157 +619,180 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 		end
 	end)
 
-	local ScriptInfoFrame = NewTab.BottomFrame.ScriptInfo.Insides
-	local ExecuteButton = ScriptInfoFrame.Insides.ExecuteButton
-	local JoinButton = ScriptInfoFrame.Insides.JoinButton
+	local ScriptInfoFrame = NewTab.BottomFrame.ScriptInfoMargin.ScriptInfo
+	local PlayAndExecuteFrame = ScriptInfoFrame.Insides.ScrollingFrame.PlayAndExecuteFrame
+	local ExecuteButton = PlayAndExecuteFrame.ExecuteButton
+	local JoinButton = PlayAndExecuteFrame.JoinButton
 
 	local ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()end)
 	local JoinButtonFunction = JoinButton.MouseButton1Down:Connect(function()end)
 
 	for ScriptName, ScriptInfo in Scripts do
-		NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = false
+		if ScriptName ~= "Info" then
+			NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = false
 
-		TotalScripts += 1
+			TotalScripts += 1
 
-		local ScriptTemplate = NewTab.BottomFrame.Scripts.ScrollingFrame.ScriptTemplate:Clone()
+			local TotalLikes = 0
+			local TotalDislikes = 0
 
-		ScriptTemplate.Name = ScriptName
-		ScriptTemplate.Parent = NewTab.BottomFrame.Scripts.ScrollingFrame
-		ScriptTemplate.Visible = true
-		ScriptTemplate.LayoutOrder = 3
-		ScriptTemplate.Icons.ScriptImage.Image = "rbxassetid://11592851654"
-		ScriptTemplate.ScrollingFrame.ScriptName.Text = ScriptName
+			if ScriptInfo.IsOP == true then
+				OPScripts += 1
+			end
 
-		if ScriptInfo.RigType == "Any" then
-			ScriptTemplate.Icons.Icons.RigTypeIcon.Visible = false
-		else
-			ScriptTemplate.Icons.Icons.RigTypeIcon.Visible = true
-		end
+			if ScriptInfo.IsNew == true then
+				NewScripts += 1
+			end
 
-		if ScriptInfo.GameId == 0 then
-			ScriptTemplate.Icons.Icons.GameIcon.Image = "http://www.roblox.com/asset/?id=11738116961"
-		else
-			ScriptTemplate.Icons.Icons.GameIcon.Image = "rbxassetid://14320976370"
-		end
+			local ScriptTemplate = NewTab.BottomFrame.Scripts.ScrollingFrame.ScriptTemplate:Clone()
 
-		ExecuteButton.MouseEnter:Connect(function()
-			TweenService:Create(ExecuteButton.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
-			TweenService:Create(ExecuteButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
-		end)
+			ScriptTemplate.Name = ScriptInfo.ScriptId..""..ScriptName
+			ScriptTemplate.Parent = NewTab.BottomFrame.Scripts.ScrollingFrame
+			ScriptTemplate.Visible = true
+			ScriptTemplate.LayoutOrder = 3
+			ScriptTemplate.Insides.Icons.ScriptImage.Image = "rbxassetid://11592851654"
+			ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = ScriptName
 
-		ExecuteButton.MouseLeave:Connect(function()
-			TweenService:Create(ExecuteButton.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
-			TweenService:Create(ExecuteButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0)}):Play()
-		end)
-
-		JoinButton.MouseEnter:Connect(function()
-			TweenService:Create(JoinButton.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
-			TweenService:Create(JoinButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
-		end)
-
-		JoinButton.MouseLeave:Connect(function()
-			TweenService:Create(JoinButton.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
-			TweenService:Create(JoinButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0.5)}):Play()
-		end)
-
-		ScriptTemplate.MouseButton1Down:Connect(function()
-			ExecuteButtonFunction:Disconnect()
-			JoinButtonFunction:Disconnect()
-
-			ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = ChangeRichTextSize('<b>'..ScriptName..'</b>\n<font size="10"><font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b></font>\n\n<font transparency="0.3"><font size="9"><b>"'..ScriptInfo.Description..'"</b></font></font>', _G.Table.GUISettings.UITextSize)
+			if ScriptInfo.PlaceId ~= 0 then
+				ScriptTemplate.UIStroke.Color = Color3.fromRGB(0, 185, 85)
+				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(0, 185, 85)
+			end
 
 			if ScriptInfo.RigType == "Any" then
-				ScriptInfoFrame.Insides.IconsInsides.Icons.RigTypeIcon.Visible = false
+				ScriptTemplate.Insides.Icons.Icons.RigTypeIcon.Visible = false
 			else
-				ScriptInfoFrame.Insides.IconsInsides.Icons.RigTypeIcon.Visible = true
+				ScriptTemplate.Insides.Icons.Icons.RigTypeIcon.Visible = true
 			end
 
-			if ScriptInfo.GameId == 0 then
-				ScriptInfoFrame.Insides.IconsInsides.Icons.GameIcon.Image = "http://www.roblox.com/asset/?id=11738116961"
+			if ScriptInfo.PlaceId == 0 then
+				ScriptTemplate.Insides.Icons.Icons.GameIcon.Image = "http://www.roblox.com/asset/?id=11738116961"
 			else
-				ScriptInfoFrame.Insides.IconsInsides.Icons.GameIcon.Image = "rbxassetid://14320976370"
+				ScriptTemplate.Insides.Icons.Icons.GameIcon.Image = "rbxassetid://14320976370"
 			end
 
-			ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
-				local success, result = pcall(ScriptInfo.Script)
+			ExecuteButton.MouseEnter:Connect(function()
+				TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
+				TweenService:Create(ExecuteButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
+			end)
 
-				if success then
-					_G.PopUpNotificationOptions({
-						Title = "Executed Successfully!",
-						Message = ScriptName.." has been executed with no errors",
-						Button2Text = "Close",
-					})
+			ExecuteButton.MouseLeave:Connect(function()
+				TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
+				TweenService:Create(ExecuteButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0.3)}):Play()
+			end)
+
+			JoinButton.MouseEnter:Connect(function()
+				TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
+				TweenService:Create(JoinButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
+			end)
+
+			JoinButton.MouseLeave:Connect(function()
+				TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
+				TweenService:Create(JoinButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0.3)}):Play()
+			end)
+
+			ScriptTemplate.MouseButton1Down:Connect(function()
+				ExecuteButtonFunction:Disconnect()
+				JoinButtonFunction:Disconnect()
+
+				ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = ChangeRichTextSize('<font size="18"><b>'..ScriptName..'</b></font>\n<font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b>', _G.Table.GUISettings.UITextSize)
+				ScriptInfoFrame.Insides.ScrollingFrame.Description.Text = ChangeRichTextSize('<font size="10"><b>Description</b></font>\n'..ScriptInfo.Description, _G.Table.GUISettings.UITextSize)
+
+				if ScriptInfo.PlaceId == 0 or game.PlaceId == tonumber(ScriptInfo.PlaceId) then
+					ExecuteButton.Visible = true
+					JoinButton.Visible = false
 				else
+					ExecuteButton.Visible = false
+					JoinButton.Visible = true
+				end
+
+				ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
+					local success, result = pcall(ScriptInfo.Script)
+
+					if success then
+						_G.PopUpNotificationOptions({
+							Title = "Executed Successfully!",
+							Message = ScriptName.." has been executed with no errors",
+							Button2Text = "Close",
+						})
+					else
+						_G.PopUpNotificationOptions({
+							Title = "Script Failed to Execute!",
+							Message = result,
+							Button2Text = "Close",
+						})
+					end
+				end)
+
+				if ScriptInfo.RigType ~= "Any" and LocalPlayer.Character.Humanoid.RigType ~= Enum.HumanoidRigType[ScriptInfo.RigType] then
+					ExecuteButtonFunction:Disconnect()
 					_G.PopUpNotificationOptions({
 						Title = "Script Failed to Execute!",
-						Message = result,
+						Message = "This script only works on "..ScriptInfo.RigType.." Rig Type",
 						Button2Text = "Close",
 					})
 				end
+
+				JoinButtonFunction = JoinButton.MouseButton1Down:Connect(function()
+					if ScriptInfo.PlaceId == 0 then
+						_G.PopUpNotificationOptions({
+							Title = "Script is for any games!",
+							Message = "No need to join a specific game to execute this script.",
+							Button2Text = "Ok",
+						})
+					else
+						game:GetService("TeleportService"):Teleport(ScriptInfo.PlaceId)
+						_G.PopUpNotificationOptions({
+							Title = "Teleporting...",
+							Message = "Please wait...",
+							Button1Text = "Copy Link",
+							Button1Function = function()
+								print(ScriptInfo.PlaceId)
+								setclipboard("roblox.com/games/"..ScriptInfo.PlaceId)
+
+								_G.PopUpNotificationOptions({
+									Title = "Link Copied!",
+									Button2Text = "Close",
+									Button2Function = function()
+									end,
+								})
+							end,
+							Button2Text = "Ok",
+							Button2Function = function()
+							end,
+						})
+					end
+				end)
+
+				NewTab.BottomFrame.Scripts.Interactable = false
+				TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0, 1, 0, 0)}):Play()
+				TweenService:Create(NewTab.BottomFrame.BackgroundFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0.5}):Play()
 			end)
 
-			JoinButtonFunction = JoinButton.MouseButton1Down:Connect(function()
-				if ScriptInfo.GameId == 0 then
-					_G.PopUpNotificationOptions({
-						Title = "Script is for any games!",
-						Message = "No need to join a specific game to execute this script.",
-						Button2Text = "Ok",
-					})
-				else
-					game:GetService("TeleportService"):Teleport(ScriptInfo.GameId)
-					_G.PopUpNotificationOptions({
-						Title = "Teleporting...",
-						Message = "Please wait...",
-						Button1Text = "Copy Link",
-						Button1Function = function()
-							setclipboard("roblox.com/games/"..ScriptInfo.GameId)
+			ScriptInfoFrame.Insides.TopFrame.CloseButton.MouseButton1Down:Connect(function()
+				TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(1, 0, 0, 0)}):Play()
+				TweenService:Create(NewTab.BottomFrame.BackgroundFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+				wait(0.6)
+				NewTab.BottomFrame.Scripts.Interactable = true
+			end)
 
-							_G.PopUpNotificationOptions({
-								Title = "Link Copied!",
-								Button2Text = "Close",
-								Button2Function = function()
-								end,
-							})
-						end,
-						Button2Text = "Ok",
-						Button2Function = function()
-						end,
-					})
+			for i, v in NewTab.BottomFrame.Scripts.ScrollingFrame:GetChildren() do
+				if v:IsA("TextButton") then
+					v.MouseEnter:Connect(function()
+						TweenService:Create(v.Insides.Icons.ScriptImage, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
+						TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 0.5}):Play()
+						TweenService:Create(v.Insides.ScrollingFrame.ScriptName, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextTransparency = 0}):Play()
+					end)
+
+					v.MouseLeave:Connect(function()
+						TweenService:Create(v.Insides.Icons.ScriptImage, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.1}):Play()
+						TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0.7}):Play()
+						TweenService:Create(v.Insides.ScrollingFrame.ScriptName, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0.1}):Play()
+					end)
 				end
-			end)
-
-			ScriptInfoFrame.Visible = true
-			TweenService:Create(ScriptInfoFrame.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
-			TweenService:Create(ScriptInfoFrame.CoverFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-			TweenService:Create(ScriptInfoFrame.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0.5}):Play()
-		end)
-
-		ScriptInfoFrame.Insides.TopFrame.CloseButton.MouseButton1Down:Connect(function()
-			TweenService:Create(ScriptInfoFrame.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Scale = 0}):Play()
-			TweenService:Create(ScriptInfoFrame.CoverFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
-			TweenService:Create(ScriptInfoFrame.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 1}):Play()
-			wait(0.3)
-			ScriptInfoFrame.Visible = false
-			TweenService:Create(ScriptInfoFrame.CoverFrame, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-		end)
-
-		for i, v in NewTab.BottomFrame.Scripts.ScrollingFrame:GetChildren() do
-			if v:IsA("TextButton") then
-				v.MouseEnter:Connect(function()
-					TweenService:Create(v.Icons.ScriptImage, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
-					TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 0.5}):Play()
-					TweenService:Create(v.ScrollingFrame.ScriptName, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextTransparency = 0}):Play()
-				end)
-
-				v.MouseLeave:Connect(function()
-					TweenService:Create(v.Icons.ScriptImage, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.1}):Play()
-					TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0.7}):Play()
-					TweenService:Create(v.ScrollingFrame.ScriptName, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0.1}):Play()
-				end)
 			end
 		end
 
-		NewTab.TabInfo.TabNameAndTotalScripts.ScriptsTotal.Text = 'by <b>'..PluginCreator..'</b>'
+		NewTab.TabInfo.TabNameAndTotalScripts.PluginCreator.Text = 'by <b>'..PluginCreator..'</b>'
 	end
 end
 

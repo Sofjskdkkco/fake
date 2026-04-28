@@ -1481,7 +1481,7 @@ coroutine.wrap(function()
 			end
 		end)
 
-		if success == "ImageId" then
+		if success == true and error == "ImageId" then
 			NewAdImage = GUI["TextBox_072"].Text
 			GUI["PopUp_083"].Image = "rbxassetid://"..NewAdImage
 			GUI["Banner_081"].Image = "rbxassetid://"..NewAdImage

@@ -96,7 +96,7 @@ GUI["TabsPluginTemplate_00"].BackgroundTransparency = 1
 GUI["TabsPluginTemplate_00"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TabsPluginTemplate_00"].BorderSizePixel = 0
 GUI["TabsPluginTemplate_00"].Size = UDim2.new(1, 0, 1, 0)
-GUI["TabsPluginTemplate_00"].Visible = true
+GUI["TabsPluginTemplate_00"].Visible = false
 GUI["TabsPluginTemplate_00"].Name = "TabsPluginTemplate"
 GUI["TabsPluginTemplate_00"].Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
 

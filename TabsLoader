@@ -633,7 +633,7 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 
 			local ScriptTemplate = NewTab.BottomFrame.Scripts.ScrollingFrame.ScriptTemplate:Clone()
 
-			ScriptTemplate.Name = ScriptInfo.ScriptId..""..ScriptName
+			ScriptTemplate.Name = ScriptName
 			ScriptTemplate.Parent = NewTab.BottomFrame.Scripts.ScrollingFrame
 			ScriptTemplate.Visible = true
 			ScriptTemplate.LayoutOrder = 3

@@ -1289,8 +1289,20 @@ GUI["UIListLayout_0119"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_0119"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_0119"].Parent = GUI["Advertise_00"]
 
-
 coroutine.wrap(function()
+	GUI.TextBox_089:GetPropertyChangedSignal("Text"):Connect(function()
+		if string.len(GUI.TextBox_089.Text)>200 then
+			GUI.TextBox_089.Text = string.sub(GUI.TextBox_089.Text, 1, 200)
+			_G.PopUpNotificationOptions({
+				Title = "Text Limit!",
+				Message = "Your script is too long. Turn it to a loadstring script instead!",
+				Button2Text = "Ok",
+				Button2Function = function()
+				end,
+			})
+		end
+	end)
+	
 	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
 	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 

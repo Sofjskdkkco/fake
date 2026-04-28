@@ -544,6 +544,18 @@ NewSlashCommand("/ban [Username]", "ban a user")
 NewSlashCommand("/unban [Username]", "unban a user")
 
 TextBox.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+	if string.len(TextBox.TextBox.Text)>100 then
+		TextBox.TextBox.Text = string.sub(TextBox.TextBox.Text, 1, 100)
+		TextBox.TextBox:ReleaseFocus()
+		_G.PopUpNotificationOptions({
+			Title = "Text Limit!",
+			Message = "Your message is too long",
+			Button2Text = "Ok",
+			Button2Function = function()
+			end,
+		})
+	end
+	
 	local TextTable = string.split(TextBox.TextBox.ContentText)
 	local NoResults = true
 
@@ -1103,7 +1115,6 @@ local function PostMessage(Table)
 end
 
 local function SendMessage(Username, DisplayName, Message)
-	local Message = string.sub(Message, 1, 100)
 	TextBox.TextBox.Text = ""
 	if RunOperations == true then
 		if not LiveChatServer.BannedPeople[Username] or IsHWIDBanned() then

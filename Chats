@@ -555,7 +555,7 @@ TextBox.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
 			end,
 		})
 	end
-	
+
 	local TextTable = string.split(TextBox.TextBox.ContentText)
 	local NoResults = true
 
@@ -1023,9 +1023,22 @@ coroutine.wrap(function()
 
 								elseif Data.Type == "JoinUserAgreed" then
 									local ToJoin = LiveChatServer.UserData[Data.Sender]
+									
 									_G.PopUpNotificationOptions({
 										Title = "Teleporting!",
 										Message = "Please wait...",
+										Button1Text = "Copy Link",
+										Button1Function = function()
+											setclipboard("https://www.roblox.com/games/start?placeId="..ToJoin.PlaceId.."&gameInstanceId="..ToJoin.JobId)
+											
+											_G.PopUpNotificationOptions({
+												Title = "Link Copied!",
+												Message = "Paste the link to your browser to join the player",
+												Button2Text = "Close",
+												Button2Function = function()
+												end,
+											})	
+										end,
 										Button2Text = "Close",
 										Button2Function = function()
 										end,

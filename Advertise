@@ -1290,20 +1290,6 @@ GUI["UIListLayout_0119"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_0119"].Parent = GUI["Advertise_00"]
 
 coroutine.wrap(function()
-	GUI.TextBox_089:GetPropertyChangedSignal("Text"):Connect(function()
-		if string.len(GUI.TextBox_089.Text)>200 then
-			GUI.TextBox_089.Text = string.sub(GUI.TextBox_089.Text, 1, 200)
-			GUI.TextBox_089:ReleaseFocus()
-			_G.PopUpNotificationOptions({
-				Title = "Text Limit!",
-				Message = "Your script is too long. Turn it to a loadstring script instead!",
-				Button2Text = "Ok",
-				Button2Function = function()
-				end,
-			})
-		end
-	end)
-	
 	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
 	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
 
@@ -1443,6 +1429,20 @@ coroutine.wrap(function()
 	GUI["TextBox_055"].FocusLost:Connect(function()
 		NewAdName = GUI["TextBox_055"].Text
 	end)
+	
+	GUI.TextBox_055:GetPropertyChangedSignal("Text"):Connect(function()
+		if string.len(GUI.TextBox_055.Text)>50 then
+			GUI.TextBox_055.Text = string.sub(GUI.TextBox_055.Text, 1, 50)
+			GUI.TextBox_055:ReleaseFocus()
+			_G.PopUpNotificationOptions({
+				Title = "Text Limit!",
+				Message = "Your ad name is exceeding to 50 letters",
+				Button2Text = "Ok",
+				Button2Function = function()
+				end,
+			})
+		end
+	end)
 
 	GUI["PopUp_062"].MouseButton1Down:Connect(function()
 		NewAdType = "PopUp"
@@ -1475,13 +1475,44 @@ coroutine.wrap(function()
 	end)
 
 	GUI["TextBox_072"].FocusLost:Connect(function()
-		NewAdImage = GUI["TextBox_072"].Text
-		GUI["PopUp_083"].Image = "rbxassetid://"..NewAdImage
-		GUI["Banner_081"].Image = "rbxassetid://"..NewAdImage
+		local success, error = pcall(function()
+			if game:GetService("MarketplaceService"):GetProductInfoAsync(GUI["TextBox_072"].Text).AssetTypeId == 1 then
+				return "ImageId"
+			end
+		end)
+
+		if success == "ImageId" then
+			NewAdImage = GUI["TextBox_072"].Text
+			GUI["PopUp_083"].Image = "rbxassetid://"..NewAdImage
+			GUI["Banner_081"].Image = "rbxassetid://"..NewAdImage
+		else
+			GUI["TextBox_072"].Text = ""
+			_G.PopUpNotificationOptions({
+				Title = "Input Invalid",
+				Message = "Not a valid ImageId",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end
 	end)
 
 	GUI["TextBox_089"].FocusLost:Connect(function()
 		NewAdScript = GUI["TextBox_089"].Text
+	end)
+	
+	GUI.TextBox_089:GetPropertyChangedSignal("Text"):Connect(function()
+		if string.len(GUI.TextBox_089.Text)>200 then
+			GUI.TextBox_089.Text = string.sub(GUI.TextBox_089.Text, 1, 200)
+			GUI.TextBox_089:ReleaseFocus()
+			_G.PopUpNotificationOptions({
+				Title = "Text Limit!",
+				Message = "Your script is too long. Turn it to a loadstring script instead!",
+				Button2Text = "Ok",
+				Button2Function = function()
+				end,
+			})
+		end
 	end)
 
 	local function PublishAd(Expiration, ReachLevel)

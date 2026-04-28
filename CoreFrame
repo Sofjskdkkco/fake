@@ -343,7 +343,7 @@ GUI["Wallpaper_0"].Image = "rbxassetid://11926598891"
 GUI["Wallpaper_0"].ImageTransparency = 0.3
 GUI["Wallpaper_0"].ScaleType = Enum.ScaleType.Crop
 GUI["Wallpaper_0"].Active = true
-GUI["Wallpaper_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
+GUI["Wallpaper_0"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Wallpaper_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Wallpaper_0"].BorderSizePixel = 0
 GUI["Wallpaper_0"].LayoutOrder = 2
@@ -351,7 +351,6 @@ GUI["Wallpaper_0"].Position = UDim2.new(-4.12399714e-08, 0, 0.119999997, 0)
 GUI["Wallpaper_0"].Size = UDim2.new(8.24799429e-08, 370, 0.879999995, 0)
 GUI["Wallpaper_0"].Name = "Wallpaper"
 GUI["Wallpaper_0"].Parent = GUI["RightFrame_0"]
-GUI["Wallpaper_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UICorner_02"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_02"].Parent = GUI["Wallpaper_0"]
@@ -399,7 +398,7 @@ GUI["WallpaperCover_0"].Image = "rbxassetid://11926598891"
 GUI["WallpaperCover_0"].ImageTransparency = 1
 GUI["WallpaperCover_0"].ScaleType = Enum.ScaleType.Crop
 GUI["WallpaperCover_0"].Active = false
-GUI["WallpaperCover_0"].BackgroundColor3 = Color3.new(UIColor(0,0,0))
+GUI["WallpaperCover_0"].BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 GUI["WallpaperCover_0"].BackgroundTransparency = 1
 GUI["WallpaperCover_0"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["WallpaperCover_0"].BorderSizePixel = 0
@@ -407,7 +406,6 @@ GUI["WallpaperCover_0"].LayoutOrder = 1
 GUI["WallpaperCover_0"].Size = UDim2.new(1, 0, 1, 0)
 GUI["WallpaperCover_0"].Name = "WallpaperCover"
 GUI["WallpaperCover_0"].Parent = GUI["Wallpaper_0"]
-GUI["WallpaperCover_0"]:SetAttribute("UIColor", Color3.fromRGB(0,0,0))
 
 GUI["UICorner_03"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_03"].Parent = GUI["WallpaperCover_0"]

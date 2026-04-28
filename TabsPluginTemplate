@@ -489,7 +489,6 @@ GUI["UIListLayout_040"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_040"].Parent = GUI["ExecuteButton_037"]
 
 GUI["ScriptPlayImage_041"].Image = "rbxassetid://17658539661"
-GUI["ScriptPlayImage_041"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["ScriptPlayImage_041"].ScaleType = Enum.ScaleType.Crop
 GUI["ScriptPlayImage_041"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["ScriptPlayImage_041"].BackgroundTransparency = 1
@@ -498,7 +497,6 @@ GUI["ScriptPlayImage_041"].BorderSizePixel = 0
 GUI["ScriptPlayImage_041"].Size = UDim2.new(0, 15, 0, 20)
 GUI["ScriptPlayImage_041"].Name = "ScriptPlayImage"
 GUI["ScriptPlayImage_041"].Parent = GUI["ExecuteButton_037"]
-GUI["ScriptPlayImage_041"]:SetAttribute("UIImageColor", true)
 
 GUI["ExecuteText_042"].Font = Enum.Font.GothamBold
 GUI["ExecuteText_042"].Text = "Execute"
@@ -545,7 +543,6 @@ GUI["UIListLayout_046"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_046"].Parent = GUI["JoinButton_043"]
 
 GUI["PlayImage_047"].Image = "rbxassetid://14320976370"
-GUI["PlayImage_047"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
 GUI["PlayImage_047"].ScaleType = Enum.ScaleType.Crop
 GUI["PlayImage_047"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["PlayImage_047"].BackgroundTransparency = 1
@@ -554,7 +551,6 @@ GUI["PlayImage_047"].BorderSizePixel = 0
 GUI["PlayImage_047"].Size = UDim2.new(0, 15, 0, 20)
 GUI["PlayImage_047"].Name = "PlayImage"
 GUI["PlayImage_047"].Parent = GUI["JoinButton_043"]
-GUI["PlayImage_047"]:SetAttribute("UIImageColor", true)
 
 GUI["JoinText_048"].Font = Enum.Font.GothamBold
 GUI["JoinText_048"].Text = "Join"

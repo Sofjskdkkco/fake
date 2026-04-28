@@ -631,19 +631,6 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 		if ScriptName ~= "Info" then
 			NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = false
 
-			TotalScripts += 1
-
-			local TotalLikes = 0
-			local TotalDislikes = 0
-
-			if ScriptInfo.IsOP == true then
-				OPScripts += 1
-			end
-
-			if ScriptInfo.IsNew == true then
-				NewScripts += 1
-			end
-
 			local ScriptTemplate = NewTab.BottomFrame.Scripts.ScrollingFrame.ScriptTemplate:Clone()
 
 			ScriptTemplate.Name = ScriptInfo.ScriptId..""..ScriptName

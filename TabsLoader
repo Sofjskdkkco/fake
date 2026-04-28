@@ -568,7 +568,7 @@ end
 _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 	local NewTab = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages.TabsPluginTemplate:Clone()
 
-	NewTab.Name = PluginName
+	NewTab.Name = "PLUGIN_"..PluginName
 	NewTab.Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
 	NewTab.Visible = false
 	NewTab.TabInfo.TabNameAndTotalScripts.TabName.Text = PluginName

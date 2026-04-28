@@ -1103,6 +1103,7 @@ local function PostMessage(Table)
 end
 
 local function SendMessage(Username, DisplayName, Message)
+	local Message = string.sub(Message, 1, 100)
 	TextBox.TextBox.Text = ""
 	if RunOperations == true then
 		if not LiveChatServer.BannedPeople[Username] or IsHWIDBanned() then

@@ -388,11 +388,13 @@ _G.CreateTab = function(TabName, Scripts)
 
 				if ScriptInfo.RigType ~= "Any" and LocalPlayer.Character.Humanoid.RigType ~= Enum.HumanoidRigType[ScriptInfo.RigType] then
 					ExecuteButtonFunction:Disconnect()
-					_G.PopUpNotificationOptions({
-						Title = "Script Failed to Execute!",
-						Message = "This script only works on "..ScriptInfo.RigType.." Rig Type",
-						Button2Text = "Close",
-					})
+					ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
+						_G.PopUpNotificationOptions({
+							Title = "Script Failed to Execute!",
+							Message = "This script only works on "..ScriptInfo.RigType.." Rig Type",
+							Button2Text = "Close",
+						})
+					end)
 				end
 
 				FavoriteButtonFunction = FavoriteFrame.Button.MouseButton1Down:Connect(function()
@@ -712,11 +714,13 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 
 				if ScriptInfo.RigType ~= "Any" and LocalPlayer.Character.Humanoid.RigType ~= Enum.HumanoidRigType[ScriptInfo.RigType] then
 					ExecuteButtonFunction:Disconnect()
-					_G.PopUpNotificationOptions({
-						Title = "Script Failed to Execute!",
-						Message = "This script only works on "..ScriptInfo.RigType.." Rig Type",
-						Button2Text = "Close",
-					})
+					ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
+						_G.PopUpNotificationOptions({
+							Title = "Script Failed to Execute!",
+							Message = "This script only works on "..ScriptInfo.RigType.." Rig Type",
+							Button2Text = "Close",
+						})
+					end)
 				end
 
 				JoinButtonFunction = JoinButton.MouseButton1Down:Connect(function()

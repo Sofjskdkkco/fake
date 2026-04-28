@@ -1293,6 +1293,7 @@ coroutine.wrap(function()
 	GUI.TextBox_089:GetPropertyChangedSignal("Text"):Connect(function()
 		if string.len(GUI.TextBox_089.Text)>200 then
 			GUI.TextBox_089.Text = string.sub(GUI.TextBox_089.Text, 1, 200)
+			GUI.TextBox_089:ReleaseFocus()
 			_G.PopUpNotificationOptions({
 				Title = "Text Limit!",
 				Message = "Your script is too long. Turn it to a loadstring script instead!",

@@ -322,7 +322,7 @@ GUI["ScrollingFrame_022"].Position = UDim2.new(0.0283018872, 0, 0.400000006, 0)
 GUI["ScrollingFrame_022"].Size = UDim2.new(0, 100, 0, 42)
 GUI["ScrollingFrame_022"].Parent = GUI["Insides_012"]
 
-GUI["ScriptName_023"].Font = UIFont("Medium")
+GUI["ScriptName_023"].FontFace = UIFont("Medium")
 GUI["ScriptName_023"].RichText = true
 GUI["ScriptName_023"].Text = "Script Name"
 GUI["ScriptName_023"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
@@ -345,7 +345,7 @@ GUI["UIListLayout_024"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_024"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_024"].Parent = GUI["Insides_012"]
 
-GUI["NoScripts_025"].Font = UIFont("Medium")
+GUI["NoScripts_025"].FontFace = UIFont("Medium")
 GUI["NoScripts_025"].Text = "No scripts avalable"
 GUI["NoScripts_025"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["NoScripts_025"].TextSize = 12+_G.Table.GUISettings.UITextSize
@@ -422,7 +422,7 @@ GUI["ScrollingFrame_033"].LayoutOrder = 2
 GUI["ScrollingFrame_033"].Size = UDim2.new(1, 0, 0, 137)
 GUI["ScrollingFrame_033"].Parent = GUI["Insides_030"]
 
-GUI["ScriptName_034"].Font = UIFont("Medium")
+GUI["ScriptName_034"].FontFace = UIFont("Medium")
 GUI["ScriptName_034"].LineHeight = 0.8999999761581421
 GUI["ScriptName_034"].RichText = true
 GUI["ScriptName_034"].Text = '<font size="18"><b>Strongest Punch Simulator Auto Farm</b></font>\n<font transparency="0.2">By</font> <b>PyDubs</b>'
@@ -571,7 +571,7 @@ GUI["JoinText_048"].Parent = GUI["JoinButton_043"]
 
 GUI["UIScale_049"].Parent = GUI["PlayAndExecuteFrame_036"]
 
-GUI["Description_050"].Font = UIFont("Medium")
+GUI["Description_050"].FontFace = UIFont("Medium")
 GUI["Description_050"].LineHeight = 0.8999999761581421
 GUI["Description_050"].RichText = true
 GUI["Description_050"].Text = '<font size="10"><b>Description</b></font>\nmeow'
@@ -652,7 +652,7 @@ GUI["CloseImage_057"].Name = "CloseImage"
 GUI["CloseImage_057"].Parent = GUI["CloseButton_056"]
 GUI["CloseImage_057"]:SetAttribute("UIImageColor", true)
 
-GUI["CloseText_058"].Font = UIFont("Medium")
+GUI["CloseText_058"].FontFace = UIFont("Medium")
 GUI["CloseText_058"].Text = "Close"
 GUI["CloseText_058"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["CloseText_058"].TextSize = 10+_G.Table.GUISettings.UITextSize
@@ -773,7 +773,7 @@ GUI["TabNameAndTotalScripts_072"].Size = UDim2.new(0, 170, 0.699999988, 0)
 GUI["TabNameAndTotalScripts_072"].Name = "TabNameAndTotalScripts"
 GUI["TabNameAndTotalScripts_072"].Parent = GUI["TabInfo_065"]
 
-GUI["TabName_073"].Font = UIFont("Bold")
+GUI["TabName_073"].FontFace = UIFont("Bold")
 GUI["TabName_073"].Text = "Required Accessories"
 GUI["TabName_073"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
 GUI["TabName_073"].TextSize = 16+_G.Table.GUISettings.UITextSize
@@ -795,7 +795,7 @@ GUI["UIListLayout_074"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_074"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_074"].Parent = GUI["TabNameAndTotalScripts_072"]
 
-GUI["PluginCreator_075"].Font = UIFont("Medium")
+GUI["PluginCreator_075"].FontFace = UIFont("Medium")
 GUI["PluginCreator_075"].RichText = true
 GUI["PluginCreator_075"].Text = '<b>100 Scripts</b>, <font color="rgb(255, 188, 87)">10 OP Scripts</font> and <font color="rgb(255, 102, 102)">1 New Scripts</font>'
 GUI["PluginCreator_075"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))
@@ -860,7 +860,7 @@ GUI["UIListLayout_081"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_081"].Parent = GUI["SearchBar_077"]
 
 GUI["TextBox_082"].ClearTextOnFocus = false
-GUI["TextBox_082"].Font = UIFont("Medium")
+GUI["TextBox_082"].FontFace = UIFont("Medium")
 GUI["TextBox_082"].PlaceholderText = "search a script"
 GUI["TextBox_082"].Text = ""
 GUI["TextBox_082"].TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))

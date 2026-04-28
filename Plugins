@@ -660,7 +660,7 @@ local function InstallOperation()
 			end
 
 			if CheckIfDecalOrImage(tonumber(TableContents.PluginLogo)) == true then
-				local required = {"Creator", "GameId", "RigType", "Script" }
+				local required = {"Creator", "PlaceId", "RigType", "Script" }
 				local missing = {}
 
 				for PluginScriptName, PluginScriptTable in TableContents.Scripts do

@@ -1490,7 +1490,7 @@ coroutine.wrap(function()
 		})
 	end
 
-	local function CreateFreePackage(KeySystemAPILink, AdType, Description)
+	local function CreateFreePackage(KeySystemAPILink, AdType, UNIXTimeExpiration, Description)
 		local Template = GUI["PackageTemplate_097"]:Clone()
 
 		Template.Name = "PackageFree"..AdType
@@ -1599,7 +1599,7 @@ coroutine.wrap(function()
 
 				if success then
 					writefile("VexHub7/"..AdType.."AdsKey.vex", Template.TextBoxParent.TextBox.Text)
-					CreateActiveAd(NewAdName, NewAdImage, os.time()+86400, 0, 0, 0)
+					CreateActiveAd(NewAdName, NewAdImage, os.time()+UNIXTimeExpiration, 0, 0, 0)
 					Template.PublishButton.Visible = true
 					Template.TextBoxParent.Visible = false
 
@@ -1766,11 +1766,12 @@ coroutine.wrap(function()
 		end
 	end
 
-	CreateFreePackage("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI", "Banner", "- 24 hours duration\n- Reach level 3\n(1 out of 10 people will see your ad)")
+	CreateFreePackage("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAdsKeySystemAPI", "Banner", 86400, "- 24 hours duration\n- Reach level 1\n(1 out of 10 people will see your ad)")
 	CreatePackage(1804118261, "Banner", 259200, 3) -- 3 Days
 	CreatePackage(1811650255, "Banner", 604800, 5) -- 7 Days
 	CreatePackage(1811464262, "Banner", 1209600, 7) -- 14 Days
 	CreatePackage(1811566260, "Banner", 2592000, 10) -- 30 Days
+	CreateFreePackage("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpAdsKeySystemAPI", "PopUp", 43200, "- 12 hours duration\n- Reach level 1\n(1 out of 10 people will see your ad)")
 	CreatePackage(1811228046, "PopUp", 259200, 3) -- 3 Days
 	CreatePackage(1812559919, "PopUp", 604800, 5) -- 7 Days
 	CreatePackage(1811665929, "PopUp", 1209600, 7) -- 14 Days

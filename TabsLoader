@@ -572,7 +572,7 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 	NewTab.Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
 	NewTab.Visible = false
 	NewTab.TabInfo.TabNameAndTotalScripts.TabName.Text = PluginName
-	NewTab.TabInfo.TabImage.Image = Scripts.Info.Icon
+	NewTab.TabInfo.TabImage.Image = PluginImage
 
 	local TextBox = NewTab.TabInfo.SearchBar.TextBox
 	local MagnifyingGlass = NewTab.TabInfo.SearchBar.MagnifyingGlass

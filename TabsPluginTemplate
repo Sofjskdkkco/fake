@@ -96,6 +96,7 @@ GUI["TabsPluginTemplate_00"].BackgroundTransparency = 1
 GUI["TabsPluginTemplate_00"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["TabsPluginTemplate_00"].BorderSizePixel = 0
 GUI["TabsPluginTemplate_00"].Size = UDim2.new(1, 0, 1, 0)
+GUI["TabsPluginTemplate_00"].Visible = true
 GUI["TabsPluginTemplate_00"].Name = "TabsPluginTemplate"
 GUI["TabsPluginTemplate_00"].Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
 
@@ -119,6 +120,7 @@ GUI["UIGradient_02"].Parent = GUI["BottomFrame_01"]
 
 GUI["UIStroke_03"].Color = Color3.fromRGB(255, 255, 255)
 GUI["UIStroke_03"].Parent = GUI["BottomFrame_01"]
+GUI["UIStroke_03"].Transparency = 0.9
 
 GUI["UICorner_04"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_04"].Parent = GUI["BottomFrame_01"]
@@ -172,6 +174,7 @@ GUI["UICorner_010"].Parent = GUI["ScriptTemplate_08"]
 GUI["UIStroke_011"].ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 GUI["UIStroke_011"].Color = Color3.fromRGB(255, 255, 255)
 GUI["UIStroke_011"].Parent = GUI["ScriptTemplate_08"]
+GUI["UIStroke_011"].Transparency = 0.7
 
 GUI["Insides_012"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Insides_012"].BackgroundTransparency = 0.9700000286102295
@@ -271,7 +274,7 @@ GUI["ScrollingFrame_022"].Position = UDim2.new(0.0283018872, 0, 0.400000006, 0)
 GUI["ScrollingFrame_022"].Size = UDim2.new(0, 100, 0, 42)
 GUI["ScrollingFrame_022"].Parent = GUI["Insides_012"]
 
-GUI["ScriptName_023"].Font = Enum.Font.Unknown
+GUI["ScriptName_023"].Font = Enum.Font.MontserratMedium
 GUI["ScriptName_023"].RichText = true
 GUI["ScriptName_023"].Text = "Script Name"
 GUI["ScriptName_023"].TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -290,7 +293,7 @@ GUI["UIListLayout_024"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_024"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_024"].Parent = GUI["Insides_012"]
 
-GUI["NoScripts_025"].Font = Enum.Font.Unknown
+GUI["NoScripts_025"].Font = Enum.Font.MontserratMedium
 GUI["NoScripts_025"].Text = "No scripts avalable"
 GUI["NoScripts_025"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["NoScripts_025"].TextSize = 12
@@ -610,6 +613,7 @@ GUI["InformationImage_060"].Parent = GUI["TopFrame_054"]
 
 GUI["UIStroke_061"].Color = Color3.fromRGB(255, 255, 255)
 GUI["UIStroke_061"].Parent = GUI["ScriptInfo_028"]
+GUI["UIStroke_061"].Transparency = 0.9
 
 GUI["UIGradient_062"].Color = ColorSequence.new{
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -672,6 +676,7 @@ GUI["UIListLayout_069"].Parent = GUI["TabInfo_065"]
 
 GUI["UIStroke_070"].Color = Color3.fromRGB(255, 255, 255)
 GUI["UIStroke_070"].Parent = GUI["TabInfo_065"]
+GUI["UIStroke_070"].Transparency = 0.9
 
 GUI["UICorner_071"].CornerRadius = UDim.new(0, 5)
 GUI["UICorner_071"].Parent = GUI["TabInfo_065"]
@@ -685,7 +690,7 @@ GUI["TabNameAndTotalScripts_072"].Size = UDim2.new(0, 170, 0.699999988, 0)
 GUI["TabNameAndTotalScripts_072"].Name = "TabNameAndTotalScripts"
 GUI["TabNameAndTotalScripts_072"].Parent = GUI["TabInfo_065"]
 
-GUI["TabName_073"].Font = Enum.Font.Unknown
+GUI["TabName_073"].Font = Enum.Font.MontserratBold
 GUI["TabName_073"].Text = "Required Accessories"
 GUI["TabName_073"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["TabName_073"].TextSize = 16
@@ -703,7 +708,7 @@ GUI["UIListLayout_074"].HorizontalAlignment = Enum.HorizontalAlignment.Center
 GUI["UIListLayout_074"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_074"].Parent = GUI["TabNameAndTotalScripts_072"]
 
-GUI["PluginCreator_075"].Font = Enum.Font.Unknown
+GUI["PluginCreator_075"].Font = Enum.Font.MontserratMedium
 GUI["PluginCreator_075"].RichText = true
 GUI["PluginCreator_075"].Text = '<b>100 Scripts</b>, <font color="rgb(255, 188, 87)">10 OP Scripts</font> and <font color="rgb(255, 102, 102)">1 New Scripts</font>'
 GUI["PluginCreator_075"].TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -743,6 +748,7 @@ GUI["UICorner_078"].Parent = GUI["SearchBar_077"]
 
 GUI["UIStroke_079"].Color = Color3.fromRGB(255, 255, 255)
 GUI["UIStroke_079"].Parent = GUI["SearchBar_077"]
+GUI["UIStroke_079"].Transparency = 0.5
 
 GUI["MagnifyingGlass_080"].Image = "http://www.roblox.com/asset/?id=17633536608"
 GUI["MagnifyingGlass_080"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -759,7 +765,7 @@ GUI["UIListLayout_081"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_081"].Parent = GUI["SearchBar_077"]
 
 GUI["TextBox_082"].ClearTextOnFocus = false
-GUI["TextBox_082"].Font = Enum.Font.Unknown
+GUI["TextBox_082"].Font = Enum.Font.MontserratMedium
 GUI["TextBox_082"].PlaceholderText = "search a script"
 GUI["TextBox_082"].Text = ""
 GUI["TextBox_082"].TextColor3 = Color3.fromRGB(255, 255, 255)

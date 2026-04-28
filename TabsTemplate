@@ -374,7 +374,7 @@ GUI["ScriptImage_024"].BorderSizePixel = 0
 GUI["ScriptImage_024"].Size = UDim2.new(0, 28, 0, 28)
 GUI["ScriptImage_024"].Name = "ScriptImage"
 GUI["ScriptImage_024"].Parent = GUI["Icons_023"]
-GUI["ScriptImage_024"].ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+GUI["ScriptImage_024"]:SetAttribute("UIImageColor", true)
 
 GUI["UIListLayout_025"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_025"].SortOrder = Enum.SortOrder.LayoutOrder

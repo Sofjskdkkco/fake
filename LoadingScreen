@@ -135,7 +135,7 @@ local Errors = 0
 local function Load(Name, Link)
 	NewMessage("Loading "..Name.."...")
 	local success, result = pcall(function()
-		loadstring(game:HttpGet((Link),true))()
+		loadmirror(Link)
 	end)
 
 	if success then

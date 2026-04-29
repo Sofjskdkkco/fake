@@ -63,7 +63,7 @@ local function FirebaseServerWrite(Path, Key, Value)
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode({
 				firebase_url = DatabaseLink,
-				data = game:GetService("HttpService"):JSONEncode(Table)
+				data = Table
 			})
 		})
 	end)

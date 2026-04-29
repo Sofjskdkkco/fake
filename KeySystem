@@ -68,7 +68,7 @@ end
 AppearLoading()
 
 local function ExecuteVexHub()
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/LoadingScreen'),true))()
+	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/LoadingScreen')
 end
 
 local success, error = pcall(function()

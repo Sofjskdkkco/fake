@@ -47,9 +47,11 @@ local function FirebaseServerWrite(Path, Key, Value)
 		local request = request or syn.request
 		local Table = {}
 
-		for key, value in pairs(DatabaseData) do
-			if key then
-				Table[key] = value
+		if DatabaseData ~= nil then
+			for key, value in pairs(DatabaseData) do
+				if key then
+					Table[key] = value
+				end
 			end
 		end
 
@@ -57,10 +59,10 @@ local function FirebaseServerWrite(Path, Key, Value)
 
 		local send = request({
 			Url = "https://mirrorr.onrender.com/put",
-			Method = "PUT",
+			Method = "POST",
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode({
-				firebase_url = URL..Path,
+				firebase_url = DatabaseLink,
 				data = game:GetService("HttpService"):JSONEncode(Table)
 			})
 		})
@@ -76,9 +78,11 @@ local function FirebaseServerDelete(Path, Key, Value)
 		local request = request or syn.request
 		local Table = {}
 
-		for key, value in pairs(DatabaseData) do
-			if key ~= Key then
-				Table[key] = value
+		if DatabaseData ~= nil then
+			for key, value in pairs(DatabaseData) do
+				if key ~= Key then
+					Table[key] = value
+				end
 			end
 		end
 
@@ -86,10 +90,10 @@ local function FirebaseServerDelete(Path, Key, Value)
 
 		local send = request({
 			Url = "https://mirrorr.onrender.com/put",
-			Method = "PUT",
+			Method = "POST",
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode({
-				firebase_url = URL..Path,
+				firebase_url = DatabaseLink,
 				data = Table
 			})
 		})

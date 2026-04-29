@@ -1553,7 +1553,7 @@ coroutine.wrap(function()
 			local AdsKeySystem = nil
 
 			local success, error = pcall(function()
-				AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
+				AdsKeySystem = loadmirror(KeySystemAPILink)
 			end)
 
 			if success then
@@ -1635,7 +1635,7 @@ coroutine.wrap(function()
 				end,
 			})
 
-			local AdsKeySystem = loadstring(game:HttpGet((KeySystemAPILink),true))()
+			local AdsKeySystem = loadmirror(KeySystemAPILink)
 			if AdsKeySystem.VerifyKey(Template.TextBoxParent.TextBox.Text) == true then
 				local success, error = pcall(function()
 					PublishAd(os.time()+86400, 1)

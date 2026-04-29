@@ -47,11 +47,9 @@ local function FirebaseServerWrite(Path, Key, Value)
 		local request = request or syn.request
 		local Table = {}
 
-		if DatabaseData ~= nil then
-			for key, value in pairs(DatabaseData) do
-				if key then
-					Table[key] = value
-				end
+		for key, value in pairs(DatabaseData) do
+			if key then
+				Table[key] = value
 			end
 		end
 
@@ -62,7 +60,7 @@ local function FirebaseServerWrite(Path, Key, Value)
 			Method = "PUT",
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode({
-				firebase_url = URL..Path,
+				firebase_url = DatabaseLink,
 				data = game:GetService("HttpService"):JSONEncode(Table)
 			})
 		})
@@ -78,11 +76,9 @@ local function FirebaseServerDelete(Path, Key, Value)
 		local request = request or syn.request
 		local Table = {}
 
-		if DatabaseData ~= nil then
-			for key, value in pairs(DatabaseData) do
-				if key ~= Key then
-					Table[key] = value
-				end
+		for key, value in pairs(DatabaseData) do
+			if key ~= Key then
+				Table[key] = value
 			end
 		end
 
@@ -93,7 +89,7 @@ local function FirebaseServerDelete(Path, Key, Value)
 			Method = "PUT",
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode({
-				firebase_url = URL..Path,
+				firebase_url = DatabaseLink,
 				data = Table
 			})
 		})

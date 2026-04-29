@@ -60,7 +60,7 @@ local function FirebaseServerWrite(Path, Key, Value)
 			Method = "PUT",
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode({
-				firebase_url = DatabaseLink,
+				firebase_url = URL..Path,
 				data = game:GetService("HttpService"):JSONEncode(Table)
 			})
 		})
@@ -89,7 +89,7 @@ local function FirebaseServerDelete(Path, Key, Value)
 			Method = "PUT",
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode({
-				firebase_url = DatabaseLink,
+				firebase_url = URL..Path,
 				data = Table
 			})
 		})

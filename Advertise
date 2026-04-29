@@ -1297,12 +1297,13 @@ coroutine.wrap(function()
 
 	local function FirebaseServerWrite(Path, Key, Value)
 		local success, error = pcall(function()
-			local database = URL..Path..".json?auth="..Secret
+			local DatabaseLink = URL..Path..".json?auth="..Secret
+			local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
 			local request = request or syn.request
 			local Table = {}
 
-			if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-				for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+			if DatabaseData ~= nil then
+				for key, value in pairs(DatabaseData) do
 					if key then
 						Table[key] = value
 					end
@@ -1312,10 +1313,13 @@ coroutine.wrap(function()
 			Table[Key] = Value
 
 			local send = request({
-				Url = database,
-				Method = "PUT",
+				Url = "https://mirrorr.onrender.com/put",
+				Method = "POST",
 				Headers = {["Content-Type"] = "application/json"},
-				Body = game:GetService("HttpService"):JSONEncode(Table)
+				Body = game:GetService("HttpService"):JSONEncode({
+					firebase_url = DatabaseLink,
+					data = Table
+				})
 			})
 		end)
 
@@ -1324,12 +1328,13 @@ coroutine.wrap(function()
 
 	local function FirebaseServerDelete(Path, Key)
 		local success, error = pcall(function()
-			local database = URL..Path..".json?auth="..Secret
+			local DatabaseLink = URL..Path..".json?auth="..Secret
+			local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
 			local request = request or syn.request
 			local Table = {}
 
-			if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-				for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+			if DatabaseData ~= nil then
+				for key, value in pairs(DatabaseData) do
 					if key ~= Key then
 						Table[key] = value
 					end
@@ -1337,10 +1342,13 @@ coroutine.wrap(function()
 			end
 
 			local send = request({
-				Url = database,
-				Method = "PUT",
+				Url = "https://mirrorr.onrender.com/put",
+				Method = "POST",
 				Headers = {["Content-Type"] = "application/json"},
-				Body = game.HttpService:JSONEncode(Table)
+				Body = game:GetService("HttpService"):JSONEncode({
+					firebase_url = DatabaseLink,
+					data = Table
+				})
 			})
 		end)
 
@@ -1349,14 +1357,15 @@ coroutine.wrap(function()
 
 	local function FirebaseServerUpdate()
 		local success, error = pcall(function()
-			FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+			local DatabaseLink = URL..".json?auth="..Secret
+			FirebaseServer = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
 		end)
 
 		if not success then print("Something went wrong while reading in the server: "..error) end
 	end
-
+	
 	FirebaseServerUpdate()
-
+	
 	local function AllSpace(String)
 		for i, v in string.split(String, " ") do
 			if v ~= "" and v ~= " " then
@@ -1429,7 +1438,7 @@ coroutine.wrap(function()
 	GUI["TextBox_055"].FocusLost:Connect(function()
 		NewAdName = GUI["TextBox_055"].Text
 	end)
-	
+
 	GUI.TextBox_055:GetPropertyChangedSignal("Text"):Connect(function()
 		if string.len(GUI.TextBox_055.Text)>50 then
 			GUI.TextBox_055.Text = string.sub(GUI.TextBox_055.Text, 1, 50)
@@ -1500,7 +1509,7 @@ coroutine.wrap(function()
 	GUI["TextBox_089"].FocusLost:Connect(function()
 		NewAdScript = GUI["TextBox_089"].Text
 	end)
-	
+
 	GUI.TextBox_089:GetPropertyChangedSignal("Text"):Connect(function()
 		if string.len(GUI.TextBox_089.Text)>200 then
 			GUI.TextBox_089.Text = string.sub(GUI.TextBox_089.Text, 1, 200)

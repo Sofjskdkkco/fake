@@ -656,9 +656,9 @@ coroutine.wrap(function()
 
 	centerFrame(GUI.DragFrame_0, GUI.DragFrame_0.AbsoluteSize.X, GUI.DragFrame_0.AbsoluteSize.Y)
 
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpNotificationLib'),true))()
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAds'),true))()
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpAds'),true))()
+	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpNotificationLib')
+	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAds')
+	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpAds')
 
 	local OngoingTabAnimation = false
 	_G.CreateTabButton = function(TabName, TabImage, LayoutOrder)
@@ -851,7 +851,7 @@ coroutine.wrap(function()
 		end
 	end
 
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/ActionButton'),true))()
+	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/ActionButton')
 
 	GUI.Close_0.MouseButton1Down:Connect(function()
 		_G.CloseVexHub()

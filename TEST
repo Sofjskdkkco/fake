@@ -71,7 +71,7 @@ local function FirebaseServerWrite(Path, Key, Value)
 	if not success then print("Something went wrong while writing in the server: "..error) end
 end
 
-local function FirebaseServerDelete(Path, Key, Value)
+local function FirebaseServerDelete(Path, Key)
 	local success, error = pcall(function()
 		local DatabaseLink = URL..Path..".json?auth="..Secret
 		local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
@@ -85,8 +85,6 @@ local function FirebaseServerDelete(Path, Key, Value)
 				end
 			end
 		end
-
-		Table[Key] = Value
 
 		local send = request({
 			Url = "https://mirrorr.onrender.com/put",

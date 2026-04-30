@@ -40,7 +40,7 @@ local function CheckAPIAwake()
 	
 	coroutine.wrap(function()
 		while task.wait(1) do
-			if Time < 3 then
+			if Time > 3 then
 				Time += 1
 			else
 				return false
@@ -48,7 +48,7 @@ local function CheckAPIAwake()
 		end
 	end)()
 	
-	print(mirror("https://example.com"))
+	mirror("https://example.com")
 	wait()
 	
 	return true

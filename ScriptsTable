@@ -228,7 +228,7 @@ return {
 		},
 		
 		["Arosia"] = {
-			Owner = "illremember",
+			Creator = "illremember",
 			Description = "A GUI with basic scripts for exploiting.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -241,7 +241,7 @@ return {
 		},
 
 		["Fly Gui"] = {
-			Owner = "me_ozoneYT",
+			Creator = "me_ozoneYT",
 			Description = "A GUI that can make you fly.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -258,7 +258,7 @@ return {
 		},
 
 		["Yeet Gui"] = {
-			Owner = "Scuba Kermit",
+			Creator = "Scuba Kermit",
 			Description = "A very old and buggy script that can fling people.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -271,7 +271,7 @@ return {
 		},
 
 		["Hypertotal"] = {
-			Owner = "illremember",
+			Creator = "illremember",
 			Description = "Better than Arosia.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -284,7 +284,7 @@ return {
 		},
 
 		["Spectate Gui"] = {
-			Owner = "Unknown",
+			Creator = "Unknown",
 			Description = "A GUI that can spectate people.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -297,7 +297,7 @@ return {
 		},
 
 		["Tower Of Hell OnWin"] = {
-			Owner = "Mich",
+			Creator = "Mich",
 			Description = "A GUI for Tower of Hell.",
 			PlaceId = 1962086868,
 			RigType = "Any", -- R6, R15, Any
@@ -310,7 +310,7 @@ return {
 		},
 
 		["Edge's Audio Logger"] = {
-			Owner = "Edge's",
+			Creator = "Edge's",
 			Description = "Gets all audios in the game.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -323,7 +323,7 @@ return {
 		},
 
 		["Shiftlock"] = {
-			Owner = "Unknown",
+			Creator = "Unknown",
 			Description = "Shitlock.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -336,7 +336,7 @@ return {
 		},
 
 		["Yeet Gui V4"] = {
-			Owner = "scuba kermit",
+			Creator = "scuba kermit",
 			Description = "Fling people.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -349,7 +349,7 @@ return {
 		},
 
 		["TpGui"] = {
-			Owner = "Unknown",
+			Creator = "Unknown",
 			Description = "Teleport to people.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -362,7 +362,7 @@ return {
 		},
 
 		["OPFinality"] = {
-			Owner = "illremember",
+			Creator = "illremember",
 			Description = "GUI with simple features.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -375,7 +375,7 @@ return {
 		},
 
 		["Vehicle Fly"] = {
-			Owner = "WarriorRoberr",
+			Creator = "WarriorRoberr",
 			Description = "Make any drivable things fly.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -388,7 +388,7 @@ return {
 		},
 
 		["Invisible Car Toggle Gui"] = {
-			Owner = "Unknown",
+			Creator = "Unknown",
 			Description = "Invisible car.",
 			PlaceId = 0,
 			RigType = "R6", -- R6, R15, Any
@@ -401,7 +401,7 @@ return {
 		},
 
 		["Arceus X Aimbot"] = {
-			Owner = "SPDMTeam",
+			Creator = "SPDMTeam",
 			Description = "Aimbot.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -414,7 +414,7 @@ return {
 		},
 
 		["Peterating Underground"] = {
-			Owner = "GhostPlayer",
+			Creator = "GhostPlayer",
 			Description = "Makes you noclip underground.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -427,7 +427,7 @@ return {
 		},
 
 		["Keyboard Keybinds"] = {
-			Owner = "Kokjindesu",
+			Creator = "Kokjindesu",
 			Description = "A GUI that acts like a keyboard.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -440,7 +440,7 @@ return {
 		},
 
 		["Break In Gui"] = {
-			Owner = "Flawm3ng0, Hamsta Gang, doggyshot123, Chrrxs, LeviTheOtaku",
+			Creator = "Flawm3ng0, Hamsta Gang, doggyshot123, Chrrxs, LeviTheOtaku",
 			Description = "OP stuff for Break In. Only works on the game not in the lobby.",
 			PlaceId = 4620170611,
 			RigType = "Any", -- R6, R15, Any
@@ -453,7 +453,7 @@ return {
 		},
 
 		["Invisible Gui"] = {
-			Owner = "GhostPlayer",
+			Creator = "GhostPlayer",
 			Description = "GUI that makes you invisible.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -466,7 +466,7 @@ return {
 		},
 
 		["LuaC Emulator"] = {
-			Owner = "3dsboy08, Josh",
+			Creator = "3dsboy08, Josh",
 			Description = "A script that can execute LuaC scripts!",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -479,7 +479,7 @@ return {
 		},
 
 		["Waypoint Gui"] = {
-			Owner = "koirapallo32#5518",
+			Creator = "koirapallo32#5518",
 			Description = "Waypoint.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -492,7 +492,7 @@ return {
 		},
 
 		["Hitbox Gui"] = {
-			Owner = "V31nc",
+			Creator = "V31nc",
 			Description = "Hitbox.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -505,7 +505,7 @@ return {
 		},
 
 		["Project Bullshit"] = {
-			Owner = "Racist Dolphin#5199",
+			Creator = "Racist Dolphin#5199",
 			Description = "A GUI with OP stuff.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -518,7 +518,7 @@ return {
 		},
 
 		["Dex Explorer"] = {
-			Owner = "Unknown",
+			Creator = "Unknown",
 			Description = "Explore the game properties.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -531,7 +531,7 @@ return {
 		},
 
 		["Strongman Simulator Gui"] = {
-			Owner = "HamstaGang, OREZAKung",
+			Creator = "HamstaGang, OREZAKung",
 			Description = "Auto farm the game!",
 			PlaceId = 6766156863,
 			RigType = "Any", -- R6, R15, Any
@@ -544,7 +544,7 @@ return {
 		},
 
 		["R4D"] = {
-			Owner = "M1zz",
+			Creator = "M1zz",
 			Description = "A Brookhaven trolling GUI!",
 			PlaceId = 4924922222,
 			RigType = "Any", -- R6, R15, Any
@@ -557,7 +557,7 @@ return {
 		},
 
 		["FreeCam"] = {
-			Owner = "ZephyrScripts",
+			Creator = "ZephyrScripts",
 			Description = "Free your camera.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -570,7 +570,7 @@ return {
 		},
 
 		["Avatar Outfit Changer"] = {
-			Owner = "GhostPlayer",
+			Creator = "GhostPlayer",
 			Description = "Change your avatar in the game without closing the app!",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
@@ -583,7 +583,7 @@ return {
 		},
 
 		["Save Server GUI"] = {
-			Owner = "GhostPlayer",
+			Creator = "GhostPlayer",
 			Description = "Save the server so when u want to join that server again, just click a button and youre in that server!",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any

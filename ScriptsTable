@@ -226,6 +226,374 @@ return {
 			Icon = "rbxassetid://11592848654",
 			Order = 3,
 		},
+		
+		["Arosia"] = {
+			Owner = "illremember",
+			Description = "A GUI with basic scripts for exploiting.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2001,
+			Script = function()
+				loadstring(Game:GetObjects("rbxassetid://1255908305")[1].Source)()
+			end,
+		},
+
+		["Fly Gui"] = {
+			Owner = "me_ozoneYT",
+			Description = "A GUI that can make you fly.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2002,
+			Script = function()
+				if game.PlaceId == 2788229376 then
+					loadstring(game:HttpGet(('https://raw.githubusercontent.com/Obfuscatetestloluwu/Scripts/main/Fly%20Gui%20For%20Da%20Hood'),true))()
+				else
+					loadstring(game:HttpGet(('https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Fly%20gui'),true))()
+				end
+			end,
+		},
+
+		["Yeet Gui"] = {
+			Owner = "Scuba Kermit",
+			Description = "A very old and buggy script that can fling people.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 2003,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/LMQgxmhe'),true))()
+			end,
+		},
+
+		["Hypertotal"] = {
+			Owner = "illremember",
+			Description = "Better than Arosia.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2004,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/nucL1nkC'),true))()
+			end,
+		},
+
+		["Spectate Gui"] = {
+			Owner = "Unknown",
+			Description = "A GUI that can spectate people.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 2005,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/brJacHL9'),true))()
+			end,
+		},
+
+		["Tower Of Hell OnWin"] = {
+			Owner = "Mich",
+			Description = "A GUI for Tower of Hell.",
+			PlaceId = 1962086868,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2006,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/zphaw4sM'),true))()
+			end,
+		},
+
+		["Edge's Audio Logger"] = {
+			Owner = "Edge's",
+			Description = "Gets all audios in the game.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 2007,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/wN9Q3pZm'),true))()
+			end,
+		},
+
+		["Shiftlock"] = {
+			Owner = "Unknown",
+			Description = "Shitlock.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 2008,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/E9a7QmCZ'),true))()
+			end,
+		},
+
+		["Yeet Gui V4"] = {
+			Owner = "scuba kermit",
+			Description = "Fling people.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2009,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/61VhedB4'),true))()
+			end,
+		},
+
+		["TpGui"] = {
+			Owner = "Unknown",
+			Description = "Teleport to people.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2010,
+			Script = function()
+				loadstring(game:HttpGet("https://gist.githubusercontent.com/DagerFild/b4776075a0d26ef04394133ee6bd2081/raw/0ed51ac94057d2d9a9f00e1b037b9011c76ca54a/tpGUI", true))()
+			end,
+		},
+
+		["OPFinality"] = {
+			Owner = "illremember",
+			Description = "GUI with simple features.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2011,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/U290qDC2'),true))()
+			end,
+		},
+
+		["Vehicle Fly"] = {
+			Owner = "WarriorRoberr",
+			Description = "Make any drivable things fly.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2012,
+			Script = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/qgEYL5UB"))()
+			end,
+		},
+
+		["Invisible Car Toggle Gui"] = {
+			Owner = "Unknown",
+			Description = "Invisible car.",
+			PlaceId = 0,
+			RigType = "R6", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 2013,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/XL50E7g4'),true))()
+			end,
+		},
+
+		["Arceus X Aimbot"] = {
+			Owner = "SPDMTeam",
+			Description = "Aimbot.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2014,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/chillz-workshop/main/Arceus%20Aimbot.lua"))()
+			end,
+		},
+
+		["Peterating Underground"] = {
+			Owner = "GhostPlayer",
+			Description = "Makes you noclip underground.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 2015,
+			Script = function()
+				loadstring(game:HttpGet('https://pastebin.com/raw/QKbzxzSj'))()
+			end,
+		},
+
+		["Keyboard Keybinds"] = {
+			Owner = "Kokjindesu",
+			Description = "A GUI that acts like a keyboard.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 2016,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+			end,
+		},
+
+		["Break In Gui"] = {
+			Owner = "Flawm3ng0, Hamsta Gang, doggyshot123, Chrrxs, LeviTheOtaku",
+			Description = "OP stuff for Break In. Only works on the game not in the lobby.",
+			PlaceId = 4620170611,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2017,
+			Script = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/Wg8pEW3Z", true))()
+			end,
+		},
+
+		["Invisible Gui"] = {
+			Owner = "GhostPlayer",
+			Description = "GUI that makes you invisible.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2018,
+			Script = function()
+				loadstring(game:HttpGet('https://pastebin.com/raw/AYtzGEPb'))()
+			end,
+		},
+
+		["LuaC Emulator"] = {
+			Owner = "3dsboy08, Josh",
+			Description = "A script that can execute LuaC scripts!",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 2019,
+			Script = function()
+				loadstring(game:GetObjects("rbxassetid://1463753930")[1].Source)()
+			end,
+		},
+
+		["Waypoint Gui"] = {
+			Owner = "koirapallo32#5518",
+			Description = "Waypoint.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2020,
+			Script = function()
+				loadstring(game:HttpGet(('https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Waypoint%20Gui'),true))()
+			end,
+		},
+
+		["Hitbox Gui"] = {
+			Owner = "V31nc",
+			Description = "Hitbox.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2021,
+			Script = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/W3HhJPmW"))()
+			end,
+		},
+
+		["Project Bullshit"] = {
+			Owner = "Racist Dolphin#5199",
+			Description = "A GUI with OP stuff.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2022,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/MbQqeRy9'),true))()
+			end,
+		},
+
+		["Dex Explorer"] = {
+			Owner = "Unknown",
+			Description = "Explore the game properties.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2023,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Dex%20Explorer"))()
+			end,
+		},
+
+		["Strongman Simulator Gui"] = {
+			Owner = "HamstaGang, OREZAKung",
+			Description = "Auto farm the game!",
+			PlaceId = 6766156863,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2024,
+			Script = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/nt5hj2Rp"))()
+			end,
+		},
+
+		["R4D"] = {
+			Owner = "M1zz",
+			Description = "A Brookhaven trolling GUI!",
+			PlaceId = 4924922222,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2025,
+			Script = function()
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/M1ZZ001/BrookhavenR4D/main/Brookhaven%20R4D%20Script'))()
+			end,
+		},
+
+		["FreeCam"] = {
+			Owner = "ZephyrScripts",
+			Description = "Free your camera.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 2026,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/zephyr10101/CameraSpy/main/Script", true))()
+			end,
+		},
+
+		["Avatar Outfit Changer"] = {
+			Owner = "GhostPlayer",
+			Description = "Change your avatar in the game without closing the app!",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = true,
+			ScriptId = 2027,
+			Script = function()
+				loadstring(game:HttpGet('https://pastefy.app/S7xNJSXX/raw'))()execute("Script18")
+			end,
+		},
+
+		["Save Server GUI"] = {
+			Owner = "GhostPlayer",
+			Description = "Save the server so when u want to join that server again, just click a button and youre in that server!",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = true,
+			ScriptId = 2028,
+			Script = function()
+				loadstring(game:HttpGet('https://pastefy.app/S7xNJSXX/raw'))()execute("Script17")
+			end,
+		},
 	},
 
 	["Animations"] = {

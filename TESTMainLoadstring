@@ -1,0 +1,44 @@
+getgenv().loadmirror = function(Link)
+	local request = request or syn and syn.request or http and http.request
+	local HttpService = game:GetService("HttpService")
+	local message = request({
+		Url = "https://mirrorr.onrender.com/mirror",
+		Method = "POST",
+		Headers = {
+			["Content-Type"] = "application/json"
+		},
+		Body = HttpService:JSONEncode({
+			url = Link
+		})
+	})
+
+	local decoded = HttpService:JSONDecode(message.Body)
+	restorefunction(loadstring)
+	return loadstring(tostring(decoded.content))()
+end
+
+getgenv().mirror = function(Link)
+	local request = request or syn and syn.request or http and http.request
+	local HttpService = game:GetService("HttpService")
+	local message = request({
+		Url = "https://mirrorr.onrender.com/mirror",
+		Method = "POST",
+		Headers = {
+			["Content-Type"] = "application/json"
+		},
+		Body = HttpService:JSONEncode({
+			url = Link
+		})
+	})
+
+	local decoded = HttpService:JSONDecode(message.Body)
+	return decoded.content
+end
+
+local function CheckAPIAwake()
+print(mirror())
+end
+
+CheckAPIAwake()
+
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/KeySystem'),true))()

@@ -91,19 +91,20 @@ GUI.CloseButton_0.MouseButton1Down:Connect(function()
 	_G.Table.GUIStatus.AdVisible = false
 end)
 
-local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
-local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+local Secret = "dg4Dlag1JjXzunp36gJqsvUmtznpwXWAaItIYGBr"
+local URL = "https://vexhub-ad-server-default-rtdb.firebaseio.com/"
 
 local FirebaseServer = {}
 
 local function FirebaseServerWrite(Path, Key, Value)
 	local success, error = pcall(function()
-		local database = URL..Path..".json?auth="..Secret
+		local DatabaseLink = URL..Path..".json?auth="..Secret
+		local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
 		local request = request or syn.request
 		local Table = {}
 
-		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+		if DatabaseData ~= nil then
+			for key, value in pairs(DatabaseData) do
 				if key then
 					Table[key] = value
 				end
@@ -113,24 +114,28 @@ local function FirebaseServerWrite(Path, Key, Value)
 		Table[Key] = Value
 
 		local send = request({
-			Url = database,
-			Method = "PUT",
+			Url = "https://mirrorr.onrender.com/put",
+			Method = "POST",
 			Headers = {["Content-Type"] = "application/json"},
-			Body = game:GetService("HttpService"):JSONEncode(Table)
+			Body = game:GetService("HttpService"):JSONEncode({
+				firebase_url = DatabaseLink,
+				data = Table
+			})
 		})
 	end)
-	
+
 	if not success then print("Something went wrong while writing in the server: "..error) end
 end
 
 local function FirebaseServerDelete(Path, Key)
 	local success, error = pcall(function()
-		local database = URL..Path..".json?auth="..Secret
+		local DatabaseLink = URL..Path..".json?auth="..Secret
+		local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
 		local request = request or syn.request
 		local Table = {}
 
-		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
+		if DatabaseData ~= nil then
+			for key, value in pairs(DatabaseData) do
 				if key ~= Key then
 					Table[key] = value
 				end
@@ -138,27 +143,32 @@ local function FirebaseServerDelete(Path, Key)
 		end
 
 		local send = request({
-			Url = database,
-			Method = "PUT",
+			Url = "https://mirrorr.onrender.com/put",
+			Method = "POST",
 			Headers = {["Content-Type"] = "application/json"},
-			Body = game.HttpService:JSONEncode(Table)
+			Body = game:GetService("HttpService"):JSONEncode({
+				firebase_url = DatabaseLink,
+				data = Table
+			})
 		})
 	end)
-	
+
 	if not success then print("Something went wrong while deleting in the server: "..error) end
 end
 
 local function FirebaseServerUpdate()
 	local success, error = pcall(function()
-		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+		local DatabaseLink = URL..".json?auth="..Secret
+		FirebaseServer = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
 	end)
-	
+
 	if not success then print("Something went wrong while reading in the server: "..error) end
 end
 
+FirebaseServerUpdate()
+
 coroutine.wrap(function()
 	while wait(60) do
-		FirebaseServerUpdate()
 		if AdVisible == false then
 			local AdToRun = nil
 			local Ads = {}
@@ -196,7 +206,7 @@ coroutine.wrap(function()
 
 				if AdToRun ~= nil then
 					local AdInfo = FirebaseServer.Ads[AdToRun]
-					
+
 					FirebaseServerWrite("Ads/"..AdToRun.."/Reach", LocalPlayer.UserId, true)
 					FirebaseServerWrite("Ads/"..AdToRun, "Impressions", FirebaseServer.Ads[AdToRun].Impressions+1)
 					AdFrameFunction:Disconnect()

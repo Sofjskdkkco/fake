@@ -218,6 +218,7 @@ GUI["ScrollingFrame_06"].Parent = GUI["Scripts_05"]
 
 GUI["UIListLayout_07"].Padding = UDim.new(0, 7)
 GUI["UIListLayout_07"].Wraps = true
+GUI["UIListLayout_07"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_07"].FillDirection = Enum.FillDirection.Horizontal
 GUI["UIListLayout_07"].Parent = GUI["ScrollingFrame_06"]
 

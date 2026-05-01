@@ -220,14 +220,17 @@ coroutine.wrap(function()
 					wait(1)
 					GUI.Ads_0.Interactable = true
 					AdFrameFunction = GUI.Ads_0.MouseButton1Down:Connect(function()
-						GUI.Ads_0.Interactable = false
-						FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)
+						coroutine.wrap(function()
+							GUI.Ads_0.Interactable = false
+							FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)
+							TweenService:Create(GUI.Ads_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.798, 0)}):Play()
+							wait(0.4)
+							AdVisible = false
+							GUI.Ads_0.Visible = false
+							_G.Table.GUIStatus.AdVisible = false
+						end)()
+
 						loadstring(FirebaseServer.Ads[AdToRun].Script)()
-						TweenService:Create(GUI.Ads_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.798, 0)}):Play()
-						wait(0.4)
-						AdVisible = false
-						GUI.Ads_0.Visible = false
-						_G.Table.GUIStatus.AdVisible = false
 					end)
 				end
 			else

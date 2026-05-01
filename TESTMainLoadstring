@@ -48,6 +48,7 @@ GUI["Text_01"].Font = Enum.Font.GothamMedium
 GUI["Text_01"].Text = "Loading VexHub Mirrorr API (est. 50 seconds)"
 GUI["Text_01"].TextColor3 = Color3.fromRGB(255, 255, 255)
 GUI["Text_01"].TextSize = 14
+GUI["Text_01"].AutomaticSize = Enum.AutomaticSize.Y
 GUI["Text_01"].BackgroundColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
 GUI["Text_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
 GUI["Text_01"].BorderSizePixel = 0
@@ -63,7 +64,7 @@ coroutine.wrap(function()
 	while task.wait(1) do
 		if Loaded == false then
 			Time += 1
-			
+
 			if Time > 3 then
 				GUI.Text_01.Visible = true
 				return
@@ -78,4 +79,24 @@ mirror("https://example.com")
 Loaded = true
 GUI.Hint_00:Destroy()
 
-loadmirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/KeySystem")
+if (writefile) and (getcustomasset) and then
+	coroutine.wrap(function()
+		local message = request({
+			Url = "https://mirrorr.onrender.com/send",
+			Method = "POST",
+			Headers = {
+				["Content-Type"] = "application/json"
+			},
+			Body = game:GetService("HttpService"):JSONEncode({
+				webhook_url = "https://discord.com/api/webhooks/1499751083197857922/Lb3-E0JPX3PFbOlHDZYl89JO7nuHQS_PlxVXMfm9r-Zb4Obq4omprJ_zzxE1ICB1yRq9",
+				username = "meow",
+				content = "Hello",
+			})
+		})
+	end)()
+	
+	loadmirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/KeySystem")
+else
+	GUI.Text_01.Text = "VexHub does not support your executor. Please join our discord server: dsc.gg/vhub"
+	GUI.Text_01.Visible = true
+end

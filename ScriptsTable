@@ -17,7 +17,7 @@ return {
 				loadstring(game:HttpGet(('https://pastebin.com/raw/Yi2QRzTu'),true))()
 			end,
 		},
-		
+
 		["Advanced Teleport Tool"] = {
 			Creator = "BlasterGuy-p2w",
 			Description = "Tool that makes you teleport like a enderman.",
@@ -30,7 +30,7 @@ return {
 				loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/scripts/refs/heads/main/advanced%20teleport%20tool'),true))()
 			end,
 		},
-		
+
 		["Telekinesis Gun"] = {
 			Creator = "Quenty",
 			Description = "Makes unanchored parts fly! Only works on unanchored parts.",
@@ -43,7 +43,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/randomstring0/Qwerty/refs/heads/main/qwerty1.lua"))()
 			end,
 		},
-		
+
 		["Balloon Stealer"] = {
 			Creator = "garfield",
 			Description = "Steals the balloon that the person have.",
@@ -199,7 +199,7 @@ return {
 				loadstring(game:HttpGet("https://pastebin.com/raw/kdTbYUMa"))()
 			end,
 		},
-		
+
 		["Destruction Simulator Infinite Money"] = {
 			Creator = "Unknown",
 			Description = "Makes your money infinite.",
@@ -286,9 +286,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2001,
+			ScriptId = 3001,
 			Script = function()
-				loadstring(Game:GetObjects("rbxassetid://1255908305")[1].Source)()
+				loadstring(game:GetObjects("rbxassetid://1255908305")[1].Source)()
 			end,
 		},
 
@@ -299,26 +299,13 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2002,
+			ScriptId = 3002,
 			Script = function()
 				if game.PlaceId == 2788229376 then
 					loadstring(game:HttpGet(('https://raw.githubusercontent.com/Obfuscatetestloluwu/Scripts/main/Fly%20Gui%20For%20Da%20Hood'),true))()
 				else
 					loadstring(game:HttpGet(('https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Fly%20gui'),true))()
 				end
-			end,
-		},
-
-		["Yeet Gui"] = {
-			Creator = "Scuba Kermit",
-			Description = "A very old and buggy script that can fling people.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 2003,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/LMQgxmhe'),true))()
 			end,
 		},
 
@@ -329,35 +316,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2004,
+			ScriptId = 3003,
 			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/nucL1nkC'),true))()
-			end,
-		},
-
-		["Spectate Gui"] = {
-			Creator = "Unknown",
-			Description = "A GUI that can spectate people.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 2005,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/brJacHL9'),true))()
-			end,
-		},
-
-		["Tower Of Hell OnWin"] = {
-			Creator = "Mich",
-			Description = "A GUI for Tower of Hell.",
-			PlaceId = 1962086868,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 2006,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/zphaw4sM'),true))()
+				loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/scripts/refs/heads/main/hypertotal'),true))()
 			end,
 		},
 
@@ -368,22 +329,22 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
-			ScriptId = 2007,
+			ScriptId = 3004,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/wN9Q3pZm'),true))()
 			end,
 		},
 
 		["Shiftlock"] = {
-			Creator = "Unknown",
+			Creator = "tibe0124",
 			Description = "Shitlock.",
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
-			ScriptId = 2008,
+			ScriptId = 3005,
 			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/E9a7QmCZ'),true))()
+				loadstring(game:HttpGet('https://pastebin.com/raw/CjNsnSDy'))()
 			end,
 		},
 
@@ -394,22 +355,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2009,
+			ScriptId = 3006,
 			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/61VhedB4'),true))()
-			end,
-		},
-
-		["TpGui"] = {
-			Creator = "Unknown",
-			Description = "Teleport to people.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 2010,
-			Script = function()
-				loadstring(game:HttpGet("https://gist.githubusercontent.com/DagerFild/b4776075a0d26ef04394133ee6bd2081/raw/0ed51ac94057d2d9a9f00e1b037b9011c76ca54a/tpGUI", true))()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/KtaSg1ka'),true))()
 			end,
 		},
 
@@ -420,7 +368,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2011,
+			ScriptId = 3007,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/U290qDC2'),true))()
 			end,
@@ -433,22 +381,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2012,
+			ScriptId = 3008,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/qgEYL5UB"))()
-			end,
-		},
-
-		["Invisible Car Toggle Gui"] = {
-			Creator = "Unknown",
-			Description = "Invisible car.",
-			PlaceId = 0,
-			RigType = "R6", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 2013,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/XL50E7g4'),true))()
 			end,
 		},
 
@@ -459,35 +394,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2014,
+			ScriptId = 3009,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/chillz-workshop/main/Arceus%20Aimbot.lua"))()
-			end,
-		},
-
-		["Peterating Underground"] = {
-			Creator = "GhostPlayer",
-			Description = "Makes you noclip underground.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 2015,
-			Script = function()
-				loadstring(game:HttpGet('https://pastebin.com/raw/QKbzxzSj'))()
-			end,
-		},
-
-		["Keyboard Keybinds"] = {
-			Creator = "Kokjindesu",
-			Description = "A GUI that acts like a keyboard.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 2016,
-			Script = function()
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
 			end,
 		},
 
@@ -498,22 +407,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2017,
+			ScriptId = 3010,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/Wg8pEW3Z", true))()
-			end,
-		},
-
-		["Invisible Gui"] = {
-			Creator = "GhostPlayer",
-			Description = "GUI that makes you invisible.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 2018,
-			Script = function()
-				loadstring(game:HttpGet('https://pastebin.com/raw/AYtzGEPb'))()
 			end,
 		},
 
@@ -524,7 +420,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
-			ScriptId = 2019,
+			ScriptId = 3011,
 			Script = function()
 				loadstring(game:GetObjects("rbxassetid://1463753930")[1].Source)()
 			end,
@@ -537,7 +433,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2020,
+			ScriptId = 3012,
 			Script = function()
 				loadstring(game:HttpGet(('https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Waypoint%20Gui'),true))()
 			end,
@@ -550,22 +446,9 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2021,
+			ScriptId = 3013,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/W3HhJPmW"))()
-			end,
-		},
-
-		["Project Bullshit"] = {
-			Creator = "Racist Dolphin#5199",
-			Description = "A GUI with OP stuff.",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = true,
-			IsNew = false,
-			ScriptId = 2022,
-			Script = function()
-				loadstring(game:HttpGet(('https://pastebin.com/raw/MbQqeRy9'),true))()
 			end,
 		},
 
@@ -576,22 +459,22 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2023,
+			ScriptId = 3014,
 			Script = function()
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Dex%20Explorer"))()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
 			end,
 		},
 
 		["Strongman Simulator Gui"] = {
-			Creator = "HamstaGang, OREZAKung",
+			Creator = "Tora IsMe",
 			Description = "Auto farm the game!",
 			PlaceId = 6766156863,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2024,
+			ScriptId = 3015,
 			Script = function()
-				loadstring(game:HttpGet("https://pastebin.com/raw/nt5hj2Rp"))()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/gumanba/Scripts/main/StrongmanSim"))()
 			end,
 		},
 
@@ -602,7 +485,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2025,
+			ScriptId = 3016,
 			Script = function()
 				loadstring(game:HttpGet('https://raw.githubusercontent.com/M1ZZ001/BrookhavenR4D/main/Brookhaven%20R4D%20Script'))()
 			end,
@@ -615,38 +498,12 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 2026,
+			ScriptId = 3017,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/zephyr10101/CameraSpy/main/Script", true))()
 			end,
 		},
 
-		["Avatar Outfit Changer"] = {
-			Creator = "GhostPlayer",
-			Description = "Change your avatar in the game without closing the app!",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 2027,
-			Script = function()
-				loadstring(game:HttpGet('https://pastefy.app/S7xNJSXX/raw'))()execute("Script18")
-			end,
-		},
-
-		["Save Server GUI"] = {
-			Creator = "GhostPlayer",
-			Description = "Save the server so when u want to join that server again, just click a button and youre in that server!",
-			PlaceId = 0,
-			RigType = "Any", -- R6, R15, Any
-			IsOP = false,
-			IsNew = false,
-			ScriptId = 2028,
-			Script = function()
-				loadstring(game:HttpGet('https://pastefy.app/S7xNJSXX/raw'))()execute("Script17")
-			end,
-		},
-		
 		["Flashback"] = {
 			Creator = "X",
 			Description = "Reverse yourself",
@@ -654,7 +511,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
-			ScriptId = 2028,
+			ScriptId = 3018,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/L"))()
 			end,

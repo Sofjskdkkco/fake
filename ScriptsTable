@@ -523,6 +523,46 @@ return {
 			Icon = "rbxassetid://11592835705",
 			Order = 4,
 		},
+		
+		["Roblox Old Animation"] = {
+			Creator = "Unknown",
+			Description = "A old Roblox animation.",
+			PlaceId = 0,
+			RigType = "R6", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 4001,
+			Script = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/pYjkmxUe", true))()
+			end,
+		},
+
+		["Chosen"] = {
+			Creator = "Unknown",
+			Description = "A cool animation that makes you float in the air.",
+			PlaceId = 0,
+			RigType = "R6", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 4002,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/shittystuffs/Scripts/main/Chosen", true))()
+			end,
+		},
+
+		["G-Man Fighter"] = {
+			Creator = "Im_Patrick",
+			Description = "A animation that makes you look like a fighter.",
+			PlaceId = 0,
+			RigType = "R6", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 4003,
+			Script = function()
+				_G.clientsidedeffect = true
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/randomstring0/Qwerty/refs/heads/main/qwerty18.lua"))()
+			end,
+		},
 	},
 
 	["Commands"] = {

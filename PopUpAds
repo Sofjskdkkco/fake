@@ -109,8 +109,8 @@ local function ShowAd(AdImageId)
 	TweenService:Create(GUI.Ad_0.UIScale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
 end
 
-local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
-local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+local Secret = "dg4Dlag1JjXzunp36gJqsvUmtznpwXWAaItIYGBr"
+local URL = "https://vexhub-ad-server-default-rtdb.firebaseio.com/"
 
 local FirebaseServer = {}
 
@@ -227,10 +227,12 @@ local function AdOperation()
 				FirebaseServerWrite("Ads/"..AdToRun.."/Reach", LocalPlayer.UserId, true)
 				FirebaseServerWrite("Ads/"..AdToRun, "Impressions", FirebaseServer.Ads[AdToRun].Impressions+1)
 				AdFrameFunction:Disconnect()
+				GUI.PopUpAd_0.Interactable = false
+				MainContents.Interactable = false				
 				ShowAd(FirebaseServer.Ads[AdToRun].Image)
-				MainContents.Interactable = false
 				Cooldown = 60
 				wait(1)
+				GUI.PopUpAd_0.Interactable = true
 				AdFrameFunction = GUI.Ad_0.MouseButton1Down:Connect(function()
 					FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)
 					loadstring(FirebaseServer.Ads[AdToRun].Script)()

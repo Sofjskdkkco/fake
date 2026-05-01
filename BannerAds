@@ -185,6 +185,7 @@ coroutine.wrap(function()
 						else				
 							local success, result = pcall(function()
 								FirebaseServerDelete("Ads", AdId)
+								FirebaseServerUpdate()
 							end)
 
 							if not success then

@@ -157,23 +157,21 @@ if FirebaseServer.ScriptsInfo ~= nil then
 			if ScriptName ~= "Info" then
 				local ScriptIdString = tostring(ScriptInfo.ScriptId)
 				if not FirebaseServer.ScriptsInfo[ScriptIdString] then
-					coroutine.wrap(function()
-						local Success, Error = pcall(function()
-							FirebaseServerWrite("ScriptsInfo", ScriptIdString, {
-								NumberOfExecutions = 0,
-								["LikedBy"] = {
-									["System"] = true 
-								},
-								["DislikedBy"] = {
-									["System"] = true 
-								},
-							})
-						end)
+					local Success, Error = pcall(function()
+						FirebaseServerWrite("ScriptsInfo", ScriptIdString, {
+							NumberOfExecutions = 0,
+							["LikedBy"] = {
+								["System"] = true 
+							},
+							["DislikedBy"] = {
+								["System"] = true 
+							},
+						})
+					end)
 
-						if not Success then
-							print("Cannot create a info for "..ScriptName.." ("..ScriptInfo.ScriptId..") : "..Error)
-						end
-					end)()
+					if not Success then
+						print("Cannot create a info for "..ScriptName.." ("..ScriptInfo.ScriptId..") : "..Error)
+					end
 				end
 			end
 		end

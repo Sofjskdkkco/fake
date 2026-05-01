@@ -234,7 +234,10 @@ local function AdOperation()
 				wait(1)
 				GUI.PopUpAd_0.Interactable = true
 				AdFrameFunction = GUI.Ad_0.MouseButton1Down:Connect(function()
-					FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)
+					coroutine.wrap(function()
+						FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)
+					end)()
+					
 					loadstring(FirebaseServer.Ads[AdToRun].Script)()
 				end)
 			end

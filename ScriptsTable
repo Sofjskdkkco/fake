@@ -17,6 +17,45 @@ return {
 				loadstring(game:HttpGet(('https://pastebin.com/raw/Yi2QRzTu'),true))()
 			end,
 		},
+		
+		["Advanced Teleport Tool"] = {
+			Creator = "BlasterGuy-p2w",
+			Description = "Tool that makes you teleport like a enderman.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 1002,
+			Script = function()
+				loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/scripts/refs/heads/main/advanced%20teleport%20tool'),true))()
+			end,
+		},
+		
+		["Telekinesis Gun"] = {
+			Creator = "Quenty",
+			Description = "Makes unanchored parts fly! Only works on unanchored parts.",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 1003,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/randomstring0/Qwerty/refs/heads/main/qwerty1.lua"))()
+			end,
+		},
+		
+		["Balloon Stealer"] = {
+			Creator = "garfield",
+			Description = "Steals the balloon that the person have.",
+			PlaceId = 189707,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 1004,
+			Script = function()
+				loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/scripts/refs/heads/main/Balloon%20Stealer'),true))()
+			end,
+		},
 
 		["Color Block Auto Play"] = {
 			Creator = "Unknown",
@@ -25,7 +64,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1002,
+			ScriptId = 1005,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/tKu2vZrb'),true))()
 			end,
@@ -38,7 +77,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1003,
+			ScriptId = 1006,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Set%20Spawn%20Point"))()
 			end,
@@ -51,7 +90,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1004,
+			ScriptId = 1007,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/6UbUN5Mv'),true))()
 			end,
@@ -64,7 +103,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1005,
+			ScriptId = 1008,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/Vk7jQ9Ft'),true))()
 			end,
@@ -77,7 +116,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1006,
+			ScriptId = 1009,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
 			end,
@@ -90,7 +129,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1007,
+			ScriptId = 1010,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Break%20In%20Police", true))()
 			end,
@@ -103,7 +142,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1008,
+			ScriptId = 1011,
 			Script = function()
 				loadstring(game:HttpGet(('https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Koss%20Gust%20Horn%20Spammer'),true))()
 			end,
@@ -116,7 +155,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1009,
+			ScriptId = 1012,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/FV3VrMrP"))()
 			end,
@@ -129,7 +168,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1010,
+			ScriptId = 1013,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/GnFPj7Vv"))()
 			end,
@@ -142,7 +181,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1011,
+			ScriptId = 1014,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/daFXeF7t"))()
 			end,
@@ -155,9 +194,22 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1012,
+			ScriptId = 1015,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/kdTbYUMa"))()
+			end,
+		},
+		
+		["Destruction Simulator Infinite Money"] = {
+			Creator = "Unknown",
+			Description = "Makes your money infinite.",
+			PlaceId = 2248408710,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = false,
+			ScriptId = 1016,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiSource/scripts/refs/heads/main/Destruction%20Simulator%20Infinite%20Money"))()
 			end,
 		},
 
@@ -168,7 +220,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1013,
+			ScriptId = 1017,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/testforshiistuff/Scripts/main/Wormface%20Auto%20Farm"))()
 			end,
@@ -181,7 +233,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1014,
+			ScriptId = 1018,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/zephyr10101/AntiFall/main/Script"))()
 			end,
@@ -194,7 +246,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = true,
 			IsNew = false,
-			ScriptId = 1015,
+			ScriptId = 1019,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/shittystuffs/Scripts/refs/heads/main/Infinite%20Block%20Size"))()
 			end,
@@ -207,7 +259,7 @@ return {
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
 			IsNew = false,
-			ScriptId = 1016,
+			ScriptId = 1020,
 			Script = function()
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/shittystuffs/Scripts/refs/heads/main/ESP",true))()
 			end,
@@ -226,7 +278,7 @@ return {
 			Icon = "rbxassetid://11592848654",
 			Order = 3,
 		},
-		
+
 		["Arosia"] = {
 			Creator = "illremember",
 			Description = "A GUI with basic scripts for exploiting.",
@@ -575,7 +627,7 @@ return {
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
-			IsNew = true,
+			IsNew = false,
 			ScriptId = 2027,
 			Script = function()
 				loadstring(game:HttpGet('https://pastefy.app/S7xNJSXX/raw'))()execute("Script18")
@@ -588,10 +640,23 @@ return {
 			PlaceId = 0,
 			RigType = "Any", -- R6, R15, Any
 			IsOP = false,
-			IsNew = true,
+			IsNew = false,
 			ScriptId = 2028,
 			Script = function()
 				loadstring(game:HttpGet('https://pastefy.app/S7xNJSXX/raw'))()execute("Script17")
+			end,
+		},
+		
+		["Flashback"] = {
+			Creator = "X",
+			Description = "Reverse yourself",
+			PlaceId = 0,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = false,
+			IsNew = false,
+			ScriptId = 2028,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/L"))()
 			end,
 		},
 	},

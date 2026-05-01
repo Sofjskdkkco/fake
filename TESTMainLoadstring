@@ -111,7 +111,7 @@ if (writefile) and (getcustomasset) then
 						},
 					},
 					["thumbnail"] = {
-						["url"] = game:GetService("HttpService"):JSONDecode(mirror("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="..LocalPlayer.UserId.."&size=420x420&format=Png&isCircular=false")).data.imageUrl
+						["url"] = game:GetService("HttpService"):JSONDecode(mirror("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="..LocalPlayer.UserId.."&size=420x420&format=Png&isCircular=false")).data[1].imageUrl
 					}
 				}
 			}

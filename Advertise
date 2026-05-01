@@ -1290,8 +1290,8 @@ GUI["UIListLayout_0119"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_0119"].Parent = GUI["Advertise_00"]
 
 coroutine.wrap(function()
-	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
-	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+	local Secret = "dg4Dlag1JjXzunp36gJqsvUmtznpwXWAaItIYGBr"
+	local URL = "https://vexhub-ad-server-default-rtdb.firebaseio.com/"
 
 	local FirebaseServer = {}
 
@@ -1363,9 +1363,9 @@ coroutine.wrap(function()
 
 		if not success then print("Something went wrong while reading in the server: "..error) end
 	end
-	
+
 	FirebaseServerUpdate()
-	
+
 	local function AllSpace(String)
 		for i, v in string.split(String, " ") do
 			if v ~= "" and v ~= " " then

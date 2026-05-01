@@ -234,10 +234,10 @@ _G.CreateTab = function(TabName, Scripts)
 
 			local ScriptTemplate = NewTab.BottomFrame.Scripts.ScrollingFrame.ScriptTemplate:Clone()
 
-			ScriptTemplate.Name = ScriptInfo.ScriptId..""..ScriptName
+			ScriptTemplate.Name = ScriptName
 			ScriptTemplate.Parent = NewTab.BottomFrame.Scripts.ScrollingFrame
 			ScriptTemplate.Visible = true
-			ScriptTemplate.LayoutOrder = 3
+			ScriptTemplate.LayoutOrder = ScriptInfo.ScriptId
 			ScriptTemplate.Insides.Icons.ScriptImage.Image = Scripts.Info.Icon
 			ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = ScriptName
 			ScriptTemplate.Insides.BottomFrame.NumberOfExecutions.Executions.Text = FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions
@@ -260,12 +260,12 @@ _G.CreateTab = function(TabName, Scripts)
 				ScriptTemplate.UIStroke.Color = Color3.fromRGB(0, 185, 85)
 				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(0, 185, 85)
 			end
-			
+
 			if ScriptInfo.IsNew == true then
 				ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
 				ScriptTemplate.UIStroke.Color = Color3.fromRGB(255, 102, 102)
 				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(255, 102, 102)
-				ScriptTemplate.LayoutOrder = 1
+				ScriptTemplate.LayoutOrder = 3
 
 				if string.find(ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text, "\n") then
 					ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,102,102)">[NEW]</font></b> '..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text

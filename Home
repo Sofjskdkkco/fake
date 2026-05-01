@@ -835,14 +835,14 @@ end
 
 GUI["Scripts_0"].Text = 'Scripts\n<b><font size="14">'..AllScripts..'</font></b>'
 
+local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
+local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+
 local FirebaseServer = {}
 
 local function FirebaseServerUpdate()
-	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
-	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
-
 	local success, error = pcall(function()
-		FirebaseServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
+		FirebaseServer = game.HttpService:JSONDecode(mirror(URL..".json?auth="..Secret))
 	end)
 
 	if not success then print("Something went wrong while reading in the server: "..error) end

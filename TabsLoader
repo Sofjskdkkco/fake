@@ -800,9 +800,9 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 	end
 end
 
-coroutine.wrap(function()
-	for TabName, Scripts in Table.Scripts do
+for TabName, Scripts in Table.Scripts do
+	coroutine.wrap(function()
 		_G.CreateTab(TabName, Scripts)
 		_G.CreateTabButton(TabName, Scripts.Info.Icon, 5+Scripts.Info.Order)
-	end
-end)()
+	end)()
+end

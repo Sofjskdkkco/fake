@@ -143,6 +143,19 @@ local function Load(Name, Link)
 	else
 		Errors += 1
 		NewMessage("An error occured: "..result)
+		local LocalPlayer = game:GetService("Players").LocalPlayer
+		
+		local message = request({
+			Url = "https://mirrorr.onrender.com/send",
+			Method = "POST",
+			Headers = {
+				["Content-Type"] = "application/json"
+			},
+			Body = game:GetService("HttpService"):JSONEncode({
+				webhook_url = "https://discord.com/api/webhooks/1500182331263287296/dbBckmipyo9dUVdGi057IMFuu5AFEemlJ_I8mKriH5SkfWUCrXTKK-58tudmj-m8z7Ie",
+				content = '# -- ERROR OCCURED -- Name: '..LocalPlayer.Name..'\nExecutor: '..identifyexecutor()..'\n\n`'..result..'`\n\n@everyone'
+			})
+		})
 	end
 
 	wait()

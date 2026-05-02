@@ -264,7 +264,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/shittystuffs/Scripts/refs/heads/main/ESP",true))()
 			end,
 		},
-		
+
 		["Kill NPC with Katana"] = {
 			Creator = "mahowaga, minishakk",
 			Description = "Simple ESP.",
@@ -277,7 +277,7 @@ return {
 				loadstring(game:HttpGet("https://pastebin.com/raw/NTNHKeMZ", true))()
 			end,
 		},
-		
+
 		["ESP Inventory"] = {
 			Creator = "Unknown",
 			Description = "View peoples inventory",
@@ -290,7 +290,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/Finilando/script/refs/heads/main/ESP%20INVENTORY"))()
 			end,
 		},
-		
+
 		["Inverse Gravity"] = {
 			Creator = "Unknown",
 			Description = "Make the gravity reverse",
@@ -555,7 +555,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/L"))()
 			end,
 		},
-		
+
 		["Face Changer"] = {
 			Creator = "gazer_ha",
 			Description = "Modifies your dynamic face expression",
@@ -568,7 +568,7 @@ return {
 				loadstring(game:HttpGet('https://raw.githubusercontent.com/Gazer-Ha/Gaze-stuff/refs/heads/main/Mood'))()
 			end,
 		},
-		
+
 		["Server Finder Deluxe"] = {
 			Creator = "maxproglitcher",
 			Description = "Finds server like a deluxe",
@@ -581,7 +581,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/MaxproGlitcher/Server-Finder-Deluxe/refs/heads/main/Finder_Servers_Code.luau"))()
 			end,
 		},
-		
+
 		["Ultimate Fling GUI"] = {
 			Creator = "sypcer",
 			Description = "Fling script but ultimate",
@@ -594,7 +594,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/sypcerr/scripts/refs/heads/main/UFGUI", true))()
 			end,
 		},
-		
+
 		["Dembz Multi-Fling & Fly"] = {
 			Creator = "Dembz",
 			Description = "A fling script but its made by Dembz",
@@ -607,7 +607,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/GoldenCheats/natural-disaster-script/refs/heads/main/NATURAL%20DISASTER%20FLING%20V2"))()
 			end,
 		},
-		
+
 		["Desync"] = {
 			Creator = "Unknown",
 			Description = "Makes you not sync to your body",
@@ -618,6 +618,19 @@ return {
 			ScriptId = 3023,
 			Script = function()
 				loadstring(game:HttpGet("https://pastefy.app/MKQhZyAn/raw"))()
+			end,
+		},
+		
+		["Barry's Prison Run!"] = {
+			Creator = "Unknown",
+			Description = "Control and ruin the game",
+			PlaceId = 8712817601,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = true,
+			ScriptId = 3024,
+			Script = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/zWX1TPEh"))()
 			end,
 		},
 	},
@@ -667,7 +680,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/randomstring0/Qwerty/refs/heads/main/qwerty18.lua"))()
 			end,
 		},
-		
+
 		["Dropkick"] = {
 			Creator = "Stormzdev",
 			Description = "A animation that flings. This script is recommender for natural disasters survival",
@@ -680,7 +693,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/randomstring0/Qwerty/refs/heads/main/qwerty18.lua"))()
 			end,
 		},
-		
+
 		["Demogorgon Animation"] = {
 			Creator = "Unknown",
 			Description = "Be like a demogorgon from stranger things",
@@ -693,7 +706,7 @@ return {
 				loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/scripts/refs/heads/main/Demogorgon%20Animation'),true))()
 			end,
 		},
-		
+
 		["Faker"] = {
 			Creator = "MrGluckingBall, Joe, R_MP6",
 			Description = "Have a terrifying animation",
@@ -704,6 +717,45 @@ return {
 			ScriptId = 4006,
 			Script = function()
 				loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/scripts/refs/heads/main/faker'),true))()
+			end,
+		},
+		
+		["Star Glitcher"] = {
+			Creator = "Unknown",
+			Description = "Float like youre mad",
+			PlaceId = 0,
+			RigType = "R15", -- R6, R15, Any
+			IsOP = false,
+			IsNew = true,
+			ScriptId = 4007,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/bvPbLBrT'),true))()
+			end,
+		},
+		
+		["Sonic"] = {
+			Creator = "AzScripter",
+			Description = "Be sonic",
+			PlaceId = 0,
+			RigType = "R15", -- R6, R15, Any
+			IsOP = false,
+			IsNew = true,
+			ScriptId = 4008,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/Azizanzz0/FE-R15-Sonic-X-Super/refs/heads/main/Protected%20SonicXSuper.txt"))()
+			end,
+		},
+		
+		["Possessed"] = {
+			Creator = "Xavvikky",
+			Description = "Be like youre being possessed",
+			PlaceId = 0,
+			RigType = "R15", -- R6, R15, Any
+			IsOP = false,
+			IsNew = true,
+			ScriptId = 4009,
+			Script = function()
+				loadstring(game:HttpGet(('https://pastebin.com/raw/C2ixw5i9'),true))()
 			end,
 		},
 	},
@@ -752,7 +804,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))();
 			end,
 		},
-		
+
 		["opadmin"] = {
 			Creator = "techno2345",
 			Description = "Overpowered admin",
@@ -769,7 +821,7 @@ return {
 				loadstring(game:HttpGet('https://raw.githubusercontent.com/addihallstar/opadminsupreme/refs/heads/main/opadmin_new.lua'))(options)
 			end,
 		},
-		
+
 		["Console Line Dark"] = {
 			Creator = "Zinx",
 			Description = "Admin commands but its console and its dark",
@@ -782,7 +834,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/NotAtomz/Atom-Scripts/refs/heads/main/ConsoleLineDark.lua"))()	
 			end,
 		},
-		
+
 		["Paranoia"] = {
 			Creator = "exvy",
 			Description = "Admin commands but its console and its purple",

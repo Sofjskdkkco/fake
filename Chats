@@ -474,931 +474,864 @@ GUI["Message_043"]:SetAttribute("UIBoldText", true)
 GUI["Message_043"]:SetAttribute("UITextColor", true)
 GUI["Message_043"]:SetAttribute("UITextSize", true)
 
-local SlashCommandsFrame = GUI["SlashCommandsFrame_028"]
-local BannedFrame = GUI["BannedFrame_034"]
-local TextBox = GUI["TextBoxParent_024"]
-local Chats = GUI["Chats_011"]
-local MessageTemplate = GUI["MessageTemplate_013"]
-local isUserScrolling = false
+coroutine.wrap(function()
+	local SlashCommandsFrame = GUI["SlashCommandsFrame_028"]
+	local BannedFrame = GUI["BannedFrame_034"]
+	local TextBox = GUI["TextBoxParent_024"]
+	local Chats = GUI["Chats_011"]
+	local MessageTemplate = GUI["MessageTemplate_013"]
+	local isUserScrolling = false
 
-local function HWID()
-	return gethwid()
-end
-
-local JSon = {}
-function JSon:Encode(Table)
-	return game:GetService("HttpService"):JSONEncode(Table)
-end
-
-function JSon:Decode(Table)
-	return game:GetService("HttpService"):JSONDecode(Table)
-end
-
-local function scrollToBottom()
-	Chats.CanvasPosition = Vector2.new(0, Chats.AbsoluteCanvasSize.Y - Chats.AbsoluteWindowSize.Y)
-end
-
-Chats:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
-	isUserScrolling = true
-	task.wait(0.5)
-	isUserScrolling = false
-end)
-
-local function NewSlashCommand(CommandNameAndArgs, Description)
-	local NewCommand = SlashCommandsFrame.ScrollingFrame.SlashCommandTemplate:Clone()
-
-	NewCommand.Name = string.split(CommandNameAndArgs, " ")[1]
-	NewCommand.Parent = SlashCommandsFrame.ScrollingFrame
-	NewCommand.Visible = true
-	NewCommand.Text = '<b>'..CommandNameAndArgs..'</b>\n<font size="9">'..Description..'</font>'
-	NewCommand.MouseButton1Down:Connect(function()
-		TextBox.TextBox.Text = string.split(CommandNameAndArgs, " ")[1].." "
-		wait(0.1)
-		SlashCommandsFrame.Visible = false
-	end)
-end
-
-NewSlashCommand("/copymessage [MessageId]", "copy a message")
-NewSlashCommand("/copyusername [MessageId]", "copy a username in a message")
-NewSlashCommand("/reload", "reloads your chat interface")
-NewSlashCommand("/delete [MessageId]", "delete a message")
-NewSlashCommand("/edit [MessageId] [Message]", "edit a message")
-NewSlashCommand("/purge", "deletes all messages in the chat")
-NewSlashCommand("/join [Username]", "join a player who is online")
-NewSlashCommand("/allowjoins [Always/AskAlways/Never]", "make players join you in game (default: AskAlways)")
-NewSlashCommand("/updatechatversion", "refreshes everyones chat interface by updating the chat version")
-NewSlashCommand("/allowrichtext", "make members have the ability to send rich texts")
-NewSlashCommand("/forbidrichtext", "make members have no ability to send rich texts")
-NewSlashCommand("/allowlinks", "make members have the ability to send links")
-NewSlashCommand("/forbidlinks", "make members have no ability to send links")
-NewSlashCommand("/listcensoredwords", "returns censored words")
-NewSlashCommand("/censorword [Word]", "add a word that members cant say")
-NewSlashCommand("/uncensorword [Word]", "make a word uncensored that was in the censored list")
-NewSlashCommand("/lockdown", "make everyone not able to send messages")
-NewSlashCommand("/unlockdown", "make everyone able to send messages after lockdown")
-NewSlashCommand("/listtimeouts", "returns a list of users who are in a timeout")
-NewSlashCommand("/timeout [Username] [Seconds]", "timeout a user for seconds (not more than 3 days)")
-NewSlashCommand("/untimeout [Username]", "removes a timeout to a user")
-NewSlashCommand("/listbanned", "returns a list of users who are banned")
-NewSlashCommand("/ban [Username]", "ban a user")
-NewSlashCommand("/unban [Username]", "unban a user")
-
-TextBox.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
-	if string.len(TextBox.TextBox.Text)>100 then
-		TextBox.TextBox.Text = string.sub(TextBox.TextBox.Text, 1, 100)
-		TextBox.TextBox:ReleaseFocus()
-		_G.PopUpNotificationOptions({
-			Title = "Text Limit!",
-			Message = "Your message is too long",
-			Button2Text = "Ok",
-			Button2Function = function()
-			end,
-		})
+	local function HWID()
+		return gethwid()
 	end
 
-	local TextTable = string.split(TextBox.TextBox.ContentText)
-	local NoResults = true
+	local JSon = {}
+	function JSon:Encode(Table)
+		return game:GetService("HttpService"):JSONEncode(Table)
+	end
 
-	if string.find(TextTable[1], '/') then
-		local Position1, Position2 = string.find(TextTable[1], '/')
+	function JSon:Decode(Table)
+		return game:GetService("HttpService"):JSONDecode(Table)
+	end
 
-		if Position1 == 1 and Position2 == 1 then
-			SlashCommandsFrame.Visible = true
+	local function scrollToBottom()
+		Chats.CanvasPosition = Vector2.new(0, Chats.AbsoluteCanvasSize.Y - Chats.AbsoluteWindowSize.Y)
+	end
 
-			for i, v in SlashCommandsFrame.ScrollingFrame:GetChildren() do
-				if v:IsA("TextButton") and v.Name ~= "SlashCommandTemplate" then
-					if string.find(string.split(v.Text, "<b>")[2], TextTable[1]) then
-						v.Visible = true
-						NoResults = false
-					else
-						v.Visible = false
+	Chats:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
+		isUserScrolling = true
+		task.wait(0.5)
+		isUserScrolling = false
+	end)
+
+	local function NewSlashCommand(CommandNameAndArgs, Description)
+		local NewCommand = SlashCommandsFrame.ScrollingFrame.SlashCommandTemplate:Clone()
+
+		NewCommand.Name = string.split(CommandNameAndArgs, " ")[1]
+		NewCommand.Parent = SlashCommandsFrame.ScrollingFrame
+		NewCommand.Visible = true
+		NewCommand.Text = '<b>'..CommandNameAndArgs..'</b>\n<font size="9">'..Description..'</font>'
+		NewCommand.MouseButton1Down:Connect(function()
+			TextBox.TextBox.Text = string.split(CommandNameAndArgs, " ")[1].." "
+			wait(0.1)
+			SlashCommandsFrame.Visible = false
+		end)
+	end
+
+	NewSlashCommand("/copymessage [MessageId]", "copy a message")
+	NewSlashCommand("/copyusername [MessageId]", "copy a username in a message")
+	NewSlashCommand("/reload", "reloads your chat interface")
+	NewSlashCommand("/delete [MessageId]", "delete a message")
+	NewSlashCommand("/edit [MessageId] [Message]", "edit a message")
+	NewSlashCommand("/purge", "deletes all messages in the chat")
+	NewSlashCommand("/join [Username]", "join a player who is online")
+	NewSlashCommand("/allowjoins [Always/AskAlways/Never]", "make players join you in game (default: AskAlways)")
+	NewSlashCommand("/updatechatversion", "refreshes everyones chat interface by updating the chat version")
+	NewSlashCommand("/allowrichtext", "make members have the ability to send rich texts")
+	NewSlashCommand("/forbidrichtext", "make members have no ability to send rich texts")
+	NewSlashCommand("/allowlinks", "make members have the ability to send links")
+	NewSlashCommand("/forbidlinks", "make members have no ability to send links")
+	NewSlashCommand("/listcensoredwords", "returns censored words")
+	NewSlashCommand("/censorword [Word]", "add a word that members cant say")
+	NewSlashCommand("/uncensorword [Word]", "make a word uncensored that was in the censored list")
+	NewSlashCommand("/lockdown", "make everyone not able to send messages")
+	NewSlashCommand("/unlockdown", "make everyone able to send messages after lockdown")
+	NewSlashCommand("/listtimeouts", "returns a list of users who are in a timeout")
+	NewSlashCommand("/timeout [Username] [Seconds]", "timeout a user for seconds (not more than 3 days)")
+	NewSlashCommand("/untimeout [Username]", "removes a timeout to a user")
+	NewSlashCommand("/listbanned", "returns a list of users who are banned")
+	NewSlashCommand("/ban [Username]", "ban a user")
+	NewSlashCommand("/unban [Username]", "unban a user")
+
+	TextBox.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+		if string.len(TextBox.TextBox.Text)>100 then
+			TextBox.TextBox.Text = string.sub(TextBox.TextBox.Text, 1, 100)
+			TextBox.TextBox:ReleaseFocus()
+			_G.PopUpNotificationOptions({
+				Title = "Text Limit!",
+				Message = "Your message is too long",
+				Button2Text = "Ok",
+				Button2Function = function()
+				end,
+			})
+		end
+
+		local TextTable = string.split(TextBox.TextBox.ContentText)
+		local NoResults = true
+
+		if string.find(TextTable[1], '/') then
+			local Position1, Position2 = string.find(TextTable[1], '/')
+
+			if Position1 == 1 and Position2 == 1 then
+				SlashCommandsFrame.Visible = true
+
+				for i, v in SlashCommandsFrame.ScrollingFrame:GetChildren() do
+					if v:IsA("TextButton") and v.Name ~= "SlashCommandTemplate" then
+						if string.find(string.split(v.Text, "<b>")[2], TextTable[1]) then
+							v.Visible = true
+							NoResults = false
+						else
+							v.Visible = false
+						end
 					end
 				end
+			else
+				SlashCommandsFrame.Visible = false
 			end
 		else
 			SlashCommandsFrame.Visible = false
 		end
-	else
-		SlashCommandsFrame.Visible = false
-	end
 
-	if NoResults == true then
-		SlashCommandsFrame.Visible = false
-	end
-end)
+		if NoResults == true then
+			SlashCommandsFrame.Visible = false
+		end
+	end)
 
---- Firebase Functions ---
-local Secret = "oNNcXEGYApLmfkQGyTkUVuu162biz1TIVSGe4iej"
-local URL = "https://vexhub-livechat-server-default-rtdb.firebaseio.com/"
+	--- Firebase Functions ---
+	local Secret = "oNNcXEGYApLmfkQGyTkUVuu162biz1TIVSGe4iej"
+	local URL = "https://vexhub-livechat-server-default-rtdb.firebaseio.com/"
 
-local LiveChatServer = {}
+	local LiveChatServer = {}
 
-local function FirebaseServerWrite(Path, Key, Value)
-	local success, error = pcall(function()
-		local DatabaseLink = URL..Path..".json?auth="..Secret
-		local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
-		local request = request or syn.request
-		local Table = {}
+	local function FirebaseServerWrite(Path, Key, Value)
+		local success, error = pcall(function()
+			local DatabaseLink = URL..Path..".json?auth="..Secret
+			local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
+			local request = request or syn.request
+			local Table = {}
 
-		if DatabaseData ~= nil then
-			for key, value in pairs(DatabaseData) do
-				if key then
-					Table[key] = value
+			if DatabaseData ~= nil then
+				for key, value in pairs(DatabaseData) do
+					if key then
+						Table[key] = value
+					end
 				end
 			end
-		end
 
-		Table[Key] = Value
+			Table[Key] = Value
 
-		local send = request({
-			Url = "https://mirrorr.onrender.com/put",
-			Method = "POST",
-			Headers = {["Content-Type"] = "application/json"},
-			Body = game:GetService("HttpService"):JSONEncode({
-				firebase_url = DatabaseLink,
-				data = Table
-			})
-		})
-	end)
-
-	if not success then print("Something went wrong while writing in the server: "..error) end
-end
-
-local function FirebaseServerDelete(Path, Key)
-	local success, error = pcall(function()
-		local DatabaseLink = URL..Path..".json?auth="..Secret
-		local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
-		local request = request or syn.request
-		local Table = {}
-
-		if DatabaseData ~= nil then
-			for key, value in pairs(DatabaseData) do
-				if key ~= Key then
-					Table[key] = value
-				end
-			end
-		end
-
-		local send = request({
-			Url = "https://mirrorr.onrender.com/put",
-			Method = "POST",
-			Headers = {["Content-Type"] = "application/json"},
-			Body = game:GetService("HttpService"):JSONEncode({
-				firebase_url = DatabaseLink,
-				data = Table
-			})
-		})
-	end)
-
-	if not success then print("Something went wrong while deleting in the server: "..error) end
-end
-
-local function FirebaseServerUpdate()
-	local success, error = pcall(function()
-		local DatabaseLink = URL..".json?auth="..Secret
-		LiveChatServer = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
-	end)
-
-	if not success then print("Something went wrong while reading in the server: "..error) end
-end
-
-FirebaseServerUpdate()
-
---- Listens if data is missing ---
-local RunOperations = true
-coroutine.wrap(function()
-	while wait() do
-		local Required = {
-			["BannedPeople"] = true,
-			["BannedWords"] = true,
-			["ChatVersion"] = true,
-			["Chats"] = true,
-			["LinksAllowed"] = true,
-			["Lockdown"] = true,
-			["Remotes"] = true,
-			["RichTextAllowed"] = true,
-			["Timeout"] = true,
-			["UserData"] = true,
-			["VerifiedHWID"] = true,
-			["VerifiedPeople"] = true,
-		}
-
-		for i, v in Required do
-			if LiveChatServer[i] == nil then
-				RunOperations = false
-				_G.PopUpNotificationOptions({
-					Title = "Chat Operations Has Been Killed",
-					Message = "All chat operations have been killed because theres missing data in the server\n\n(Missing Data: "..i..")",
-					Button2Text = "Ok",
-					Button2Function = function()
-					end,
+			local send = request({
+				Url = "https://mirrorr.onrender.com/put",
+				Method = "POST",
+				Headers = {["Content-Type"] = "application/json"},
+				Body = game:GetService("HttpService"):JSONEncode({
+					firebase_url = DatabaseLink,
+					data = Table
 				})
-				return
+			})
+		end)
+
+		if not success then print("Something went wrong while writing in the server: "..error) end
+	end
+
+	local function FirebaseServerDelete(Path, Key)
+		local success, error = pcall(function()
+			local DatabaseLink = URL..Path..".json?auth="..Secret
+			local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
+			local request = request or syn.request
+			local Table = {}
+
+			if DatabaseData ~= nil then
+				for key, value in pairs(DatabaseData) do
+					if key ~= Key then
+						Table[key] = value
+					end
+				end
+			end
+
+			local send = request({
+				Url = "https://mirrorr.onrender.com/put",
+				Method = "POST",
+				Headers = {["Content-Type"] = "application/json"},
+				Body = game:GetService("HttpService"):JSONEncode({
+					firebase_url = DatabaseLink,
+					data = Table
+				})
+			})
+		end)
+
+		if not success then print("Something went wrong while deleting in the server: "..error) end
+	end
+
+	local function FirebaseServerUpdate()
+		local success, error = pcall(function()
+			local DatabaseLink = URL..".json?auth="..Secret
+			LiveChatServer = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
+		end)
+
+		if not success then print("Something went wrong while reading in the server: "..error) end
+	end
+
+	FirebaseServerUpdate()
+
+	--- Listens if data is missing ---
+	local RunOperations = true
+	coroutine.wrap(function()
+		while wait() do
+			local Required = {
+				["BannedPeople"] = true,
+				["BannedWords"] = true,
+				["ChatVersion"] = true,
+				["Chats"] = true,
+				["LinksAllowed"] = true,
+				["Lockdown"] = true,
+				["Remotes"] = true,
+				["RichTextAllowed"] = true,
+				["Timeout"] = true,
+				["UserData"] = true,
+				["VerifiedHWID"] = true,
+				["VerifiedPeople"] = true,
+			}
+
+			for i, v in Required do
+				if LiveChatServer[i] == nil then
+					RunOperations = false
+					_G.PopUpNotificationOptions({
+						Title = "Chat Operations Has Been Killed",
+						Message = "All chat operations have been killed because theres missing data in the server\n\n(Missing Data: "..i..")",
+						Button2Text = "Ok",
+						Button2Function = function()
+						end,
+					})
+					return
+				end
 			end
 		end
-	end
-end)()
+	end)()
 
---- Listens for new data ---
-coroutine.wrap(function()
-	while wait(0.1) do
-		if _G.Table.GUIStatus.ActiveTab == "Chats" then
-			FirebaseServerUpdate()
+	--- Listens for new data ---
+	coroutine.wrap(function()
+		while wait(0.1) do
+			if _G.Table.GUIStatus.ActiveTab == "Chats" then
+				FirebaseServerUpdate()
+			end
 		end
-	end
-end)()
+	end)()
 
-local function TextContentToShow(Table)
-	local Message = Table.Message
-	local Username = Table.Username
-	local DisplayName = Table.DisplayName
-	local UNIXTimestamp = Table.UNIXTimestamp
-	local MessageId = Table.MessageId
-	local IsTemporary = Table.IsTemporary
-	local IsClient = Table.IsClient
-	local ContentText = ""
+	local function TextContentToShow(Table)
+		local Message = Table.Message
+		local Username = Table.Username
+		local DisplayName = Table.DisplayName
+		local UNIXTimestamp = Table.UNIXTimestamp
+		local MessageId = Table.MessageId
+		local IsTemporary = Table.IsTemporary
+		local IsClient = Table.IsClient
+		local ContentText = ""
 
-	if RunOperations == true then
-		if LiveChatServer.VerifiedPeople[Username] then
-			ContentText = utf8.char("0xE000")..' <b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)
+		if RunOperations == true then
+			if LiveChatServer.VerifiedPeople[Username] then
+				ContentText = utf8.char("0xE000")..' <b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)
+			else
+				ContentText = '<b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)
+			end
 		else
 			ContentText = '<b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)
 		end
-	else
-		ContentText = '<b>'..DisplayName..'</b> <font transparency="0.3"><font size="8">(@'..Username..') '..os.date("%m/%d/%Y %I:%M %p", UNIXTimestamp)
-	end
 
-	local NewMessage = ""
-	for _, Word in string.split(Message, " ") do
-		local LowWord = string.lower(Word)
+		local NewMessage = ""
+		for _, Word in string.split(Message, " ") do
+			local LowWord = string.lower(Word)
 
-		if string.find(LowWord, "@") then
-			NewMessage = NewMessage..'<b><mark color="#31304f" transparency="0"><font color="#9db0f1">'..Word..'</font></mark></b> '
+			if string.find(LowWord, "@") then
+				NewMessage = NewMessage..'<b><mark color="#31304f" transparency="0"><font color="#9db0f1">'..Word..'</font></mark></b> '
+			else
+				NewMessage = NewMessage..""..Word.." "
+			end
+		end
+
+		Message = NewMessage
+
+		if MessageId == nil then
+			ContentText = ContentText..'</font></font>'
 		else
-			NewMessage = NewMessage..""..Word.." "
+			ContentText = ContentText.. " (#"..MessageId..")</font></font>"
 		end
-	end
 
-	Message = NewMessage
-
-	if MessageId == nil then
-		ContentText = ContentText..'</font></font>'
-	else
-		ContentText = ContentText.. " (#"..MessageId..")</font></font>"
-	end
-
-	if IsTemporary == true then
-		ContentText = ContentText..'\n<font transparency="0.3">'..Message..'</font>'
-	else
-		ContentText = ContentText.. '\n'..Message
-	end
-
-	if IsClient == true then
-		ContentText = ContentText..'\n<font size="8"><font transparency="0.3">👁️ Only you can see this message</font></font>'
-	end
-
-	return ChangeRichTextSize(ContentText, _G.Table.GUISettings.UITextSize)
-end
-
-local function DisplayMessage(Table)
-	local Message = Table.Message
-	local Username = Table.Username
-	local DisplayName = Table.DisplayName
-	local UNIXTimestamp = Table.UNIXTimestamp
-	local MessageId = Table.MessageId
-	local IsTemporary = Table.IsTemporary
-	local IsClient = Table.IsClient
-
-	local MessageTable = string.split(Message, " ")
-
-	local NewMessage = GUI["MessageTemplate_013"]:Clone()
-	local ContentText = TextContentToShow(Table)
-
-	NewMessage.Parent = GUI["Chats_011"]
-
-	for _, Word in MessageTable do
-		Word = string.lower(Word)
-
-		if string.find(Word, "@"..string.lower(LocalPlayer.Name)) or string.find(Word, "@"..string.lower(LocalPlayer.DisplayName)) or string.find(Word, "@everyone") then
-			NewMessage.BackgroundTransparency = 0.8
+		if IsTemporary == true then
+			ContentText = ContentText..'\n<font transparency="0.3">'..Message..'</font>'
+		else
+			ContentText = ContentText.. '\n'..Message
 		end
-	end
 
-	if Username == "System" then
-		NewMessage.ProfilePicture.Image = "rbxassetid://14586188666"
-	else
-		NewMessage.ProfilePicture.Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..game:GetService("Players"):GetUserIdFromNameAsync(Username).."&width=420&height=420&format=png"
-	end
-
-	if RunOperations == true then
-		if LiveChatServer.VerifiedPeople[Username] then
-			NewMessage.ProfilePicture.UIStroke.Color = Color3.fromRGB(51, 95, 255)
+		if IsClient == true then
+			ContentText = ContentText..'\n<font size="8"><font transparency="0.3">👁️ Only you can see this message</font></font>'
 		end
+
+		return ChangeRichTextSize(ContentText, _G.Table.GUISettings.UITextSize)
 	end
 
-	if IsTemporary == true then
-		NewMessage.Name = "Temporary"..math.random(100000, 999999)
-		NewMessage.LayoutOrder = 1000000
+	local function DisplayMessage(Table)
+		local Message = Table.Message
+		local Username = Table.Username
+		local DisplayName = Table.DisplayName
+		local UNIXTimestamp = Table.UNIXTimestamp
+		local MessageId = Table.MessageId
+		local IsTemporary = Table.IsTemporary
+		local IsClient = Table.IsClient
 
-		coroutine.wrap(function()
-			wait(5)
-			NewMessage:Destroy()
-		end)()
-	else		
-		NewMessage.Name = "Message"..MessageId
-		NewMessage.LayoutOrder = MessageId
-	end
+		local MessageTable = string.split(Message, " ")
 
-	if IsClient == true then
-		NewMessage.Name = "Client"
-		NewMessage.LayoutOrder = 1000000
+		local NewMessage = GUI["MessageTemplate_013"]:Clone()
+		local ContentText = TextContentToShow(Table)
 
-		coroutine.wrap(function()
-			wait(10)
-			NewMessage:Destroy()
-		end)()
-	end
+		NewMessage.Parent = GUI["Chats_011"]
 
-	local isAtBottom = false
-	local function isAtBottom()
-		return Chats.CanvasPosition.Y >= Chats.AbsoluteCanvasSize.Y - Chats.AbsoluteWindowSize.Y - 10
-	end
-	if isAtBottom() then isAtBottom = true end
+		for _, Word in MessageTable do
+			Word = string.lower(Word)
 
-	NewMessage.Message.Text = ContentText
-	NewMessage.Visible = true
-
-	if isAtBottom == true or Username == LocalPlayer.Name or string.find(string.lower(Message), "@everyone") or string.find(string.lower(Message), "@"..string.lower(LocalPlayer.Name)) or string.find(string.lower(Message), "@"..string.lower(LocalPlayer.DisplayName)) then
-		scrollToBottom()
-	end
-
-	return NewMessage.Name
-end
-
---- Listens if the player is banned --
-local function IsHWIDBanned()
-	local IsBanned = false
-	if RunOperations == true then
-		for _, BannedHWID in LiveChatServer.BannedPeople do
-			if HWID() == BannedHWID then
-				IsBanned = true
+			if string.find(Word, "@"..string.lower(LocalPlayer.Name)) or string.find(Word, "@"..string.lower(LocalPlayer.DisplayName)) or string.find(Word, "@everyone") then
+				NewMessage.BackgroundTransparency = 0.8
 			end
 		end
-	else
-		IsBanned = false
-	end
 
-	return IsBanned
-end
+		if Username == "System" then
+			NewMessage.ProfilePicture.Image = "rbxassetid://14586188666"
+		else
+			NewMessage.ProfilePicture.Image = "https://www.roblox.com/headshot-thumbnail/image?userId="..game:GetService("Players"):GetUserIdFromNameAsync(Username).."&width=420&height=420&format=png"
+		end
 
-coroutine.wrap(function()
-	while wait(1) do
 		if RunOperations == true then
-			if LiveChatServer.BannedPeople[string.lower(LocalPlayer.Name)] or IsHWIDBanned() then
-				coroutine.wrap(function()
-					BannedFrame.Visible = true
-					TweenService:Create(BannedFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
-					wait(0.4)
-					BannedFrame.Insides.Visible = true
-					TweenService:Create(BannedFrame.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-				end)()
-
-				for i, v in Chats:GetChildren() do
-					if string.find(v.Name, "Message") and v.Name ~= "MessageTemplate" then
-						v:Destroy()
-					end
-				end
-
-			elseif not LiveChatServer.BannedPeople[string.lower(LocalPlayer.Name)] or not IsHWIDBanned() then
-				if BannedFrame.Visible == true then
-					TweenService:Create(BannedFrame.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
-					wait(0.4)
-					BannedFrame.Insides.Visible = false
-					TweenService:Create(BannedFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-					wait(0.4)
-					BannedFrame.Visible = false
-				end
+			if LiveChatServer.VerifiedPeople[Username] then
+				NewMessage.ProfilePicture.UIStroke.Color = Color3.fromRGB(51, 95, 255)
 			end
 		end
+
+		if IsTemporary == true then
+			NewMessage.Name = "Temporary"..math.random(100000, 999999)
+			NewMessage.LayoutOrder = 1000000
+
+			coroutine.wrap(function()
+				wait(5)
+				NewMessage:Destroy()
+			end)()
+		else		
+			NewMessage.Name = "Message"..MessageId
+			NewMessage.LayoutOrder = MessageId
+		end
+
+		if IsClient == true then
+			NewMessage.Name = "Client"
+			NewMessage.LayoutOrder = 1000000
+
+			coroutine.wrap(function()
+				wait(10)
+				NewMessage:Destroy()
+			end)()
+		end
+
+		local isAtBottom = false
+		local function isAtBottom()
+			return Chats.CanvasPosition.Y >= Chats.AbsoluteCanvasSize.Y - Chats.AbsoluteWindowSize.Y - 10
+		end
+		if isAtBottom() then isAtBottom = true end
+
+		NewMessage.Message.Text = ContentText
+		NewMessage.Visible = true
+
+		if isAtBottom == true or Username == LocalPlayer.Name or string.find(string.lower(Message), "@everyone") or string.find(string.lower(Message), "@"..string.lower(LocalPlayer.Name)) or string.find(string.lower(Message), "@"..string.lower(LocalPlayer.DisplayName)) then
+			scrollToBottom()
+		end
+
+		return NewMessage.Name
 	end
-end)()
 
----- Listens for chat edits ----
-coroutine.wrap(function()
-	while wait(0.1) do
+	--- Listens if the player is banned --
+	local function IsHWIDBanned()
+		local IsBanned = false
 		if RunOperations == true then
-			if not LiveChatServer.BannedPeople[string.lower(LocalPlayer.Name)] then
-				for MessageId, MessageContents in LiveChatServer.Chats do
-					local MessageId = string.split(MessageId, "Message")[2]
-					if Chats:FindFirstChild("Message"..MessageId) then
-						local TextContent = TextContentToShow({DisplayName = MessageContents.DisplayName, Username = MessageContents.Username, Message = MessageContents.Message, MessageId = MessageId, UNIXTimestamp = MessageContents.UNIXTimestamp, IsClient = false, IsTemporary = false})
-						wait()
-
-						if Chats:FindFirstChild("Message"..MessageId) and Chats:FindFirstChild("Message"..MessageId).Message.Text ~= TextContent then
-							Chats:FindFirstChild("Message"..MessageId).Message.Text = TextContent
-						end
-					end
+			for _, BannedHWID in LiveChatServer.BannedPeople do
+				if HWID() == BannedHWID then
+					IsBanned = true
 				end
 			end
+		else
+			IsBanned = false
 		end
-	end
-end)()
 
---- Listens for chat version ---
-local ChatVersion = 0
-coroutine.wrap(function()
-	ChatVersion = tonumber(LiveChatServer.ChatVersion)
-	while wait(0.1) do
-		if RunOperations == true then
-			if ChatVersion ~= LiveChatServer.ChatVersion and ChatVersion ~= 0 then
-				ChatVersion = tonumber(LiveChatServer.ChatVersion)
-				wait(3)
-				for i, v in GUI["Chats_011"]:GetChildren() do
-					if string.find(v.Name, "Message") and v.Name ~= "MessageTemplate" then
-						v:Destroy()
-					end
-				end
-			end
-		end
+		return IsBanned
 	end
-end)()
 
----- Listens for new chats ----
-coroutine.wrap(function()
-	while wait(0.05) do
-		if RunOperations == true then
-			if not LiveChatServer.BannedPeople[string.lower(LocalPlayer.Name)] then
-				for Chat, ChatInfo in LiveChatServer.Chats do
-					local MessageIsShown = false
+	coroutine.wrap(function()
+		while wait(1) do
+			if RunOperations == true then
+				if LiveChatServer.BannedPeople[string.lower(LocalPlayer.Name)] or IsHWIDBanned() then
+					coroutine.wrap(function()
+						BannedFrame.Visible = true
+						TweenService:Create(BannedFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+						wait(0.4)
+						BannedFrame.Insides.Visible = true
+						TweenService:Create(BannedFrame.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+					end)()
 
 					for i, v in Chats:GetChildren() do
-						if v.Name == Chat then
-							MessageIsShown = true
+						if string.find(v.Name, "Message") and v.Name ~= "MessageTemplate" then
+							v:Destroy()
 						end
 					end
-					wait()
 
-					if MessageIsShown == false then
-						DisplayMessage({
-							MessageId = tonumber(string.split(Chat, "Message")[2]),
-							Message = ChatInfo.Message,
-							DisplayName = ChatInfo.DisplayName,
-							Username = ChatInfo.Username,
-							UNIXTimestamp = ChatInfo.UNIXTimestamp,
-							IsTemporary = false,
-							IsClient = false,
-						})
-					end
-				end
-			else
-				for _, Chat in Chats:GetChildren() do
-					if string.find(Chat.Name, "Message") and Chat.Name ~= "MessageTemplate" then
-						Chat:Destroy()
+				elseif not LiveChatServer.BannedPeople[string.lower(LocalPlayer.Name)] or not IsHWIDBanned() then
+					if BannedFrame.Visible == true then
+						TweenService:Create(BannedFrame.CoverFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+						wait(0.4)
+						BannedFrame.Insides.Visible = false
+						TweenService:Create(BannedFrame, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+						wait(0.4)
+						BannedFrame.Visible = false
 					end
 				end
 			end
 		end
-	end
-end)()
+	end)()
 
---- UserData ---
-coroutine.wrap(function()
-	if RunOperations == true then
-		if not (LiveChatServer.UserData[LocalPlayer.Name]) and RunOperations == true then
-			FirebaseServerWrite("UserData", LocalPlayer.Name, {
-				AllowJoins = "AlwaysAsk",
-				PlaceId = game.PlaceId,
-				JobId = game.JobId,
-				LastOnline = os.time(),
-			})
-		end
+	---- Listens for chat edits ----
+	coroutine.wrap(function()
+		while wait(0.1) do
+			if RunOperations == true then
+				if not LiveChatServer.BannedPeople[string.lower(LocalPlayer.Name)] then
+					for MessageId, MessageContents in LiveChatServer.Chats do
+						local MessageId = string.split(MessageId, "Message")[2]
+						if Chats:FindFirstChild("Message"..MessageId) then
+							local TextContent = TextContentToShow({DisplayName = MessageContents.DisplayName, Username = MessageContents.Username, Message = MessageContents.Message, MessageId = MessageId, UNIXTimestamp = MessageContents.UNIXTimestamp, IsClient = false, IsTemporary = false})
+							wait()
 
-		coroutine.wrap(function()
-			while wait(60) do
-				if RunOperations == true then
-					FirebaseServerWrite("UserData/"..LocalPlayer.Name, "LastOnline", os.time())
-				end
-			end
-		end)()
-
-		coroutine.wrap(function()
-			local IgnoreIds = {}
-			while wait(0.1) do
-				if RunOperations == true then
-					for RemoteId, Data in LiveChatServer.Remotes do
-						if RemoteId ~= "ignore" then
-							if Data.Date < os.time() - 10 then
-								FirebaseServerDelete("Remotes", RemoteId)
+							if Chats:FindFirstChild("Message"..MessageId) and Chats:FindFirstChild("Message"..MessageId).Message.Text ~= TextContent then
+								Chats:FindFirstChild("Message"..MessageId).Message.Text = TextContent
 							end
+						end
+					end
+				end
+			end
+		end
+	end)()
 
-							if Data.Receiver == LocalPlayer.Name and not (IgnoreIds[RemoteId]) then
-								IgnoreIds[RemoteId] = true
-								FirebaseServerDelete("Remotes", RemoteId)
+	--- Listens for chat version ---
+	local ChatVersion = 0
+	coroutine.wrap(function()
+		ChatVersion = tonumber(LiveChatServer.ChatVersion)
+		while wait(0.1) do
+			if RunOperations == true then
+				if ChatVersion ~= LiveChatServer.ChatVersion and ChatVersion ~= 0 then
+					ChatVersion = tonumber(LiveChatServer.ChatVersion)
+					wait(3)
+					for i, v in GUI["Chats_011"]:GetChildren() do
+						if string.find(v.Name, "Message") and v.Name ~= "MessageTemplate" then
+							v:Destroy()
+						end
+					end
+				end
+			end
+		end
+	end)()
 
-								if Data.Type == "JoinUserRequest" then
-									if LiveChatServer.UserData[LocalPlayer.Name].AllowJoins == "Always" then
-										FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
-											Type = "JoinUserAgreed",
-											Sender = LocalPlayer.Name,
-											Receiver = Data.Sender,
-											Date = os.time(),
-										})
+	---- Listens for new chats ----
+	coroutine.wrap(function()
+		while wait(0.05) do
+			if RunOperations == true then
+				if not LiveChatServer.BannedPeople[string.lower(LocalPlayer.Name)] then
+					for Chat, ChatInfo in LiveChatServer.Chats do
+						local MessageIsShown = false
+
+						for i, v in Chats:GetChildren() do
+							if v.Name == Chat then
+								MessageIsShown = true
+							end
+						end
+						wait()
+
+						if MessageIsShown == false then
+							DisplayMessage({
+								MessageId = tonumber(string.split(Chat, "Message")[2]),
+								Message = ChatInfo.Message,
+								DisplayName = ChatInfo.DisplayName,
+								Username = ChatInfo.Username,
+								UNIXTimestamp = ChatInfo.UNIXTimestamp,
+								IsTemporary = false,
+								IsClient = false,
+							})
+						end
+					end
+				else
+					for _, Chat in Chats:GetChildren() do
+						if string.find(Chat.Name, "Message") and Chat.Name ~= "MessageTemplate" then
+							Chat:Destroy()
+						end
+					end
+				end
+			end
+		end
+	end)()
+
+	--- UserData ---
+	coroutine.wrap(function()
+		if RunOperations == true then
+			if not (LiveChatServer.UserData[LocalPlayer.Name]) and RunOperations == true then
+				FirebaseServerWrite("UserData", LocalPlayer.Name, {
+					AllowJoins = "AlwaysAsk",
+					PlaceId = game.PlaceId,
+					JobId = game.JobId,
+					LastOnline = os.time(),
+				})
+			end
+
+			coroutine.wrap(function()
+				while wait(60) do
+					if RunOperations == true then
+						FirebaseServerWrite("UserData/"..LocalPlayer.Name, "LastOnline", os.time())
+					end
+				end
+			end)()
+
+			coroutine.wrap(function()
+				local IgnoreIds = {}
+				while wait(0.1) do
+					if RunOperations == true then
+						for RemoteId, Data in LiveChatServer.Remotes do
+							if RemoteId ~= "ignore" then
+								if Data.Date < os.time() - 10 then
+									FirebaseServerDelete("Remotes", RemoteId)
+								end
+
+								if Data.Receiver == LocalPlayer.Name and not (IgnoreIds[RemoteId]) then
+									IgnoreIds[RemoteId] = true
+									FirebaseServerDelete("Remotes", RemoteId)
+
+									if Data.Type == "JoinUserRequest" then
+										if LiveChatServer.UserData[LocalPlayer.Name].AllowJoins == "Always" then
+											FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
+												Type = "JoinUserAgreed",
+												Sender = LocalPlayer.Name,
+												Receiver = Data.Sender,
+												Date = os.time(),
+											})
+
+											_G.PopUpNotificationOptions({
+												Title = "@"..Data.Sender.." has joined you!",
+												Button2Text = "Ok",
+												Button2Function = function()
+												end,
+											})
+
+										elseif LiveChatServer.UserData[LocalPlayer.Name].AllowJoins == "AlwaysAsk" then
+											_G.PopUpNotificationOptions({
+												Title = "Someone wants to join you!",
+												Message = "@"..Data.Sender.." would like to join your game",
+												Button1Text = "Ignore",
+												Button1Function = function()
+												end,
+												Button2Text = "Ok",
+												Button2Function = function()
+													FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
+														Type = "JoinUserAgreed",
+														Sender = LocalPlayer.Name,
+														Receiver = Data.Sender,
+														Date = os.time(),
+													})
+												end,
+											})
+										end
+
+									elseif Data.Type == "JoinUserAgreed" then
+										local ToJoin = LiveChatServer.UserData[Data.Sender]
 
 										_G.PopUpNotificationOptions({
-											Title = "@"..Data.Sender.." has joined you!",
-											Button2Text = "Ok",
-											Button2Function = function()
-											end,
-										})
-
-									elseif LiveChatServer.UserData[LocalPlayer.Name].AllowJoins == "AlwaysAsk" then
-										_G.PopUpNotificationOptions({
-											Title = "Someone wants to join you!",
-											Message = "@"..Data.Sender.." would like to join your game",
-											Button1Text = "Ignore",
+											Title = "Teleporting!",
+											Message = "Please wait...",
+											Button1Text = "Copy Link",
 											Button1Function = function()
+												setclipboard("https://www.roblox.com/games/start?placeId="..ToJoin.PlaceId.."&gameInstanceId="..ToJoin.JobId)
+
+												_G.PopUpNotificationOptions({
+													Title = "Link Copied!",
+													Message = "Paste the link to your browser to join the player",
+													Button2Text = "Close",
+													Button2Function = function()
+													end,
+												})	
 											end,
-											Button2Text = "Ok",
+											Button2Text = "Close",
 											Button2Function = function()
-												FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
-													Type = "JoinUserAgreed",
-													Sender = LocalPlayer.Name,
-													Receiver = Data.Sender,
-													Date = os.time(),
-												})
+											end,
+										})
+
+										game:GetService("TeleportService"):TeleportToPlaceInstance(tonumber(ToJoin.PlaceId), ToJoin.JobId, LocalPlayer)
+
+									elseif Data.Type == "JoinUserDeclined" then
+										_G.PopUpNotificationOptions({
+											Title = "Failed to join!",
+											Message = "@"..Data.Sender.." did not allow you to join their game.",
+											Button2Text = "Close",
+											Button2Function = function()
 											end,
 										})
 									end
-
-								elseif Data.Type == "JoinUserAgreed" then
-									local ToJoin = LiveChatServer.UserData[Data.Sender]
-
-									_G.PopUpNotificationOptions({
-										Title = "Teleporting!",
-										Message = "Please wait...",
-										Button1Text = "Copy Link",
-										Button1Function = function()
-											setclipboard("https://www.roblox.com/games/start?placeId="..ToJoin.PlaceId.."&gameInstanceId="..ToJoin.JobId)
-
-											_G.PopUpNotificationOptions({
-												Title = "Link Copied!",
-												Message = "Paste the link to your browser to join the player",
-												Button2Text = "Close",
-												Button2Function = function()
-												end,
-											})	
-										end,
-										Button2Text = "Close",
-										Button2Function = function()
-										end,
-									})
-
-									game:GetService("TeleportService"):TeleportToPlaceInstance(tonumber(ToJoin.PlaceId), ToJoin.JobId, LocalPlayer)
-
-								elseif Data.Type == "JoinUserDeclined" then
-									_G.PopUpNotificationOptions({
-										Title = "Failed to join!",
-										Message = "@"..Data.Sender.." did not allow you to join their game.",
-										Button2Text = "Close",
-										Button2Function = function()
-										end,
-									})
 								end
 							end
 						end
 					end
 				end
+			end)()
+
+			FirebaseServerWrite("UserData/"..LocalPlayer.Name, "PlaceId", game.PlaceId)
+			FirebaseServerWrite("UserData/"..LocalPlayer.Name, "JobId", game.JobId)
+		end
+	end)()
+
+	local Cooldown = 2
+
+	if RunOperations == true and LiveChatServer.VerifiedPeople[LocalPlayer.Name] then
+		coroutine.wrap(function()
+			while wait() do
+				Cooldown = 0
 			end
 		end)()
-
-		FirebaseServerWrite("UserData/"..LocalPlayer.Name, "PlaceId", game.PlaceId)
-		FirebaseServerWrite("UserData/"..LocalPlayer.Name, "JobId", game.JobId)
 	end
-end)()
 
-local Cooldown = 2
-
-if RunOperations == true and LiveChatServer.VerifiedPeople[LocalPlayer.Name] then
 	coroutine.wrap(function()
-		while wait() do
-			Cooldown = 0
-		end
-	end)()
-end
-
-coroutine.wrap(function()
-	while wait(1) do
-		if Cooldown ~= 0 then
-			Cooldown -= 1
-			TextBox.TextBox.PlaceholderText = "Chat or type slash for commands ("..Cooldown..")"
-		else
-			TextBox.TextBox.PlaceholderText = "Chat or type slash for commands"
-		end
-	end
-end)()
-
-local function IsAdmin(Username)
-	if RunOperations == true then
-		for Name, _ in LiveChatServer.VerifiedPeople do
-			if string.lower(Name) == string.lower(Username) then
-				return true
-			end
-		end
-	end
-end
-
-local function PostMessage(Table)
-	coroutine.wrap(function()
-		if RunOperations == true then
-			local Username = Table.Username
-			local DisplayName = Table.DisplayName
-			local MessageId = Table.MessageId
-			local Message = Table.Message
-
-			FirebaseServerUpdate()
-			if not LiveChatServer.Chats["Message"..MessageId] then
-				FirebaseServerWrite("Chats", "Message"..MessageId, {
-					Username = Username,
-					DisplayName = DisplayName,
-					Message = Message,
-					UNIXTimestamp = tonumber(os.time()),
-				})
+		while wait(1) do
+			if Cooldown ~= 0 then
+				Cooldown -= 1
+				TextBox.TextBox.PlaceholderText = "Chat or type slash for commands ("..Cooldown..")"
 			else
-				MessageId += 1
-				PostMessage({
-					Username = Table.Username,
-					DisplayName = Table.DisplayName,
-					Message = Table.Message,
-					MessageId = MessageId
-				})
+				TextBox.TextBox.PlaceholderText = "Chat or type slash for commands"
 			end
 		end
 	end)()
-end
 
-local function SendMessage(Username, DisplayName, Message)
-	TextBox.TextBox.Text = ""
-	if RunOperations == true then
-		if not LiveChatServer.BannedPeople[Username] or IsHWIDBanned() then
-			if LiveChatServer.VerifiedHWID[Username] == HWID() then
-				local MessageTable = string.split(Message, " ")
-				local MessageId = 1
-
-				for i, v in Chats:GetChildren() do
-					if string.find(v.Name, "Message") and v.Name ~= "MessageTemplate" then
-						MessageId += 1
-					end
+	local function IsAdmin(Username)
+		if RunOperations == true then
+			for Name, _ in LiveChatServer.VerifiedPeople do
+				if string.lower(Name) == string.lower(Username) then
+					return true
 				end
-				wait()
+			end
+		end
+	end
 
-				if LiveChatServer.Lockdown == false then
-					if not LiveChatServer.Timeout[string.lower(Username)] then
-						local AllSpace = true
+	local function PostMessage(Table)
+		coroutine.wrap(function()
+			if RunOperations == true then
+				local Username = Table.Username
+				local DisplayName = Table.DisplayName
+				local MessageId = Table.MessageId
+				local Message = Table.Message
 
-						for i, v in MessageTable do
-							if v ~= "" and v ~= " " then
-								AllSpace = false
-							end
+				FirebaseServerUpdate()
+				if not LiveChatServer.Chats["Message"..MessageId] then
+					FirebaseServerWrite("Chats", "Message"..MessageId, {
+						Username = Username,
+						DisplayName = DisplayName,
+						Message = Message,
+						UNIXTimestamp = tonumber(os.time()),
+					})
+				else
+					MessageId += 1
+					PostMessage({
+						Username = Table.Username,
+						DisplayName = Table.DisplayName,
+						Message = Table.Message,
+						MessageId = MessageId
+					})
+				end
+			end
+		end)()
+	end
+
+	local function SendMessage(Username, DisplayName, Message)
+		TextBox.TextBox.Text = ""
+		if RunOperations == true then
+			if not LiveChatServer.BannedPeople[Username] or IsHWIDBanned() then
+				if LiveChatServer.VerifiedHWID[Username] == HWID() then
+					local MessageTable = string.split(Message, " ")
+					local MessageId = 1
+
+					for i, v in Chats:GetChildren() do
+						if string.find(v.Name, "Message") and v.Name ~= "MessageTemplate" then
+							MessageId += 1
 						end
+					end
+					wait()
 
-						if AllSpace == false then
-							if Cooldown <= 0 then
-								if string.len(Message) > 1000 then
-									DisplayMessage({
-										DisplayName = "System",
-										Username = "System",
-										Message = "@"..DisplayName.." message too long! Try to shorten it. We dont like yappers. ✋",
-										IsClient = true,
-										IsTemporary = false,
-										UNIXTimestamp = tonumber(os.time()),
-										MessageId = 0,
-									})
-								else
-									local ToSend = true
-									local ReasonOfError = "No reason provided"
-									wait()
+					if LiveChatServer.Lockdown == false then
+						if not LiveChatServer.Timeout[string.lower(Username)] then
+							local AllSpace = true
 
-									local Temporary = DisplayMessage({
-										DisplayName = DisplayName,
-										Username = Username,
-										Message = Message,
-										IsClient = false,
-										IsTemporary = true,
-										UNIXTimestamp = tonumber(os.time()),
-										MessageId = MessageId
-									})
+							for i, v in MessageTable do
+								if v ~= "" and v ~= " " then
+									AllSpace = false
+								end
+							end
 
-									local Timeout = 5
+							if AllSpace == false then
+								if Cooldown <= 0 then
+									if string.len(Message) > 1000 then
+										DisplayMessage({
+											DisplayName = "System",
+											Username = "System",
+											Message = "@"..DisplayName.." message too long! Try to shorten it. We dont like yappers. ✋",
+											IsClient = true,
+											IsTemporary = false,
+											UNIXTimestamp = tonumber(os.time()),
+											MessageId = 0,
+										})
+									else
+										local ToSend = true
+										local ReasonOfError = "No reason provided"
+										wait()
 
-									coroutine.wrap(function()
-										while wait(1) do
-											if Timeout ~= 0 then
-												Timeout -= 1
-											else
-												coroutine.yield()
-											end
-										end
-									end)()
+										local Temporary = DisplayMessage({
+											DisplayName = DisplayName,
+											Username = Username,
+											Message = Message,
+											IsClient = false,
+											IsTemporary = true,
+											UNIXTimestamp = tonumber(os.time()),
+											MessageId = MessageId
+										})
 
-									coroutine.wrap(function()
-										while wait() do
-											if ToSend == true then
+										local Timeout = 5
+
+										coroutine.wrap(function()
+											while wait(1) do
 												if Timeout ~= 0 then
-													for i, v in Chats:GetChildren() do
-														if v.Name == "Message"..MessageId then
-															if Chats:FindFirstChild(Temporary) and Chats:FindFirstChild(Temporary).Visible == true then
-																Chats:FindFirstChild(Temporary):Destroy()
-															end
+													Timeout -= 1
+												else
+													coroutine.yield()
+												end
+											end
+										end)()
 
-															coroutine.yield()
+										coroutine.wrap(function()
+											while wait() do
+												if ToSend == true then
+													if Timeout ~= 0 then
+														for i, v in Chats:GetChildren() do
+															if v.Name == "Message"..MessageId then
+																if Chats:FindFirstChild(Temporary) and Chats:FindFirstChild(Temporary).Visible == true then
+																	Chats:FindFirstChild(Temporary):Destroy()
+																end
+
+																coroutine.yield()
+															end
 														end
+													else
+														if Chats:FindFirstChild(Temporary) then
+															Chats:FindFirstChild(Temporary):Destroy()
+														end
+
+														DisplayMessage({
+															DisplayName = "System",
+															Username = "System",
+															Message = "@"..DisplayName.." failed to send message. Please try again 👎",
+															IsClient = true,
+															IsTemporary = false,
+															UNIXTimestamp = tonumber(os.time()),
+															MessageId = 0
+														})
+
+														coroutine.yield()
 													end
 												else
 													if Chats:FindFirstChild(Temporary) then
 														Chats:FindFirstChild(Temporary):Destroy()
 													end
-
-													DisplayMessage({
-														DisplayName = "System",
-														Username = "System",
-														Message = "@"..DisplayName.." failed to send message. Please try again 👎",
-														IsClient = true,
-														IsTemporary = false,
-														UNIXTimestamp = tonumber(os.time()),
-														MessageId = 0
-													})
-
 													coroutine.yield()
 												end
-											else
-												if Chats:FindFirstChild(Temporary) then
-													Chats:FindFirstChild(Temporary):Destroy()
+											end
+										end)()
+
+										local MessageTable = string.split(Message, " ")
+
+										local IsAppropriate = true
+
+										local function RemoveRepeatingChars(word)
+											local seen = {}
+											local result = ""
+
+											for i = 1, #word do
+												local char = word:sub(i, i)
+												if not seen[char] then
+													result = result .. char
+													seen[char] = true
 												end
-												coroutine.yield()
 											end
-										end
-									end)()
 
-									local MessageTable = string.split(Message, " ")
-
-									local IsAppropriate = true
-
-									local function RemoveRepeatingChars(word)
-										local seen = {}
-										local result = ""
-
-										for i = 1, #word do
-											local char = word:sub(i, i)
-											if not seen[char] then
-												result = result .. char
-												seen[char] = true
-											end
+											return result
 										end
 
-										return result
-									end
-
-									if not LiveChatServer.VerifiedPeople[Username] then
-										for _, Word in MessageTable do
-											local Word = string.lower(Word)
-											for BannedWord, _ in LiveChatServer.BannedWords do
-												if string.find(Word, BannedWord) or string.find(RemoveRepeatingChars(Word), "niga") or string.find(RemoveRepeatingChars(Word), "niger") then
-													ToSend = false
-													IsAppropriate = false
-													ReasonOfError = "Your message contains a banned word ("..Word..")"
-												end
-											end
-
-											if LiveChatServer.LinksAllowed == false then
-												if string.find(Word, "https://") or string.find(Word, "http://") then
-													ToSend = false
-													IsAppropriate = false
-													ReasonOfError = "Your message contains a link"
+										if not LiveChatServer.VerifiedPeople[Username] then
+											for _, Word in MessageTable do
+												local Word = string.lower(Word)
+												for BannedWord, _ in LiveChatServer.BannedWords do
+													if string.find(Word, BannedWord) or string.find(RemoveRepeatingChars(Word), "niga") or string.find(RemoveRepeatingChars(Word), "niger") then
+														ToSend = false
+														IsAppropriate = false
+														ReasonOfError = "Your message contains a banned word ("..Word..")"
+													end
 												end
 
-												if string.find(Word, ".") then
-													local WordTable = string.split(Word, ".")
+												if LiveChatServer.LinksAllowed == false then
+													if string.find(Word, "https://") or string.find(Word, "http://") then
+														ToSend = false
+														IsAppropriate = false
+														ReasonOfError = "Your message contains a link"
+													end
 
-													if WordTable[2] then
-														if string.len(WordTable[2]) == 2 or string.len(WordTable[2]) == 3 then
-															ToSend = false
-															IsAppropriate = false
-															ReasonOfError = "Your message contains a link"
-														end
+													if string.find(Word, ".") then
+														local WordTable = string.split(Word, ".")
 
-														if string.find(WordTable[2], "/") then
-															ToSend = false
-															IsAppropriate = false
-															ReasonOfError = "Your message contains a link"
+														if WordTable[2] then
+															if string.len(WordTable[2]) == 2 or string.len(WordTable[2]) == 3 then
+																ToSend = false
+																IsAppropriate = false
+																ReasonOfError = "Your message contains a link"
+															end
+
+															if string.find(WordTable[2], "/") then
+																ToSend = false
+																IsAppropriate = false
+																ReasonOfError = "Your message contains a link"
+															end
 														end
 													end
 												end
-											end
 
-											if LiveChatServer.RichTextAllowed == false then
-												if Word == "</font>" then
-													ToSend = false
-													IsAppropriate = false
-													ReasonOfError = "Your message contains a rich text"
+												if LiveChatServer.RichTextAllowed == false then
+													if Word == "</font>" then
+														ToSend = false
+														IsAppropriate = false
+														ReasonOfError = "Your message contains a rich text"
+													end
 												end
 											end
 										end
-									end
 
-									local function IsStringNumber(str)
-										if type(str) ~= "string" then return false end
-										return string.match(str, "^%-?%d+%.?%d*$") ~= nil or string.match(str, "^%-?%d*%.%d+$") ~= nil
-									end
-
-									if MessageTable[1] == "/delete" then
-										ToSend = false
-										if IsStringNumber(MessageTable[2]) then
-											if LiveChatServer.Chats["Message"..MessageTable[2]] then
-												if LiveChatServer.Chats["Message"..MessageTable[2]].Username == Username or IsAdmin(Username) then
-													FirebaseServerWrite("Chats/Message"..MessageTable[2], "Message", '<font color="rgb(255,102,102)">[ Content Deleted ]</font>')
-
-													DisplayMessage({
-														DisplayName = "System",
-														Username = "System",
-														Message = "@"..DisplayName.." successfully deleted message 👍",
-														IsClient = true,
-														IsTemporary = false,
-														UNIXTimestamp = tonumber(os.time()),
-														MessageId = 0
-													})
-												else
-													DisplayMessage({
-														DisplayName = "System",
-														Username = "System",
-														Message = "@"..DisplayName.." you didnt create this message or you dont have admin privilages ✋",
-														IsClient = true,
-														IsTemporary = false,
-														UNIXTimestamp = tonumber(os.time()),
-														MessageId = 0
-													})
-												end
-											else
-												DisplayMessage({
-													DisplayName = "System",
-													Username = "System",
-													Message = "@"..DisplayName.." message does not exist 👎",
-													IsClient = true,
-													IsTemporary = false,
-													UNIXTimestamp = tonumber(os.time()),
-													MessageId = MessageId
-												})
-											end
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." please provide a messsage ID ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = MessageId
-											})
+										local function IsStringNumber(str)
+											if type(str) ~= "string" then return false end
+											return string.match(str, "^%-?%d+%.?%d*$") ~= nil or string.match(str, "^%-?%d*%.%d+$") ~= nil
 										end
 
-									elseif MessageTable[1] == "/edit" then
-										ToSend = false
-										if IsAppropriate == true then
+										if MessageTable[1] == "/delete" then
+											ToSend = false
 											if IsStringNumber(MessageTable[2]) then
 												if LiveChatServer.Chats["Message"..MessageTable[2]] then
-													local MessageInfo = LiveChatServer.Chats["Message"..MessageTable[2]]
-													if MessageInfo.Username == Username then
-														if MessageInfo.Message ~= '<font color="rgb(255,102,102)">[ Content Deleted ]</font>' then
-															if string.find(LiveChatServer.Chats["Message"..MessageTable[2]].Message, '<font size="8"><font color="rgb(150,150,150)">(edited)</font></font>') then
-																FirebaseServerWrite("Chats/Message"..MessageTable[2], "Message", table.concat(MessageTable, " ", 3))
-															else
-																FirebaseServerWrite("Chats/Message"..MessageTable[2], "Message", table.concat(MessageTable, " ", 3)..'<font size="8"><font color="rgb(150,150,150)">(edited)</font></font>')
-															end
+													if LiveChatServer.Chats["Message"..MessageTable[2]].Username == Username or IsAdmin(Username) then
+														FirebaseServerWrite("Chats/Message"..MessageTable[2], "Message", '<font color="rgb(255,102,102)">[ Content Deleted ]</font>')
 
-															DisplayMessage({
-																DisplayName = "System",
-																Username = "System",
-																Message = "@"..DisplayName.." successfully edited message 👍",
-																IsClient = true,
-																IsTemporary = false,
-																UNIXTimestamp = tonumber(os.time()),
-																MessageId = 0
-															})
-														else
-															DisplayMessage({
-																DisplayName = "System",
-																Username = "System",
-																Message = "@"..DisplayName.." message cannot be edited ✋",
-																IsClient = true,
-																IsTemporary = false,
-																UNIXTimestamp = tonumber(os.time()),
-																MessageId = 0
-															})
-														end
+														DisplayMessage({
+															DisplayName = "System",
+															Username = "System",
+															Message = "@"..DisplayName.." successfully deleted message 👍",
+															IsClient = true,
+															IsTemporary = false,
+															UNIXTimestamp = tonumber(os.time()),
+															MessageId = 0
+														})
 													else
 														DisplayMessage({
 															DisplayName = "System",
 															Username = "System",
-															Message = "@"..DisplayName.." you didnt create this message ✋",
+															Message = "@"..DisplayName.." you didnt create this message or you dont have admin privilages ✋",
 															IsClient = true,
 															IsTemporary = false,
 															UNIXTimestamp = tonumber(os.time()),
@@ -1427,468 +1360,547 @@ local function SendMessage(Username, DisplayName, Message)
 													MessageId = MessageId
 												})
 											end
-										end
 
-									elseif MessageTable[1] == "/purge" then
-										if IsAdmin(Username) then
-											coroutine.wrap(function()
-												wait(0.5)
-												PostMessage({
-													Username = "System",
-													DisplayName = "System",
-													MessageId = MessageId+1,
-													Message = "@"..DisplayName.." please lockdown the Chat first before purging ✋",
-												})
-											end)()
-										else
-											coroutine.wrap(function()
-												wait(0.5)
-												PostMessage({
-													Username = "System",
-													DisplayName = "System",
-													MessageId = MessageId+1,
-													Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												})
-											end)()
-										end
+										elseif MessageTable[1] == "/edit" then
+											ToSend = false
+											if IsAppropriate == true then
+												if IsStringNumber(MessageTable[2]) then
+													if LiveChatServer.Chats["Message"..MessageTable[2]] then
+														local MessageInfo = LiveChatServer.Chats["Message"..MessageTable[2]]
+														if MessageInfo.Username == Username then
+															if MessageInfo.Message ~= '<font color="rgb(255,102,102)">[ Content Deleted ]</font>' then
+																if string.find(LiveChatServer.Chats["Message"..MessageTable[2]].Message, '<font size="8"><font color="rgb(150,150,150)">(edited)</font></font>') then
+																	FirebaseServerWrite("Chats/Message"..MessageTable[2], "Message", table.concat(MessageTable, " ", 3))
+																else
+																	FirebaseServerWrite("Chats/Message"..MessageTable[2], "Message", table.concat(MessageTable, " ", 3)..'<font size="8"><font color="rgb(150,150,150)">(edited)</font></font>')
+																end
 
-									elseif MessageTable[1] == "/updatechatversion" then
-										ToSend = false
-										if IsAdmin(Username) then
-											FirebaseServerWrite("/", "ChatVersion", LiveChatServer.ChatVersion+1)
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										end
-
-									elseif MessageTable[1] == "/allowlinks" then
-										if IsAdmin(Username) then
-											FirebaseServerWrite("/", "LinksAllowed", true)
-
-											coroutine.wrap(function()
-												wait(0.5)
-												PostMessage({
-													Username = "System",
-													DisplayName = "System",
-													MessageId = MessageId+1,
-													Message = "@everyone can send links now! 🔗",
-												})
-											end)()
-										else
-											coroutine.wrap(function()
-												wait(0.5)
-												PostMessage({
-													Username = "System",
-													DisplayName = "System",
-													MessageId = MessageId+1,
-													Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												})
-											end)()
-										end
-
-									elseif MessageTable[1] == "/forbidlinks" then
-										if IsAdmin(Username) then
-											FirebaseServerWrite("/", "LinksAllowed", false)
-
-											coroutine.wrap(function()
-												wait(0.5)
-												PostMessage({
-													Username = "System",
-													DisplayName = "System",
-													MessageId = MessageId+1,
-													Message = "Links sending are now prohibited @everyone 🔗🚫",
-												})
-											end)()
-										else
-											coroutine.wrap(function()
-												wait(0.5)
-												PostMessage({
-													Username = "System",
-													DisplayName = "System",
-													MessageId = MessageId+1,
-													Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												})
-											end)()
-										end
-
-									elseif MessageTable[1] == "/allowrichtext" then
-										ToSend = false
-										if IsAdmin(Username) then
-											FirebaseServerWrite("/", "RichTextAllowed", true)
-
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." allowed rich text sending to everyone 👍",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = MessageId
-											})
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = MessageId
-											})
-										end
-
-									elseif MessageTable[1] == "/forbidrichtext" then
-										ToSend = false
-										if IsAdmin(Username) then
-											FirebaseServerWrite("/", "RichTextAllowed", false)
-
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." forbided rich text sending to everyone 👍",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = MessageId
-											})
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = MessageId
-											})
-										end
-
-									elseif MessageTable[1] == "/allowjoins" then
-										ToSend = false
-
-										if MessageTable[2] == "Always" then
-											FirebaseServerWrite("UserData/"..LocalPlayer.Name, "AllowJoins", "Always")
-
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." allowed joins to everyone 👍",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = MessageId
-											})
-										elseif MessageTable[2] == "AlwaysAsk" then
-											FirebaseServerWrite("UserData/"..LocalPlayer.Name, "AllowJoins", "AlwaysAsk")
-
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." always ask before joining applied 👍",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = MessageId
-											})
-										elseif MessageTable[2] == "Never" then
-											FirebaseServerWrite("UserData/"..LocalPlayer.Name, "AllowJoins", "Never")
-
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." disabled joining 👍",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = MessageId
-											})
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." please provide a valid option or check your spelling ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = MessageId
-											})
-										end
-
-									elseif MessageTable[1] == "/join" then
-										local FixedUsername = nil
-										for Username, Data in LiveChatServer.UserData do
-											if string.find(string.lower(Username), string.lower(MessageTable[2])) and Data.LastOnline > os.time() - 120 then
-												FixedUsername = Username
-											end
-										end
-										wait()
-
-										if FixedUsername ~= nil then
-											local function SendRequest()
-												FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
-													Sender = LocalPlayer.Name,
-													Receiver = FixedUsername,
-													Type = "JoinUserRequest",
-													Date = os.time()
-												})
-											end
-
-											if LiveChatServer.UserData[FixedUsername].AllowJoins == "Always" then
-												SendRequest()
-												_G.PopUpNotificationOptions({
-													Title = "Please wait...",
-													Button2Text = "Ok",
-													Button2Function = function()
-													end,
-												})
-
-											elseif LiveChatServer.UserData[FixedUsername].AllowJoins == "AlwaysAsk" then
-												SendRequest()
-												_G.PopUpNotificationOptions({
-													Title = "Request has been sent!",
-													Message = "A join request has been sent to @"..FixedUsername,
-													Button2Text = "Ok",
-													Button2Function = function()
-													end,
-												})
-
-											elseif LiveChatServer.UserData[FixedUsername].AllowJoins == "Never" then
-												_G.PopUpNotificationOptions({
-													Title = "Request has been rejected!",
-													Message = "This user have forbid anyone joining them",
-													Button2Text = "Ok",
-													Button2Function = function()
-													end,
-												})
-											end
-										else
-											_G.PopUpNotificationOptions({
-												Title = "Failed to join!",
-												Message = "This user is offline or does not exist",
-												Button2Text = "Ok",
-												Button2Function = function()
-												end,
-											})
-										end
-
-									elseif MessageTable[1] == "/listcensoredwords" then
-										ToSend = false
-										if IsAdmin(Username) then
-											local WordsLists = ""
-											for Words, _ in LiveChatServer.BannedWords do
-												WordsLists = WordsLists.."\n"..Words
-											end
-
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = '@'..DisplayName..' list of censored words:\n'..WordsLists,
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										end
-
-									elseif MessageTable[1] == "/censorword" then
-										ToSend = false
-										if IsAdmin(Username) then
-											if MessageTable[2] then
-												if MessageTable[2] ~= "" or MessageTable[2] ~= " " then
-													LiveChatServer.BannedWords[string.lower(MessageTable[2])] = true
-
-													DisplayMessage({
-														DisplayName = "System",
-														Username = "System",
-														Message = '@'..DisplayName..' successfully censored word "'..MessageTable[2]..'" 👍',
-														IsClient = true,
-														IsTemporary = false,
-														UNIXTimestamp = tonumber(os.time()),
-														MessageId = 0
-													})
-												end
-											else
-												DisplayMessage({
-													DisplayName = "System",
-													Username = "System",
-													Message = "@"..DisplayName.." please provide a word ✋",
-													IsClient = true,
-													IsTemporary = false,
-													UNIXTimestamp = tonumber(os.time()),
-													MessageId = 0
-												})
-											end
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										end
-
-									elseif MessageTable[1] == "/uncensorword" then
-										ToSend = false
-										if IsAdmin(Username) then
-											if MessageTable[2] then
-												if MessageTable[2] ~= "" or MessageTable[2] ~= " " then
-													local NewTable = {}
-
-													for Word, _ in LiveChatServer.BannedWords do
-														if string.lower(Word) ~= string.lower(MessageTable[2]) then
-															NewTable[Word] = true
-														end
-													end
-													wait()
-
-													LiveChatServer.BannedWords = NewTable
-
-													DisplayMessage({
-														DisplayName = "System",
-														Username = "System",
-														Message = '@'..DisplayName..' successfully uncensored word "'..MessageTable[2]..'" 👍',
-														IsClient = true,
-														IsTemporary = false,
-														UNIXTimestamp = tonumber(os.time()),
-														MessageId = 0
-													})
-												end
-											else
-												DisplayMessage({
-													DisplayName = "System",
-													Username = "System",
-													Message = "@"..DisplayName.." please provide a word ✋",
-													IsClient = true,
-													IsTemporary = false,
-													UNIXTimestamp = tonumber(os.time()),
-													MessageId = 0
-												})
-											end
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										end
-
-									elseif MessageTable[1] == "/lockdown" then
-										ToSend = false
-										if IsAdmin(Username) then
-											_G.PopUpNotificationOptions({
-												Title = "Woah there!",
-												Message = "Are you sure you want to lockdown the chat?",
-												Button1Text = "Nevermind",
-												Button1Function = function()
-												end,
-												Button2Text = "Yes",
-												Button2Function = function()
-													FirebaseServerWrite("/", "Lockdown", true)
-
-													coroutine.wrap(function()
-														wait(0.5)
-														PostMessage({
-															Username = "System",
-															DisplayName = "System",
-															MessageId = MessageId,
-															Message = "@everyone the server has been locked down 🔒",
-														})
-													end)()
-												end,
-											})
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										end
-
-									elseif MessageTable[1] == "/unlockdown" then
-										ToSend = false
-										if IsAdmin(Username) then
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." chat is not in lockdown 👎",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										end
-
-									elseif MessageTable[1] == "/listtimeouts" then
-										local UsersList = ""
-										for User, UNIXTime in LiveChatServer.Timeout do
-											UsersList = UsersList.."\n"..User.." ("..UNIXTime-tonumber(os.time()).." seconds)"
-										end
-
-										coroutine.wrap(function()
-											wait(0.5)
-											PostMessage({
-												Username = "System",
-												DisplayName = "System",
-												MessageId = MessageId,
-												Message = '@'..DisplayName..' timedout users:\n'..UsersList,
-											})
-										end)()
-
-									elseif MessageTable[1] == "/timeout" then
-										if IsAdmin(Username) then
-											if MessageTable[2] then
-												if not IsAdmin(MessageTable[2]) then
-													if MessageTable[3] and IsStringNumber(MessageTable[3]) then
-														if tonumber(MessageTable[3]) < 259200 then
-															FirebaseServerWrite("Timeout", string.lower(MessageTable[2]), tonumber(os.time())+tonumber(MessageTable[3]))
-
-															coroutine.wrap(function()
-																wait(0.5)
-																PostMessage({
-																	Username = "System",
+																DisplayMessage({
 																	DisplayName = "System",
-																	MessageId = MessageId,
-																	Message = "@"..DisplayName.." successfully timeout @"..MessageTable[2].." for "..MessageTable[3].." seconds 👍",
+																	Username = "System",
+																	Message = "@"..DisplayName.." successfully edited message 👍",
+																	IsClient = true,
+																	IsTemporary = false,
+																	UNIXTimestamp = tonumber(os.time()),
+																	MessageId = 0
 																})
-															end)()
+															else
+																DisplayMessage({
+																	DisplayName = "System",
+																	Username = "System",
+																	Message = "@"..DisplayName.." message cannot be edited ✋",
+																	IsClient = true,
+																	IsTemporary = false,
+																	UNIXTimestamp = tonumber(os.time()),
+																	MessageId = 0
+																})
+															end
+														else
+															DisplayMessage({
+																DisplayName = "System",
+																Username = "System",
+																Message = "@"..DisplayName.." you didnt create this message ✋",
+																IsClient = true,
+																IsTemporary = false,
+																UNIXTimestamp = tonumber(os.time()),
+																MessageId = 0
+															})
+														end
+													else
+														DisplayMessage({
+															DisplayName = "System",
+															Username = "System",
+															Message = "@"..DisplayName.." message does not exist 👎",
+															IsClient = true,
+															IsTemporary = false,
+															UNIXTimestamp = tonumber(os.time()),
+															MessageId = MessageId
+														})
+													end
+												else
+													DisplayMessage({
+														DisplayName = "System",
+														Username = "System",
+														Message = "@"..DisplayName.." please provide a messsage ID ✋",
+														IsClient = true,
+														IsTemporary = false,
+														UNIXTimestamp = tonumber(os.time()),
+														MessageId = MessageId
+													})
+												end
+											end
+
+										elseif MessageTable[1] == "/purge" then
+											if IsAdmin(Username) then
+												coroutine.wrap(function()
+													wait(0.5)
+													PostMessage({
+														Username = "System",
+														DisplayName = "System",
+														MessageId = MessageId+1,
+														Message = "@"..DisplayName.." please lockdown the Chat first before purging ✋",
+													})
+												end)()
+											else
+												coroutine.wrap(function()
+													wait(0.5)
+													PostMessage({
+														Username = "System",
+														DisplayName = "System",
+														MessageId = MessageId+1,
+														Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													})
+												end)()
+											end
+
+										elseif MessageTable[1] == "/updatechatversion" then
+											ToSend = false
+											if IsAdmin(Username) then
+												FirebaseServerWrite("/", "ChatVersion", LiveChatServer.ChatVersion+1)
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											end
+
+										elseif MessageTable[1] == "/allowlinks" then
+											if IsAdmin(Username) then
+												FirebaseServerWrite("/", "LinksAllowed", true)
+
+												coroutine.wrap(function()
+													wait(0.5)
+													PostMessage({
+														Username = "System",
+														DisplayName = "System",
+														MessageId = MessageId+1,
+														Message = "@everyone can send links now! 🔗",
+													})
+												end)()
+											else
+												coroutine.wrap(function()
+													wait(0.5)
+													PostMessage({
+														Username = "System",
+														DisplayName = "System",
+														MessageId = MessageId+1,
+														Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													})
+												end)()
+											end
+
+										elseif MessageTable[1] == "/forbidlinks" then
+											if IsAdmin(Username) then
+												FirebaseServerWrite("/", "LinksAllowed", false)
+
+												coroutine.wrap(function()
+													wait(0.5)
+													PostMessage({
+														Username = "System",
+														DisplayName = "System",
+														MessageId = MessageId+1,
+														Message = "Links sending are now prohibited @everyone 🔗🚫",
+													})
+												end)()
+											else
+												coroutine.wrap(function()
+													wait(0.5)
+													PostMessage({
+														Username = "System",
+														DisplayName = "System",
+														MessageId = MessageId+1,
+														Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													})
+												end)()
+											end
+
+										elseif MessageTable[1] == "/allowrichtext" then
+											ToSend = false
+											if IsAdmin(Username) then
+												FirebaseServerWrite("/", "RichTextAllowed", true)
+
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." allowed rich text sending to everyone 👍",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = MessageId
+												})
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = MessageId
+												})
+											end
+
+										elseif MessageTable[1] == "/forbidrichtext" then
+											ToSend = false
+											if IsAdmin(Username) then
+												FirebaseServerWrite("/", "RichTextAllowed", false)
+
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." forbided rich text sending to everyone 👍",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = MessageId
+												})
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = MessageId
+												})
+											end
+
+										elseif MessageTable[1] == "/allowjoins" then
+											ToSend = false
+
+											if MessageTable[2] == "Always" then
+												FirebaseServerWrite("UserData/"..LocalPlayer.Name, "AllowJoins", "Always")
+
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." allowed joins to everyone 👍",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = MessageId
+												})
+											elseif MessageTable[2] == "AlwaysAsk" then
+												FirebaseServerWrite("UserData/"..LocalPlayer.Name, "AllowJoins", "AlwaysAsk")
+
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." always ask before joining applied 👍",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = MessageId
+												})
+											elseif MessageTable[2] == "Never" then
+												FirebaseServerWrite("UserData/"..LocalPlayer.Name, "AllowJoins", "Never")
+
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." disabled joining 👍",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = MessageId
+												})
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." please provide a valid option or check your spelling ✋",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = MessageId
+												})
+											end
+
+										elseif MessageTable[1] == "/join" then
+											local FixedUsername = nil
+											for Username, Data in LiveChatServer.UserData do
+												if string.find(string.lower(Username), string.lower(MessageTable[2])) and Data.LastOnline > os.time() - 120 then
+													FixedUsername = Username
+												end
+											end
+											wait()
+
+											if FixedUsername ~= nil then
+												local function SendRequest()
+													FirebaseServerWrite("Remotes", game:GetService("HttpService"):GenerateGUID(false), {
+														Sender = LocalPlayer.Name,
+														Receiver = FixedUsername,
+														Type = "JoinUserRequest",
+														Date = os.time()
+													})
+												end
+
+												if LiveChatServer.UserData[FixedUsername].AllowJoins == "Always" then
+													SendRequest()
+													_G.PopUpNotificationOptions({
+														Title = "Please wait...",
+														Button2Text = "Ok",
+														Button2Function = function()
+														end,
+													})
+
+												elseif LiveChatServer.UserData[FixedUsername].AllowJoins == "AlwaysAsk" then
+													SendRequest()
+													_G.PopUpNotificationOptions({
+														Title = "Request has been sent!",
+														Message = "A join request has been sent to @"..FixedUsername,
+														Button2Text = "Ok",
+														Button2Function = function()
+														end,
+													})
+
+												elseif LiveChatServer.UserData[FixedUsername].AllowJoins == "Never" then
+													_G.PopUpNotificationOptions({
+														Title = "Request has been rejected!",
+														Message = "This user have forbid anyone joining them",
+														Button2Text = "Ok",
+														Button2Function = function()
+														end,
+													})
+												end
+											else
+												_G.PopUpNotificationOptions({
+													Title = "Failed to join!",
+													Message = "This user is offline or does not exist",
+													Button2Text = "Ok",
+													Button2Function = function()
+													end,
+												})
+											end
+
+										elseif MessageTable[1] == "/listcensoredwords" then
+											ToSend = false
+											if IsAdmin(Username) then
+												local WordsLists = ""
+												for Words, _ in LiveChatServer.BannedWords do
+													WordsLists = WordsLists.."\n"..Words
+												end
+
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = '@'..DisplayName..' list of censored words:\n'..WordsLists,
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											end
+
+										elseif MessageTable[1] == "/censorword" then
+											ToSend = false
+											if IsAdmin(Username) then
+												if MessageTable[2] then
+													if MessageTable[2] ~= "" or MessageTable[2] ~= " " then
+														LiveChatServer.BannedWords[string.lower(MessageTable[2])] = true
+
+														DisplayMessage({
+															DisplayName = "System",
+															Username = "System",
+															Message = '@'..DisplayName..' successfully censored word "'..MessageTable[2]..'" 👍',
+															IsClient = true,
+															IsTemporary = false,
+															UNIXTimestamp = tonumber(os.time()),
+															MessageId = 0
+														})
+													end
+												else
+													DisplayMessage({
+														DisplayName = "System",
+														Username = "System",
+														Message = "@"..DisplayName.." please provide a word ✋",
+														IsClient = true,
+														IsTemporary = false,
+														UNIXTimestamp = tonumber(os.time()),
+														MessageId = 0
+													})
+												end
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											end
+
+										elseif MessageTable[1] == "/uncensorword" then
+											ToSend = false
+											if IsAdmin(Username) then
+												if MessageTable[2] then
+													if MessageTable[2] ~= "" or MessageTable[2] ~= " " then
+														local NewTable = {}
+
+														for Word, _ in LiveChatServer.BannedWords do
+															if string.lower(Word) ~= string.lower(MessageTable[2]) then
+																NewTable[Word] = true
+															end
+														end
+														wait()
+
+														LiveChatServer.BannedWords = NewTable
+
+														DisplayMessage({
+															DisplayName = "System",
+															Username = "System",
+															Message = '@'..DisplayName..' successfully uncensored word "'..MessageTable[2]..'" 👍',
+															IsClient = true,
+															IsTemporary = false,
+															UNIXTimestamp = tonumber(os.time()),
+															MessageId = 0
+														})
+													end
+												else
+													DisplayMessage({
+														DisplayName = "System",
+														Username = "System",
+														Message = "@"..DisplayName.." please provide a word ✋",
+														IsClient = true,
+														IsTemporary = false,
+														UNIXTimestamp = tonumber(os.time()),
+														MessageId = 0
+													})
+												end
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											end
+
+										elseif MessageTable[1] == "/lockdown" then
+											ToSend = false
+											if IsAdmin(Username) then
+												_G.PopUpNotificationOptions({
+													Title = "Woah there!",
+													Message = "Are you sure you want to lockdown the chat?",
+													Button1Text = "Nevermind",
+													Button1Function = function()
+													end,
+													Button2Text = "Yes",
+													Button2Function = function()
+														FirebaseServerWrite("/", "Lockdown", true)
+
+														coroutine.wrap(function()
+															wait(0.5)
+															PostMessage({
+																Username = "System",
+																DisplayName = "System",
+																MessageId = MessageId,
+																Message = "@everyone the server has been locked down 🔒",
+															})
+														end)()
+													end,
+												})
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											end
+
+										elseif MessageTable[1] == "/unlockdown" then
+											ToSend = false
+											if IsAdmin(Username) then
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." chat is not in lockdown 👎",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											end
+
+										elseif MessageTable[1] == "/listtimeouts" then
+											local UsersList = ""
+											for User, UNIXTime in LiveChatServer.Timeout do
+												UsersList = UsersList.."\n"..User.." ("..UNIXTime-tonumber(os.time()).." seconds)"
+											end
+
+											coroutine.wrap(function()
+												wait(0.5)
+												PostMessage({
+													Username = "System",
+													DisplayName = "System",
+													MessageId = MessageId,
+													Message = '@'..DisplayName..' timedout users:\n'..UsersList,
+												})
+											end)()
+
+										elseif MessageTable[1] == "/timeout" then
+											if IsAdmin(Username) then
+												if MessageTable[2] then
+													if not IsAdmin(MessageTable[2]) then
+														if MessageTable[3] and IsStringNumber(MessageTable[3]) then
+															if tonumber(MessageTable[3]) < 259200 then
+																FirebaseServerWrite("Timeout", string.lower(MessageTable[2]), tonumber(os.time())+tonumber(MessageTable[3]))
+
+																coroutine.wrap(function()
+																	wait(0.5)
+																	PostMessage({
+																		Username = "System",
+																		DisplayName = "System",
+																		MessageId = MessageId,
+																		Message = "@"..DisplayName.." successfully timeout @"..MessageTable[2].." for "..MessageTable[3].." seconds 👍",
+																	})
+																end)()
+															else
+																coroutine.wrap(function()
+																	wait(0.5)
+																	PostMessage({
+																		Username = "System",
+																		DisplayName = "System",
+																		MessageId = MessageId,
+																		Message = "@"..DisplayName.." timeout cannot be longer than 3 days ✋",
+																	})
+																end)()
+															end
 														else
 															coroutine.wrap(function()
 																wait(0.5)
@@ -1896,7 +1908,7 @@ local function SendMessage(Username, DisplayName, Message)
 																	Username = "System",
 																	DisplayName = "System",
 																	MessageId = MessageId,
-																	Message = "@"..DisplayName.." timeout cannot be longer than 3 days ✋",
+																	Message = "@"..DisplayName.." please provide a number of seconds ✋",
 																})
 															end)()
 														end
@@ -1907,7 +1919,7 @@ local function SendMessage(Username, DisplayName, Message)
 																Username = "System",
 																DisplayName = "System",
 																MessageId = MessageId,
-																Message = "@"..DisplayName.." please provide a number of seconds ✋",
+																Message = "@"..DisplayName.." you cannot timeout a admin 👎",
 															})
 														end)()
 													end
@@ -1918,7 +1930,7 @@ local function SendMessage(Username, DisplayName, Message)
 															Username = "System",
 															DisplayName = "System",
 															MessageId = MessageId,
-															Message = "@"..DisplayName.." you cannot timeout a admin 👎",
+															Message = "@"..DisplayName.." please provide the username of the player ✋",
 														})
 													end)()
 												end
@@ -1929,37 +1941,37 @@ local function SendMessage(Username, DisplayName, Message)
 														Username = "System",
 														DisplayName = "System",
 														MessageId = MessageId,
-														Message = "@"..DisplayName.." please provide the username of the player ✋",
+														Message = "@"..DisplayName.." you dont have admin privilages ✋",
 													})
 												end)()
 											end
-										else
-											coroutine.wrap(function()
-												wait(0.5)
-												PostMessage({
-													Username = "System",
-													DisplayName = "System",
-													MessageId = MessageId,
-													Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												})
-											end)()
-										end
 
 
-									elseif MessageTable[1] == "/untimeout" then
-										if IsAdmin(Username) then
-											if MessageTable[2] and LiveChatServer.Timeout[string.lower(MessageTable[2])] then
-												FirebaseServerDelete("Timeout", string.lower(MessageTable[2]))
+										elseif MessageTable[1] == "/untimeout" then
+											if IsAdmin(Username) then
+												if MessageTable[2] and LiveChatServer.Timeout[string.lower(MessageTable[2])] then
+													FirebaseServerDelete("Timeout", string.lower(MessageTable[2]))
 
-												coroutine.wrap(function()
-													wait(0.5)
-													PostMessage({
-														Username = "System",
-														DisplayName = "System",
-														MessageId = MessageId,
-														Message = "@"..DisplayName.." successfully removed timeout on @"..MessageTable[2].." 👍" ,
-													})
-												end)()
+													coroutine.wrap(function()
+														wait(0.5)
+														PostMessage({
+															Username = "System",
+															DisplayName = "System",
+															MessageId = MessageId,
+															Message = "@"..DisplayName.." successfully removed timeout on @"..MessageTable[2].." 👍" ,
+														})
+													end)()
+												else
+													coroutine.wrap(function()
+														wait(0.5)
+														PostMessage({
+															Username = "System",
+															DisplayName = "System",
+															MessageId = MessageId,
+															Message = "@"..DisplayName.." please provide the username of the player who is really timedout✋",
+														})
+													end)()
+												end
 											else
 												coroutine.wrap(function()
 													wait(0.5)
@@ -1967,61 +1979,61 @@ local function SendMessage(Username, DisplayName, Message)
 														Username = "System",
 														DisplayName = "System",
 														MessageId = MessageId,
-														Message = "@"..DisplayName.." please provide the username of the player who is really timedout✋",
+														Message = "@"..DisplayName.." you dont have admin privilages ✋",
 													})
 												end)()
 											end
-										else
+
+										elseif MessageTable[1] == "/listbanned" then
+											local UsersList = ""
+											for User, _ in LiveChatServer.BannedPeople do
+												UsersList = UsersList.."\n"..User
+											end
+
 											coroutine.wrap(function()
 												wait(0.5)
 												PostMessage({
 													Username = "System",
 													DisplayName = "System",
 													MessageId = MessageId,
-													Message = "@"..DisplayName.." you dont have admin privilages ✋",
+													Message = '@'..DisplayName..' banned users:\n'..UsersList,
 												})
 											end)()
-										end
 
-									elseif MessageTable[1] == "/listbanned" then
-										local UsersList = ""
-										for User, _ in LiveChatServer.BannedPeople do
-											UsersList = UsersList.."\n"..User
-										end
+										elseif MessageTable[1] == "/ban" then
+											if IsAdmin(Username) then
+												if MessageTable[2] then
+													if not IsAdmin(MessageTable[2]) then
+														local UserHWID = "nil"
 
-										coroutine.wrap(function()
-											wait(0.5)
-											PostMessage({
-												Username = "System",
-												DisplayName = "System",
-												MessageId = MessageId,
-												Message = '@'..DisplayName..' banned users:\n'..UsersList,
-											})
-										end)()
-
-									elseif MessageTable[1] == "/ban" then
-										if IsAdmin(Username) then
-											if MessageTable[2] then
-												if not IsAdmin(MessageTable[2]) then
-													local UserHWID = "nil"
-
-													for BannedUsername, HWID in LiveChatServer.VerifiedHWID do
-														if string.lower(BannedUsername) == string.lower(MessageTable[2]) then
-															UserHWID = HWID
+														for BannedUsername, HWID in LiveChatServer.VerifiedHWID do
+															if string.lower(BannedUsername) == string.lower(MessageTable[2]) then
+																UserHWID = HWID
+															end
 														end
+
+														FirebaseServerWrite("BannedPeople", string.lower(MessageTable[2]), UserHWID)
+
+														coroutine.wrap(function()
+															wait(0.5)
+															PostMessage({
+																Username = "System",
+																DisplayName = "System",
+																MessageId = MessageId,
+																Message = "@"..DisplayName.." successfully banned @"..MessageTable[2].." 👍",
+															})
+														end)()
+													else
+														coroutine.wrap(function()
+															wait(0.5)
+															PostMessage({
+																Username = "System",
+																DisplayName = "System",
+																MessageId = MessageId,
+																Message = "@"..DisplayName.." you cannot ban a admin 👎",
+															})
+														end)()
 													end
-
-													FirebaseServerWrite("BannedPeople", string.lower(MessageTable[2]), UserHWID)
-
-													coroutine.wrap(function()
-														wait(0.5)
-														PostMessage({
-															Username = "System",
-															DisplayName = "System",
-															MessageId = MessageId,
-															Message = "@"..DisplayName.." successfully banned @"..MessageTable[2].." 👍",
-														})
-													end)()
 												else
 													coroutine.wrap(function()
 														wait(0.5)
@@ -2029,7 +2041,7 @@ local function SendMessage(Username, DisplayName, Message)
 															Username = "System",
 															DisplayName = "System",
 															MessageId = MessageId,
-															Message = "@"..DisplayName.." you cannot ban a admin 👎",
+															Message = "@"..DisplayName.." please provide the username of the player ✋",
 														})
 													end)()
 												end
@@ -2040,37 +2052,37 @@ local function SendMessage(Username, DisplayName, Message)
 														Username = "System",
 														DisplayName = "System",
 														MessageId = MessageId,
-														Message = "@"..DisplayName.." please provide the username of the player ✋",
+														Message = "@"..DisplayName.." you dont have admin privilages ✋",
 													})
 												end)()
 											end
-										else
-											coroutine.wrap(function()
-												wait(0.5)
-												PostMessage({
-													Username = "System",
-													DisplayName = "System",
-													MessageId = MessageId,
-													Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												})
-											end)()
-										end
 
-									elseif MessageTable[1] == "/unban" then
-										if IsAdmin(Username) then
-											if MessageTable[2] then
-												if not IsAdmin(MessageTable[2]) then
-													FirebaseServerDelete("BannedPeople", MessageTable[2])
+										elseif MessageTable[1] == "/unban" then
+											if IsAdmin(Username) then
+												if MessageTable[2] then
+													if not IsAdmin(MessageTable[2]) then
+														FirebaseServerDelete("BannedPeople", MessageTable[2])
 
-													coroutine.wrap(function()
-														wait(0.5)
-														PostMessage({
-															Username = "System",
-															DisplayName = "System",
-															MessageId = MessageId,
-															Message = "@"..DisplayName.." successfully unbanned @"..MessageTable[2].." 👍",
-														})
-													end)()
+														coroutine.wrap(function()
+															wait(0.5)
+															PostMessage({
+																Username = "System",
+																DisplayName = "System",
+																MessageId = MessageId,
+																Message = "@"..DisplayName.." successfully unbanned @"..MessageTable[2].." 👍",
+															})
+														end)()
+													else
+														coroutine.wrap(function()
+															wait(0.5)
+															PostMessage({
+																Username = "System",
+																DisplayName = "System",
+																MessageId = MessageId,
+																Message = "@"..DisplayName.." you cannot ban a admin 👎",
+															})
+														end)()
+													end
 												else
 													coroutine.wrap(function()
 														wait(0.5)
@@ -2078,7 +2090,7 @@ local function SendMessage(Username, DisplayName, Message)
 															Username = "System",
 															DisplayName = "System",
 															MessageId = MessageId,
-															Message = "@"..DisplayName.." you cannot ban a admin 👎",
+															Message = "@"..DisplayName.." please provide the username of the player ✋",
 														})
 													end)()
 												end
@@ -2089,49 +2101,77 @@ local function SendMessage(Username, DisplayName, Message)
 														Username = "System",
 														DisplayName = "System",
 														MessageId = MessageId,
-														Message = "@"..DisplayName.." please provide the username of the player ✋",
+														Message = "@"..DisplayName.." you dont have admin privilages ✋",
 													})
 												end)()
 											end
-										else
-											coroutine.wrap(function()
-												wait(0.5)
-												PostMessage({
-													Username = "System",
-													DisplayName = "System",
-													MessageId = MessageId,
-													Message = "@"..DisplayName.." you dont have admin privilages ✋",
-												})
-											end)()
-										end
 
-									elseif MessageTable[1] == "/reload" then
-										ToSend = false
-										for i, v in GUI["Chats_011"]:GetChildren() do
-											if string.find(v.Name, "Message") and v.Name ~= "MessageTemplate" then
-												v:Destroy()
+										elseif MessageTable[1] == "/reload" then
+											ToSend = false
+											for i, v in GUI["Chats_011"]:GetChildren() do
+												if string.find(v.Name, "Message") and v.Name ~= "MessageTemplate" then
+													v:Destroy()
+												end
+											end
+
+										elseif MessageTable[1] == "/copymessage" then
+											ToSend = false
+											if MessageTable[2] and IsStringNumber(MessageTable[2]) and LiveChatServer.Chats["Message"..tonumber(MessageTable[2])] then
+												toclipboard(LiveChatServer.Chats["Message"..tonumber(MessageTable[2])]["Message"])
+
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." message copied 👍",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." message does not exist 👎",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											end
+
+										elseif MessageTable[1] == "/copyusername" then
+											ToSend = false
+											if MessageTable[2] and IsStringNumber(MessageTable[2]) and LiveChatServer.Chats["Message"..tonumber(MessageTable[2])] then
+												toclipboard(LiveChatServer.Chats["Message"..tonumber(MessageTable[2])]["Username"])
+
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." username copied 👍",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
+											else
+												DisplayMessage({
+													DisplayName = "System",
+													Username = "System",
+													Message = "@"..DisplayName.." message does not exist 👎",
+													IsClient = true,
+													IsTemporary = false,
+													UNIXTimestamp = tonumber(os.time()),
+													MessageId = 0
+												})
 											end
 										end
 
-									elseif MessageTable[1] == "/copymessage" then
-										ToSend = false
-										if MessageTable[2] and IsStringNumber(MessageTable[2]) and LiveChatServer.Chats["Message"..tonumber(MessageTable[2])] then
-											toclipboard(LiveChatServer.Chats["Message"..tonumber(MessageTable[2])]["Message"])
-
+										if IsAppropriate == false then
 											DisplayMessage({
 												DisplayName = "System",
 												Username = "System",
-												Message = "@"..DisplayName.." message copied 👍",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." message does not exist 👎",
+												Message = '@'..DisplayName..' your message is blocked by the system 👎\n\nReason: "'..ReasonOfError..'"',
 												IsClient = true,
 												IsTemporary = false,
 												UNIXTimestamp = tonumber(os.time()),
@@ -2139,263 +2179,225 @@ local function SendMessage(Username, DisplayName, Message)
 											})
 										end
 
-									elseif MessageTable[1] == "/copyusername" then
-										ToSend = false
-										if MessageTable[2] and IsStringNumber(MessageTable[2]) and LiveChatServer.Chats["Message"..tonumber(MessageTable[2])] then
-											toclipboard(LiveChatServer.Chats["Message"..tonumber(MessageTable[2])]["Username"])
-
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." username copied 👍",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
-											})
-										else
-											DisplayMessage({
-												DisplayName = "System",
-												Username = "System",
-												Message = "@"..DisplayName.." message does not exist 👎",
-												IsClient = true,
-												IsTemporary = false,
-												UNIXTimestamp = tonumber(os.time()),
-												MessageId = 0
+										if ToSend == true then
+											Cooldown = 2
+											PostMessage({
+												Username = Username,
+												DisplayName = DisplayName,
+												MessageId = MessageId,
+												Message = Message,
 											})
 										end
 									end
-
-									if IsAppropriate == false then
-										DisplayMessage({
-											DisplayName = "System",
-											Username = "System",
-											Message = '@'..DisplayName..' your message is blocked by the system 👎\n\nReason: "'..ReasonOfError..'"',
-											IsClient = true,
-											IsTemporary = false,
-											UNIXTimestamp = tonumber(os.time()),
-											MessageId = 0
-										})
-									end
-
-									if ToSend == true then
-										Cooldown = 2
-										PostMessage({
-											Username = Username,
-											DisplayName = DisplayName,
-											MessageId = MessageId,
-											Message = Message,
-										})
-									end
+								else
+									TextBox.TextBox.PlaceholderText = "Wait for "..Cooldown.." to send another message."
 								end
+							end
+						else
+							if LiveChatServer.Timeout[string.lower(Username)] < tonumber(os.time()) then						
+								FirebaseServerDelete("Timeout", string.lower(Username))
+								SendMessage(Username, DisplayName, Message)
 							else
-								TextBox.TextBox.PlaceholderText = "Wait for "..Cooldown.." to send another message."
+								_G.PopUpNotificationOptions({
+									Title = "Timed out!",
+									Message = "You were timed out for "..LiveChatServer.Timeout[string.lower(Username)]-tonumber(os.time()).." seconds",
+									Button2Text = "Ok",
+									Button2Function = function()
+									end,
+								})
 							end
 						end
 					else
-						if LiveChatServer.Timeout[string.lower(Username)] < tonumber(os.time()) then						
-							FirebaseServerDelete("Timeout", string.lower(Username))
-							SendMessage(Username, DisplayName, Message)
+						if string.lower(MessageTable[1]) == "/unlockdown" and IsAdmin(Username) then
+							if LiveChatServer.Lockdown == true then
+								FirebaseServerWrite("/", "Lockdown", false)
+
+								coroutine.wrap(function()
+									wait(0.5)
+									PostMessage({
+										Username = "System",
+										DisplayName = "System",
+										MessageId = MessageId,
+										Message = "@everyone chat has been unlocked! 🔓",
+									})
+								end)()
+							else
+								DisplayMessage({
+									DisplayName = "System",
+									Username = "System",
+									Message = "@"..DisplayName.." chat is not in lockdown 👎",
+									IsClient = true,
+									IsTemporary = false,
+									UNIXTimestamp = tonumber(os.time()),
+									MessageId = 0
+								})
+							end
+						elseif string.lower(MessageTable[1]) == "/purge" and IsAdmin(Username) then
+							_G.PopUpNotificationOptions({
+								Title = "Woah there!",
+								Message = "Are you sure you want to purge the chat? All existing messages will be permanently deleted!",
+								Button1Text = "Nevermind",
+								Button1Function = function()
+								end,
+								Button2Text = "Yes",
+								Button2Function = function()
+									FirebaseServerWrite("/", "ChatVersion", tonumber(LiveChatServer.ChatVersion+1))
+									FirebaseServerUpdate()
+									FirebaseServerWrite("/", "Chats", {
+										Message1 = {
+											Username = "System",
+											DisplayName = "System",
+											UNIXTimestamp = tonumber(os.time()),
+											Message = "Welcome to VexHub Chat! Have a chance to talk to people who are using VexHub!\n\n(Chat Version "..LiveChatServer.ChatVersion..")"
+										}
+									})
+								end,
+							})
+						elseif string.find(MessageTable[1], "/") then
+							DisplayMessage({
+								DisplayName = "System",
+								Username = "System",
+								Message = "@"..DisplayName.." you cant run this specific command during lockdown 👎",
+								IsClient = true,
+								IsTemporary = false,
+								UNIXTimestamp = tonumber(os.time()),
+								MessageId = 0
+							})
 						else
 							_G.PopUpNotificationOptions({
-								Title = "Timed out!",
-								Message = "You were timed out for "..LiveChatServer.Timeout[string.lower(Username)]-tonumber(os.time()).." seconds",
-								Button2Text = "Ok",
+								Title = "Oops!",
+								Message = "Chat is currently in lockdown. Comeback later 😊",
+								Button2Text = "Yes",
 								Button2Function = function()
 								end,
 							})
 						end
 					end
 				else
-					if string.lower(MessageTable[1]) == "/unlockdown" and IsAdmin(Username) then
-						if LiveChatServer.Lockdown == true then
-							FirebaseServerWrite("/", "Lockdown", false)
+					local function expandAcronym(str)
+						local dictionary = {
+							A = "Apple",
+							B = "Beta",
+							C = "Cat",
+							D = "Doctor",
+							E = "Elephant",
+							F = "Friends",
+							G = "Gerald",
+							H = "Hot",
+							I = "Ivan",
+							J = "Joseph",
+							K = "Kitten",
+							L = "Love",
+							M = "Man",
+							N = "Night",
+							O = "Octopus",
+							P = "Plushy",
+							Q = "Queen",
+							R = "Right",
+							S = "Satire",
+							T = "Toblerone",
+							U = "Umbrella",
+							V = "Vincent",
+							W = "Wheels",
+							X = "XRay",
+							Y = "You",
+							Z = "Zebra",
+							["0"] = "Egg",
+							["1"] = "Juan",
+							["2"] = "Dos",
+							["3"] = "Tree",
+							["4"] = "Poor",
+							["5"] = "Flied",
+							["6"] = "Six",
+							["7"] = "Seven",
+							["8"] = "Ate",
+							["9"] = "Nein",
+						}
 
-							coroutine.wrap(function()
-								wait(0.5)
-								PostMessage({
-									Username = "System",
-									DisplayName = "System",
-									MessageId = MessageId,
-									Message = "@everyone chat has been unlocked! 🔓",
-								})
-							end)()
-						else
-							DisplayMessage({
-								DisplayName = "System",
-								Username = "System",
-								Message = "@"..DisplayName.." chat is not in lockdown 👎",
-								IsClient = true,
-								IsTemporary = false,
-								UNIXTimestamp = tonumber(os.time()),
-								MessageId = 0
-							})
+						local result = {}
+
+						for i = 1, #str do
+							local char = string.sub(string.upper(str), i, i)
+							if dictionary[char] then
+								table.insert(result, dictionary[char])
+							else
+								table.insert(result, char)
+							end
 						end
-					elseif string.lower(MessageTable[1]) == "/purge" and IsAdmin(Username) then
-						_G.PopUpNotificationOptions({
-							Title = "Woah there!",
-							Message = "Are you sure you want to purge the chat? All existing messages will be permanently deleted!",
-							Button1Text = "Nevermind",
-							Button1Function = function()
-							end,
-							Button2Text = "Yes",
-							Button2Function = function()
-								FirebaseServerWrite("/", "ChatVersion", tonumber(LiveChatServer.ChatVersion+1))
-								FirebaseServerUpdate()
-								FirebaseServerWrite("/", "Chats", {
-									Message1 = {
-										Username = "System",
-										DisplayName = "System",
-										UNIXTimestamp = tonumber(os.time()),
-										Message = "Welcome to VexHub Chat! Have a chance to talk to people who are using VexHub!\n\n(Chat Version "..LiveChatServer.ChatVersion..")"
-									}
-								})
-							end,
-						})
-					elseif string.find(MessageTable[1], "/") then
-						DisplayMessage({
-							DisplayName = "System",
-							Username = "System",
-							Message = "@"..DisplayName.." you cant run this specific command during lockdown 👎",
-							IsClient = true,
-							IsTemporary = false,
-							UNIXTimestamp = tonumber(os.time()),
-							MessageId = 0
-						})
-					else
-						_G.PopUpNotificationOptions({
-							Title = "Oops!",
-							Message = "Chat is currently in lockdown. Comeback later 😊",
-							Button2Text = "Yes",
-							Button2Function = function()
-							end,
-						})
-					end
-				end
-			else
-				local function expandAcronym(str)
-					local dictionary = {
-						A = "Apple",
-						B = "Beta",
-						C = "Cat",
-						D = "Doctor",
-						E = "Elephant",
-						F = "Friends",
-						G = "Gerald",
-						H = "Hot",
-						I = "Ivan",
-						J = "Joseph",
-						K = "Kitten",
-						L = "Love",
-						M = "Man",
-						N = "Night",
-						O = "Octopus",
-						P = "Plushy",
-						Q = "Queen",
-						R = "Right",
-						S = "Satire",
-						T = "Toblerone",
-						U = "Umbrella",
-						V = "Vincent",
-						W = "Wheels",
-						X = "XRay",
-						Y = "You",
-						Z = "Zebra",
-						["0"] = "Egg",
-						["1"] = "Juan",
-						["2"] = "Dos",
-						["3"] = "Tree",
-						["4"] = "Poor",
-						["5"] = "Flied",
-						["6"] = "Six",
-						["7"] = "Seven",
-						["8"] = "Ate",
-						["9"] = "Nein",
-					}
 
-					local result = {}
-
-					for i = 1, #str do
-						local char = string.sub(string.upper(str), i, i)
-						if dictionary[char] then
-							table.insert(result, dictionary[char])
-						else
-							table.insert(result, char)
-						end
+						return table.concat(result, " ")
 					end
 
-					return table.concat(result, " ")
-				end
-
-				local function VerifyAccount()
-					_G.PopUpNotificationOptions({
-						Title = "Verifying...",
-						Button2Text = "Ok",
-						Button2Function = function()
-						end,
-					})
-
-					local Description = JSon:Decode(game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId))["description"]
-
-					if string.find(Description, expandAcronym(HWID())) then
-						FirebaseServerWrite("VerifiedHWID", Username, HWID())
-
+					local function VerifyAccount()
 						_G.PopUpNotificationOptions({
-							Title = "Account verified!",
+							Title = "Verifying...",
 							Button2Text = "Ok",
 							Button2Function = function()
 							end,
 						})
-						return true
-					else
-						_G.PopUpNotificationOptions({
-							Title = "Invalid!",
-							Message = "The verification code hasnt been found in your profile's description",
-							Button2Text = "Ok",
-							Button2Function = function()
-							end,
-						})
-					end
-					return false
-				end
 
-				if VerifyAccount() == false then
-					_G.PopUpNotificationOptions({
-						Title = "Verification Required",
-						Message = "Before you chat, please verify your Roblox account by putting a verification code to your profile's description",
-						Button1Text = "Later",
-						Button1Function = function()
-						end,
-						Button2Text = "Copy Code",
-						Button2Function = function()
-							setclipboard(expandAcronym(HWID()))
+						local Description = JSon:Decode(game:HttpGet("https://users.roblox.com/v1/users/"..LocalPlayer.UserId))["description"]
+
+						if string.find(Description, expandAcronym(HWID())) then
+							FirebaseServerWrite("VerifiedHWID", Username, HWID())
 
 							_G.PopUpNotificationOptions({
-								Title = "Text Copied!",
-								Message = "The verification code has been copied to your clipboard. Paste it to your profile's description then come back here!",
-								Button1Text = "Verify",
-								Button1Function = function()
-									VerifyAccount()
-								end,
+								Title = "Account verified!",
 								Button2Text = "Ok",
 								Button2Function = function()
 								end,
 							})
-						end,
-					})
+							return true
+						else
+							_G.PopUpNotificationOptions({
+								Title = "Invalid!",
+								Message = "The verification code hasnt been found in your profile's description",
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+						end
+						return false
+					end
+
+					if VerifyAccount() == false then
+						_G.PopUpNotificationOptions({
+							Title = "Verification Required",
+							Message = "Before you chat, please verify your Roblox account by putting a verification code to your profile's description",
+							Button1Text = "Later",
+							Button1Function = function()
+							end,
+							Button2Text = "Copy Code",
+							Button2Function = function()
+								setclipboard(expandAcronym(HWID()))
+
+								_G.PopUpNotificationOptions({
+									Title = "Text Copied!",
+									Message = "The verification code has been copied to your clipboard. Paste it to your profile's description then come back here!",
+									Button1Text = "Verify",
+									Button1Function = function()
+										VerifyAccount()
+									end,
+									Button2Text = "Ok",
+									Button2Function = function()
+									end,
+								})
+							end,
+						})
+					end
 				end
 			end
 		end
+		return
 	end
-	return
-end
 
-GUI["SendButton_022"].MouseButton1Down:Connect(function()
-	SendMessage(LocalPlayer.Name, LocalPlayer.DisplayName, TextBox.TextBox.ContentText)
-end)
-
-TextBox.TextBox.FocusLost:Connect(function(enterPressed)
-	if enterPressed then
+	GUI["SendButton_022"].MouseButton1Down:Connect(function()
 		SendMessage(LocalPlayer.Name, LocalPlayer.DisplayName, TextBox.TextBox.ContentText)
-	end
-end)
+	end)
+
+	TextBox.TextBox.FocusLost:Connect(function(enterPressed)
+		if enterPressed then
+			SendMessage(LocalPlayer.Name, LocalPlayer.DisplayName, TextBox.TextBox.ContentText)
+		end
+	end)
+end)()

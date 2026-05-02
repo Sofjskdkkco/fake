@@ -800,89 +800,91 @@ GUI["UIGradient_08"].Offset = Vector2.new(0, 0.3)
 GUI["UIGradient_08"].Rotation = 90
 GUI["UIGradient_08"].Parent = GUI["BottomFrame_0"]
 
-local TweenService = game:GetService("TweenService")
+coroutine.wrap(function()
+	local TweenService = game:GetService("TweenService")
 
-for i, v in GUI.Buttons_0:GetChildren() do
-	if v:IsA("TextButton") then
-		v.MouseEnter:Connect(function()
-			TweenService:Create(v.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
-			TweenService:Create(v.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
-		end)
+	for i, v in GUI.Buttons_0:GetChildren() do
+		if v:IsA("TextButton") then
+			v.MouseEnter:Connect(function()
+				TweenService:Create(v.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
+				TweenService:Create(v.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
+			end)
 
-		v.MouseLeave:Connect(function()
-			TweenService:Create(v.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
-			TweenService:Create(v.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0.3)}):Play()
-		end)
-	end
-end
-
-GUI["Discord_0"].MouseButton1Down:Connect(function()
-	setclipboard(_G.Table.GUIStatus.DiscordLink)
-end)
-
-GUI["PayPal_0"].MouseButton1Down:Connect(function()
-	setclipboard(_G.Table.GUIStatus.PayPalLink)
-end)
-
-local AllScripts = 0
-for SectionName, Scripts in _G.Table.Scripts do
-	for ScriptName, _ in Scripts do
-		if ScriptName ~= "Info" then
-			AllScripts += 1
+			v.MouseLeave:Connect(function()
+				TweenService:Create(v.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
+				TweenService:Create(v.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0.3)}):Play()
+			end)
 		end
 	end
-end
 
-GUI["Scripts_0"].Text = 'Scripts\n<b><font size="14">'..AllScripts..'</font></b>'
-
-local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
-local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
-
-local FirebaseServer = {}
-
-local function FirebaseServerUpdate()
-	local success, error = pcall(function()
-		FirebaseServer = game.HttpService:JSONDecode(mirror(URL..".json?auth="..Secret))
+	GUI["Discord_0"].MouseButton1Down:Connect(function()
+		setclipboard(_G.Table.GUIStatus.DiscordLink)
 	end)
 
-	if not success then print("Something went wrong while reading in the server: "..error) end
-end
+	GUI["PayPal_0"].MouseButton1Down:Connect(function()
+		setclipboard(_G.Table.GUIStatus.PayPalLink)
+	end)
 
-FirebaseServerUpdate()
-
-local function TextTransitionExecuted(startValue, endValue, duration)
-	coroutine.wrap(function()
-		local steps = endValue - startValue
-		local waitTime = duration / steps
-
-		for i = startValue, endValue do
-			GUI["Executed_0"].Text = ChangeRichTextSize('Executed\n<b><font size="14">'..i..'</font></b>\ntimes', _G.Table.GUISettings.UITextSize)
-			task.wait(waitTime)
-		end
-	end)()
-end
-
-TextTransitionExecuted(FirebaseServer.Executed, FirebaseServer.Executed+1, 60)
-
-coroutine.wrap(function()
-	while wait(60) do
-		if FirebaseServer.Executed ~= nil then
-			local startValue = FirebaseServer.Executed
-			FirebaseServerUpdate()
-			local endValue = FirebaseServer.Executed
-			TextTransitionExecuted(startValue, endValue, 60)
+	local AllScripts = 0
+	for SectionName, Scripts in _G.Table.Scripts do
+		for ScriptName, _ in Scripts do
+			if ScriptName ~= "Info" then
+				AllScripts += 1
+			end
 		end
 	end
+
+	GUI["Scripts_0"].Text = 'Scripts\n<b><font size="14">'..AllScripts..'</font></b>'
+
+	local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
+	local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"
+
+	local FirebaseServer = {}
+
+	local function FirebaseServerUpdate()
+		local success, error = pcall(function()
+			FirebaseServer = game.HttpService:JSONDecode(mirror(URL..".json?auth="..Secret))
+		end)
+
+		if not success then print("Something went wrong while reading in the server: "..error) end
+	end
+
+	FirebaseServerUpdate()
+
+	local function TextTransitionExecuted(startValue, endValue, duration)
+		coroutine.wrap(function()
+			local steps = endValue - startValue
+			local waitTime = duration / steps
+
+			for i = startValue, endValue do
+				GUI["Executed_0"].Text = ChangeRichTextSize('Executed\n<b><font size="14">'..i..'</font></b>\ntimes', _G.Table.GUISettings.UITextSize)
+				task.wait(waitTime)
+			end
+		end)()
+	end
+
+	TextTransitionExecuted(FirebaseServer.Executed, FirebaseServer.Executed+1, 60)
+
+	coroutine.wrap(function()
+		while wait(60) do
+			if FirebaseServer.Executed ~= nil then
+				local startValue = FirebaseServer.Executed
+				FirebaseServerUpdate()
+				local endValue = FirebaseServer.Executed
+				TextTransitionExecuted(startValue, endValue, 60)
+			end
+		end
+	end)()
+
+	local Time = tonumber(os.date("%H"))
+
+	if Time >= 6 and Time <= 11 then
+		GUI["Greetings_0"].Text = ChangeRichTextSize('<b>Good Morning,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>', _G.Table.GUISettings.UITextSize)
+	elseif Time >= 12 and Time <= 17 then
+		GUI["Greetings_0"].Text = ChangeRichTextSize('<b>Good Afternoon,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>', _G.Table.GUISettings.UITextSize)
+	else
+		GUI["Greetings_0"].Text = ChangeRichTextSize('<b>Good Evening,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>', _G.Table.GUISettings.UITextSize)
+	end
+
+	GUI["Greetings_0"].Text = ChangeRichTextSize(GUI["Greetings_0"].Text, _G.Table.GUISettings.UITextSize)
 end)()
-
-local Time = tonumber(os.date("%H"))
-
-if Time >= 6 and Time <= 11 then
-	GUI["Greetings_0"].Text = ChangeRichTextSize('<b>Good Morning,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>', _G.Table.GUISettings.UITextSize)
-elseif Time >= 12 and Time <= 17 then
-	GUI["Greetings_0"].Text = ChangeRichTextSize('<b>Good Afternoon,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>', _G.Table.GUISettings.UITextSize)
-else
-	GUI["Greetings_0"].Text = ChangeRichTextSize('<b>Good Evening,</b>\n<font size="12">'..LocalPlayer.DisplayName..'!</font>', _G.Table.GUISettings.UITextSize)
-end
-
-GUI["Greetings_0"].Text = ChangeRichTextSize(GUI["Greetings_0"].Text, _G.Table.GUISettings.UITextSize)

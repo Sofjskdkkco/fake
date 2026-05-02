@@ -303,6 +303,19 @@ return {
 				loadstring(game:HttpGet("https://pastebin.com/raw/96XzjEiK"))()
 			end,
 		},
+		
+		["99 Nights In The Forest God Mode"] = {
+			Creator = "Unknown",
+			Description = "Makes you not get killed",
+			PlaceId = 126509999114328,
+			RigType = "Any", -- R6, R15, Any
+			IsOP = true,
+			IsNew = true,
+			ScriptId = 1024,
+			Script = function()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/ProBaconHub/DATABASE/refs/heads/main/99%20Nights%20in%20the%20Forest/Infinite%20Health.lua"))()
+			end,
+		},
 	},
 
 	["Required Accessories"] = {
@@ -620,8 +633,8 @@ return {
 				loadstring(game:HttpGet("https://pastefy.app/MKQhZyAn/raw"))()
 			end,
 		},
-		
-		["Barry's Prison Run!"] = {
+
+		["Barry's Prison Run GUI"] = {
 			Creator = "Unknown",
 			Description = "Control and ruin the game",
 			PlaceId = 8712817601,
@@ -631,6 +644,32 @@ return {
 			ScriptId = 3024,
 			Script = function()
 				loadstring(game:HttpGet("https://pastebin.com/raw/zWX1TPEh"))()
+			end,
+		},
+		
+		["Invisible GUI"] = {
+			Creator = "xXHaNdEROxx",
+			Description = "Makes you invisible",
+			PlaceId = 0,
+			RigType = "Any",
+			IsOP = true,
+			IsNew = true,
+			ScriptId = 3025,
+			Script = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/0XUsv2Dq"))()
+			end,
+		},
+		
+		["Fling GUI"] = {
+			Creator = "R-77",
+			Description = "Makes you invisible",
+			PlaceId = 0,
+			RigType = "Any",
+			IsOP = true,
+			IsNew = true,
+			ScriptId = 3026,
+			Script = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/Mkt6djAP"))()
 			end,
 		},
 	},
@@ -719,7 +758,7 @@ return {
 				loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkibidiSource/scripts/refs/heads/main/faker'),true))()
 			end,
 		},
-		
+
 		["Star Glitcher"] = {
 			Creator = "Unknown",
 			Description = "Float like youre mad",
@@ -732,7 +771,7 @@ return {
 				loadstring(game:HttpGet(('https://pastebin.com/raw/bvPbLBrT'),true))()
 			end,
 		},
-		
+
 		["Sonic"] = {
 			Creator = "AzScripter",
 			Description = "Be sonic",
@@ -745,7 +784,7 @@ return {
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/Azizanzz0/FE-R15-Sonic-X-Super/refs/heads/main/Protected%20SonicXSuper.txt"))()
 			end,
 		},
-		
+
 		["Possessed"] = {
 			Creator = "Xavvikky",
 			Description = "Be like youre being possessed",
@@ -756,6 +795,19 @@ return {
 			ScriptId = 4009,
 			Script = function()
 				loadstring(game:HttpGet(('https://pastebin.com/raw/C2ixw5i9'),true))()
+			end,
+		},
+		
+		["Cat Animation"] = {
+			Creator = "Xavvikky",
+			Description = "Be like youre being possessed",
+			PlaceId = 0,
+			RigType = "R15", -- R6, R15, Any
+			IsOP = false,
+			IsNew = true,
+			ScriptId = 4010,
+			Script = function()
+				loadstring(game:HttpGet("https://pastebin.com/raw/Y1MkBRn3"))()
 			end,
 		},
 	},

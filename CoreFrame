@@ -831,7 +831,6 @@ coroutine.wrap(function()
 			OnGoingAnimation = true
 			centerFrame(GUI.DragFrame_0, GUI.DragFrame_0.AbsoluteSize.X, GUI.DragFrame_0.AbsoluteSize.Y)
 			GUI.DragFrame_0.Visible = true
-			GUI.MainFrame_0.Ads.Visible = true
 			GUI.MainFrame_0.PopUpAd.Visible = true
 			GUI.MainFrame_0.PopUpNotificationOptions.Visible = true
 			GUI.MainContents_0.Visible = true
@@ -842,7 +841,10 @@ coroutine.wrap(function()
 			TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
 			TweenService:Create(GUI.UIScale_01, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
 			TweenService:Create(GUI.UICorner_07, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {CornerRadius = UDim.new(0, 5)}):Play()
-			if _G.Table.GUIStatus.AdVisible == true then TweenService:Create(GUI.MainFrame_0.Ads, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play() end
+			if _G.Table.GUIStatus.AdVisible == true then 
+				GUI.MainFrame_0.Ads.Visible = true
+				TweenService:Create(GUI.MainFrame_0.Ads, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play() 
+			end
 
 			wait(0.6)
 			_G.Table.GUIStatus.IsClosed = false

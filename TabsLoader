@@ -106,477 +106,479 @@ end
 FirebaseServerUpdate()
 
 _G.CreateTab = function(TabName, Scripts)
-	local NewTab = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages.TabsTemplate:Clone()
+	coroutine.wrap(function()
+		local NewTab = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages.TabsTemplate:Clone()
 
-	NewTab.Name = TabName
-	NewTab.Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
-	NewTab.Visible = false
-	NewTab.TabInfo.TabNameAndTotalScripts.TabName.Text = TabName
-	NewTab.TabInfo.TabImage.Image = Scripts.Info.Icon
+		NewTab.Name = TabName
+		NewTab.Parent = game:GetService("CoreGui").VexHubUI.DragFrame.MainFrame.MainContents.RightFrame.Wallpaper.Insides.Margin.Pages
+		NewTab.Visible = false
+		NewTab.TabInfo.TabNameAndTotalScripts.TabName.Text = TabName
+		NewTab.TabInfo.TabImage.Image = Scripts.Info.Icon
 
-	local TextBox = NewTab.TabInfo.SearchBar.TextBox
-	local MagnifyingGlass = NewTab.TabInfo.SearchBar.MagnifyingGlass
-	local SearchBar = NewTab.TabInfo.SearchBar
-	local TweenService = game:GetService("TweenService")
-	local InputBegan = false
+		local TextBox = NewTab.TabInfo.SearchBar.TextBox
+		local MagnifyingGlass = NewTab.TabInfo.SearchBar.MagnifyingGlass
+		local SearchBar = NewTab.TabInfo.SearchBar
+		local TweenService = game:GetService("TweenService")
+		local InputBegan = false
 
-	TextBox.Focused:Connect(function()
-		InputBegan = true
-	end)
+		TextBox.Focused:Connect(function()
+			InputBegan = true
+		end)
 
-	TextBox.FocusLost:Connect(function()
-		InputBegan = false
-		TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-		TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
-		TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
-	end)
-
-	SearchBar.MouseEnter:Connect(function()
-		TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
-		TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.fromRGB(0, 0, 0)}):Play()
-		TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.fromRGB(0, 0, 0)}):Play()
-	end)
-
-	SearchBar.MouseLeave:Connect(function()
-		if InputBegan ~= true then
+		TextBox.FocusLost:Connect(function()
+			InputBegan = false
 			TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 			TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
 			TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
-		end
-	end)
+		end)
 
-	local TotalScripts = 0
-	local OPScripts = 0
-	local NewScripts = 0
+		SearchBar.MouseEnter:Connect(function()
+			TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
+			TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageColor3 = Color3.fromRGB(0, 0, 0)}):Play()
+			TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextColor3 = Color3.fromRGB(0, 0, 0)}):Play()
+		end)
 
-	local function GetRatesPercentage(likes, dislikes)
-		local total = likes + dislikes
-
-		if total > 0 then
-			local likePercentage = (likes / total) * 100
-			local dislikePercentage = (dislikes / total) * 100
-
-			return math.round(likePercentage), math.round(dislikePercentage)
-		else
-			return 0, 0
-		end
-	end
-
-	NewTab.TabInfo.SearchBar.TextBox.FocusLost:Connect(function()
-		NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = true
-		for i, v in NewTab.BottomFrame.Scripts.ScrollingFrame:GetChildren() do
-			if v:IsA("TextButton") and v.Name ~= "ScriptTemplate" then
-				if string.find(string.lower(v.Insides.ScrollingFrame.ScriptName.ContentText), string.lower(NewTab.TabInfo.SearchBar.TextBox.ContentText)) then
-					v.Visible = true
-					NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = false
-				else
-					v.Visible = false
-				end
+		SearchBar.MouseLeave:Connect(function()
+			if InputBegan ~= true then
+				TweenService:Create(SearchBar, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+				TweenService:Create(MagnifyingGlass, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))}):Play()
+				TweenService:Create(TextBox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UITextColor))}):Play()
 			end
-		end
-	end)
+		end)
 
-	local ScriptInfoFrame = NewTab.BottomFrame.ScriptInfoMargin.ScriptInfo
-	local PlayAndExecuteFrame = ScriptInfoFrame.Insides.ScrollingFrame.PlayAndExecuteFrame
-	local ExecuteButton = PlayAndExecuteFrame.ExecuteButton
-	local JoinButton = PlayAndExecuteFrame.JoinButton
-	local OtherButtonsFrame = ScriptInfoFrame.Insides.ScrollingFrame.OtherButtons
-	local FavoriteFrame = OtherButtonsFrame.FavoriteFrame
-	local LikeFrame = OtherButtonsFrame.LikeFrame
-	local LikeRating = LikeFrame.Percentage
-	local DislikeFrame = OtherButtonsFrame.DislikeFrame
-	local DislikeRating = DislikeFrame.Percentage
+		local TotalScripts = 0
+		local OPScripts = 0
+		local NewScripts = 0
 
-	local ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()end)
-	local FavoriteButtonFunction = FavoriteFrame.Button.MouseButton1Down:Connect(function()end)
-	local JoinButtonFunction = JoinButton.MouseButton1Down:Connect(function()end)
-	local LikeButtonFunction = LikeFrame.Button.MouseButton1Down:Connect(function()end)
-	local DislikeButtonFunction = LikeFrame.Button.MouseButton1Down:Connect(function()end)
+		local function GetRatesPercentage(likes, dislikes)
+			local total = likes + dislikes
 
-	for ScriptName, ScriptInfo in Scripts do
-		if ScriptName ~= "Info" then
-			NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = false
+			if total > 0 then
+				local likePercentage = (likes / total) * 100
+				local dislikePercentage = (dislikes / total) * 100
 
-			TotalScripts += 1
-
-			local TotalLikes = 0
-			local TotalDislikes = 0
-
-			if ScriptInfo.IsOP == true then
-				OPScripts += 1
-			end
-
-			if ScriptInfo.IsNew == true then
-				NewScripts += 1
-			end
-
-			local ScriptIdString = tostring(ScriptInfo.ScriptId)
-
-			if not FirebaseServer.ScriptsInfo then
-				FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy = {
-					["1"] = true
-				}
-				FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy = {
-					["1"] = true
-				}
-				FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions = 0
-			end
-
-			for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy do
-				TotalLikes += 1
-			end
-
-			for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy do
-				TotalDislikes += 1
-			end
-
-			local Likes, Dislikes = GetRatesPercentage(TotalLikes, TotalDislikes)
-
-			local ScriptTemplate = NewTab.BottomFrame.Scripts.ScrollingFrame.ScriptTemplate:Clone()
-
-			ScriptTemplate.Name = ScriptName
-			ScriptTemplate.Parent = NewTab.BottomFrame.Scripts.ScrollingFrame
-			ScriptTemplate.Visible = true
-			ScriptTemplate.LayoutOrder = ScriptInfo.ScriptId
-			ScriptTemplate.Insides.Icons.ScriptImage.Image = Scripts.Info.Icon
-			ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = ScriptName
-			ScriptTemplate.Insides.BottomFrame.NumberOfExecutions.Executions.Text = FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions
-			ScriptTemplate.Insides.BottomFrame.NumberOfLikes.Likes.Text = Likes.."%"
-
-			if ScriptInfo.IsOP == true then
-				ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
-				ScriptTemplate.UIStroke.Color = Color3.fromRGB(255, 188, 87)
-				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(255, 188, 87)
-
-				if string.find(ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text, "\n") then
-					ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,188,87)">[OP]</font></b> '..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
-				else
-					ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,188,87)">[OP]</font></b>\n'..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
-				end
-			end
-
-			if ScriptInfo.PlaceId ~= 0 then
-				ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
-				ScriptTemplate.UIStroke.Color = Color3.fromRGB(0, 185, 85)
-				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(0, 185, 85)
-			end
-
-			if ScriptInfo.IsNew == true then
-				ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
-				ScriptTemplate.UIStroke.Color = Color3.fromRGB(255, 102, 102)
-				ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(255, 102, 102)
-				ScriptTemplate.LayoutOrder = 3
-
-				if string.find(ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text, "\n") then
-					ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,102,102)">[NEW]</font></b> '..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
-				else
-					ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,102,102)">[NEW]</font></b>\n'..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
-				end
-			end
-
-			if ScriptInfo.RigType == "Any" then
-				ScriptTemplate.Insides.Icons.Icons.RigTypeIcon.Visible = false
+				return math.round(likePercentage), math.round(dislikePercentage)
 			else
-				ScriptTemplate.Insides.Icons.Icons.RigTypeIcon.Visible = true
+				return 0, 0
 			end
+		end
 
-			if ScriptInfo.PlaceId == 0 then
-				ScriptTemplate.Insides.Icons.Icons.GameIcon.Image = "http://www.roblox.com/asset/?id=11738116961"
-			else
-				ScriptTemplate.Insides.Icons.Icons.GameIcon.Image = "rbxassetid://14320976370"
+		NewTab.TabInfo.SearchBar.TextBox.FocusLost:Connect(function()
+			NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = true
+			for i, v in NewTab.BottomFrame.Scripts.ScrollingFrame:GetChildren() do
+				if v:IsA("TextButton") and v.Name ~= "ScriptTemplate" then
+					if string.find(string.lower(v.Insides.ScrollingFrame.ScriptName.ContentText), string.lower(NewTab.TabInfo.SearchBar.TextBox.ContentText)) then
+						v.Visible = true
+						NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = false
+					else
+						v.Visible = false
+					end
+				end
 			end
+		end)
 
-			ExecuteButton.MouseEnter:Connect(function()
-				TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
-				TweenService:Create(ExecuteButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
-			end)
+		local ScriptInfoFrame = NewTab.BottomFrame.ScriptInfoMargin.ScriptInfo
+		local PlayAndExecuteFrame = ScriptInfoFrame.Insides.ScrollingFrame.PlayAndExecuteFrame
+		local ExecuteButton = PlayAndExecuteFrame.ExecuteButton
+		local JoinButton = PlayAndExecuteFrame.JoinButton
+		local OtherButtonsFrame = ScriptInfoFrame.Insides.ScrollingFrame.OtherButtons
+		local FavoriteFrame = OtherButtonsFrame.FavoriteFrame
+		local LikeFrame = OtherButtonsFrame.LikeFrame
+		local LikeRating = LikeFrame.Percentage
+		local DislikeFrame = OtherButtonsFrame.DislikeFrame
+		local DislikeRating = DislikeFrame.Percentage
 
-			ExecuteButton.MouseLeave:Connect(function()
-				TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
-				TweenService:Create(ExecuteButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0.3)}):Play()
-			end)
+		local ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()end)
+		local FavoriteButtonFunction = FavoriteFrame.Button.MouseButton1Down:Connect(function()end)
+		local JoinButtonFunction = JoinButton.MouseButton1Down:Connect(function()end)
+		local LikeButtonFunction = LikeFrame.Button.MouseButton1Down:Connect(function()end)
+		local DislikeButtonFunction = LikeFrame.Button.MouseButton1Down:Connect(function()end)
 
-			JoinButton.MouseEnter:Connect(function()
-				TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
-				TweenService:Create(JoinButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
-			end)
+		for ScriptName, ScriptInfo in Scripts do
+			if ScriptName ~= "Info" then
+				NewTab.BottomFrame.Scripts.ScrollingFrame.NoScripts.Visible = false
 
-			JoinButton.MouseLeave:Connect(function()
-				TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
-				TweenService:Create(JoinButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0.3)}):Play()
-			end)
+				TotalScripts += 1
 
-			ScriptTemplate.MouseButton1Down:Connect(function()
-				ExecuteButtonFunction:Disconnect()
-				FavoriteButtonFunction:Disconnect()
-				JoinButtonFunction:Disconnect()
-				LikeButtonFunction:Disconnect()
-				DislikeButtonFunction:Disconnect()
+				local TotalLikes = 0
+				local TotalDislikes = 0
 
-				local function UpdateExecutions()
-					ScriptTemplate.Insides.BottomFrame.NumberOfExecutions.Executions.Text = FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions
+				if ScriptInfo.IsOP == true then
+					OPScripts += 1
 				end
 
-				local function UpdateRating()
-					local TotalLikes = 0
-					local TotalDislikes = 0
-
-					for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy do
-						TotalLikes += 1
-					end
-
-					for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy do
-						TotalDislikes += 1
-					end
-
-					local Likes, Dislikes = GetRatesPercentage(TotalLikes, TotalDislikes)
-
-					ScriptTemplate.Insides.BottomFrame.NumberOfLikes.Likes.Text = Likes.."%"
-					LikeRating.Text = Likes.."%"
-					DislikeRating.Text = Dislikes.."%"
+				if ScriptInfo.IsNew == true then
+					NewScripts += 1
 				end
 
-				ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = ChangeRichTextSize('<font size="18"><b>'..ScriptName..'</b></font>\n<font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b>', _G.Table.GUISettings.UITextSize)
-				ScriptInfoFrame.Insides.ScrollingFrame.Description.Text = ChangeRichTextSize('<font size="10"><b>Description</b></font>\n'..ScriptInfo.Description, _G.Table.GUISettings.UITextSize)
+				local ScriptIdString = tostring(ScriptInfo.ScriptId)
 
-				UpdateRating()
+				if not FirebaseServer.ScriptsInfo then
+					FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy = {
+						["1"] = true
+					}
+					FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy = {
+						["1"] = true
+					}
+					FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions = 0
+				end
 
-				if ScriptInfo.PlaceId == 0 or game.PlaceId == tonumber(ScriptInfo.PlaceId) then
-					ExecuteButton.Visible = true
-					JoinButton.Visible = false
+				for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy do
+					TotalLikes += 1
+				end
+
+				for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy do
+					TotalDislikes += 1
+				end
+
+				local Likes, Dislikes = GetRatesPercentage(TotalLikes, TotalDislikes)
+
+				local ScriptTemplate = NewTab.BottomFrame.Scripts.ScrollingFrame.ScriptTemplate:Clone()
+
+				ScriptTemplate.Name = ScriptName
+				ScriptTemplate.Parent = NewTab.BottomFrame.Scripts.ScrollingFrame
+				ScriptTemplate.Visible = true
+				ScriptTemplate.LayoutOrder = ScriptInfo.ScriptId
+				ScriptTemplate.Insides.Icons.ScriptImage.Image = Scripts.Info.Icon
+				ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = ScriptName
+				ScriptTemplate.Insides.BottomFrame.NumberOfExecutions.Executions.Text = FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions
+				ScriptTemplate.Insides.BottomFrame.NumberOfLikes.Likes.Text = Likes.."%"
+
+				if ScriptInfo.IsOP == true then
+					ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
+					ScriptTemplate.UIStroke.Color = Color3.fromRGB(255, 188, 87)
+					ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(255, 188, 87)
+
+					if string.find(ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text, "\n") then
+						ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,188,87)">[OP]</font></b> '..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
+					else
+						ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,188,87)">[OP]</font></b>\n'..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
+					end
+				end
+
+				if ScriptInfo.PlaceId ~= 0 then
+					ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
+					ScriptTemplate.UIStroke.Color = Color3.fromRGB(0, 185, 85)
+					ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(0, 185, 85)
+				end
+
+				if ScriptInfo.IsNew == true then
+					ScriptTemplate.UIStroke:SetAttribute("UITextColor", nil)
+					ScriptTemplate.UIStroke.Color = Color3.fromRGB(255, 102, 102)
+					ScriptTemplate.Insides.BackgroundColor3 = Color3.fromRGB(255, 102, 102)
+					ScriptTemplate.LayoutOrder = 3
+
+					if string.find(ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text, "\n") then
+						ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,102,102)">[NEW]</font></b> '..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
+					else
+						ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text = '<b><font color="rgb(255,102,102)">[NEW]</font></b>\n'..ScriptTemplate.Insides.ScrollingFrame.ScriptName.Text
+					end
+				end
+
+				if ScriptInfo.RigType == "Any" then
+					ScriptTemplate.Insides.Icons.Icons.RigTypeIcon.Visible = false
 				else
-					ExecuteButton.Visible = false
-					JoinButton.Visible = true
+					ScriptTemplate.Insides.Icons.Icons.RigTypeIcon.Visible = true
 				end
 
-				local function UpdateOtherButtonsStatus()
-					if FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy[UserIdString] then
-						TweenService:Create(LikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
-						TweenService:Create(DislikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
-					elseif FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
-						TweenService:Create(LikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
-						TweenService:Create(DislikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
-					else
-						TweenService:Create(LikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
-						TweenService:Create(DislikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
-					end
-
-					if _G.Table.Favorites[ScriptIdString] ~= nil then
-						TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
-						FavoriteFrame.FavoriteText.Text = "Favorited"
-					else
-						TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
-						FavoriteFrame.FavoriteText.Text = "Favorite"
-					end
+				if ScriptInfo.PlaceId == 0 then
+					ScriptTemplate.Insides.Icons.Icons.GameIcon.Image = "http://www.roblox.com/asset/?id=11738116961"
+				else
+					ScriptTemplate.Insides.Icons.Icons.GameIcon.Image = "rbxassetid://14320976370"
 				end
 
-				UpdateOtherButtonsStatus()
-
-				ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
-					local success, result = pcall(ScriptInfo.Script)
-
-					if success then
-						_G.PopUpNotificationOptions({
-							Title = "Executed Successfully!",
-							Message = ScriptName.." has been executed with no errors",
-							Button2Text = "Close",
-						})
-					else
-						_G.PopUpNotificationOptions({
-							Title = "Script Failed to Execute!",
-							Message = result,
-							Button2Text = "Close",
-						})
-					end
-
-					if FirebaseServer.ScriptsInfo ~= nil and RatelimitExecuted < os.time() then
-						RatelimitExecuted = os.time() + 15
-						FirebaseServerWrite("ScriptsInfo/"..ScriptIdString, "NumberOfExecutions", FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions+1)
-						FirebaseServerUpdate()
-					end
-
-					UpdateExecutions()
+				ExecuteButton.MouseEnter:Connect(function()
+					TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
+					TweenService:Create(ExecuteButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
 				end)
 
-				if ScriptInfo.RigType ~= "Any" and LocalPlayer.Character.Humanoid.RigType ~= Enum.HumanoidRigType[ScriptInfo.RigType] then
+				ExecuteButton.MouseLeave:Connect(function()
+					TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
+					TweenService:Create(ExecuteButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0.3)}):Play()
+				end)
+
+				JoinButton.MouseEnter:Connect(function()
+					TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1.03}):Play()
+					TweenService:Create(JoinButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 1)}):Play()
+				end)
+
+				JoinButton.MouseLeave:Connect(function()
+					TweenService:Create(PlayAndExecuteFrame.UIScale, TweenInfo.new(0.3, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Scale = 1}):Play()
+					TweenService:Create(JoinButton.UIGradient, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Offset = Vector2.new(0, 0.3)}):Play()
+				end)
+
+				ScriptTemplate.MouseButton1Down:Connect(function()
 					ExecuteButtonFunction:Disconnect()
+					FavoriteButtonFunction:Disconnect()
+					JoinButtonFunction:Disconnect()
+					LikeButtonFunction:Disconnect()
+					DislikeButtonFunction:Disconnect()
+
+					local function UpdateExecutions()
+						ScriptTemplate.Insides.BottomFrame.NumberOfExecutions.Executions.Text = FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions
+					end
+
+					local function UpdateRating()
+						local TotalLikes = 0
+						local TotalDislikes = 0
+
+						for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy do
+							TotalLikes += 1
+						end
+
+						for i, v in FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy do
+							TotalDislikes += 1
+						end
+
+						local Likes, Dislikes = GetRatesPercentage(TotalLikes, TotalDislikes)
+
+						ScriptTemplate.Insides.BottomFrame.NumberOfLikes.Likes.Text = Likes.."%"
+						LikeRating.Text = Likes.."%"
+						DislikeRating.Text = Dislikes.."%"
+					end
+
+					ScriptInfoFrame.Insides.ScrollingFrame.ScriptName.Text = ChangeRichTextSize('<font size="18"><b>'..ScriptName..'</b></font>\n<font transparency="0.2">By</font> <b>'..ScriptInfo.Creator..'</b>', _G.Table.GUISettings.UITextSize)
+					ScriptInfoFrame.Insides.ScrollingFrame.Description.Text = ChangeRichTextSize('<font size="10"><b>Description</b></font>\n'..ScriptInfo.Description, _G.Table.GUISettings.UITextSize)
+
+					UpdateRating()
+
+					if ScriptInfo.PlaceId == 0 or game.PlaceId == tonumber(ScriptInfo.PlaceId) then
+						ExecuteButton.Visible = true
+						JoinButton.Visible = false
+					else
+						ExecuteButton.Visible = false
+						JoinButton.Visible = true
+					end
+
+					local function UpdateOtherButtonsStatus()
+						if FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy[UserIdString] then
+							TweenService:Create(LikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
+							TweenService:Create(DislikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
+						elseif FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
+							TweenService:Create(LikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
+							TweenService:Create(DislikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
+						else
+							TweenService:Create(LikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
+							TweenService:Create(DislikeFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
+						end
+
+						if _G.Table.Favorites[ScriptIdString] ~= nil then
+							TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
+							FavoriteFrame.FavoriteText.Text = "Favorited"
+						else
+							TweenService:Create(FavoriteFrame.Button.Filled, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 1}):Play()
+							FavoriteFrame.FavoriteText.Text = "Favorite"
+						end
+					end
+
+					UpdateOtherButtonsStatus()
+
 					ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
-						_G.PopUpNotificationOptions({
-							Title = "Script Failed to Execute!",
-							Message = "This script only works on "..ScriptInfo.RigType.." Rig Type",
-							Button2Text = "Close",
-						})
+						local success, result = pcall(ScriptInfo.Script)
+
+						if success then
+							_G.PopUpNotificationOptions({
+								Title = "Executed Successfully!",
+								Message = ScriptName.." has been executed with no errors",
+								Button2Text = "Close",
+							})
+						else
+							_G.PopUpNotificationOptions({
+								Title = "Script Failed to Execute!",
+								Message = result,
+								Button2Text = "Close",
+							})
+						end
+
+						if FirebaseServer.ScriptsInfo ~= nil and RatelimitExecuted < os.time() then
+							RatelimitExecuted = os.time() + 15
+							FirebaseServerWrite("ScriptsInfo/"..ScriptIdString, "NumberOfExecutions", FirebaseServer.ScriptsInfo[ScriptIdString].NumberOfExecutions+1)
+							FirebaseServerUpdate()
+						end
+
+						UpdateExecutions()
 					end)
-				end
 
-				FavoriteButtonFunction = FavoriteFrame.Button.MouseButton1Down:Connect(function()
-					if FileSupporting == true then
-						if isfile("VexHub7/Favorites.vex") then
-							local FileTable = JSon:Decode(readfile("VexHub7/Favorites.vex"))
-							local NewTable = {}
-							local ScriptFavorited = false
+					if ScriptInfo.RigType ~= "Any" and LocalPlayer.Character.Humanoid.RigType ~= Enum.HumanoidRigType[ScriptInfo.RigType] then
+						ExecuteButtonFunction:Disconnect()
+						ExecuteButtonFunction = ExecuteButton.MouseButton1Down:Connect(function()
+							_G.PopUpNotificationOptions({
+								Title = "Script Failed to Execute!",
+								Message = "This script only works on "..ScriptInfo.RigType.." Rig Type",
+								Button2Text = "Close",
+							})
+						end)
+					end
 
-							for i, v in FileTable do
-								if i == ScriptIdString then
-									ScriptFavorited = true
-								end
-							end
+					FavoriteButtonFunction = FavoriteFrame.Button.MouseButton1Down:Connect(function()
+						if FileSupporting == true then
+							if isfile("VexHub7/Favorites.vex") then
+								local FileTable = JSon:Decode(readfile("VexHub7/Favorites.vex"))
+								local NewTable = {}
+								local ScriptFavorited = false
 
-							if ScriptFavorited == true then
 								for i, v in FileTable do
-									if i ~= ScriptIdString then
-										NewTable[i] = v
+									if i == ScriptIdString then
+										ScriptFavorited = true
 									end
 								end
 
-								writefile("VexHub7/Favorites.vex", JSon:Encode(NewTable))
-								_G.Table.Favorites = NewTable
+								if ScriptFavorited == true then
+									for i, v in FileTable do
+										if i ~= ScriptIdString then
+											NewTable[i] = v
+										end
+									end
 
-								_G.PopUpNotificationOptions({
-									Title = "Script removed from favorites.",
-									Button2Text = "Ok",
-								})
-							else
-								for i, v in FileTable do
-									NewTable[i] = v
+									writefile("VexHub7/Favorites.vex", JSon:Encode(NewTable))
+									_G.Table.Favorites = NewTable
+
+									_G.PopUpNotificationOptions({
+										Title = "Script removed from favorites.",
+										Button2Text = "Ok",
+									})
+								else
+									for i, v in FileTable do
+										NewTable[i] = v
+									end
+
+									NewTable[ScriptIdString] = true
+
+									writefile("VexHub7/Favorites.vex", JSon:Encode(NewTable))
+									_G.Table.Favorites = NewTable
+
+									_G.PopUpNotificationOptions({
+										Title = "Script added to favorites!",
+										Button2Text = "Ok",
+									})
 								end
 
-								NewTable[ScriptIdString] = true
-
-								writefile("VexHub7/Favorites.vex", JSon:Encode(NewTable))
-								_G.Table.Favorites = NewTable
-
-								_G.PopUpNotificationOptions({
-									Title = "Script added to favorites!",
-									Button2Text = "Ok",
-								})
+								UpdateOtherButtonsStatus()
 							end
-
-							UpdateOtherButtonsStatus()
-						end
-					else
-						_G.PopUpNotificationOptions({
-							Title = "Script says:",
-							Message = "file cannot be saved",
-							Button2Text = "Ok",
-						})
-					end
-				end)
-
-				JoinButtonFunction = JoinButton.MouseButton1Down:Connect(function()
-					if ScriptInfo.PlaceId == 0 then
-						_G.PopUpNotificationOptions({
-							Title = "Script is for any games!",
-							Message = "No need to join a specific game to execute this script.",
-							Button2Text = "Ok",
-						})
-					else
-						game:GetService("TeleportService"):Teleport(ScriptInfo.PlaceId)
-						_G.PopUpNotificationOptions({
-							Title = "Teleporting...",
-							Message = "Please wait...",
-							Button1Text = "Copy Link",
-							Button1Function = function()
-								print(ScriptInfo.PlaceId)
-								setclipboard("roblox.com/games/"..ScriptInfo.PlaceId)
-
-								_G.PopUpNotificationOptions({
-									Title = "Link Copied!",
-									Button2Text = "Close",
-									Button2Function = function()
-									end,
-								})
-							end,
-							Button2Text = "Ok",
-							Button2Function = function()
-							end,
-						})
-					end
-				end)
-
-				if FirebaseServer.ScriptsInfo ~= nil then
-					LikeButtonFunction = LikeFrame.Button.MouseButton1Down:Connect(function()
-						if RatelimitRating < os.time() then
-							RatelimitRating = os.time() + 15
-							if FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy[UserIdString] then
-								FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString)
-							else
-								FirebaseServerWrite("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString, true)
-
-								if FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
-									FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString)
-								end
-							end
-
-							FirebaseServerUpdate()
-							wait()
-							UpdateRating()
-							UpdateOtherButtonsStatus()
 						else
 							_G.PopUpNotificationOptions({
-								Title = "Slow down",
+								Title = "Script says:",
+								Message = "file cannot be saved",
 								Button2Text = "Ok",
 							})
 						end
 					end)
 
-					DislikeButtonFunction = DislikeFrame.Button.MouseButton1Down:Connect(function()
-						if RatelimitRating < os.time() then
-							RatelimitRating = os.time() + 15
-							if FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
-								FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString)
-							else
-								FirebaseServerWrite("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString, true)
+					JoinButtonFunction = JoinButton.MouseButton1Down:Connect(function()
+						if ScriptInfo.PlaceId == 0 then
+							_G.PopUpNotificationOptions({
+								Title = "Script is for any games!",
+								Message = "No need to join a specific game to execute this script.",
+								Button2Text = "Ok",
+							})
+						else
+							game:GetService("TeleportService"):Teleport(ScriptInfo.PlaceId)
+							_G.PopUpNotificationOptions({
+								Title = "Teleporting...",
+								Message = "Please wait...",
+								Button1Text = "Copy Link",
+								Button1Function = function()
+									print(ScriptInfo.PlaceId)
+									setclipboard("roblox.com/games/"..ScriptInfo.PlaceId)
 
+									_G.PopUpNotificationOptions({
+										Title = "Link Copied!",
+										Button2Text = "Close",
+										Button2Function = function()
+										end,
+									})
+								end,
+								Button2Text = "Ok",
+								Button2Function = function()
+								end,
+							})
+						end
+					end)
+
+					if FirebaseServer.ScriptsInfo ~= nil then
+						LikeButtonFunction = LikeFrame.Button.MouseButton1Down:Connect(function()
+							if RatelimitRating < os.time() then
+								RatelimitRating = os.time() + 15
 								if FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy[UserIdString] then
 									FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString)
+								else
+									FirebaseServerWrite("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString, true)
+
+									if FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
+										FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString)
+									end
 								end
+
+								FirebaseServerUpdate()
+								wait()
+								UpdateRating()
+								UpdateOtherButtonsStatus()
+							else
+								_G.PopUpNotificationOptions({
+									Title = "Slow down",
+									Button2Text = "Ok",
+								})
 							end
+						end)
 
-							FirebaseServerUpdate()
-							wait()
-							UpdateRating()
-							UpdateOtherButtonsStatus()
-						else
-							_G.PopUpNotificationOptions({
-								Title = "Slow down",
-								Button2Text = "Ok",
-							})
-						end
-					end)
-				end
+						DislikeButtonFunction = DislikeFrame.Button.MouseButton1Down:Connect(function()
+							if RatelimitRating < os.time() then
+								RatelimitRating = os.time() + 15
+								if FirebaseServer.ScriptsInfo[ScriptIdString].DislikedBy[UserIdString] then
+									FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString)
+								else
+									FirebaseServerWrite("ScriptsInfo/"..ScriptInfo.ScriptId.."/DislikedBy", UserIdString, true)
 
-				NewTab.BottomFrame.Scripts.Interactable = false
-				TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0, 1, 0, 0)}):Play()
-				TweenService:Create(NewTab.BottomFrame.BackgroundFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0.5}):Play()
-			end)
+									if FirebaseServer.ScriptsInfo[ScriptIdString].LikedBy[UserIdString] then
+										FirebaseServerDelete("ScriptsInfo/"..ScriptInfo.ScriptId.."/LikedBy", UserIdString)
+									end
+								end
 
-			ScriptInfoFrame.Insides.TopFrame.CloseButton.MouseButton1Down:Connect(function()
-				TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(1, 0, 0, 0)}):Play()
-				TweenService:Create(NewTab.BottomFrame.BackgroundFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-				wait(0.6)
-				NewTab.BottomFrame.Scripts.Interactable = true
-			end)
+								FirebaseServerUpdate()
+								wait()
+								UpdateRating()
+								UpdateOtherButtonsStatus()
+							else
+								_G.PopUpNotificationOptions({
+									Title = "Slow down",
+									Button2Text = "Ok",
+								})
+							end
+						end)
+					end
 
-			for i, v in NewTab.BottomFrame.Scripts.ScrollingFrame:GetChildren() do
-				if v:IsA("TextButton") then
-					v.MouseEnter:Connect(function()
-						TweenService:Create(v.Insides.Icons.ScriptImage, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
-						TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 0.5}):Play()
-						TweenService:Create(v.Insides.ScrollingFrame.ScriptName, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextTransparency = 0}):Play()
-					end)
+					NewTab.BottomFrame.Scripts.Interactable = false
+					TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(0, 1, 0, 0)}):Play()
+					TweenService:Create(NewTab.BottomFrame.BackgroundFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0.5}):Play()
+				end)
 
-					v.MouseLeave:Connect(function()
-						TweenService:Create(v.Insides.Icons.ScriptImage, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.1}):Play()
-						TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0.7}):Play()
-						TweenService:Create(v.Insides.ScrollingFrame.ScriptName, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0.1}):Play()
-					end)
+				ScriptInfoFrame.Insides.TopFrame.CloseButton.MouseButton1Down:Connect(function()
+					TweenService:Create(ScriptInfoFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Position = UDim2.new(1, 0, 0, 0)}):Play()
+					TweenService:Create(NewTab.BottomFrame.BackgroundFrame, TweenInfo.new(0.6, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+					wait(0.6)
+					NewTab.BottomFrame.Scripts.Interactable = true
+				end)
+
+				for i, v in NewTab.BottomFrame.Scripts.ScrollingFrame:GetChildren() do
+					if v:IsA("TextButton") then
+						v.MouseEnter:Connect(function()
+							TweenService:Create(v.Insides.Icons.ScriptImage, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
+							TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Transparency = 0.5}):Play()
+							TweenService:Create(v.Insides.ScrollingFrame.ScriptName, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextTransparency = 0}):Play()
+						end)
+
+						v.MouseLeave:Connect(function()
+							TweenService:Create(v.Insides.Icons.ScriptImage, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.1}):Play()
+							TweenService:Create(v.UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0.7}):Play()
+							TweenService:Create(v.Insides.ScrollingFrame.ScriptName, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0.1}):Play()
+						end)
+					end
 				end
 			end
-		end
 
-		NewTab.TabInfo.TabNameAndTotalScripts.ScriptsTotal.Text = '<b>'..TotalScripts..' Scripts</b>, <font color="rgb(255, 188, 87)">'..OPScripts..' OP Scripts</font> and <font color="rgb(255, 102, 102)">'..NewScripts..' New Scripts</font>'
-	end
+			NewTab.TabInfo.TabNameAndTotalScripts.ScriptsTotal.Text = '<b>'..TotalScripts..' Scripts</b>, <font color="rgb(255, 188, 87)">'..OPScripts..' OP Scripts</font> and <font color="rgb(255, 102, 102)">'..NewScripts..' New Scripts</font>'
+		end
+	end)()
 end
 
 _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
@@ -801,8 +803,6 @@ _G.CreatePluginTab = function(PluginName, PluginImage, PluginCreator, Scripts)
 end
 
 for TabName, Scripts in Table.Scripts do
-	coroutine.wrap(function()
-		_G.CreateTab(TabName, Scripts)
-		_G.CreateTabButton(TabName, Scripts.Info.Icon, 5+Scripts.Info.Order)
-	end)()
+	_G.CreateTab(TabName, Scripts)
+	_G.CreateTabButton(TabName, Scripts.Info.Icon, 5+Scripts.Info.Order)
 end

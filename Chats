@@ -981,6 +981,12 @@ coroutine.wrap(function()
 					end
 				end
 			end)()
+			
+			for Username, Data in LiveChatServer.UserData do
+				if Data.LastOnline < os.time()-120 then
+					FirebaseServerDelete("UserData", Username)
+				end
+			end
 
 			coroutine.wrap(function()
 				local IgnoreIds = {}

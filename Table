@@ -69,6 +69,7 @@ _G.Table = {
 
 	Scripts = loadmirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/ScriptsTable"),
 }
+wait()
 
 if (writefile) then
 	if isfolder("VexHub7") then

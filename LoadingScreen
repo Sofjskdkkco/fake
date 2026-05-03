@@ -11,6 +11,27 @@ end
 pcall(function() _G.VexHubLoaded = true end)
 if not game:IsLoaded() then game.Loaded:Wait() end
 
+local GUIHint = {
+	["Hint_00"] = Instance.new("ScreenGui");
+	["Text_01"] = Instance.new("TextLabel");
+}
+
+GUIHint["Hint_00"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+GUIHint["Hint_00"].Name = "Hint"
+GUIHint["Hint_00"].Parent = game:GetService("CoreGui")
+
+GUIHint["Text_01"].Font = Enum.Font.GothamMedium
+GUIHint["Text_01"].Text = "If VexHub had a error, please join our discord server: dsc.gg/vhub"
+GUIHint["Text_01"].TextColor3 = Color3.fromRGB(255, 255, 255)
+GUIHint["Text_01"].TextSize = 14
+GUIHint["Text_01"].AutomaticSize = Enum.AutomaticSize.Y
+GUIHint["Text_01"].BackgroundColor3 = Color3.fromRGB(25.000000409781933, 26.000000350177288, 31.000000052154064)
+GUIHint["Text_01"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUIHint["Text_01"].BorderSizePixel = 0
+GUIHint["Text_01"].Size = UDim2.new(1, 0, 0, 16)
+GUIHint["Text_01"].Name = "Text"
+GUIHint["Text_01"].Parent = GUIHint["Hint_00"]
+
 -- Instances:
 
 local GUI = {
@@ -162,7 +183,6 @@ local function Load(Name, Link)
 end
 
 NewMessage("Having troubles using VexHub? Join our Discord server! dsc.gg/vhub")
-NewMessage("GitHub Version 18")
 
 Load("Table", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Table")
 Load("CoreFrame", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/CoreFrame")
@@ -184,6 +204,7 @@ else
 	CloseScreen()
 end
 
+GUIHint.Hint_00:Destroy()
 game:GetService("CoreGui"):FindFirstChild("VexHubUI").Enabled = true
 _G.OpenVexHub()
 

@@ -607,8 +607,228 @@ GUI["UIListLayout_012"].SortOrder = Enum.SortOrder.LayoutOrder
 GUI["UIListLayout_012"].VerticalAlignment = Enum.VerticalAlignment.Center
 GUI["UIListLayout_012"].Parent = GUI["DragFrame_0"]
 
+local Wallpaper = _G.Table.GUISettings.Wallpaper
+
+GUI.TabChoices_0.ChildAdded:Connect(function(Child)
+	if Child:IsA("TextButton") then
+		Child.MouseEnter:Connect(function()
+			TweenService:Create(Child.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Scale = 1.05}):Play()
+		end)
+
+		Child.MouseLeave:Connect(function()
+			TweenService:Create(Child.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Scale = 1}):Play()
+		end)
+	end
+end)
+
+local function centerFrame(frame, xSize, ySize)
+	frame.Position = UDim2.new(0.5, -xSize / 2, 0.5, -ySize / 2)
+	frame.AnchorPoint = Vector2.new(0, 0)
+end
+
+centerFrame(GUI.DragFrame_0, GUI.DragFrame_0.AbsoluteSize.X, GUI.DragFrame_0.AbsoluteSize.Y)
+
+local OngoingTabAnimation = false
+
+_G.SwitchTab = function(TabName)
+	OngoingTabAnimation = true
+
+	TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+	TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.3}):Play()
+	TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 0.97}):Play()
+
+	wait(0.4)		
+	GUI.Pages_0[_G.Table.GUIStatus.ActiveTab].Visible = false
+
+	if TabName == "Favorites" then
+		for i, v in GUI.Pages_0:GetChildren() do
+			if v.Name == "Favorites" and v:IsA("Frame") then
+				v:Destroy()
+			end
+		end
+
+		local Favorites = _G.Table.Favorites
+
+		local FavoritesTable = {
+			["Info"] = {
+				Icon = "rbxassetid://17648432144"
+			}
+		}
+
+		for ScriptId, _ in Favorites do
+			for TabName, Scripts in _G.Table.Scripts do
+				for ScriptName, ScriptInfo in Scripts do
+					if ScriptInfo.ScriptId == tonumber(ScriptId) then
+						FavoritesTable[ScriptName] = ScriptInfo
+					end
+				end
+			end
+		end
+
+		_G.CreateTab("Favorites", FavoritesTable, 2)
+	end
+
+	if GUI.Pages_0:FindFirstChild(TabName) then
+		GUI.Pages_0[TabName].Visible = true
+		_G.Table.GUIStatus.ActiveTab = TabName
+	else
+		GUI.Pages_0.Home.Visible = true
+		_G.Table.GUIStatus.ActiveTab = "Home"
+
+		_G.PopUpNotificationOptions({
+			Title = "Page does not exist",
+			Button2Text = "Close",
+			Button2Function = function()
+			end,
+		})
+	end
+
+	TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+	TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+	TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
+	wait(0.6)
+	OngoingTabAnimation = false
+end
+
+_G.CreateTabButton = function(TabName, TabImage, LayoutOrder)
+	local NameHidePlugin = string.split(TabName, "PLUGIN_")[2]
+
+	local NewTabButton = GUI.TabChoices_0.TabTemplate:Clone()
+
+	NewTabButton.Name = TabName
+	NewTabButton.Parent = GUI.TabChoices_0
+	NewTabButton.Visible = true
+	NewTabButton.LayoutOrder = LayoutOrder or 0
+	NewTabButton.TabImage.Image = TabImage
+	NewTabButton.TabName.Text = NameHidePlugin or TabName
+
+	if string.len(NewTabButton.TabName.Text) > 10 then
+		NewTabButton.TabName.TextSize = NewTabButton.TabName.TextSize-2
+	end
+
+	if not (NameHidePlugin) then
+		NewTabButton.TabImage.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
+		NewTabButton.TabImage:SetAttribute("UIImageColor", true)
+	end
+
+	NewTabButton.MouseButton1Down:Connect(function()
+		if _G.Table.GUIStatus.ActiveTab ~= TabName and OngoingTabAnimation == false then
+			local success, error = pcall(function()
+				_G.SwitchTab(TabName)
+			end)
+
+			if not success then
+				GUI.Pages_0.Home.Visible = true
+				_G.Table.GUIStatus.ActiveTab = "Home"
+
+				TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+				TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+				TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
+				wait(0.6)
+				OngoingTabAnimation = false
+				_G.PopUpNotificationOptions({
+					Title = "Something Went Wrong!",
+					Message = error,
+					Button2Text = "Close",
+					Button2Function = function()
+					end,
+				})
+			end
+		end
+	end)
+end
+
+_G.CreateSectionName = function(SectionName, LayoutOrder)
+	local NewSectionName = GUI.TabChoices_0.SectionsNameTemplate:Clone()
+
+	NewSectionName.Parent = GUI.TabChoices_0
+	NewSectionName.Visible = true
+	NewSectionName.Name = SectionName
+	NewSectionName.LayoutOrder = LayoutOrder or 0
+	NewSectionName.Text = SectionName
+end
+
+local TweenService = game:GetService("TweenService")
+
+GUI.Close_0.MouseEnter:Connect(function()
+	TweenService:Create(GUI.Close_0, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
+end)
+
+GUI.Close_0.MouseLeave:Connect(function()
+	TweenService:Create(GUI.Close_0, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+end)
+
+local OnGoingAnimation = false
+
+_G.CloseVexHub = function()
+	if OnGoingAnimation == false then
+		OnGoingAnimation = true
+		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
+		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
+		TweenService:Create(GUI.MainFrame_0.Ads, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.798, 0)}):Play()
+		wait(0.4)
+		GUI.MainContents_0.Visible = false
+		GUI.MainFrame_0.Ads.Visible = false
+		GUI.MainFrame_0.PopUpAd.Visible = false
+		GUI.MainFrame_0.PopUpNotificationOptions.Visible = false
+		TweenService:Create(GUI.Shadow_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+		TweenService:Create(GUI.UIScale_01, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Scale = 0}):Play()
+		TweenService:Create(GUI.UICorner_07, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {CornerRadius = UDim.new(0, 50)}):Play()
+		wait(0.6)
+		GUI.DragFrame_0.Visible = false
+		_G.Table.GUIStatus.IsClosed = true
+		OnGoingAnimation = false
+	end
+end
+
+_G.OpenVexHub = function()
+	if OnGoingAnimation == false then
+		OnGoingAnimation = true
+		centerFrame(GUI.DragFrame_0, GUI.DragFrame_0.AbsoluteSize.X, GUI.DragFrame_0.AbsoluteSize.Y)
+		GUI.DragFrame_0.Visible = true
+		GUI.MainFrame_0.PopUpAd.Visible = true
+		GUI.MainFrame_0.PopUpNotificationOptions.Visible = true
+		GUI.MainContents_0.Visible = true
+		GUI.CoverFrame_0.BackgroundTransparency = 0
+		GUI.CoverFrame_0.ImageTransparency = 0
+		TweenService:Create(GUI.Shadow_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
+		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+		TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
+		TweenService:Create(GUI.UIScale_01, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
+		TweenService:Create(GUI.UICorner_07, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {CornerRadius = UDim.new(0, 5)}):Play()
+		if _G.Table.GUIStatus.AdVisible == true then 
+			GUI.MainFrame_0.Ads.Visible = true
+			TweenService:Create(GUI.MainFrame_0.Ads, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play() 
+		end
+
+		wait(0.6)
+		_G.Table.GUIStatus.IsClosed = false
+		OnGoingAnimation = false
+	end
+end
+
 coroutine.wrap(function()
-	local Wallpaper = _G.Table.GUISettings.Wallpaper
+	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpNotificationLib')
+	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAds')
+	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpAds')
+	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/ActionButton')
+
+	_G.CreateTabButton("Home", "rbxassetid://11592840951", 1)
+	_G.CreateSectionName("Chats", 2)
+	_G.CreateTabButton("Chats", "http://www.roblox.com/asset/?id=97441735495560", 3)
+	_G.CreateSectionName("Scripts", 4)
+	_G.CreateTabButton("Favorites", "rbxassetid://17648432144", 5)
+	_G.CreateSectionName("Plugins", 100)
+	_G.CreateTabButton("Plugins", "rbxassetid://17645365934", 101)
+	_G.CreateSectionName("Others", 200)
+	_G.CreateTabButton("Advertise", "rbxassetid://111502366359306", 201)
+	_G.CreateTabButton("Settings", "rbxassetid://11592827868", 202)
+
+	GUI.Close_0.MouseButton1Down:Connect(function()
+		_G.CloseVexHub()
+	end)
 
 	if string.find(Wallpaper, ".png") then
 		GUI["Wallpaper_0"].Image = getcustomasset(Wallpaper)
@@ -636,227 +856,6 @@ coroutine.wrap(function()
 			GUI["WallpaperCover_0"].Image = "https://www.roblox.com/asset-thumbnail/image?assetId="..Wallpaper.."&width=420&height=420&format=png"
 		end
 	end
-
-	GUI.TabChoices_0.ChildAdded:Connect(function(Child)
-		if Child:IsA("TextButton") then
-			Child.MouseEnter:Connect(function()
-				TweenService:Create(Child.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Scale = 1.05}):Play()
-			end)
-
-			Child.MouseLeave:Connect(function()
-				TweenService:Create(Child.UIScale, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Scale = 1}):Play()
-			end)
-		end
-	end)
-
-	local function centerFrame(frame, xSize, ySize)
-		frame.Position = UDim2.new(0.5, -xSize / 2, 0.5, -ySize / 2)
-		frame.AnchorPoint = Vector2.new(0, 0)
-	end
-
-	centerFrame(GUI.DragFrame_0, GUI.DragFrame_0.AbsoluteSize.X, GUI.DragFrame_0.AbsoluteSize.Y)
-
-	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpNotificationLib')
-	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/BannerAds')
-	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/PopUpAds')
-	
-	local OngoingTabAnimation = false
-	
-	_G.SwitchTab = function(TabName)
-		OngoingTabAnimation = true
-
-		TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
-		TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 0.3}):Play()
-		TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 0.97}):Play()
-
-		wait(0.4)		
-		GUI.Pages_0[_G.Table.GUIStatus.ActiveTab].Visible = false
-
-		if TabName == "Favorites" then
-			for i, v in GUI.Pages_0:GetChildren() do
-				if v.Name == "Favorites" and v:IsA("Frame") then
-					v:Destroy()
-				end
-			end
-
-			local Favorites = _G.Table.Favorites
-
-			local FavoritesTable = {
-				["Info"] = {
-					Icon = "rbxassetid://17648432144"
-				}
-			}
-
-			for ScriptId, _ in Favorites do
-				for TabName, Scripts in _G.Table.Scripts do
-					for ScriptName, ScriptInfo in Scripts do
-						if ScriptInfo.ScriptId == tonumber(ScriptId) then
-							FavoritesTable[ScriptName] = ScriptInfo
-						end
-					end
-				end
-			end
-
-			_G.CreateTab("Favorites", FavoritesTable, 2)
-		end
-
-		if GUI.Pages_0:FindFirstChild(TabName) then
-			GUI.Pages_0[TabName].Visible = true
-			_G.Table.GUIStatus.ActiveTab = TabName
-		else
-			GUI.Pages_0.Home.Visible = true
-			_G.Table.GUIStatus.ActiveTab = "Home"
-
-			_G.PopUpNotificationOptions({
-				Title = "Page does not exist",
-				Button2Text = "Close",
-				Button2Function = function()
-				end,
-			})
-		end
-
-		TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-		TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-		TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
-		wait(0.6)
-		OngoingTabAnimation = false
-	end
-	
-	_G.CreateTabButton = function(TabName, TabImage, LayoutOrder)
-		local NameHidePlugin = string.split(TabName, "PLUGIN_")[2]
-
-		local NewTabButton = GUI.TabChoices_0.TabTemplate:Clone()
-
-		NewTabButton.Name = TabName
-		NewTabButton.Parent = GUI.TabChoices_0
-		NewTabButton.Visible = true
-		NewTabButton.LayoutOrder = LayoutOrder or 0
-		NewTabButton.TabImage.Image = TabImage
-		NewTabButton.TabName.Text = NameHidePlugin or TabName
-
-		if string.len(NewTabButton.TabName.Text) > 10 then
-			NewTabButton.TabName.TextSize = NewTabButton.TabName.TextSize-2
-		end
-
-		if not (NameHidePlugin) then
-			NewTabButton.TabImage.ImageColor3 = Color3.new(StringToRGB(_G.Table.GUISettings.UIImageColor))
-			NewTabButton.TabImage:SetAttribute("UIImageColor", true)
-		end
-
-		NewTabButton.MouseButton1Down:Connect(function()
-			if _G.Table.GUIStatus.ActiveTab ~= TabName and OngoingTabAnimation == false then
-				local success, error = pcall(function()
-					_G.SwitchTab(TabName)
-				end)
-
-				if not success then
-					GUI.Pages_0.Home.Visible = true
-					_G.Table.GUIStatus.ActiveTab = "Home"
-
-					TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-					TweenService:Create(GUI.WallpaperCover_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-					TweenService:Create(GUI.Pages_0.UIScale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
-					wait(0.6)
-					OngoingTabAnimation = false
-					_G.PopUpNotificationOptions({
-						Title = "Something Went Wrong!",
-						Message = error,
-						Button2Text = "Close",
-						Button2Function = function()
-						end,
-					})
-				end
-			end
-		end)
-	end
-
-	_G.CreateSectionName = function(SectionName, LayoutOrder)
-		local NewSectionName = GUI.TabChoices_0.SectionsNameTemplate:Clone()
-
-		NewSectionName.Parent = GUI.TabChoices_0
-		NewSectionName.Visible = true
-		NewSectionName.Name = SectionName
-		NewSectionName.LayoutOrder = LayoutOrder or 0
-		NewSectionName.Text = SectionName
-	end
-
-	_G.CreateTabButton("Home", "rbxassetid://11592840951", 1)
-	_G.CreateSectionName("Chats", 2)
-	_G.CreateTabButton("Chats", "http://www.roblox.com/asset/?id=97441735495560", 3)
-	_G.CreateSectionName("Scripts", 4)
-	_G.CreateTabButton("Favorites", "rbxassetid://17648432144", 5)
-	_G.CreateSectionName("Plugins", 100)
-	_G.CreateTabButton("Plugins", "rbxassetid://17645365934", 101)
-	_G.CreateSectionName("Others", 200)
-	_G.CreateTabButton("Advertise", "rbxassetid://111502366359306", 201)
-	_G.CreateTabButton("Settings", "rbxassetid://11592827868", 202)
-
-	local TweenService = game:GetService("TweenService")
-
-	GUI.Close_0.MouseEnter:Connect(function()
-		TweenService:Create(GUI.Close_0, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
-	end)
-
-	GUI.Close_0.MouseLeave:Connect(function()
-		TweenService:Create(GUI.Close_0, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-	end)
-
-	local OnGoingAnimation = false
-
-	_G.CloseVexHub = function()
-		if OnGoingAnimation == false then
-			OnGoingAnimation = true
-			TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {BackgroundTransparency = 0}):Play()
-			TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {ImageTransparency = 0}):Play()
-			TweenService:Create(GUI.MainFrame_0.Ads, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.798, 0)}):Play()
-			wait(0.4)
-			GUI.MainContents_0.Visible = false
-			GUI.MainFrame_0.Ads.Visible = false
-			GUI.MainFrame_0.PopUpAd.Visible = false
-			GUI.MainFrame_0.PopUpNotificationOptions.Visible = false
-			TweenService:Create(GUI.Shadow_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-			TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-			TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-			TweenService:Create(GUI.UIScale_01, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Scale = 0}):Play()
-			TweenService:Create(GUI.UICorner_07, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {CornerRadius = UDim.new(0, 50)}):Play()
-			wait(0.6)
-			GUI.DragFrame_0.Visible = false
-			_G.Table.GUIStatus.IsClosed = true
-			OnGoingAnimation = false
-		end
-	end
-
-	_G.OpenVexHub = function()
-		if OnGoingAnimation == false then
-			OnGoingAnimation = true
-			centerFrame(GUI.DragFrame_0, GUI.DragFrame_0.AbsoluteSize.X, GUI.DragFrame_0.AbsoluteSize.Y)
-			GUI.DragFrame_0.Visible = true
-			GUI.MainFrame_0.PopUpAd.Visible = true
-			GUI.MainFrame_0.PopUpNotificationOptions.Visible = true
-			GUI.MainContents_0.Visible = true
-			GUI.CoverFrame_0.BackgroundTransparency = 0
-			GUI.CoverFrame_0.ImageTransparency = 0
-			TweenService:Create(GUI.Shadow_0, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
-			TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
-			TweenService:Create(GUI.CoverFrame_0, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageTransparency = 1}):Play()
-			TweenService:Create(GUI.UIScale_01, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Scale = 1}):Play()
-			TweenService:Create(GUI.UICorner_07, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {CornerRadius = UDim.new(0, 5)}):Play()
-			if _G.Table.GUIStatus.AdVisible == true then 
-				GUI.MainFrame_0.Ads.Visible = true
-				TweenService:Create(GUI.MainFrame_0.Ads, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 1.02999997, 0)}):Play() 
-			end
-
-			wait(0.6)
-			_G.Table.GUIStatus.IsClosed = false
-			OnGoingAnimation = false
-		end
-	end
-
-	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/ActionButton')
-
-	GUI.Close_0.MouseButton1Down:Connect(function()
-		_G.CloseVexHub()
-	end)
 
 	_G.CloseVexHub()
 end)()

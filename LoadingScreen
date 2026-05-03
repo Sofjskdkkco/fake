@@ -144,7 +144,7 @@ local function Load(Name, Link)
 		Errors += 1
 		NewMessage("An error occured: "..result)
 		local LocalPlayer = game:GetService("Players").LocalPlayer
-		
+
 		local message = request({
 			Url = "https://mirrorr.onrender.com/send",
 			Method = "POST",
@@ -186,6 +186,28 @@ end
 
 game:GetService("CoreGui"):FindFirstChild("VexHubUI").Enabled = true
 _G.OpenVexHub()
+
+coroutine.wrap(function()
+	wait(1)
+	_G.PopUpNotificationOptions({
+		Title = "Welcome To VexHub",
+		Message = "Made by @v31nc on Discord\n\nJoin our Discord server!",
+		Button1Text = "Copy Link",
+		Button1Function = function()
+			setclipboard(_G.Table.GUIStatus.DiscordLink)
+			
+			_G.PopUpNotificationOptions({
+				Title = "Link Copied!",
+				Button2Text = "Close",
+				Button2Function = function()
+				end,
+			})
+		end,
+		Button2Text = "Close",
+		Button2Function = function()
+		end,
+	})
+end)()
 
 local Secret = "1Aq8ET3WbsdhKUSRvrKzHRhVdgUMQq4GYSuVlEX8"
 local URL = "https://vexhub-general-server-default-rtdb.firebaseio.com/"

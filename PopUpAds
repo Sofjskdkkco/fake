@@ -132,7 +132,7 @@ local function FirebaseServerWrite(Path, Key, Value)
 		Table[Key] = Value
 
 		local send = request({
-			Url = "https://mirrorr.onrender.com/put",
+			Url = _G.MirrorLinks[math.random(1, 4)].."put",
 			Method = "POST",
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode({
@@ -161,7 +161,7 @@ local function FirebaseServerDelete(Path, Key)
 		end
 
 		local send = request({
-			Url = "https://mirrorr.onrender.com/put",
+			Url = _G.MirrorLinks[math.random(1, 4)].."put",
 			Method = "POST",
 			Headers = {["Content-Type"] = "application/json"},
 			Body = game:GetService("HttpService"):JSONEncode({
@@ -237,7 +237,7 @@ local function AdOperation()
 					coroutine.wrap(function()
 						FirebaseServerWrite("Ads/"..AdToRun.."/Clicks", LocalPlayer.UserId, true)
 					end)()
-					
+
 					loadstring(FirebaseServer.Ads[AdToRun].Script)()
 				end)
 			end

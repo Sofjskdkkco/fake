@@ -113,7 +113,7 @@ local FirebaseServer = {}
 local function FirebaseServerWrite(Path, Key, Value)
 	local success, error = pcall(function()
 		local DatabaseLink = URL..Path..".json?auth="..Secret
-		local DatabaseData = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
+		local DatabaseData = JSon:Decode(mirror(DatabaseLink))
 		local request = request or syn.request
 		local Table = {}
 
@@ -131,7 +131,7 @@ local function FirebaseServerWrite(Path, Key, Value)
 			Url = _G.MirrorLinks[math.random(1, 4)].."/put",
 			Method = "POST",
 			Headers = {["Content-Type"] = "application/json"},
-			Body = game:GetService("HttpService"):JSONEncode({
+			Body = JSon:Encode({
 				firebase_url = DatabaseLink,
 				data = Table
 			})
@@ -145,7 +145,7 @@ end
 local function FirebaseServerUpdate()
 	local success, error = pcall(function()
 		local DatabaseLink = URL..".json?auth="..Secret
-		FirebaseServer = game:GetService("HttpService"):JSONDecode(mirror(DatabaseLink))
+		FirebaseServer = JSon:Decode(mirror(DatabaseLink))
 	end)
 
 	if not success then print("Something went wrong while reading in the server: "..error) end

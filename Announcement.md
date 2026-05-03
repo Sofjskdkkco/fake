@@ -1,1 +1,1 @@
-As of May 1st, 2026, VexHub UI version 7 is now available to the public. This update introduces new features and scripts, including a built-in chat system. It also makes UI customization much simpler and easier to share with other users.
+We are currently experiencing issues with our server. Dont worry, im gonna fix it -v31nc

@@ -1,95 +1,15 @@
-local Map = {
-	BannedPeople = {
-		Roblox = true,
-	},
+local send = request({
+	Url = "https://mirrorr.onrender.com/sendchat",
+	Method = "POST",
+	Headers = {["Content-Type"] = "application/json"},
+	Body = game:GetService("HttpService"):JSONEncode({
+		message = "hello",
+		messageid = "Message2",
+		username = "itsyaboivincentt",
+		displayname = "Vincent",
+		unixtime = os.time(),
+		hwid = gethwid()
+	})
+})
 
-	BannedWords = {
-		["NWord"] = true
-	},
-
-	ChatVersion = 1,
-
-	Chats = {
-		Message1 = {
-			DisplayName = "Vincent",
-			Message = "Hello",
-			UNIXTimestamp = 1777809931,
-			Username = "itsyaboivincentt"
-		}
-	},
-
-	LinksAllowed = false,
-
-	Lockdown = false,
-
-	Remotes = {
-		Ignore = "ignore"
-	},
-
-	RichTextAllowed = false,
-
-	Timeout = {
-		Roblox = 19999999,
-	},
-
-	UserData = {
-		itsyaboivincentt = {
-			AllowJoins = "AlwaysAsk",
-			JobId = "2db8ac00-c5df-4a39-aacd-117750eb6c85",
-			LastOnline = 1777802377,
-			PlaceId = 14161770735
-		}
-	},
-
-	VerifiedHWID = {
-		itsyaboivincentt = "82ce1e0fb84fca31fa887590e64b54ce59220dec20f74dbce2b98431439e5878"
-	},
-
-	VerifiedPeople = {
-		itsyaboivincentt = true
-	}
-}
-
-local Secret = "oNNcXEGYApLmfkQGyTkUVuu162biz1TIVSGe4iej"
-local URL = "https://vexhub-livechat-server-default-rtdb.firebaseio.com/"
-
-local LiveChatServer = {}
-
-local function FirebaseServerWrite(Path, Key, Value)
-	local success, error = pcall(function()
-		local database = URL..Path..".json?auth="..Secret
-		local request = request or syn.request
-		local Table = {}
-
-		if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-			for key, value in pairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(database))) do
-				if key then
-					Table[key] = value
-				end
-			end
-		end
-
-		Table[Key] = Value
-
-		local send = request({
-			Url = database,
-			Method = "PUT",
-			Headers = {["Content-Type"] = "application/json"},
-			Body = game:GetService("HttpService"):JSONEncode(Table)
-		})
-	end)
-
-	if not success then print("Something went wrong while writing in the server: "..error) end
-end
-
-local function FirebaseServerUpdate()
-	local success, error = pcall(function()
-		LiveChatServer = game.HttpService:JSONDecode(game:HttpGetAsync(URL..".json?auth="..Secret))
-	end)
-
-	if not success then print("Something went wrong while reading in the server: "..error) end
-end
-
-for i, v in Map do
-	FirebaseServerWrite("", i, v)
-end
+print(send)

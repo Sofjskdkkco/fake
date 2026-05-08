@@ -1,4 +1,9 @@
 local LocalPlayer = game:GetService("Players").LocalPlayer
+local MirrorLogs = {}
+
+_G.GetMirrorLogs = function()
+	return MirrorLogs
+end
 
 _G.MirrorLinks = {
 	[1] = "https://mirrorr.onrender.com",
@@ -27,6 +32,7 @@ getgenv().loadmirror = function(Link)
 		while true do end
 		LocalPlayer:Kick("Unsafe environment")
 	end
+	table.insert(MirrorLogs, Link)
 	return loadstring(tostring(decoded.content))()
 end
 
@@ -49,6 +55,7 @@ getgenv().mirror = function(Link)
 		while true do end
 		LocalPlayer:Kick("Unsafe environment")
 	end
+	table.insert(MirrorLogs, Link)
 	return decoded.content
 end
 

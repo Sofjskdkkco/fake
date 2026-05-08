@@ -184,16 +184,16 @@ end
 
 NewMessage("Having troubles using VexHub? Join our Discord server! dsc.gg/vhub")
 
-Load("Table", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Table")
-Load("CoreFrame", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/CoreFrame")
-Load("HomePage", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Home")
-Load("Chats", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Chats")
-Load("TabsTemplate", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/TabsTemplate")
-Load("TabsPluginTemplate", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/TabsPluginTemplate")
-Load("Tabs", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/TabsLoader")
-Load("Plugins", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Plugins")
-Load("Advertise", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Advertise")
-Load("Settings", "https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Settings")
+Load("Table", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/Table")
+Load("CoreFrame", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/CoreFrame")
+Load("HomePage", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/Home")
+Load("Chats", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/Chats")
+Load("TabsTemplate", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/TabsTemplate")
+Load("TabsPluginTemplate", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/TabsPluginTemplate")
+Load("Tabs", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/TabsLoader")
+Load("Plugins", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/Plugins")
+Load("Advertise", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/Advertise")
+Load("Settings", "https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/Settings")
 
 if Errors == 0 then
 	CloseScreen()

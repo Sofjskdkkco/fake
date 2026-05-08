@@ -68,7 +68,7 @@ end
 AppearLoading()
 
 local function ExecuteVexHub()
-	loadmirror('https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/LoadingScreen')
+	loadmirror('https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/LoadingScreen')
 end
 
 local success, error = pcall(function()

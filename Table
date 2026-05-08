@@ -13,14 +13,14 @@ _G.Table = {
 		ActiveTab = "Home",
 		PayPalLink = "https://paypal.me/VexHubPaypal",
 		DiscordLink = "https://dsc.gg/vhub",
-		Announcements = mirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Announcement.md"),
-		Updates = mirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Updates.md"),
-		Version = mirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/Version.md"):gsub("[\r\n]+", ""),
+		Announcements = mirror("https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/Announcement.md"),
+		Updates = mirror("https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/Updates.md"),
+		Version = mirror("https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/Version.md"):gsub("[\r\n]+", ""),
 		IsClosed = false,
 		AdVisible = false,
 	},
 
-	GUISettings = loadmirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/SettingsTable"),
+	GUISettings = loadmirror("https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/SettingsTable"),
 
 	Favorites = {},
 
@@ -67,7 +67,7 @@ _G.Table = {
 		["Work Sans"] = 12187373327,
 	},
 
-	Scripts = loadmirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/ScriptsTable"),
+	Scripts = loadmirror("https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/ScriptsTable"),
 }
 wait()
 

